@@ -157,130 +157,171 @@
     font-size: 14px;
     cursor: pointer;
 }
+/* --- STICKY HEADER & SCROLL EFFECTS --- */
 
+/* 1. Top Advisory Bar (Starts transparent, turns blue) */
+.top-advisory-bar {
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    height: 35px; 
+    z-index: 1000; 
+    display: flex; 
+    justify-content: space-between;
+    padding: 8px 5%; 
+    font-size: 12px;
+    background-color: transparent; 
+    transition: background-color 0.3s ease;
+    color: white; /* Ensures text is visible */
+}
+
+/* 2. Main Header (Starts transparent, turns white) */
+.hero-header {
+    position: fixed; 
+    top: 35px; 
+    width: 100%; 
+    z-index: 999; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 5%; 
+    background-color: transparent; 
+    transition: background-color 0.3s ease;
+}
+
+/* --- THE "SCROLLED" STATES --- */
+/* (These activate when JavaScript detects a scroll) */
+
+.top-advisory-bar.scrolled {
+    background-color: #008ccf; /* Cebu Pacific Blue! */
+}
+
+.hero-header.scrolled {
+    background-color: white; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+}
+
+/* Changes link text from white to blue so it's readable on the white header */
+.hero-header.scrolled .nav-links a {
+    color: #008ccf; 
+    text-shadow: none; 
+}
+
+.hero-header.scrolled .login-btn {
+    color: #008ccf; 
+}
+
+/* Swaps the white logo out for the colored logo */
+.hero-header.scrolled .logo-white {
+    display: none;
+}
+.hero-header.scrolled .logo-colored {
+    display: block;
+}
 .search-btn { background: #008ccf; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; flex: 1; }
 /* --- END OF NEW HERO SECTION CSS --- */
 /* --- QUICK DESTINATIONS (Pixel-Perfect Original Style) --- */
 
-/* 1. The Main Container */
+/* --- 1. QUICK DESTINATIONS --- */
 .quick-destinations {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 80px; /* Widens the exact spacing between the circles */
+    gap: 80px; 
     padding: 30px 0 20px; 
     background-color: transparent;
 }
 
-/* 2. The Individual Item Wrapper */
 .circle-item {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the text perfectly under the circle */
+    align-items: center; 
+    justify-content: center;
     cursor: pointer;
 }
 
-/* 3. The Blue Outer Ring */
 .circle-border {
-    border: 2px solid #008ccf; /* Cebu Pacific Blue */
+    border: 2px solid #008ccf; 
     border-radius: 50%;
-    padding: 3px; /* Creates that perfectly thin white gap */
+    padding: 3px; 
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease;
 }
 
-/* 4. The Image Inside */
 .circle {
-    width: 85px; /* Exact dimensions to match the reference */
+    width: 85px; 
     height: 85px;
     border-radius: 50%;
     background-size: cover;
     background-position: center;
 }
 
-/* 5. The Text Label */
-.circle-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* This forces the text dead-center under the circle */
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
+.circle-item span {
+    color: #008ccf;
+    font-size: 14px;
+    font-weight: 400; 
+    margin-top: 12px; 
 }
 
-/* 6. Subtle Hover Animation (Optional but recommended) */
 .circle-item:hover .circle-border {
     transform: scale(1.05);
 }
 
-/* 1. The Invisible Center Box */
+/* --- 2. WHY EVERYONE FLIES SECTION --- */
 .why-section-wrapper {
     padding: 20px 5% 50px; 
     background-color: white;
-    max-width: 1100px; /* Stops the content from stretching too wide */
-    margin: 0 auto; /* Centers the whole section perfectly on your screen */
+    max-width: 1100px; 
+    margin: 0 auto; 
 }
 
-/* 2. The Flexbox Container */
 .why-top-row {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Vertically centers the text with the image */
-    gap: 60px; /* Clean gap between text and image */
+    align-items: center; 
+    gap: 60px; 
     margin-bottom: 50px;
 }
 
-/* 3. The Text Block (Takes up ~45% of the space) */
 .why-text {
     flex: 1; 
 }
 
-/* 4. The Illustration Block (Takes up ~55% of the space) */
 .why-illustration {
     flex: 1.2; 
     display: flex;
-    justify-content: flex-end; /* Pushes the image neatly to the right edge */
+    justify-content: flex-end; 
 }
 
 .why-illustration img {
-    max-width: 100%; /* Ensures the image never overflows its box */
+    max-width: 100%; 
     height: auto;
 }
 
-/* --- 2. SERVICE CARDS (Yellow Active State) --- */
-/* --- CONTAINER --- */
-/* Forces all icons to be small and perfectly consistent */
-.service-icon img {
-    width: 32px; 
-    height: auto;
-}
-
-/* Brings the container proportions in line with the original */
+/* --- 3. SERVICE CARDS & HOVER STATES --- */
 .services-container {
     display: flex;
     justify-content: space-between;
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     background-color: white;
-    width: 100%; /* Tells the cards to fill the 1100px invisible box evenly */
+    width: 100%; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.03);
 }
 
-/* Slims down the individual cards */
 .service-card {
     flex: 1;
     text-align: center;
     border-right: 1px solid #e5e5e5;
     cursor: pointer;
-    padding: 20px 10px; /* Reduced vertical padding */
+    padding: 20px 10px; 
     position: relative; 
     background-color: transparent;
     transition: all 0.2s ease-in-out; 
 }
 
-/* Removes the divider line from the very last card */
 .service-card:last-child {
     border-right: none;
 }
@@ -291,255 +332,59 @@
     justify-content: center;
 }
 
+.service-icon img {
+    width: 100px; 
+    height: auto;
+}
+
 .service-card span {
     color: #008ccf;
     font-weight: bold;
     font-size: 15px;
 }
 
-/* --- THE HOVER "POP-OUT" MAGIC --- */
+/* Hover Image Swapping Defaults */
+.icon-hover { display: none; }
+
+/* The 3D Pop-Out Hover Effect */
 .service-card:hover {
-    background-color: #ffea00; /* Cebu Yellow */
-    transform: scale(1.05); /* Scales the card up by 5% so it breaks the borders */
-    z-index: 10; /* Pulls the card to the very front layer */
-    border-radius: 12px; /* Gives the popped-out card its own soft corners */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* Adds a drop shadow beneath it */
-    border-right-color: transparent; /* Hides the gray divider line */
+    background-color: #ffea00; 
+    transform: scale(1.05); 
+    z-index: 10; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
+    border-right-color: transparent; 
 }
 
-/* 1. Hide the hover image by default */
-.icon-hover {
-    display: none; 
-}
+/* Change Icon and Text on Hover */
+.service-card:hover .icon-default { display: none; }
+.service-card:hover .icon-hover { display: block; }
+.service-card:hover span { color: #0033a0; }
 
-/* 2. Hide the default image on hover */
-.service-card:hover .icon-default {
-    display: none;
-}
 
-/* 3. Show the hover image on hover */
-.service-card:hover .icon-hover {
-    display: block;
-}
-
-/* 4. Darken the text on hover */
-.service-card:hover span {
-    color: #0033a0; 
-}
-.service-card:last-child {
-    border-right: none;
-}
-.service-icon {
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: center;
-}
-.service-card span {
-    color: #008ccf;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-/* The Yellow Active State */
-.service-card.active {
-    background-color: #FFea00; /* Bright Cebu Yellow */
-}
-.service-card.active span {
-    color: #0033a0; /* Darker blue text for readability */
-}
-
-/* --- 3. STICKY HEADER (The "Upper part is still there" effect) --- */
-.top-advisory-bar {
-    position: fixed; /* Changed from absolute to fixed */
-    transition: background-color 0.3s ease;
-}
-.hero-header {
-    position: fixed; /* Changed from absolute to fixed */
-    transition: background-color 0.3s ease;
-}
-
-/* When the user scrolls down, these classes are added by JavaScript */
-.top-advisory-bar.scrolled {
-    background-color: #008ccf; /* Turns solid blue */
-}
-.hero-header.scrolled {
-    background-color: white; /* Turns solid white */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-.hero-header.scrolled .nav-links a {
-    color: #008ccf; /* Links turn blue */
-    text-shadow: none;
-}
-.hero-header.scrolled .login-btn {
-    color: #008ccf; /* Login turns blue */
-}
-
-/* 4. ASYMMETRICAL PROMO GRID LAYOUT */
-.flight-deals {
-    padding: 60px 10%;
-    text-align: center;
-}
-
-.deal-tabs {
-    margin: 20px 0 40px;
-}
-
-.deal-tabs button {
-    padding: 10px 25px;
-    border: none;
-    background: none;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.deal-tabs button.active {
-    color: var(--ceb-blue);
-    border-bottom: 2px solid var(--ceb-blue);
-    font-weight: bold;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    text-align: left;
-}
-
-.grid-card {
-    border-radius: 12px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    color: white;
-    overflow: hidden;
-}
-
+/* --- 4. ASYMMETRICAL PROMO GRID & OTHER FOOTER CSS --- */
+.flight-deals { padding: 60px 10%; text-align: center; }
+.deal-tabs { margin: 20px 0 40px; }
+.deal-tabs button { padding: 10px 25px; border: none; background: none; font-size: 1rem; cursor: pointer; }
+.deal-tabs button.active { color: var(--ceb-blue); border-bottom: 2px solid var(--ceb-blue); font-weight: bold; }
+.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; }
+.grid-card { border-radius: 12px; background-size: cover; background-position: center; position: relative; color: white; overflow: hidden; }
 .tall { grid-row: span 2; height: 520px; }
 .row-2 { height: 250px; }
-
-.card-info {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-}
-
-.btn-more {
-    margin-top: 30px;
-    background-color: var(--ceb-blue);
-    color: white;
-    border: none;
-    padding: 12px 40px;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* 5. STORIES SECTION */
-.stories {
-    padding: 60px 10%;
-    background-color: var(--bg-light);
-}
-
-.stories-layout {
-    display: flex;
-    gap: 30px;
-    margin-top: 25px;
-}
-
+.card-info { position: absolute; bottom: 20px; left: 20px; }
+.btn-more { margin-top: 30px; background-color: var(--ceb-blue); color: white; border: none; padding: 12px 40px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+.stories { padding: 60px 10%; background-color: var(--bg-light); }
+.stories-layout { display: flex; gap: 30px; margin-top: 25px; }
 .story-featured { flex: 1.5; }
 .story-featured img { width: 100%; border-radius: 8px; }
-
-.story-sub-grid {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.story-item {
-    display: flex;
-    gap: 15px;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-}
-
+.story-sub-grid { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+.story-item { display: flex; gap: 15px; background: white; padding: 10px; border-radius: 8px; }
 .story-item img { width: 120px; border-radius: 4px; }
-
-/* 6. FOOTER SECTION */
-footer {
-    background-color: white;
-    padding: 60px 10% 20px;
-    border-top: 1px solid #eee;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: space-between;
-}
-
-.footer-links .col {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.footer-links .col a {
-    color: #666;
-    text-decoration: none;
-}
-
-/* Update your widget-tabs CSS with this */
-.widget-tabs {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.widget-tabs button {
-    background: transparent;
-    border: none;
-    font-size: 15px;
-    font-weight: bold;
-    color: #555;
-    cursor: pointer;
-    padding-bottom: 5px;
-    border-bottom: 3px solid transparent; /* Hidden by default */
-    transition: all 0.3s ease;
-}
-
-.widget-tabs button:hover {
-    color: var(--ceb-blue);
-}
-
-.widget-tabs button.active {
-    color: var(--ceb-blue);
-    border-bottom: 3px solid var(--ceb-yellow); /* Yellow underline for active tab */
-}
-/* --- HOVER MAGIC FOR SERVICE CARDS --- */
-
-/* 1. Hide the hover (blue) image by default */
-.icon-hover {
-    display: none; 
-}
-
-/* 2. When the mouse touches the card, turn the box yellow */
-.service-card:hover {
-    background-color: #FFF275; /* A soft yellow hover color */
-    border-radius: 12px;       /* Keeps the corners nice and round */
-}
-
-/* 3. When the mouse touches the card, hide the default (white) image... */
-.service-card:hover .icon-default {
-    display: none;
-}
-
-/* 4. ...and show the hover (blue) image! */
-.service-card:hover .icon-hover {
-    display: block;
-}
-
-/* 5. Make sure the text color stays dark blue on hover so it's readable */
-.service-card:hover span {
-    color: #0033a0; 
-}
+footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid #eee; }
+.footer-links { display: flex; justify-content: space-between; }
+.footer-links .col { display: flex; flex-direction: column; gap: 10px; }
+.footer-links .col a { color: #666; text-decoration: none; }
+.widget-tabs { display: flex; gap: 15px; margin-bottom: 20px; }
+.widget-tabs button { background: transparent; border: none; font-size: 15px; font-weight: bold; color: #555; cursor: pointer; padding-bottom: 5px; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.widget-tabs button:hover { color: var(--ceb-blue); }
+.widget-tabs button.active { color: var(--ceb-blue); border-bottom: 3px solid var(--ceb-yellow); }
