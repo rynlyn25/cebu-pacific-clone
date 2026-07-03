@@ -1,0 +1,299 @@
+:root {
+    --ceb-yellow: #FFC000;
+    --ceb-blue: #0033A0;
+    --text-dark: #222222;
+    --bg-light: #F8F9FA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* --- NEW HERO SECTION CSS --- */
+.hero-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+}
+
+.top-advisory-bar {
+    position: absolute;
+    top: 0; width: 100%; z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex; justify-content: space-between;
+    padding: 8px 5%; font-size: 12px;
+}
+.top-advisory-bar a { color: white; margin-left: 10px; }
+.top-links span { margin-left: 15px; cursor: pointer; }
+
+.hero-header {
+    position: absolute;
+    top: 35px; width: 100%; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 5%;
+}
+.nav-links a {
+    color: white; text-decoration: none; margin: 0 15px;
+    font-weight: bold; font-size: 14px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+.login-btn {
+    background: transparent; color: white; border: none; font-weight: bold; font-size: 16px; cursor: pointer; margin-right: 15px;
+}
+
+.social-sidebar {
+    position: absolute; top: 40%; left: 20px; z-index: 10;
+    display: flex; flex-direction: column; gap: 20px;
+}
+.social-sidebar a { color: white; text-decoration: none; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+
+.slider-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: background-image 0.8s ease-in-out;
+}
+.slider-container::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+}
+.slider-title {
+    position: relative; z-index: 2; font-size: 5rem; letter-spacing: 15px; font-weight: 900;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.5); margin-bottom: 250px;
+}
+.slider-dots { position: relative; z-index: 2; display: flex; gap: 8px; margin-top: -220px; }
+.dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+.dot.active { background: white; }
+
+.glass-widget {
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+    width: 85%; max-width: 1000px; z-index: 10;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px 30px;
+}
+.top-picks { display: flex; gap: 10px; margin-bottom: 15px; }
+.badge { padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; color: #333; }
+.badge.yellow { background: #FFC000; }
+.badge.white { background: white; }
+
+.widget-headers { display: flex; gap: 200px; margin-bottom: 5px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+.search-inputs { display: flex; align-items: center; background: white; border-radius: 8px; padding: 5px; gap: 5px; }
+.input-group { display: flex; flex-direction: column; flex: 1; padding: 5px 15px; border-right: 1px solid #ddd; }
+.input-group:last-of-type { border-right: none; }
+.input-group label { color: #777; font-size: 11px; margin-bottom: 2px; }
+.input-group input { border: none; outline: none; font-weight: bold; font-size: 14px; color: #333; width: 100%; background: transparent; }
+.swap-icon { color: #999; padding: 0 10px; font-size: 18px; }
+
+.search-btn { background: #008ccf; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; flex: 1; }
+/* --- END OF NEW HERO SECTION CSS --- */
+
+/* 2. CIRCULAR CONTAINER NAVIGATION */
+.quick-destinations {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 0;
+    background-color: white;
+}
+
+.circle-item {
+    text-align: center;
+    cursor: pointer;
+}
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-bottom: 8px;
+    background-image: url('https://placehold.co/80');
+    background-size: cover;
+    transition: transform 0.2s;
+}
+
+.circle:hover {
+    transform: scale(1.05);
+}
+
+/* 3. WHY EVERYONE FLIES SECTION */
+.why-everyone-flies {
+    padding: 60px 10%;
+    background-color: var(--bg-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.info-box { flex: 1; }
+.info-box h2 { margin-bottom: 15px; font-size: 2rem; }
+
+.quick-services {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.service-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-bottom: 4px solid var(--ceb-yellow);
+}
+
+/* 4. ASYMMETRICAL PROMO GRID LAYOUT */
+.flight-deals {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.deal-tabs {
+    margin: 20px 0 40px;
+}
+
+.deal-tabs button {
+    padding: 10px 25px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.deal-tabs button.active {
+    color: var(--ceb-blue);
+    border-bottom: 2px solid var(--ceb-blue);
+    font-weight: bold;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: left;
+}
+
+.grid-card {
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
+
+.tall { grid-row: span 2; height: 520px; }
+.row-2 { height: 250px; }
+
+.card-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.btn-more {
+    margin-top: 30px;
+    background-color: var(--ceb-blue);
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 5. STORIES SECTION */
+.stories {
+    padding: 60px 10%;
+    background-color: var(--bg-light);
+}
+
+.stories-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 25px;
+}
+
+.story-featured { flex: 1.5; }
+.story-featured img { width: 100%; border-radius: 8px; }
+
+.story-sub-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.story-item {
+    display: flex;
+    gap: 15px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.story-item img { width: 120px; border-radius: 4px; }
+
+/* 6. FOOTER SECTION */
+footer {
+    background-color: white;
+    padding: 60px 10% 20px;
+    border-top: 1px solid #eee;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-links .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links .col a {
+    color: #666;
+    text-decoration: none;
+}
+
+/* Update your widget-tabs CSS with this */
+.widget-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.widget-tabs button {
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent; /* Hidden by default */
+    transition: all 0.3s ease;
+}
+
+.widget-tabs button:hover {
+    color: var(--ceb-blue);
+}
+
+.widget-tabs button.active {
+    color: var(--ceb-blue);
+    border-bottom: 3px solid var(--ceb-yellow); /* Yellow underline for active tab */
+}
