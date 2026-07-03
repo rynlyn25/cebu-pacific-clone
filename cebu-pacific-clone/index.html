@@ -25,8 +25,9 @@
     </div>
 
     <header class="hero-header">
-        <div class="logo">
-            <img src="https://cdn.media.amplience.net/i/cebupacificair/CEB_logo_Noto_Sans_Linear_White?fmt=auto&maxW=1920&maxH=1920&w=206&h=67&sm=c&&poi={$this.metadata.pointOfInterest.x},{$this.metadata.pointOfInterest.y},{$this.metadata.pointOfInterest.w},{$this.metadata.pointOfInterest.h}" alt="Cebu Pacific" height="45">
+        <div class="logo-container">
+    <img class="logo-white" src="images/CEB_logo_Noto_Sans_Linear_White.webp" alt="Cebu Pacific White" width="180">
+    <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific Colored" width="180">
         </div>
         <nav class="nav-links">
             <a href="#">Book</a>
@@ -97,38 +98,85 @@
 </div>
 
     <!-- 2. CIRCULAR DESTINATIONS SHORTCUTS -->
-    <section class="quick-destinations">
-    <div class="circle-item">
-        <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=150&auto=format&fit=crop');"></div>
-        <span>Manila</span>
-    </div>
-    <div class="circle-item">
-        <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=150&auto=format&fit=crop');"></div>
-        <span>Cebu</span>
-    </div>
-    <div class="circle-item">
-        <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1518983838188-7573183d1f57?q=80&w=150&auto=format&fit=crop');"></div>
-        <span>Boracay</span>
-    </div>
-    <div class="circle-item">
-        <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1582046592238-ec4f6645db7f?q=80&w=150&auto=format&fit=crop');"></div>
-        <span>Davao</span>
-    </div>
-</section>
-
-    <!-- 3. WHY EVERYONE FLIES SECTION -->
-    <section class="why-everyone-flies">
-        <div class="info-box">
-            <h2>Why Everyone Flies</h2>
-            <p>Cebu Pacific operates the widest network in the Philippines, offering flights to local and international destinations with affordable fares and safety practices.</p>
+<section class="quick-destinations">
+        <div class="circle-item">
+            <div class="circle-border">
+                <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=150');"></div>
+            </div>
+            <span>Clark</span>
         </div>
-        <div class="quick-services">
-            <div class="service-card">Check-in</div>
-            <div class="service-card">CEB Super Pass</div>
-            <div class="service-card">Flight Status</div>
-            <div class="service-card">Manage Booking</div>
+        <div class="circle-item">
+            <div class="circle-border">
+                <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=150');"></div>
+            </div>
+            <span>Cebu</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border">
+                <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1518983838188-7573183d1f57?q=80&w=150');"></div>
+            </div>
+            <span>Iloilo</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border">
+                <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1629853900222-63200ff3e433?q=80&w=150');"></div>
+            </div>
+            <span>Davao</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border">
+                <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1552528737-0130f140685d?q=80&w=150');"></div>
+            </div>
+            <span>Fly Here Next</span>
         </div>
     </section>
+
+    <section class="why-section-wrapper">
+        <div class="why-top-row">
+            <div class="why-text">
+                <h2>Why Everyone Flies</h2>
+                <p>Cebu Pacific operates the widest network in the Philippines, offering flights to Manila, Cebu, Davao, Iloilo, Clark, and more! With flexible bookings, low fares, and global best safety practices, the airline continues to boost travel confidence for everyjuan by providing connectivity to key cities in Asia, Australia, and the Middle East.</p>
+            </div>
+            <div class="why-illustration">
+                <img src="https://cdn.media.amplience.net/i/cebupacificair/CebuPacific-Why-Everyone-Flies?fmt=auto&maxW=1920&maxH=1920" alt="Travel Illustration">
+            </div>
+        </div>
+
+        <div class="services-container">
+            
+           <div class="service-card">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/check-in-default.png" alt="Check In" width="45">
+                    <img class="icon-hover" src="https://cdn.media.amplience.net/i/cebupacificair/checkin-hover_1?fmt=auto&maxW=1920&maxH=1920" alt="Check In Hover" width="45">
+                </div>
+                <span>Check In</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/super-pass-default.png" alt="CEB Super Pass" width="45">
+                    <img class="icon-hover" src="images/super-pass-hover.png" alt="CEB Super Pass Hover" width="45">
+                </div>
+                <span>CEB Super Pass</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/flight-status-default.png" alt="Flight Status" width="45">
+                    <img class="icon-hover" src="images/flight-status-hover.png" alt="Flight Status Hover" width="45">
+                </div>
+                <span>Flight Status</span>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/manage-booking-default.png" alt="Manage Booking" width="45">
+                    <img class="icon-hover" src="images/manage-booking-hover.png" alt="Manage Booking Hover" width="45">
+                </div>
+                <span>Manage Booking</span>
+            </div>
+
+        </div>
 
     <!-- 4. BOOK CHEAP FLIGHTS FROM GRID -->
     <section class="flight-deals">

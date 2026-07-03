@@ -27,19 +27,19 @@ setupTabs('.deal-tabs');
 const destinations = [
     {
         title: "SIARGAO",
-        image: "url('https://images.squarespace-cdn.com/content/v1/6507df2246905b20c408b2bc/3e789b02-0269-4dd8-aef9-f12accafab8d/website-04.jpg')"
+        image: "url('images/siargao.webp')"
     },
     {
         title: "DAVAO",
-        image: "url('https://images.pexels.com/photos/31451558/pexels-photo-31451558.jpeg?_gl=1*v5xa37*_ga*MTQ4ODc1NjQ0MC4xNzgyOTcyNzE4*_ga_8JE65Q40S6*czE3ODI5NzI3MTckbzEkZzEkdDE3ODI5NzMxNjAkajU3JGwwJGgw')"
+        image: "url('images/davao.jpg')"
     },
     {
         title: "ILOILO",
-        image: "url('https://media-cdn.tripadvisor.com/media/photo-c/1280x250/0f/1b/f1/8c/simply-breathtaking.jpg')"
+        image: "url('images/iloilo1.webp')"
     },
     {
         title: "KAOHSIUNG",
-        image: "url('https://cdn.media.amplience.net/i/cebupacificair/KHH-Kaohsiung-DragonTigerTower-5362x3582?fmt=auto&maxW=1920&maxH=1920&w=1920&qlt=60&fmt.options=interlaced')"
+        image: "url('images/KAOHSIUNG.webp')"
     }
 ];
 
@@ -89,3 +89,31 @@ if (sliderContainer) {
     updateSlide(0); // Load Siargao first
     startTimer();   // Start the automatic clock
 }
+
+// --- 2. STICKY HEADER SCROLL LOGIC ---
+const topBar = document.querySelector('.top-advisory-bar');
+const header = document.querySelector('.hero-header');
+
+window.addEventListener('scroll', () => {
+    // If the user scrolls down more than 50 pixels...
+    if (window.scrollY > 50) {
+        topBar.classList.add('scrolled');
+        header.classList.add('scrolled');
+    } else {
+        // If they scroll back to the very top...
+        topBar.classList.remove('scrolled');
+        header.classList.remove('scrolled');
+    }
+});
+// --- SERVICE CARDS CLICK LOGIC ---
+const serviceCards = document.querySelectorAll('.service-card');
+
+serviceCards.forEach(card => {
+    card.addEventListener('click', () => {
+        // 1. Remove the yellow 'active' class from ALL cards first
+        serviceCards.forEach(c => c.classList.remove('active'));
+        
+        // 2. Add the yellow 'active' class ONLY to the card you just clicked
+        card.classList.add('active');
+    });
+});
