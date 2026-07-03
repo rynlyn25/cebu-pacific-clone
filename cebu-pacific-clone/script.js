@@ -35,7 +35,7 @@ const destinations = [
     },
     {
         title: "ILOILO",
-        image: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1I3mUF8moNz1_LVkZQ7No6lDXbPzbRCcHt6jehNFq_o2xV6511AxH0-uY&s=10')"
+        image: "url('https://media-cdn.tripadvisor.com/media/photo-c/1280x250/0f/1b/f1/8c/simply-breathtaking.jpg')"
     },
     {
         title: "KAOHSIUNG",

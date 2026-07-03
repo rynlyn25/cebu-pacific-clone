@@ -23,33 +23,52 @@
 
 .top-advisory-bar {
     position: absolute;
-    top: 0; width: 100%; z-index: 10;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex; justify-content: space-between;
-    padding: 8px 5%; font-size: 12px;
+    top: 0; 
+    width: 100%; 
+    z-index: 10;
+    background: transparent; /* <-- Changed to transparent */
+    display: flex; 
+    justify-content: space-between;
+    padding: 8px 5%; 
+    font-size: 12px;
 }
 .top-advisory-bar a { color: white; margin-left: 10px; }
 .top-links span { margin-left: 15px; cursor: pointer; }
 
 .hero-header {
     position: absolute;
-    top: 35px; width: 100%; z-index: 10;
-    display: flex; justify-content: space-between; align-items: center;
+    top: 35px; 
+    width: 100%; 
+    z-index: 10;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
     padding: 15px 5%;
+    background-color: transparent; /* <-- Changed to transparent */
+    border-bottom: none;           /* <-- Removed the border line */
 }
 .nav-links a {
-    color: white; text-decoration: none; margin: 0 15px;
-    font-weight: bold; font-size: 14px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: white; 
+    text-decoration: none; 
+    margin: 0 15px;
+    font-weight: bold; 
+    font-size: 14px; 
+    /* This adds a soft dark glow strictly behind the letters */
+    text-shadow: 0px 2px 5px rgba(0,0,0,0.8); 
 }
 .login-btn {
     background: transparent; color: white; border: none; font-weight: bold; font-size: 16px; cursor: pointer; margin-right: 15px;
 }
 
-.social-sidebar {
-    position: absolute; top: 40%; left: 20px; z-index: 10;
-    display: flex; flex-direction: column; gap: 20px;
+.social-sidebar a { 
+    color: white; 
+    text-decoration: none; 
+    font-size: 18px; 
+    transition: color 0.3s ease;
 }
-.social-sidebar a { color: white; text-decoration: none; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+.social-sidebar a:hover {
+    color: #FFC000;
+}
 
 .slider-container {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -62,8 +81,26 @@
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
 }
 .slider-title {
-    position: relative; z-index: 2; font-size: 5rem; letter-spacing: 15px; font-weight: 900;
-    text-shadow: 2px 4px 10px rgba(0,0,0,0.5); margin-bottom: 250px;
+    position: relative; 
+    z-index: 2; 
+    font-size: 5rem; 
+    letter-spacing: 15px; 
+    font-weight: 900;
+    /* Softened the shadow to look highly professional */
+    text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25); 
+    margin-bottom: 250px;
+}
+.icon-circle-yellow {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    background-color: #FFC000;
+    color: black;
+    border-radius: 50%;
+    font-size: 11px;
+    margin-right: 8px;
 }
 .slider-dots { position: relative; z-index: 2; display: flex; gap: 8px; margin-top: -220px; }
 .dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; }
@@ -79,6 +116,10 @@
     border-radius: 15px;
     padding: 20px 30px;
 }
+.flight-type {
+    display: flex;
+    align-items: center;
+}
 .top-picks { display: flex; gap: 10px; margin-bottom: 15px; }
 .badge { padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; color: #333; }
 .badge.yellow { background: #FFC000; }
@@ -91,7 +132,12 @@
 .input-group:last-of-type { border-right: none; }
 .input-group label { color: #777; font-size: 11px; margin-bottom: 2px; }
 .input-group input { border: none; outline: none; font-weight: bold; font-size: 14px; color: #333; width: 100%; background: transparent; }
-.swap-icon { color: #999; padding: 0 10px; font-size: 18px; }
+.swap-icon {
+    color: #008ccf;
+    padding: 0 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
 
 .search-btn { background: #008ccf; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; flex: 1; }
 /* --- END OF NEW HERO SECTION CSS --- */

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cebu Pacific Clone</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -24,7 +26,7 @@
 
     <header class="hero-header">
         <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Cebu_Pacific_2024_logo.svg/512px-Cebu_Pacific_2024_logo.svg.png" alt="Cebu Pacific" height="40">
+            <img src="https://cdn.media.amplience.net/i/cebupacificair/CEB_logo_Noto_Sans_Linear_White?fmt=auto&maxW=1920&maxH=1920&w=206&h=67&sm=c&&poi={$this.metadata.pointOfInterest.x},{$this.metadata.pointOfInterest.y},{$this.metadata.pointOfInterest.w},{$this.metadata.pointOfInterest.h}" alt="Cebu Pacific" height="45">
         </div>
         <nav class="nav-links">
             <a href="#">Book</a>
@@ -40,10 +42,10 @@
     </header>
 
     <div class="social-sidebar">
-        <a href="#">f</a>
-        <a href="#">📷</a>
-        <a href="#">▶</a>
-        <a href="#">🐦</a>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
     </div>
 
     <div class="slider-container" id="slider-container">
@@ -65,8 +67,10 @@
         </div>
         
         <div class="widget-headers">
-            <div class="flight-type">✈️ Flight</div>
-            <div class="round-trip-dropdown">Round-trip ▾</div>
+            <div class="flight-type">
+                <span class="icon-circle-yellow"><i class="fa-solid fa-plane"></i></span> Flight
+            </div>
+            <div class="round-trip-dropdown">Round-trip <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 5px;"></i></div>
         </div>
 
         <div class="search-inputs">
@@ -74,7 +78,7 @@
                 <label>From</label>
                 <input type="text" value="Manila MNL">
             </div>
-            <div class="swap-icon">⇄</div>
+            <div class="swap-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
             <div class="input-group">
                 <label>To</label>
                 <input type="text" placeholder="Select Destination">
