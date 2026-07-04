@@ -12,7 +12,7 @@
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* --- NEW HERO SECTION CSS --- */
+/* --- 1. HERO SECTION & BACKGROUND --- */
 .hero-wrapper {
     position: relative;
     width: 100%;
@@ -21,31 +21,65 @@
     color: white;
 }
 
+.slider-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: background-image 0.8s ease-in-out;
+}
+
+.slider-container::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+}
+
+.slider-title {
+    position: relative; 
+    z-index: 2; 
+    font-size: 5rem; 
+    letter-spacing: 15px; 
+    font-weight: 900;
+    text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25); 
+    margin-bottom: 250px;
+}
+
+.slider-dots { position: relative; z-index: 2; display: flex; gap: 8px; margin-top: -220px; }
+.dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+.dot.active { background: white; }
+
+/* --- 2. HEADER & NAVIGATION (Transparent Default) --- */
 .top-advisory-bar {
     position: fixed; 
     top: 0; 
     width: 100%; 
-    height: 35px; /* Forces exact height */
+    height: 35px; 
     z-index: 1000; 
-    display: flex; 
-    justify-content: space-between;
-    padding: 8px 5%; 
+    background-color: transparent; 
+    transition: background-color 0.3s ease;
+    color: white; 
     font-size: 12px;
 }
+
 .top-advisory-bar a { color: white; margin-left: 10px; }
-.top-links span { margin-left: 15px; cursor: pointer; }
 
 .hero-header {
     position: fixed; 
     top: 35px; 
     width: 100%; 
+    height: 70px;
     z-index: 999; 
-    display: flex; 
+    background-color: transparent; 
+    transition: background-color 0.3s ease;
+}
+
+.header-content-wrapper {
+    width: 90%; 
+    max-width: 1150px; 
+    margin: 0 auto; 
+    height: 100%;
+    display: flex;
     justify-content: space-between; 
     align-items: center;
-    padding: 10px 5%; 
-    background-color: transparent; /* Starts fully transparent */
-    transition: background-color 0.3s ease;
 }
 
 /* Hide the colored logo by default */
@@ -53,147 +87,47 @@
     display: none;
 }
 
-/* --- WHEN SCROLLED (JavaScript adds this class) --- */
-.hero-header.scrolled {
-    background-color: white; /* Turns solid white */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Adds a soft drop shadow */
+.nav-links {
+    display: flex;
+    gap: 30px; 
 }
 
-/* Swap the logos when scrolled */
-.hero-header.scrolled .logo-white {
-    display: none;
-}
-.hero-header.scrolled .logo-colored {
-    display: block;
-}
 .nav-links a {
-    color: white; 
-    text-decoration: none; 
-    margin: 0 15px;
-    font-weight: bold; 
-    font-size: 14px; 
-    /* This adds a soft dark glow strictly behind the letters */
-    text-shadow: 0px 2px 5px rgba(0,0,0,0.8); 
-}
-.login-btn {
-    background: transparent; color: white; border: none; font-weight: bold; font-size: 16px; cursor: pointer; margin-right: 15px;
+    color: white; /* White by default at the top */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.3);
 }
 
-.social-sidebar a { 
-    color: white; 
-    text-decoration: none; 
-    font-size: 18px; 
-    transition: color 0.3s ease;
-}
-.social-sidebar a:hover {
-    color: #FFC000;
-}
-
-.slider-container {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-size: cover; background-position: center;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    transition: background-image 0.8s ease-in-out;
-}
-.slider-container::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
-}
-.slider-title {
-    position: relative; 
-    z-index: 2; 
-    font-size: 5rem; 
-    letter-spacing: 15px; 
-    font-weight: 900;
-    /* Softened the shadow to look highly professional */
-    text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25); 
-    margin-bottom: 250px;
-}
-.icon-circle-yellow {
-    display: inline-flex;
-    justify-content: center;
+.header-right {
+    display: flex;
     align-items: center;
-    width: 22px;
-    height: 22px;
-    background-color: #FFC000;
-    color: black;
-    border-radius: 50%;
-    font-size: 11px;
-    margin-right: 8px;
+    gap: 20px;
 }
-.slider-dots { position: relative; z-index: 2; display: flex; gap: 8px; margin-top: -220px; }
-.dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; }
-.dot.active { background: white; }
 
-.glass-widget {
-    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-    width: 85%; max-width: 1000px; z-index: 10;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 15px;
-    padding: 20px 30px;
-}
-.flight-type {
+.login-btn {
+    background: transparent; 
+    color: white; 
+    border: none; 
+    font-weight: bold; 
+    font-size: 16px; 
+    cursor: pointer; 
     display: flex;
     align-items: center;
 }
-.top-picks { display: flex; gap: 10px; margin-bottom: 15px; }
-.badge { padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; color: #333; }
-.badge.yellow { background: #FFC000; }
-.badge.white { background: white; }
 
-.widget-headers { display: flex; gap: 200px; margin-bottom: 5px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-
-.search-inputs { display: flex; align-items: center; background: white; border-radius: 8px; padding: 5px; gap: 5px; }
-.input-group { display: flex; flex-direction: column; flex: 1; padding: 5px 15px; border-right: 1px solid #ddd; }
-.input-group:last-of-type { border-right: none; }
-.input-group label { color: #777; font-size: 11px; margin-bottom: 2px; }
-.input-group input { border: none; outline: none; font-weight: bold; font-size: 14px; color: #333; width: 100%; background: transparent; }
-.swap-icon {
-    color: #008ccf;
-    padding: 0 10px;
-    font-size: 14px;
+/* Default White Icons at the top of the page */
+.login-btn img, 
+.search-icon {
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
     cursor: pointer;
 }
-/* --- STICKY HEADER & SCROLL EFFECTS --- */
 
-/* 1. Top Advisory Bar (Starts transparent, turns blue) */
-.top-advisory-bar {
-    position: fixed; 
-    top: 0; 
-    width: 100%; 
-    height: 35px; 
-    z-index: 1000; 
-    display: flex; 
-    justify-content: space-between;
-    padding: 8px 5%; 
-    font-size: 12px;
-    background-color: transparent; 
-    transition: background-color 0.3s ease;
-    color: white; /* Ensures text is visible */
-}
-
-/* 2. Main Header (Starts transparent, turns white) */
-.hero-header {
-    position: fixed; 
-    top: 35px; 
-    width: 100%; 
-    z-index: 999; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    padding: 10px 5%; 
-    background-color: transparent; 
-    transition: background-color 0.3s ease;
-}
-
-/* --- THE "SCROLLED" STATES --- */
-/* (These activate when JavaScript detects a scroll) */
-
+/* --- 3. THE "SCROLLED" STATES (White/Blue Effect) --- */
 .top-advisory-bar.scrolled {
-    background-color: #008ccf; /* Cebu Pacific Blue! */
+    background-color: #00a1e4; /* Bright Cyan */
 }
 
 .hero-header.scrolled {
@@ -201,183 +135,124 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
 }
 
-/* Changes link text from white to blue so it's readable on the white header */
 .hero-header.scrolled .nav-links a {
-    color: #008ccf; 
+    color: #0062a9; /* Cebu Pacific Dark Blue */
     text-shadow: none; 
 }
 
-.hero-header.scrolled .login-btn {
-    color: #008ccf; 
+.hero-header.scrolled .login-btn span {
+    color: #0062a9 !important; 
 }
 
-/* Swaps the white logo out for the colored logo */
 .hero-header.scrolled .logo-white {
     display: none;
 }
+
 .hero-header.scrolled .logo-colored {
-    display: block;
+    display: block !important;
 }
+
+/* Turn icons back to their natural blue when scrolled */
+.hero-header.scrolled .login-btn img,
+.hero-header.scrolled .search-icon {
+    filter: none;
+}
+
+
+/* --- 4. GLASS WIDGET --- */
+.glass-widget {
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 1150px; z-index: 10;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px 30px;
+}
+
+.flight-type { display: flex; align-items: center; }
+.top-picks { display: flex; gap: 10px; margin-bottom: 15px; }
+.badge { padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; color: #333; }
+.badge.yellow { background: #FFC000; }
+.badge.white { background: white; }
+
+.widget-headers { display: flex; gap: 200px; margin-bottom: 5px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); color: white;}
+
+.search-inputs { display: flex; align-items: center; background: white; border-radius: 8px; padding: 5px; gap: 5px; }
+.input-group { display: flex; flex-direction: column; flex: 1; padding: 5px 15px; border-right: 1px solid #ddd; }
+.input-group:last-of-type { border-right: none; }
+.input-group label { color: #777; font-size: 11px; margin-bottom: 2px; }
+.input-group input { border: none; outline: none; font-weight: bold; font-size: 14px; color: #333; width: 100%; background: transparent; }
+.swap-icon { color: #008ccf; padding: 0 10px; font-size: 14px; cursor: pointer; }
 .search-btn { background: #008ccf; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; flex: 1; }
-/* --- END OF NEW HERO SECTION CSS --- */
-/* --- QUICK DESTINATIONS (Pixel-Perfect Original Style) --- */
 
-/* --- 1. QUICK DESTINATIONS --- */
+.icon-circle-yellow {
+    display: inline-flex; justify-content: center; align-items: center; width: 22px; height: 22px;
+    background-color: #FFC000; color: black; border-radius: 50%; font-size: 11px; margin-right: 8px;
+}
+
+/* --- 5. SOCIAL SIDEBAR --- */
+.social-sidebar {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 15px; z-index: 10;
+}
+.social-sidebar a { color: white; text-decoration: none; font-size: 18px; transition: color 0.3s ease; }
+.social-sidebar a:hover { color: #FFC000; }
+
+
+/* --- 6. QUICK DESTINATIONS --- */
 .quick-destinations {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 120px; /* Increased to push them further apart */
-    padding: 30px 0 20px; 
-    background-color: transparent;
+    display: flex; justify-content: center; align-items: flex-start;
+    gap: 120px; padding: 30px 0 20px; background-color: transparent;
 }
 
-.circle-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center;
-    cursor: pointer;
-}
-
+.circle-item { display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
 .circle-border {
-    border: 2px solid #008ccf; 
-    border-radius: 50%;
-    padding: 3px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease;
+    border: 2px solid #008ccf; border-radius: 50%; padding: 3px; display: flex; justify-content: center; align-items: center; transition: transform 0.2s ease;
 }
 
-.circle {
-    width: 80px; /* Shrunk down for that refined look */
-    height: 80px; /* Shrunk down to match width */
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-}
+.circle { width: 80px; height: 80px; border-radius: 50%; background-size: cover; background-position: center; }
+.circle-item span { color: #008ccf; font-size: 14px; font-weight: 400; margin-top: 12px; }
+.circle-item:hover .circle-border { transform: scale(1.05); }
 
-.circle-item span {
-    color: #008ccf;
-    font-size: 14px;
-    font-weight: 400; 
-    margin-top: 12px; 
-}
 
-.circle-item:hover .circle-border {
-    transform: scale(1.05);
-}
+/* --- 7. WHY EVERYONE FLIES SECTION --- */
+.why-section-wrapper { padding: 20px 5% 50px; background-color: white; max-width: 1100px; margin: 0 auto; }
+.why-top-row { display: flex; justify-content: space-between; align-items: center; gap: 60px; margin-bottom: 50px; }
+.why-text { flex: 1; }
+.why-text h2 { font-size: 26px; font-weight: 700; margin-bottom: 15px; color: #222222; }
+.why-text p { font-size: 14px; color: #555555; line-height: 1.6; font-weight: 400; }
+.why-illustration { flex: 1.2; display: flex; justify-content: flex-end; }
+.why-illustration img { max-width: 100%; height: auto; }
 
-/* --- 2. WHY EVERYONE FLIES SECTION --- */
-.why-section-wrapper {
-    padding: 20px 5% 50px; 
-    background-color: white;
-    max-width: 1100px; 
-    margin: 0 auto; 
-}
-
-.why-top-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    gap: 60px; 
-    margin-bottom: 50px;
-}
-
-.why-text {
-    flex: 1; 
-}
-/* Styling for the Heading */
-.why-text h2 {
-    font-size: 26px; 
-    font-weight: 700; 
-    margin-bottom: 15px;
-    color: #222222; /* A very dark gray, not harsh black */
-}
-
-/* Styling for the Paragraph (The exact fix for Issue #3) */
-.why-text p {
-    font-size: 14px; /* Scales the text down slightly */
-    color: #555555; /* Softens the text to a clean, professional gray */
-    line-height: 1.6; /* Adds beautiful "breathing room" between lines */
-    font-weight: 400; /* Ensures the text isn't too heavy */
-}
-.why-illustration {
-    flex: 1.2; 
-    display: flex;
-    justify-content: flex-end; 
-}
-
-.why-illustration img {
-    max-width: 100%; 
-    height: auto;
-}
-
-/* --- 3. SERVICE CARDS & HOVER STATES --- */
+/* --- 8. SERVICE CARDS & HOVER STATES --- */
 .services-container {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #e5e5e5;
-    border-radius: 12px;
-    background-color: white;
-    width: 100%; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    display: flex; justify-content: space-between; border: 1px solid #e5e5e5;
+    border-radius: 12px; background-color: white; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.03);
 }
 
 .service-card {
-    flex: 1;
-    text-align: center;
-    border-right: 1px solid #e5e5e5;
-    cursor: pointer;
-    padding: 20px 10px; 
-    position: relative; 
-    background-color: transparent;
-    transition: all 0.2s ease-in-out; 
+    flex: 1; text-align: center; border-right: 1px solid #e5e5e5; cursor: pointer;
+    padding: 20px 10px; position: relative; background-color: transparent; transition: all 0.2s ease-in-out; 
 }
+.service-card:last-child { border-right: none; }
+.service-icon { margin-bottom: 12px; display: flex; justify-content: center; }
+.service-icon img { width: 60px !important; height: auto !important; }
+.service-card span { color: #008ccf; font-weight: bold; font-size: 15px; }
 
-.service-card:last-child {
-    border-right: none;
-}
-
-.service-icon {
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: center;
-}
-
-/* Forces the service icons to stay perfectly sized */
-.service-icon img {
-    width: 60px !important; 
-    height: auto !important;
-}
-
-.service-card span {
-    color: #008ccf;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-/* Hover Image Swapping Defaults */
+/* Hover Effects */
 .icon-hover { display: none; }
-
-/* The 3D Pop-Out Hover Effect */
 .service-card:hover {
-    background-color: #ffea00; 
-    transform: scale(1.05); 
-    z-index: 10; 
-    border-radius: 12px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
-    border-right-color: transparent; 
+    background-color: #ffea00; transform: scale(1.05); z-index: 10;
+    border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border-right-color: transparent; 
 }
-
-/* Change Icon and Text on Hover */
 .service-card:hover .icon-default { display: none; }
 .service-card:hover .icon-hover { display: block; }
 .service-card:hover span { color: #0033a0; }
 
 
-/* --- 4. ASYMMETRICAL PROMO GRID & OTHER FOOTER CSS --- */
+/* --- 9. ASYMMETRICAL PROMO GRID & OTHER FOOTER CSS --- */
 .flight-deals { padding: 60px 10%; text-align: center; }
 .deal-tabs { margin: 20px 0 40px; }
 .deal-tabs button { padding: 10px 25px; border: none; background: none; font-size: 1rem; cursor: pointer; }
@@ -388,18 +263,17 @@
 .row-2 { height: 250px; }
 .card-info { position: absolute; bottom: 20px; left: 20px; }
 .btn-more { margin-top: 30px; background-color: var(--ceb-blue); color: white; border: none; padding: 12px 40px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+
+/* --- 10. STORIES & FOOTER --- */
 .stories { padding: 60px 10%; background-color: var(--bg-light); }
-.stories-layout { display: flex; gap: 30px; margin-top: 25px; }
+.stories-layout { display: flex; gap: 30px; margin-top: 25px; max-width: 1100px; margin: 0 auto;}
 .story-featured { flex: 1.5; }
 .story-featured img { width: 100%; border-radius: 8px; }
 .story-sub-grid { flex: 1; display: flex; flex-direction: column; gap: 20px; }
 .story-item { display: flex; gap: 15px; background: white; padding: 10px; border-radius: 8px; }
-.story-item img { width: 120px; border-radius: 4px; }
+.story-item img { width: 120px; border-radius: 4px; object-fit: cover;}
+
 footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid #eee; }
-.footer-links { display: flex; justify-content: space-between; }
+.footer-links { display: flex; justify-content: space-between; max-width: 1100px; margin: 0 auto;}
 .footer-links .col { display: flex; flex-direction: column; gap: 10px; }
 .footer-links .col a { color: #666; text-decoration: none; }
-.widget-tabs { display: flex; gap: 15px; margin-bottom: 20px; }
-.widget-tabs button { background: transparent; border: none; font-size: 15px; font-weight: bold; color: #555; cursor: pointer; padding-bottom: 5px; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
-.widget-tabs button:hover { color: var(--ceb-blue); }
-.widget-tabs button.active { color: var(--ceb-blue); border-bottom: 3px solid var(--ceb-yellow); }

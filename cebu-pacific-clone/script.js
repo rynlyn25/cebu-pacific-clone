@@ -117,3 +117,18 @@ serviceCards.forEach(card => {
         card.classList.add('active');
     });
 });
+// Listen for the scroll event on the window
+window.addEventListener('scroll', () => {
+    const topBar = document.querySelector('.top-advisory-bar');
+    const header = document.querySelector('.hero-header');
+    
+    // If we scroll down more than 50 pixels, add the 'scrolled' class
+    if (window.scrollY > 50) {
+        topBar.classList.add('scrolled');
+        header.classList.add('scrolled');
+    } else {
+        // If we are at the absolute top, remove the class
+        topBar.classList.remove('scrolled');
+        header.classList.remove('scrolled');
+    }
+});
