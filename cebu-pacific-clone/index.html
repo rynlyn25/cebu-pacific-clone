@@ -251,52 +251,102 @@
         <button class="btn-more">See more</button>
     </section>
 
-    <section class="stories">
-        <div class="stories-layout">
-            <div class="story-featured">
-                <img src="https://images.unsplash.com/photo-1551041777-ed277b8dd348?q=80&w=600&auto=format&fit=crop" alt="Riyadh">
-                <h3>Cebu Pacific to launch flights to Riyadh</h3>
-                <p>Bringing direct and affordable choices to travelers heading to the Kingdom of Saudi Arabia.</p>
-            </div>
-            <div class="story-sub-grid">
-                <div class="story-item">
-                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=200&auto=format&fit=crop">
-                    <p>CEB is Strongest Airline Brand</p>
-                </div>
-                <div class="story-item">
-                    <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=200&auto=format&fit=crop">
-                    <p>12 Places We Loved in 2025</p>
-                </div>
-                <div class="story-item">
-                    <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=200&auto=format&fit=crop">
-                    <p>Dishes To Try In Bangkok</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="stories-section">
+    <!-- Header -->
+    <div class="stories-header">
+        <h2>Latest Stories</h2>
+        <a href="#" class="view-all">View all articles</a>
+    </div>
 
-    <footer>
-        <div class="footer-links">
-            <div class="col">
-                <h4>Book</h4>
-                <a href="#">Flights</a><a href="#">Seat Sale</a>
-            </div>
-            <div class="col">
-                <h4>Manage</h4>
-                <a href="#">Check-in</a><a href="#">Flight Status</a>
-            </div>
-            <div class="col">
-                <h4>Travel Info</h4>
-                <a href="#">Baggage Information</a>
-            </div>
-            <div class="col">
-                <h4>Partnerships</h4>
-                <div class="payment-icons">
-                    <span class="icon">Visa</span><span class="icon">Mastercard</span><span class="icon">GCash</span><span class="icon">Maya</span>
-                </div>
+    <!-- Top: Featured Story -->
+    <div class="featured-story">
+        <div class="featured-image">
+            <img src="images/featured.jpg" alt="Featured Story">
+        </div>
+        <div class="featured-content">
+            <span class="badge">PRESS RELE...</span>
+            <h3>Cebu Pacific to launch flights to Riyadh</h3>
+            <p>This gives OFWs more affordable and accessible options to travel to the Kingdom of Saudi Arabia.</p>
+        </div>
+    </div>
+
+    <!-- Bottom: 3-Column Grid -->
+    <div class="sub-stories-grid">
+        <!-- Card 1 -->
+        <div class="story-card">
+            <img src="images/story1.jpg" alt="Story 1">
+            <span class="badge">PRESS RELE...</span>
+            <h4>CEB is Strongest Asean Airline B...</h4>
+        </div>
+        <!-- Card 2 -->
+        <div class="story-card">
+            <img src="images/story2.jpg" alt="Story 2">
+            <span class="badge">DISCOVER WI...</span>
+            <h4>12 Places We Loved in 2025</h4>
+        </div>
+        <!-- Card 3 -->
+        <div class="story-card">
+            <img src="images/story3.jpg" alt="Story 3">
+            <span class="badge">DISCOVER WI...</span>
+            <h4>Dishes To Try in Bangkok</h4>
+        </div>
+    </div>
+</section>
+
+    <footer class="site-footer">
+    <div class="footer-container">
+        
+        <div class="footer-links-grid">
+            <div class="col"><h4>BOOK</h4><a href="#">Flights</a><a href="#">Seat Sale</a></div>
+            <div class="col"><h4>MANAGE</h4><a href="#">Check in</a><a href="#">Manage Booking</a><a href="#">Flight Status</a><a href="#">Add-ons</a><a href="#">Special Assistance</a></div>
+            <div class="col"><h4>TRAVEL INFO</h4><a href="#">Baggage Information</a><a href="#">Payment Options</a><a href="#">Travel Advisories</a><a href="#">Booking & Check-in</a><a href="#">Travel Documents</a><a href="#">Service Fees</a></div>
+            <div class="col"><h4>EXPLORE</h4><a href="#">Explore</a><a href="#">Philippine Destinations</a><a href="#">International Destinations</a><a href="#">Where We Fly</a><a href="#">City Guides</a></div>
+            <div class="col"><h4>ABOUT</h4><a href="#">About</a><a href="#">Our Story</a><a href="#">Media Center</a><a href="#">Talk to Us</a><a href="#">Careers</a></div>
+            
+            <div class="col country-selector">
+                <h4>SELECT COUNTRY</h4>
+                <div class="country-box"><i class="fa-solid fa-earth-asia"></i> Philippines</div>
             </div>
         </div>
-    </footer>
+
+        <div class="footer-right-sidebar">
+            <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+            <div class="app-buttons">
+                <img src="images/app-store.png" alt="App Store">
+                <img src="images/google-play.png" alt="Google Play">
+            </div>
+
+            <h4>PAYMENT PARTNERS</h4>
+            <div class="payment-grid">
+                <img src="images/visa.png" alt="Visa">
+                <img src="images/mastercard.png" alt="Mastercard">
+                <img src="images/gcash.png" alt="GCash">
+                </div>
+
+            <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+            <div class="accreditations">
+                <img src="images/badge1.png" alt="Badge 1">
+                <img src="images/badge2.png" alt="Badge 2">
+            </div>
+        </div>
+
+    </div>
+</footer>
+<div class="footer-bottom">
+    <div class="footer-bottom-container">
+        <div class="footer-legal-links">
+            <a href="#">Privacy and Cookie Policy</a>
+            <a href="#">Website Terms of Use</a>
+            <a href="#">Security</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Site Map</a>
+        </div>
+        
+        <div class="copyright-text">
+            © Copyright 2026 Cebu Pacific: SE GROUP 7
+        </div>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>

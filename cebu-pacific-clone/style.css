@@ -422,15 +422,149 @@
     opacity: 1;
 }
 /* --- 10. STORIES & FOOTER --- */
-.stories { padding: 60px 10%; background-color: var(--bg-light); }
-.stories-layout { display: flex; gap: 30px; margin-top: 25px; max-width: 1100px; margin: 0 auto;}
-.story-featured { flex: 1.5; }
-.story-featured img { width: 100%; border-radius: 8px; }
-.story-sub-grid { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-.story-item { display: flex; gap: 15px; background: white; padding: 10px; border-radius: 8px; }
-.story-item img { width: 120px; border-radius: 4px; object-fit: cover;}
+/* Container */
+.stories-section { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+
+/* Header */
+.stories-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.stories-header h2 { font-size: 24px; color: #333; }
+.stories-header .view-all { color: #008ccf; font-weight: bold; text-decoration: none; }
+
+/* Featured Story (Side-by-Side) */
+.featured-story { display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start; }
+.featured-image { flex: 1.5; }
+.featured-image img { width: 100%; border-radius: 8px; }
+.featured-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.featured-content h3 { font-size: 26px; margin: 10px 0; color: #222; }
+.featured-content p { color: #666; line-height: 1.5; }
+
+/* Badge styling */
+.badge { 
+    background-color: var(--ceb-yellow); 
+    padding: 4px 8px; 
+    border-radius: 4px; 
+    font-size: 11px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* Sub-Stories Grid (3 Columns) */
+.sub-stories-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+}
+.story-card { display: flex; flex-direction: column; }
+.story-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; }
+.story-card h4 { font-size: 16px; color: #333; line-height: 1.3; }
 
 footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid #eee; }
 .footer-links { display: flex; justify-content: space-between; max-width: 1100px; margin: 0 auto;}
 .footer-links .col { display: flex; flex-direction: column; gap: 10px; }
 .footer-links .col a { color: #666; text-decoration: none; }
+.site-footer {
+    background-color: #ffffff;
+    padding: 60px 5%;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Left Grid Layout */
+.footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    flex: 2;
+}
+
+.col h4 {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.col a {
+    display: block;
+    color: #008ccf; /* Cebu Pacific blue for links */
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* Country Selector */
+.country-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Right Sidebar */
+.footer-right-sidebar {
+    flex: 1;
+    border-left: 1px solid #e5e5e5;
+    padding-left: 40px;
+}
+
+.footer-right-sidebar h4 {
+    font-size: 12px;
+    color: #333;
+    margin: 20px 0 10px 0;
+}
+
+.app-buttons img, .payment-grid img {
+    height: 35px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.accreditations img {
+    height: 60px;
+    margin-right: 10px;
+}
+/* Bottom Footer Bar */
+.footer-bottom {
+    background-color: var(--ceb-yellow); /* Uses your yellow variable */
+    padding: 20px 5%;
+    width: 100%;
+}
+
+.footer-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-legal-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-legal-links a {
+    color: var(--ceb-blue); /* Uses your blue variable */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.copyright-text {
+    color: var(--ceb-blue);
+    font-weight: bold;
+    font-size: 14px;
+}
