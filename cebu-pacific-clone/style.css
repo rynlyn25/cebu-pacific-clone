@@ -254,16 +254,173 @@
 
 /* --- 9. ASYMMETRICAL PROMO GRID & OTHER FOOTER CSS --- */
 .flight-deals { padding: 60px 10%; text-align: center; }
-.deal-tabs { margin: 20px 0 40px; }
-.deal-tabs button { padding: 10px 25px; border: none; background: none; font-size: 1rem; cursor: pointer; }
-.deal-tabs button.active { color: var(--ceb-blue); border-bottom: 2px solid var(--ceb-blue); font-weight: bold; }
-.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; }
-.grid-card { border-radius: 12px; background-size: cover; background-position: center; position: relative; color: white; overflow: hidden; }
-.tall { grid-row: span 2; height: 520px; }
-.row-2 { height: 250px; }
-.card-info { position: absolute; bottom: 20px; left: 20px; }
-.btn-more { margin-top: 30px; background-color: var(--ceb-blue); color: white; border: none; padding: 12px 40px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+.deal-tabs { 
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; 
+    margin: 20px 0 40px; 
+}
 
+.deal-tabs button { 
+    padding: 10px 0; 
+    border: none; 
+    background: none; 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #999999; /* Grey for inactive tabs */
+    cursor: pointer; 
+    border-bottom: 3px solid transparent; 
+}
+
+.deal-tabs button.active { 
+    color: #333333; /* Dark text for active tab */
+    border-bottom: 3px solid #00a1e4; /* Cebu Pacific Cyan */ 
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Shrink the base row to 200px */
+    grid-auto-rows: 200px; 
+    gap: 15px; 
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Base height for short cards */
+.card-short { 
+    grid-row: span 1; 
+    height: 200px; 
+}
+
+/* Base height for tall cards */
+.card-tall { 
+    grid-row: span 2; 
+    height: 415px; /* (200px * 2) + 15px gap */
+}
+
+/* The box that holds your text and button */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything horizontally */
+    justify-content: center; /* Centers everything vertically */
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    opacity: 0; /* Hidden by default until hover */
+    transition: opacity 0.3s ease;
+}
+
+/* --- BASE STATE (What the user sees first) --- */
+/* Base Card Style */
+.grid-card {
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Text at bottom by default */
+}
+
+/* Creates the dark shadow at the bottom so text is always readable */
+.grid-card::after {
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 70%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+}
+
+/* We only need these two classes to control heights now! */
+.card-tall { grid-row: span 2; } 
+.card-short { grid-row: span 1; }
+.card-info { 
+    position: absolute; 
+    bottom: 10px; /* Tighter to the bottom */
+    left: 15px; 
+    z-index: 2; 
+    color: white;
+}
+
+.card-info span { 
+    font-size: 10px; /* Smaller label text */
+    font-weight: 600; 
+}
+
+.card-info h3 { 
+    color: #FFC000; 
+    font-size: 20px; /* Smaller price text */
+    font-weight: 800; 
+    margin: 0; 
+}
+
+.card-info p { 
+    font-size: 16px; /* Smaller destination name */
+    font-weight: 800; 
+    margin: 0; 
+}
+.btn-more { margin-top: 30px; background-color: var(--ceb-blue); color: white; border: none; padding: 12px 40px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+/* The flipped state */
+.grid-card.flipped {
+    background-image: none !important; /* Remove the image */
+    background-color: #FFC000 !important; /* Cebu Yellow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+/* Button behavior */
+.book-btn {
+    display: none;
+    background: #0033A0;
+    color: white;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    width: 85%;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* When you hover, the card turns yellow, and the wrapper fades in */
+.grid-card:hover {
+    background-image: none !important;
+    background-color: #FFC000 !important;
+    justify-content: center; 
+    align-items: center;
+}
+
+.grid-card:hover .content-wrapper {
+    opacity: 1; /* Smooth fade in */
+}
+
+/* The details (price/location) - this pushes UP */
+.card-info { transition: all 0.4s ease; }
+
+.grid-card:hover .card-info {
+    color: #0033A0 !important;
+    text-align: center;
+    transform: translateY(-10px); /* Pushes text up slightly */
+}
+/* Reveal the button on hover */
+/* Show and fade-in the button on hover */
+.grid-card:hover .book-btn {
+    display: block;
+    opacity: 1;
+}
 /* --- 10. STORIES & FOOTER --- */
 .stories { padding: 60px 10%; background-color: var(--bg-light); }
 .stories-layout { display: flex; gap: 30px; margin-top: 25px; max-width: 1100px; margin: 0 auto;}
