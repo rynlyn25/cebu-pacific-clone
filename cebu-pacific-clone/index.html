@@ -40,12 +40,14 @@
                 </nav>
                 
                 <div class="header-right">
-                    <button class="login-btn">
-                        <img src="images/user-outline.png" alt="User" width="20"> 
-                        <span style="color: white; margin-left: 5px;">Log in</span>
-                    </button>
-                    <img src="images/search-outline.png" alt="Search" width="20" class="search-icon">
-                </div>
+    <button class="signup-btn">Sign Up</button>
+
+    <button class="login-btn">
+    <img src="images/LoginWhite.webp" class="icon-top" alt="User">
+    <img src="images/Loginblue.webp" class="icon-scrolled" alt="User">
+    Log in
+</button>
+</div>
 
             </div>
         </header>
@@ -345,6 +347,36 @@
         <div class="copyright-text">
             © Copyright 2026 Cebu Pacific: SE GROUP 7
         </div>
+    </div>
+</div>
+<!-- LOGIN MODAL POPUP -->
+<div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <h2>Account Login</h2>
+        
+        <!-- This is the form the JavaScript looks for -->
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="modal-submit-btn">Login</button>
+        </form>
+        
+    </div>
+</div>
+<!-- SIGNUP MODAL POPUP -->
+<div id="signupModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" id="closeSignupModal">&times;</span>
+        <h2>Create an Account</h2>
+        
+        <form id="signupForm">
+            <input type="email" id="signupEmail" placeholder="Email Address" required>
+            <input type="text" id="signupFirstName" placeholder="First Name" required>
+            <input type="text" id="signupLastName" placeholder="Last Name" required>
+            <input type="password" id="signupPassword" placeholder="Password (min 8 chars)" required minlength="8">
+            <button type="submit" class="modal-submit-btn">Sign Up</button>
+        </form>
     </div>
 </div>
 
