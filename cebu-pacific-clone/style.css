@@ -106,32 +106,35 @@
 .hero-header:hover .icon-scrolled { display: inline-block !important; }
 .hero-header:hover .signup-btn { color: var(--ceb-blue) !important; border-color: var(--ceb-blue) !important; }
 
-/* --- 2. THE MEGA MENU CONTAINER --- */
-.nav-item { position: relative; padding: 25px 0; }
+/* 1. Update the parent nav item */
+.nav-item {
+    position: static; /* Allows the menu to center relative to the whole page */
+    padding: 25px 0;
+}
 
+/* 2. Update the mega menu container */
 .mega-menu {
     position: absolute;
     top: 65px; 
-    left: -200px; /* Aligns the wider box to the center */
-    width: 950px; /* Wide, authentic layout */
+    left: 50%;             /* Start the left edge at the center of the screen */
+    transform: translateX(-50%); /* Pull the menu back by half its width to perfectly center it */
+    width: 950px;          /* Keep your consistent width */
     background: white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-    border-radius: 0 0 8px 8px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 0 0 8px 8px;
     padding: 35px 50px;
     z-index: 2000;
     
-    /* Hover Animation */
+    /* Animation stays the same */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
     transition: all 0.3s ease;
 }
 
-/* This makes the menu visible when you point at "Book" */
+/* 3. Ensure the menu reveals on hover */
 .nav-item:hover .mega-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
 }
 
 .nav-item:hover .main-link { color: #00a1e4; }
@@ -149,34 +152,79 @@
 }
 /* --- TOP HALF: Flights, Seat Sale, CEB Super Pass --- */
 .mega-icon-link span { 
-    color: #00a1e4 !important; /* Official Light Blue */
+    color: #005eb8 !important; /* Changed from light blue to dark blue */
     font-weight: bold; 
-    font-size: 14px; 
+    font-size: 15px; 
     margin-top: 12px; 
 }
 
 /* Hover effect for the top half */
 .mega-icon-link:hover span { 
-    color: #007bb5 !important; /* Slightly darker blue when hovered */
+    color: #00a1e4 !important; /* Turns light blue only when you hover */
 }
 
 /* The Yellow Circle */
 .mega-icon {
-    background-color: var(--ceb-yellow);
-    width: 55px; height: 55px; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
+    background-color: transparent; /* This removes the yellow completely! */
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
     transition: transform 0.2s ease;
+    /* Removed width, height, and border-radius so it just wraps your image */
 }
 .mega-icon-link:hover .mega-icon { transform: scale(1.05); }
 
 /* Sizing for your custom PNG/JPG icons */
-.custom-mega-img { width: 28px; height: auto; display: block; }
+/* --- 1. REMOVE INNER CIRCLE & MAKE ICON BIGGER --- */
+.custom-mega-img { 
+    width: 60px; /* Adjust this to make your icon whatever size you want */
+    height: auto; 
+    display: block; 
+    /* Removed mix-blend-mode so the picture looks EXACTLY like your file */
+}
 
 .mega-divider { border: 0; height: 1px; background: #e5e5e5; margin: 30px 0; }
 
 /* --- 4. BOTTOM BUSINESS SECTION (3 COLUMNS) --- */
 .mega-heading { color: #555; font-size: 11px; margin-bottom: 20px; font-weight: bold; letter-spacing: 1px; }
+/* --- MANAGE MENU SPECIFIC STYLES --- */
 
+/* Forces exactly 2 equal columns for the Manage menu */
+.manage-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 40px !important; 
+    align-items: start;
+}
+
+.manage-item a { 
+    color: #00a1e4 !important; /* Light blue titles */
+    font-size: 14px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    display: block; 
+    margin-bottom: 8px;
+}
+
+.manage-item a:hover { 
+    text-decoration: underline; 
+    color: #007bb5 !important; 
+}
+
+.manage-item p { 
+    color: #666; 
+    font-size: 13px; 
+    line-height: 1.4; 
+    margin: 0; 
+}
+
+/* Styles the small blue "baggage, meals, seats" link inside the paragraph */
+.manage-item p .inline-link {
+    display: inline !important; /* Keeps it inside the sentence */
+    font-weight: normal; 
+    font-size: 13px;
+    margin-bottom: 0;
+}
 /* Forces exactly 3 equal columns */
 .business-grid { 
     display: grid !important; 
@@ -438,8 +486,7 @@
     transition: opacity 0.3s ease;
 }
 
-/* --- BASE STATE (What the user sees first) --- */
-/* Base Card Style */
+/* --- BASE STATE --- */
 .grid-card {
     border-radius: 12px;
     background-size: cover;
@@ -450,65 +497,24 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Text at bottom by default */
+    justify-content: flex-end;
 }
 
-/* Creates the dark shadow at the bottom so text is always readable */
-.grid-card::after {
-    content: ''; 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 70%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    z-index: 1;
-}
-
-/* We only need these two classes to control heights now! */
-.card-tall { grid-row: span 2; } 
-.card-short { grid-row: span 1; }
-.card-info { 
-    position: absolute; 
-    bottom: 10px; /* Tighter to the bottom */
-    left: 15px; 
-    z-index: 2; 
-    color: white;
-}
-
-.card-info span { 
-    font-size: 10px; /* Smaller label text */
-    font-weight: 600; 
-}
-
-.card-info h3 { 
-    color: #FFC000; 
-    font-size: 20px; /* Smaller price text */
-    font-weight: 800; 
-    margin: 0; 
-}
-
-.card-info p { 
-    font-size: 16px; /* Smaller destination name */
-    font-weight: 800; 
-    margin: 0; 
-}
-.btn-more { margin-top: 30px; background-color: var(--ceb-blue); color: white; border: none; padding: 12px 40px; border-radius: 25px; font-weight: bold; cursor: pointer; }
-/* The flipped state */
-.grid-card.flipped {
-    background-image: none !important; /* Remove the image */
-    background-color: #FFC000 !important; /* Cebu Yellow */
+.content-wrapper {
+    transition: all 0.4s ease;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    transition: all 0.5s ease;
 }
 
-/* Button behavior */
+/* Base text styling */
+.card-info { color: white; transition: all 0.4s ease; }
+.card-info span { font-size: 10px; font-weight: 600; }
+.card-info h3 { color: #FFC000; font-size: 20px; font-weight: 800; margin: 0; }
+.card-info p { font-size: 16px; font-weight: 800; margin: 0; }
+
 .book-btn {
-    display: none;
+    display: none; /* Hidden by default */
     background: #0033A0;
     color: white;
     padding: 12px 0;
@@ -522,7 +528,7 @@
     transition: opacity 0.3s ease;
 }
 
-/* When you hover, the card turns yellow, and the wrapper fades in */
+/* --- HOVER STATE --- */
 .grid-card:hover {
     background-image: none !important;
     background-color: #FFC000 !important;
@@ -530,20 +536,11 @@
     align-items: center;
 }
 
-.grid-card:hover .content-wrapper {
-    opacity: 1; /* Smooth fade in */
-}
-
-/* The details (price/location) - this pushes UP */
-.card-info { transition: all 0.4s ease; }
-
 .grid-card:hover .card-info {
-    color: #0033A0 !important;
-    text-align: center;
-    transform: translateY(-10px); /* Pushes text up slightly */
+    color: #0033A0 !important; /* Text turns Blue */
+    transform: translateY(-10px);
 }
-/* Reveal the button on hover */
-/* Show and fade-in the button on hover */
+
 .grid-card:hover .book-btn {
     display: block;
     opacity: 1;
@@ -780,4 +777,165 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
 .hero-header.scrolled .signup-btn:hover {
     background: var(--ceb-blue);
     color: white;
+}
+/* --- TRAVEL INFO MENU SPECIFIC STYLES --- */
+
+/* Forces exactly 3 equal columns */
+.travel-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 25px 40px !important; /* 25px vertical gap, 40px horizontal gap */
+    align-items: center;
+}
+
+.travel-item a { 
+    color: #00a1e4 !important; /* Official Light Blue */
+    font-size: 14px; 
+    font-weight: 500; /* Slightly lighter than the main headers */
+    text-decoration: none; 
+    display: flex; /* Aligns the icon and text perfectly */
+    align-items: center;
+}
+
+.travel-item a:hover { 
+    text-decoration: underline; 
+    color: #007bb5 !important; 
+}
+
+/* Styles the small FontAwesome icons next to the links */
+.travel-item i {
+    width: 20px; /* Giving the icons a fixed width ensures all text columns line up perfectly */
+    font-size: 14px;
+    margin-right: 8px;
+    text-align: center;
+}
+/* --- EXPLORE MENU SPECIFIC STYLES --- */
+
+/* TOP SECTION: 2 Columns for Destinations */
+.explore-top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.explore-heading {
+    color: #00a1e4 !important;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.explore-heading i { margin-right: 8px; font-size: 14px; }
+.explore-heading:hover { color: #007bb5 !important; text-decoration: underline; }
+
+/* The row of image cards */
+.destination-cards {
+    display: flex;
+    gap: 15px;
+}
+
+/* Individual Image Card */
+.dest-card {
+    position: relative;
+    width: 125px; /* Adjust if you want them wider/narrower */
+    height: 85px;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    text-decoration: none !important;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+/* Make the card pop slightly when hovered */
+.dest-card:hover { transform: translateY(-3px); }
+
+/* The white text over the image */
+.dest-card span {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.8); /* Ensures text is readable over light images */
+}
+
+/* BOTTOM SECTION: 3 Columns for Links */
+.explore-bottom-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 40px !important; 
+    align-items: start;
+}
+
+.explore-item a { 
+    color: #00a1e4 !important; 
+    font-size: 14px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.explore-item a i { width: 20px; font-size: 14px; text-align: center; margin-right: 6px; }
+.explore-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+
+.explore-item p { 
+    color: #666; 
+    font-size: 13px; 
+    line-height: 1.4; 
+    margin: 0; 
+}
+/* --- ABOUT MENU SPECIFIC STYLES --- */
+
+/* Forces exactly 3 equal columns */
+.about-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 40px !important; 
+    align-items: start;
+}
+
+.about-item a { 
+    color: #00a1e4 !important; /* Official Light Blue */
+    font-size: 14px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    display: block; 
+    margin-bottom: 8px;
+}
+
+.about-item a:hover { 
+    text-decoration: underline; 
+    color: #007bb5 !important; 
+}
+
+.about-item p { 
+    color: #666; 
+    font-size: 13px; 
+    line-height: 1.4; 
+    margin: 0; 
+}
+
+/* Styles the small blue "send feedback" link inside the paragraph */
+.about-item p .inline-link {
+    display: inline !important; 
+    font-weight: normal; 
+    font-size: 13px;
+    margin-bottom: 0;
+}
+/* Forces menus on the right side of the screen to open leftwards so they don't get cut off */
+.mega-menu.shift-left {
+    left: auto;       /* Removes the old left positioning */
+    right: -50px;     /* Anchors the box to the right side instead */
+}
+/* --- PREVENT CUT-OFF FOR THE ABOUT MENU ONLY --- */
+.nav-item:nth-child(5) .mega-menu {
+    left: auto !important;      /* Kills the old leftward push */
+    right: -20px !important;    /* Anchors the box to the right side instead */
 }
