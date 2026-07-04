@@ -227,7 +227,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 80px; 
+    gap: 120px; /* Increased to push them further apart */
     padding: 30px 0 20px; 
     background-color: transparent;
 }
@@ -251,8 +251,8 @@
 }
 
 .circle {
-    width: 85px; 
-    height: 85px;
+    width: 80px; /* Shrunk down for that refined look */
+    height: 80px; /* Shrunk down to match width */
     border-radius: 50%;
     background-size: cover;
     background-position: center;
@@ -288,7 +288,21 @@
 .why-text {
     flex: 1; 
 }
+/* Styling for the Heading */
+.why-text h2 {
+    font-size: 26px; 
+    font-weight: 700; 
+    margin-bottom: 15px;
+    color: #222222; /* A very dark gray, not harsh black */
+}
 
+/* Styling for the Paragraph (The exact fix for Issue #3) */
+.why-text p {
+    font-size: 14px; /* Scales the text down slightly */
+    color: #555555; /* Softens the text to a clean, professional gray */
+    line-height: 1.6; /* Adds beautiful "breathing room" between lines */
+    font-weight: 400; /* Ensures the text isn't too heavy */
+}
 .why-illustration {
     flex: 1.2; 
     display: flex;
@@ -332,9 +346,10 @@
     justify-content: center;
 }
 
+/* Forces the service icons to stay perfectly sized */
 .service-icon img {
-    width: 100px; 
-    height: auto;
+    width: 60px !important; 
+    height: auto !important;
 }
 
 .service-card span {
