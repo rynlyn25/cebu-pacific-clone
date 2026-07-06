@@ -451,98 +451,192 @@
     color: #333333; /* Dark text for active tab */
     border-bottom: 3px solid #00a1e4; /* Cebu Pacific Cyan */ 
 }
+/* =========================================
+   FLIGHT DEALS SECTION (MASONRY GRID)
+   ========================================= */
+
+/* The grid layout */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* Shrink the base row to 200px */
-    grid-auto-rows: 200px; 
-    gap: 15px; 
-    max-width: 1100px;
-    margin: 0 auto;
+    grid-auto-rows: 200px; /* Base height */
+    gap: 20px; 
+    max-width: 1000px;
+    margin: 40px auto;
 }
 
-/* Base height for short cards */
-.card-short { 
-    grid-row: span 1; 
-    height: 200px; 
-}
+/* Row spanning for the interlocking masonry look */
+.card-short { grid-row: span 1; }
+.card-tall { grid-row: span 2; }
 
-/* Base height for tall cards */
-.card-tall { 
-    grid-row: span 2; 
-    height: 415px; /* (200px * 2) + 15px gap */
-}
-
-/* The box that holds your text and button */
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers everything horizontally */
-    justify-content: center; /* Centers everything vertically */
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    opacity: 0; /* Hidden by default until hover */
-    transition: opacity 0.3s ease;
-}
-
-/* --- BASE STATE --- */
+/* Base card styling */
 .grid-card {
+    background-color: #ffcc00; /* Cebu Pacific Yellow */
     border-radius: 12px;
-    background-size: cover;
-    background-position: center;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s ease;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.content-wrapper {
-    transition: all 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Base text styling */
-.card-info { color: white; transition: all 0.4s ease; }
-.card-info span { font-size: 10px; font-weight: 600; }
-.card-info h3 { color: #FFC000; font-size: 20px; font-weight: 800; margin: 0; }
-.card-info p { font-size: 16px; font-weight: 800; margin: 0; }
-
-.book-btn {
-    display: none; /* Hidden by default */
-    background: #0033A0;
-    color: white;
-    padding: 12px 0;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
     cursor: pointer;
-    width: 85%;
-    margin-top: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    text-align: left;
+}/* 1. THE GRID SIZING */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 170px; /* Reduced from 240px to make the cards much shorter */
+    gap: 15px; /* Tighter gap between cards */
+    max-width: 950px; /* Restricts how wide the grid can get */
+    margin: 30px auto; 
 }
 
-/* --- HOVER STATE --- */
-.grid-card:hover {
-    background-image: none !important;
-    background-color: #FFC000 !important;
-    justify-content: center; 
+/* 2. THE CARD HEIGHTS */
+/* Instead of hardcoded pixel heights, we tell them to 100% fill their grid rows */
+.card-short { 
+    grid-row: span 1; 
+    height: 100% !important; 
+}
+
+.card-tall { 
+    grid-row: span 2; 
+    height: 100% !important; 
+}
+
+.grid-card {
+    background-color: #ffcc00; 
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    width: 100%; /* Ensures it fills the column */
+}
+
+/* The photo layer */
+.card-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+/* The dark gradient shadow at the bottom */
+.card-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* Adjusts the text placement to breathe a bit more from the edges */
+.card-content {
+    position: absolute;
+    bottom: 25px; 
+    left: 25px; 
+    right: 25px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* --- SCALED DOWN TYPOGRAPHY --- */
+.price-label { 
+    font-size: 10px; /* Made very small, just like the original */
+    font-weight: 500;
+    color: white; 
+    transition: color 0.3s; 
+    margin-bottom: 0px; /* Super tight spacing */
+}
+
+.price-amount { 
+    font-size: 18px; /* Prominent, but not massive */
+    font-weight: 900; 
+    color: #ffcc00; 
+    transition: color 0.3s; 
+    margin: 0 0 2px 0; /* Tiny gap before the destination name */
+}
+
+.dest-name { 
+    font-size: 15px; /* Distinctly smaller than the price */
+    font-weight: 800; 
+    color: white; 
+    transition: color 0.3s; 
+    margin: 0;
+}
+/* --- FLIGHT DEALS FOOTER (Base Fare & See More Button) --- */
+.deals-footer {
+    max-width: 950px; /* This must match the max-width of your .grid-container */
+    margin: 10px auto 50px auto; /* Adds spacing below the grid */
+    position: relative;
+    display: flex;
+    justify-content: center; /* Centers the button */
     align-items: center;
 }
 
-.grid-card:hover .card-info {
-    color: #0033A0 !important; /* Text turns Blue */
-    transform: translateY(-10px);
+/* The tiny blue text on the left */
+.fare-note {
+    position: absolute;
+    left: 0;
+    top: 5px; /* Aligns it nicely with the top of the button */
+    color: #0088CE; /* Cebu Pacific light blue */
+    font-size: 11px;
+    margin: 0;
 }
 
+/* The styled See More button */
+.btn-more-centered {
+    background-color: #0088CE; /* Official blue */
+    color: white;
+    border: none;
+    border-radius: 8px; /* Slightly rounded to match the cards */
+    padding: 14px 70px; /* Makes the button wide */
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-more-centered:hover {
+    background-color: #005eb8; /* Darkens slightly on hover */
+}
+/* The Button (Hidden by default using max-height) */
+.book-btn {
+    background: #0088CE; /* Official Light Blue */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    
+    /* Animation hidden state */
+    max-height: 0;
+    padding: 0;
+    margin-top: 0;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+/* --- THE HOVER ANIMATIONS --- */
+
+/* 1. Hide the photo */
+.grid-card:hover .card-bg { 
+    opacity: 0; 
+}
+
+/* 2. Turn all text Dark Blue */
+.grid-card:hover .price-label,
+.grid-card:hover .price-amount,
+.grid-card:hover .dest-name { 
+    color: #0033A0; 
+}
+
+/* 3. Reveal the button (smooth slide up) */
 .grid-card:hover .book-btn {
-    display: block;
+    max-height: 50px;
+    padding: 12px 0;
+    margin-top: 15px;
     opacity: 1;
 }
 /* --- 10. STORIES & FOOTER --- */
