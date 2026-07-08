@@ -142,6 +142,165 @@
     content: ''; position: absolute; bottom: 0; left: 0;
     width: 100%; height: 4px; background: #00a1e4;
 }
+/* --- LOGIN DROPDOWN WRAPPER --- */
+/* 1. FORCE THIS WRAPPER TO BE THE ANCHOR */
+.login-dropdown-wrapper {
+    position: relative !important; /* !important ensures it doesn't anchor to the whole header */
+    display: flex;
+    align-items: center;
+    height: 100%; 
+}
+
+/* 2. OVERRIDE ALL OTHER MEGA MENU RULES */
+.header-right .login-dropdown-wrapper .login-mega-menu {
+    position: absolute !important;
+    top: 100% !important; 
+    
+    /* KILL the centering rules from the other menus */
+    left: auto !important; 
+    transform: none !important; 
+    
+    /* SHIFT it perfectly to the right */
+    right: -45px !important; 
+    
+    width: 850px !important; 
+    
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 0 0 8px 8px;
+    padding: 35px 50px;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-top: 0; 
+}
+/* --- FIX THE HORIZONTAL LAYOUT --- */
+.login-mega-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+    width: 100%;
+}
+
+.login-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+/* --- FIX THE LOGIN BUTTON & SIGN UP TEXT --- */
+.login-action-area {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mega-login-btn {
+    background-color: #0088CE; /* Official Blue */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 0;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: background 0.3s ease;
+}
+
+.mega-login-btn:hover {
+    background-color: #005eb8;
+}
+
+.signup-prompt {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+}
+
+.signup-prompt a {
+    color: #005eb8;
+    font-weight: bold;
+    text-decoration: none;
+}
+/* Show menu on hover */
+.login-dropdown-wrapper:hover .login-mega-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- HEADER RIGHT LAYOUT --- */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Perfect spacing between Login and Search */
+    height: 100%;
+}
+
+/* Make the login text simple and blue like the original */
+.login-btn {
+    background: transparent;
+    color: #005eb8; /* Official Cebu Pacific Blue */
+    border: none;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 25px 0; /* Creates vertical height to seamlessly connect to the dropdown */
+}
+
+/* Style the new search icon */
+.header-search-icon {
+    color: #005eb8;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+/* --- FIXING THE GAP: LOGIN DROPDOWN --- */
+.login-dropdown-wrapper {
+    position: static; /* Crucial: Allows the menu to center on the screen, not the button */
+    display: flex;
+    align-items: center;
+    height: 100%; 
+}
+
+/* The light blue border that appears on hover */
+.login-dropdown-wrapper:hover .login-btn {
+    border-bottom: 3px solid #00c2ff; 
+    padding-bottom: 22px; /* Adjust padding to accommodate the border */
+}
+
+.login-mega-menu {
+    position: absolute;
+    top: 100%; 
+    left: 50% !important; /* Centers it on the screen */
+    transform: translateX(-50%) !important; /* Centers it perfectly */
+    width: 950px !important; /* Exactly the same width as the Book/Manage menus */
+    
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 0 0 8px 8px;
+    padding: 35px 50px;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-top: 0; 
+}
+
+/* Show menu on hover */
+.login-dropdown-wrapper:hover .login-mega-menu {
+    opacity: 1;
+    visibility: visible;
+}
 
 /* --- 3. TOP ICONS SECTION (YELLOW CIRCLES & CUSTOM IMAGES) --- */
 .mega-top { display: flex; gap: 60px; margin-bottom: 25px; }
@@ -1032,4 +1191,186 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
 .nav-item:nth-child(5) .mega-menu {
     left: auto !important;      /* Kills the old leftward push */
     right: -20px !important;    /* Anchors the box to the right side instead */
+}
+/* =========================================
+   FULL-SCREEN LOGIN PAGE REPLICA
+   ========================================= */
+
+/* The full-screen background overlay */
+.login-fullscreen-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background-image: url('images/login-bg.jpg'); /* ADD YOUR BACKGROUND IMAGE HERE */
+    background-size: cover;
+    background-position: center;
+    z-index: 9999;
+    display: none; /* Hidden by default, JavaScript will change this to 'flex' */
+    justify-content: center; /* Centers the white column */
+    align-items: stretch; /* Stretches the column from top to bottom */
+}
+
+/* The Close Button */
+.close-login-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    z-index: 10000;
+}
+
+/* The White Center Column */
+.login-center-column {
+    background-color: white;
+    width: 480px; /* Exact width of the box */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.login-column-header {
+    padding: 30px 0;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.login-logo {
+    width: 180px;
+}
+
+/* Body */
+.login-column-body {
+    padding: 40px 50px;
+    flex-grow: 1; /* Pushes the footer to the bottom */
+}
+
+.login-column-body h3 {
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+/* SSO Buttons */
+.sso-btn {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sso-btn img, .sso-btn i {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.go-rewards-btn {
+    background-color: #d8d8d8; /* Light gray */
+    border: none;
+    color: #555;
+}
+
+.go-rewards-btn span {
+    text-decoration: underline; /* Matches the original design */
+}
+
+.social-btn {
+    background-color: white;
+    border: 1px solid #0088CE; /* Blue border */
+    color: #0088CE;
+}
+
+.social-btn:hover {
+    background-color: #f0f8ff;
+}
+
+/* The "OR" Divider */
+.login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #999;
+    font-size: 12px;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.login-divider span {
+    padding: 0 15px;
+}
+
+/* Form Inputs */
+.login-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.login-input-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.login-input-group input {
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+}
+
+.login-input-group input:focus {
+    border-color: #0088CE;
+}
+
+/* Next Button */
+.next-btn {
+    width: 100%;
+    background-color: #007bc7;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background-color: #005eb8;
+}
+
+/* Footer */
+.login-column-footer {
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    font-size: 13px;
+    color: #666;
+}
+
+.login-column-footer a {
+    color: #0088CE;
+    font-weight: bold;
+    text-decoration: none;
 }

@@ -83,44 +83,45 @@ serviceCards.forEach(card => {
     });
 });
 
-// --- 5. LOGIN MODAL & DATABASE CONNECTION LOGIC ---
+// --- 5. FULL-SCREEN LOGIN LOGIC & DATABASE CONNECTION ---
 
 // Get Modal Elements
-const navLoginBtn = document.querySelector('.login-btn'); // The nav bar button
-const loginModal = document.getElementById('loginModal');
-const closeModalBtn = document.getElementById('closeModal');
-const loginForm = document.getElementById('loginForm');
+const headerLoginBtn = document.querySelector('.login-btn'); // Main nav bar button
+const megaLoginBtn = document.querySelector('.mega-login-btn'); // Button inside the dropdown
+const loginModal = document.getElementById('loginModal'); // The new full-screen container
+const closeLoginBtn = document.getElementById('closeModal');
+const loginForm = document.getElementById('newLoginForm'); // Updated to the new form ID
 
-// Open Modal
-if(navLoginBtn && loginModal) {
-    navLoginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.style.display = 'flex';
-    });
+// Function to open the full-screen login
+function openLoginModal(e) {
+    e.preventDefault();
+    loginModal.style.display = 'flex'; // Uses 'flex' to keep the white column centered
 }
+
+// Attach click events to BOTH login buttons
+if (headerLoginBtn) headerLoginBtn.addEventListener('click', openLoginModal);
+if (megaLoginBtn) megaLoginBtn.addEventListener('click', openLoginModal);
 
 // Close Modal (Clicking 'X')
-if(closeModalBtn && loginModal) {
-    closeModalBtn.addEventListener('click', () => {
+if(closeLoginBtn && loginModal) {
+    closeLoginBtn.addEventListener('click', () => {
         loginModal.style.display = 'none';
     });
 }
 
-// Close Modal (Clicking outside the white box)
-window.addEventListener('click', (e) => {
-    if (e.target === loginModal) {
-        loginModal.style.display = 'none';
-    }
-});
-
-// Handle the Login Submit
+// Handle the Login Submit (Preserved Backend Connection)
 if(loginForm) {
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault(); 
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const submitBtn = document.querySelector('.modal-submit-btn');
+        const email = document.getElementById('emailInput').value; // Matches new HTML ID
+        
+        // Note: The visual replica only had an email field. If your backend requires a password, 
+        // ensure you have added a password input with id="passwordInput" to your HTML form!
+        const passwordField = document.getElementById('passwordInput');
+        const password = passwordField ? passwordField.value : ""; 
+        
+        const submitBtn = loginForm.querySelector('.next-btn');
         
         // UI Feedback
         submitBtn.innerText = "Checking..."; 
@@ -149,22 +150,25 @@ if(loginForm) {
             alert("Cannot connect to the server. Is app.py running?");
         } finally {
             // Reset button text
-            submitBtn.innerText = "Login"; 
+            submitBtn.innerText = "Next"; 
         }
     });
 }
-// --- SIGNUP MODAL & DATABASE CONNECTION ---
 
-const navSignupBtn = document.querySelector('.signup-btn'); // Make sure this matches your nav button class
+
+// --- 6. SIGNUP MODAL & DATABASE CONNECTION ---
+
 const signupModal = document.getElementById('signupModal');
 const closeSignupModalBtn = document.getElementById('closeSignupModal');
 const signupForm = document.getElementById('signupForm');
+const switchToSignupLink = document.getElementById('switchToSignup'); // Link inside the login page
 
-// Open Signup Modal
-if(navSignupBtn && signupModal) {
-    navSignupBtn.addEventListener('click', (e) => {
+// Open Signup Modal from the Login Page
+if(switchToSignupLink && signupModal) {
+    switchToSignupLink.addEventListener('click', (e) => {
         e.preventDefault();
-        signupModal.style.display = 'flex';
+        loginModal.style.display = 'none'; // Close login screen
+        signupModal.style.display = 'flex'; // Open signup popup
     });
 }
 
@@ -175,7 +179,7 @@ if(closeSignupModalBtn && signupModal) {
     });
 }
 
-// Close if clicking outside
+// Close if clicking outside the signup modal
 window.addEventListener('click', (e) => {
     if (e.target === signupModal) {
         signupModal.style.display = 'none';
