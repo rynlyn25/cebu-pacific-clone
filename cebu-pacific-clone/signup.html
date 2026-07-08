@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Cebu Pacific</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page-body">
+
+    <!-- Added 'scrollable-column' so the user can scroll down the tall form -->
+    <div class="login-center-column scrollable-column">
+        
+        <div class="login-column-header">
+            <a href="index.html">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" class="login-logo">
+            </a>
+        </div>
+        
+        <div class="login-column-body signup-body">
+            <h3 class="signup-title">Sign up</h3>
+            
+            <form id="newSignupForm">
+                <div class="login-input-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                
+                <div class="login-input-group">
+                    <label for="signupLastName">Last name</label>
+                    <input type="text" id="signupLastName" required>
+                </div>
+
+                <div class="login-input-group">
+                    <label for="signupFirstName">First name</label>
+                    <input type="text" id="signupFirstName" required>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="noFirstName">
+                        <label for="noFirstName" class="checkbox-label">I have no first name</label>
+                    </div>
+                </div>
+
+                <div class="login-input-group password-group">
+                    <label for="signupPassword">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="signupPassword" required>
+                        <i class="fa-solid fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+                <!-- Password Requirements List -->
+                <div class="password-requirements">
+                    <p>Password requirements:</p>
+                    <ul>
+                        <li>At least 8 characters</li>
+                        <li>A lowercase letter</li>
+                        <li>An uppercase letter</li>
+                        <li>A number</li>
+                        <li>A symbol</li>
+                        <li>No parts of your username</li>
+                        <li>Does not include your first name</li>
+                        <li>Does not include your last name</li>
+                    </ul>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="terms-group">
+                    <input type="checkbox" id="termsCheck" required>
+                    <label for="termsCheck">
+                        I confirm that I have read, understood, and agree to the <a href="#">Terms and Conditions</a> and the updated Cebu Pacific <a href="#">Privacy Policy</a>. I consent to the collection, use, processing and sharing of my personal information in accordance therewith.
+                    </label>
+                </div>
+                
+                <button type="submit" class="next-btn">Sign Up</button>
+            </form>
+            
+            <div class="signup-footer-link">
+                <!-- Links back to the Login Page -->
+                <a href="login.html">Already have an account?</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

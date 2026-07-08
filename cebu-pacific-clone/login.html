@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cebu Pacific</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page-body">
+
+    <div class="login-center-column">
+        
+        <div class="login-column-header">
+            <a href="index.html">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" class="login-logo">
+            </a>
+        </div>
+        
+        <div class="login-column-body">
+            
+            <!-- ========================================== -->
+            <!-- STEP 1: INITIAL LOGIN SCREEN -->
+            <!-- ========================================== -->
+            <div id="step-1-initial" class="auth-step active">
+                <h3>Sign in with your MyCebuPacific account</h3>
+                
+                <button class="sso-btn go-rewards-btn">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Sign in with Go Rewards</span>
+                </button>
+                <button class="sso-btn social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                    Sign in with Google
+                </button>
+                <button class="sso-btn social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook">
+                    Sign in with Facebook
+                </button>
+
+                <div class="login-divider"><span>OR</span></div>
+
+                <form id="initialLoginForm">
+                    <div class="login-input-group">
+                        <label for="emailInput">Email Address</label>
+                        <!-- Pre-filled to match your screenshots -->
+                        <input type="email" id="emailInput" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="next-btn">Next</button>
+                </form>
+                
+                <div class="login-column-footer" style="border: none; padding: 20px 0 0 0;">
+                    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 2: CHOOSE SECURITY METHOD -->
+            <!-- ========================================== -->
+            <div id="step-2-method" class="auth-step">
+                <h3 class="step-title">Verify it's you with a security method</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <p class="step-subtitle">Select from the following options</p>
+                
+                <div class="method-option">
+                    <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="method-name">Email</div>
+                    <button class="select-btn" data-target="step-3-email-send">Select</button>
+                </div>
+                
+                <div class="method-option" style="border-bottom: 1px solid #e0e0e0;">
+                    <div class="method-icon flex-col">
+                        <i class="fa-solid fa-lock" style="font-size: 11px;"></i>
+                        <span style="font-size: 14px; line-height: 0.5;">****</span>
+                    </div>
+                    <div class="method-name">Password</div>
+                    <button class="select-btn" data-target="step-password">Select</button>
+                </div>
+                
+                <div class="step-links-bottom">
+                    <a href="#" class="back-link" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 3: EMAIL - SEND LINK -->
+            <!-- ========================================== -->
+            <div id="step-3-email-send" class="auth-step">
+                <div class="large-icon-circle"><i class="fa-solid fa-envelope"></i></div>
+                <h3 class="step-title">Get a verification email</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <p class="step-desc">Send a verification email by clicking on "Send me an email".</p>
+                
+                <button class="next-btn action-btn" data-target="step-4-email-sent">Send me an email</button>
+                
+                <div class="step-links-bottom">
+                    <a href="#" class="back-link" data-target="step-2-method">Verify with something else</a>
+                    <a href="#" class="back-link" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+<!-- STEP 4: EMAIL - SENT -->
+<div id="step-4-email-sent" class="auth-step">
+    <div class="large-icon-circle"><i class="fa-solid fa-envelope"></i></div>
+    <h3 class="step-title">Verify with your email</h3>
+    <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+    
+    <!-- MOVED THE WARNING BOX ABOVE THE TEXT -->
+    <div id="timeoutWarningBox" class="warning-box" style="display: none;">
+        <div class="warning-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <span>Haven't received an email? <a href="#" id="resendEmail">Send again</a></span>
+    </div>
+    
+    <!-- The text now sits below the warning box -->
+    <p class="step-desc">We sent you a verification email. Click the verification link in your email to continue or enter the code below.</p>
+    
+    <a href="#" class="alt-action-link" data-target="step-5-email-code">Enter a verification code instead</a>
+    
+    <div class="step-links-bottom" style="margin-top: 40px;">
+        <a href="#" class="back-link" data-target="step-2-method">Verify with something else</a>
+        <a href="#" class="back-link" data-target="step-1-initial">Back to sign in</a>
+    </div>
+</div>
+
+            <!-- ========================================== -->
+            <!-- STEP 5: EMAIL - ENTER CODE FORM -->
+            <!-- ========================================== -->
+            <div id="step-5-email-code" class="auth-step">
+                <div class="large-icon-circle"><i class="fa-solid fa-envelope"></i></div>
+                <h3 class="step-title">Verify with your email</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <div class="error-box" id="codeErrorBox">
+                    <div class="error-icon"><i class="fa-solid fa-exclamation"></i></div>
+                    <span>We found some errors. Please review the form and make corrections.</span>
+                </div>
+
+                <form id="verifyCodeForm">
+                    <div class="login-input-group">
+                        <label>Enter Code</label>
+                        <input type="text" id="verificationCode" required>
+                        <span class="inline-error-text" id="codeErrorText">Invalid code. Try again.</span>
+                    </div>
+                    <button type="submit" class="next-btn">Verify</button>
+                </form>
+
+                <div class="step-links-bottom">
+                    <a href="#" class="back-link" data-target="step-2-method">Verify with something else</a>
+                    <a href="#" class="back-link" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 6: PASSWORD LOGIN -->
+            <!-- ========================================== -->
+            <div id="step-password" class="auth-step">
+                <div class="large-icon-circle flex-col">
+                    <i class="fa-solid fa-lock" style="font-size: 16px; margin-bottom: 3px;"></i>
+                    <span style="font-size: 18px; line-height: 0.5;">****</span>
+                </div>
+                <h3 class="step-title">Verify with your password</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <div class="error-box" id="passwordErrorBox">
+                    <div class="error-icon"><i class="fa-solid fa-exclamation"></i></div>
+                    <span>Unable to login</span>
+                </div>
+
+                <form id="verifyPasswordForm">
+                    <div class="login-input-group password-group">
+                        <label>Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="loginPassword" required>
+                            <i class="fa-solid fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="next-btn">Verify</button>
+                </form>
+
+                <div class="step-links-bottom">
+                    <a href="#" class="back-link">Forgot password?</a>
+                    <a href="#" class="back-link" data-target="step-2-method">Verify with something else</a>
+                    <a href="#" class="back-link" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

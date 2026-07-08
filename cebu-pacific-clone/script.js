@@ -83,119 +83,138 @@ serviceCards.forEach(card => {
     });
 });
 
-// --- 5. FULL-SCREEN LOGIN LOGIC & DATABASE CONNECTION ---
 
-// Get Modal Elements
-const headerLoginBtn = document.querySelector('.login-btn'); // Main nav bar button
-const megaLoginBtn = document.querySelector('.mega-login-btn'); // Button inside the dropdown
-const loginModal = document.getElementById('loginModal'); // The new full-screen container
-const closeLoginBtn = document.getElementById('closeModal');
-const loginForm = document.getElementById('newLoginForm'); // Updated to the new form ID
+// --- 5. HEADER LOGIN BUTTONS (REDIRECT TO PAGE) ---
 
-// Function to open the full-screen login
-function openLoginModal(e) {
+const headerLoginBtn = document.querySelector('.login-btn'); 
+const megaLoginBtn = document.querySelector('.mega-login-btn'); 
+
+function goToLoginPage(e) {
     e.preventDefault();
-    loginModal.style.display = 'flex'; // Uses 'flex' to keep the white column centered
+    window.location.href = 'login.html';
 }
 
-// Attach click events to BOTH login buttons
-if (headerLoginBtn) headerLoginBtn.addEventListener('click', openLoginModal);
-if (megaLoginBtn) megaLoginBtn.addEventListener('click', openLoginModal);
+if (headerLoginBtn) headerLoginBtn.addEventListener('click', goToLoginPage);
+if (megaLoginBtn) megaLoginBtn.addEventListener('click', goToLoginPage);
 
-// Close Modal (Clicking 'X')
-if(closeLoginBtn && loginModal) {
-    closeLoginBtn.addEventListener('click', () => {
-        loginModal.style.display = 'none';
+
+// --- 6. MULTI-STEP LOGIN ROUTER & DATABASE CONNECTION (login.html) ---
+
+let userEmail = "";
+
+// Helper: Switch visible steps
+function goToStep(targetStepId) {
+    document.querySelectorAll('.auth-step').forEach(step => step.classList.remove('active'));
+    const target = document.getElementById(targetStepId);
+    if(target) target.classList.add('active');
+}
+
+// Helper: Reset red error states
+function resetErrors() {
+    document.querySelectorAll('.error-box').forEach(box => box.style.display = 'none');
+    document.querySelectorAll('.inline-error-text').forEach(text => text.style.display = 'none');
+    document.querySelectorAll('input').forEach(input => input.classList.remove('input-error'));
+}
+
+// A. Initial Form: Capture Email and go to Method Selection
+const initialForm = document.getElementById('initialLoginForm');
+if(initialForm) {
+    initialForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        userEmail = document.getElementById('emailInput').value;
+        
+        // Update all badges with the typed email
+        document.querySelectorAll('.display-email').forEach(span => {
+            span.textContent = userEmail;
+        });
+
+        goToStep('step-2-method');
     });
 }
 
-// Handle the Login Submit (Preserved Backend Connection)
-if(loginForm) {
-    loginForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); 
+// B. Hook up all routing links/buttons
+document.querySelectorAll('[data-target]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToStep(btn.getAttribute('data-target'));
+        resetErrors();
+    });
+});
 
-        const email = document.getElementById('emailInput').value; // Matches new HTML ID
+// C. Password Verification: REAL DATABASE CONNECTION
+const passwordForm = document.getElementById('verifyPasswordForm');
+if(passwordForm) {
+    passwordForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        // Note: The visual replica only had an email field. If your backend requires a password, 
-        // ensure you have added a password input with id="passwordInput" to your HTML form!
-        const passwordField = document.getElementById('passwordInput');
-        const password = passwordField ? passwordField.value : ""; 
+        const passwordInput = document.getElementById('loginPassword');
+        const password = passwordInput.value;
+        const submitBtn = passwordForm.querySelector('.next-btn');
         
-        const submitBtn = loginForm.querySelector('.next-btn');
-        
-        // UI Feedback
-        submitBtn.innerText = "Checking..."; 
+        submitBtn.innerText = "Verifying..."; 
 
         try {
-            // Send data to the Flask Backend
+            // Send data to the Flask Backend using the email captured in Step 1
             const response = await fetch('http://127.0.0.1:5000/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: email, password: password })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, password: password })
             });
 
             const result = await response.json();
 
             if (response.ok) {
+                // Success: Redirect back to the home page!
                 alert("Success: " + result.message); 
-                loginModal.style.display = 'none'; // Close the popup on success
-                loginForm.reset(); // Clear the inputs
+                window.location.href = 'index.html'; 
             } else {
-                alert("Error: " + result.error);
+                // Error: Show the red error box and outline
+                document.getElementById('passwordErrorBox').style.display = 'flex';
+                passwordInput.classList.add('input-error');
             }
         } catch (error) {
             console.error('Error:', error);
             alert("Cannot connect to the server. Is app.py running?");
         } finally {
-            // Reset button text
-            submitBtn.innerText = "Next"; 
+            submitBtn.innerText = "Verify"; 
+        }
+    });
+}
+
+// D. Email Code Verification: Simulated Fallback 
+const codeForm = document.getElementById('verifyCodeForm');
+if(codeForm) {
+    codeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const codeInput = document.getElementById('verificationCode');
+        
+        // Since standard Flask backends only check passwords, we simulate the email code success with "0000"
+        if (codeInput.value === "0000") {
+            alert("Email Verified Successfully!");
+            window.location.href = 'index.html';
+        } else {
+            // Show red error states
+            document.getElementById('codeErrorBox').style.display = 'flex';
+            codeInput.classList.add('input-error');
+            document.getElementById('codeErrorText').style.display = 'block';
         }
     });
 }
 
 
-// --- 6. SIGNUP MODAL & DATABASE CONNECTION ---
+// --- 7. SIGNUP PAGE DATABASE CONNECTION (signup.html) ---
 
-const signupModal = document.getElementById('signupModal');
-const closeSignupModalBtn = document.getElementById('closeSignupModal');
-const signupForm = document.getElementById('signupForm');
-const switchToSignupLink = document.getElementById('switchToSignup'); // Link inside the login page
+const signupFormPage = document.getElementById('newSignupForm'); 
 
-// Open Signup Modal from the Login Page
-if(switchToSignupLink && signupModal) {
-    switchToSignupLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.style.display = 'none'; // Close login screen
-        signupModal.style.display = 'flex'; // Open signup popup
-    });
-}
-
-// Close Signup Modal
-if(closeSignupModalBtn && signupModal) {
-    closeSignupModalBtn.addEventListener('click', () => {
-        signupModal.style.display = 'none';
-    });
-}
-
-// Close if clicking outside the signup modal
-window.addEventListener('click', (e) => {
-    if (e.target === signupModal) {
-        signupModal.style.display = 'none';
-    }
-});
-
-// Handle the Signup Submit
-if(signupForm) {
-    signupForm.addEventListener('submit', async function(e) {
+if(signupFormPage) {
+    signupFormPage.addEventListener('submit', async function(e) {
         e.preventDefault(); 
-
+        
         const email = document.getElementById('signupEmail').value;
-        const firstName = document.getElementById('signupFirstName').value;
         const lastName = document.getElementById('signupLastName').value;
+        const firstName = document.getElementById('signupFirstName').value;
         const password = document.getElementById('signupPassword').value;
-        const submitBtn = signupForm.querySelector('.modal-submit-btn');
+        const submitBtn = signupFormPage.querySelector('.next-btn');
         
         submitBtn.innerText = "Saving..."; 
 
@@ -216,8 +235,8 @@ if(signupForm) {
 
             if (response.ok) {
                 alert("Success: " + result.message); 
-                signupModal.style.display = 'none'; 
-                signupForm.reset(); 
+                // Automatically redirect them back to the login page to sign in!
+                window.location.href = 'login.html'; 
             } else {
                 alert("Error: " + result.error);
             }
@@ -227,5 +246,48 @@ if(signupForm) {
         } finally {
             submitBtn.innerText = "Sign Up"; 
         }
+    });
+}
+// --- NEW: 10-SECOND TIMEOUT LOGIC ---
+
+let timeoutTimer;
+
+function startTimeoutWarning(targetStepId) {
+    // Clear any existing timer
+    clearTimeout(timeoutTimer);
+    
+    // If we just landed on the "Email Sent" step (step-4-email-sent)
+    if (targetStepId === 'step-4-email-sent') {
+        timeoutTimer = setTimeout(() => {
+            const warningBox = document.getElementById('timeoutWarningBox');
+            if(warningBox) {
+                warningBox.style.display = 'flex';
+                // Optional: Trigger a pulse animation here
+            }
+        }, 10000); // 10,000 milliseconds = 10 seconds
+    }
+}
+
+// Update your existing goToStep function to call this:
+function goToStep(targetStepId) {
+    document.querySelectorAll('.auth-step').forEach(step => step.classList.remove('active'));
+    const target = document.getElementById(targetStepId);
+    if(target) {
+        target.classList.add('active');
+        
+        // --- ADD THIS LINE ---
+        startTimeoutWarning(targetStepId); 
+    }
+}
+
+// Add the resend logic
+const resendLink = document.getElementById('resendEmail');
+if(resendLink) {
+    resendLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("Verification email resent!");
+        document.getElementById('timeoutWarningBox').style.display = 'none';
+        // Restart the 10s timer if they want to click it again later
+        startTimeoutWarning('step-4-email-sent'); 
     });
 }
