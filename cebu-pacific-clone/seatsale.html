@@ -10,22 +10,16 @@
 <body class="promo-page-body">
 
     <!-- ========================================== -->
-    <!-- TOP ADVISORY BAR -->
+    <!-- TOP BAR (Always Blue, No Travel Advisory)  -->
     <!-- ========================================== -->
-    <div class="top-advisory-bar">
-        <div class="header-content-wrapper" style="justify-content: space-between;">
-            <!-- Left Side: Travel Advisory -->
-            <div class="advisory-left" style="display: flex; align-items: center; gap: 10px; color: white; font-size: 13px;">
-                <i class="fa-solid fa-circle-info"></i> Travel Advisory: Cancelled Flights Due to Mt. Kanlaon Eruption 
-                <i class="fa-solid fa-chevron-left" style="margin-left: 15px; cursor: pointer;"></i> 
-                <i class="fa-solid fa-chevron-right" style="cursor: pointer; margin-right: 15px;"></i> 
-                <a href="#" style="color: white; text-decoration: none;">View all</a>
-            </div>
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper">
             
-            <!-- Right Side: PHP, English, Help -->
+<!-- Right Side: PHP, English, Help -->
             <div class="advisory-right">
-                <span><i class="fa-solid fa-circle-dollar-to-slot"></i> PHP <i class="fa-solid fa-caret-down dropdown-arrow"></i></span>
-                <span><i class="fa-solid fa-globe"></i> English <i class="fa-solid fa-caret-down dropdown-arrow"></i></span>
+                <!-- Added 'disabled-text' and removed the triangles -->
+                <span class="disabled-text"><i class="fa-solid fa-circle-dollar-to-slot"></i> PHP</span>
+                <span class="disabled-text"><i class="fa-solid fa-globe"></i> English</span>
                 <a href="#">Help</a>
             </div>
         </div>
@@ -75,10 +69,11 @@
             <span class="dot"></span>
         </div>
 
-        <!-- The White Bottom Curve -->
+<!-- The White Bottom Curve -->
         <div class="curve-bottom">
             <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-                <path fill="#ffffff" d="M0,100 Q720,0 1440,100 Z"></path>
+                <!-- This new path covers the corners and swoops down in the middle -->
+                <path fill="#ffffff" d="M0,0 Q720,100 1440,0 L1440,100 L0,100 Z"></path>
             </svg>
         </div>
     </div>
@@ -97,152 +92,669 @@
         </div>
     </div>
 
+<!-- ========================================== -->
+    <!-- NEW SEAT SALE FILTERS -->
     <!-- ========================================== -->
-    <!-- SEARCH WIDGET (Compact Version) -->
-    <!-- ========================================== -->
-    <div class="seat-sale-search-wrapper">
-        <div class="search-widget-compact">
-            <div class="search-field">
-                <label>From</label>
-                <input type="text" value="Manila MNL">
+    <div class="seat-sale-filters-container">
+        <div class="seat-sale-filters">
+            <div class="filter-group">
+                <label>
+                    <!-- Using your custom image from your folder -->
+                    <img src="images/Flight from.webp" alt="Flying from" class="custom-filter-icon"> 
+                    Flying from
+                </label>
+                <input type="text" placeholder="Select Origin">
             </div>
-            <i class="fa-solid fa-arrow-right-arrow-left swap-icon"></i>
-            <div class="search-field">
-                <label>To</label>
+            <div class="filter-group">
+                <label>
+                    <!-- Using your custom image from your folder -->
+                    <img src="images/Flight to.webp" alt="Flying to" class="custom-filter-icon"> 
+                    Flying to
+                </label>
                 <input type="text" placeholder="Select Destination">
             </div>
-            <div class="search-field">
-                <label>Depart</label>
-                <input type="date">
-            </div>
-            <div class="search-field">
-                <label>Return</label>
-                <input type="date">
-            </div>
-            <button class="search-flights-btn">Search flights</button>
+            <button class="apply-filter-btn">Apply</button>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- DEALS LIST SECTION -->
+    <!-- NEW DEALS LIST SECTION (DAVAO HUB) -->
     <!-- ========================================== -->
-    <div class="deals-section">
+    <div class="deals-hub-section">
         
-        <!-- Domestic Block -->
-        <div class="deals-block">
-            <h2 class="deals-header">Flights from Manila (Domestic)</h2>
-            <div class="deals-table">
-                
-                <!-- Deal Row 1 -->
-                <div class="deal-row">
-                    <div class="col-route">
-                        <strong>Manila</strong> to Boracay (Caticlan)
-                    </div>
-                    <div class="col-dates">
-                        Travel Period: Aug 01, 2026 - Nov 30, 2026
-                    </div>
-                    <div class="col-price">
-                        <span class="currency">PHP</span> 
-                        <span class="amount">199</span>
-                        <span class="fare-type">One-way Base Fare</span>
-                    </div>
-                    <div class="col-action">
-                        <button class="book-now-btn">Book now</button>
-                    </div>
-                </div>
-
-                <!-- Deal Row 2 -->
-                <div class="deal-row">
-                    <div class="col-route">
-                        <strong>Manila</strong> to Cebu
-                    </div>
-                    <div class="col-dates">
-                        Travel Period: Aug 01, 2026 - Nov 30, 2026
-                    </div>
-                    <div class="col-price">
-                        <span class="currency">PHP</span> 
-                        <span class="amount">299</span>
-                        <span class="fare-type">One-way Base Fare</span>
-                    </div>
-                    <div class="col-action">
-                        <button class="book-now-btn">Book now</button>
-                    </div>
-                </div>
-
-                <!-- Deal Row 3 -->
-                <div class="deal-row">
-                    <div class="col-route">
-                        <strong>Manila</strong> to Puerto Princesa
-                    </div>
-                    <div class="col-dates">
-                        Travel Period: Aug 01, 2026 - Nov 30, 2026
-                    </div>
-                    <div class="col-price">
-                        <span class="currency">PHP</span> 
-                        <span class="amount">399</span>
-                        <span class="fare-type">One-way Base Fare</span>
-                    </div>
-                    <div class="col-action">
-                        <button class="book-now-btn">Book now</button>
-                    </div>
-                </div>
-
-            </div>
+        <!-- Hub Header -->
+        <div class="hub-header">
+            <h2>Davao Hub #CEBSeatSale</h2>
+            <p>Sale Period: Jul 1 to Jul 15, 2026 or until seats last</p>
         </div>
 
-        <!-- International Block -->
-        <div class="deals-block">
-            <h2 class="deals-header">Flights from Manila (International)</h2>
-            <div class="deals-table">
-                
-                <!-- Deal Row 4 -->
-                <div class="deal-row">
-                    <div class="col-route">
-                        <strong>Manila</strong> to Taipei
-                    </div>
-                    <div class="col-dates">
-                        Travel Period: Sep 01, 2026 - Dec 15, 2026
-                    </div>
-                    <div class="col-price">
-                        <span class="currency">PHP</span> 
-                        <span class="amount">899</span>
-                        <span class="fare-type">One-way Base Fare</span>
-                    </div>
-                    <div class="col-action">
-                        <button class="book-now-btn">Book now</button>
+        <!-- Deals Table -->
+        <div class="deals-list-container">
+            
+            <!-- Row 1 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Cebu to</div>
+                    <div class="route-bottom">Davao</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">198</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
                     </div>
                 </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
 
-                 <!-- Deal Row 5 -->
-                 <div class="deal-row">
-                    <div class="col-route">
-                        <strong>Manila</strong> to Hong Kong
-                    </div>
-                    <div class="col-dates">
-                        Travel Period: Sep 01, 2026 - Dec 15, 2026
-                    </div>
-                    <div class="col-price">
-                        <span class="currency">PHP</span> 
-                        <span class="amount">1,299</span>
-                        <span class="fare-type">One-way Base Fare</span>
-                    </div>
-                    <div class="col-action">
-                        <button class="book-now-btn">Book now</button>
+            <!-- Row 2 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Cagayan de Oro</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">388</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
                     </div>
                 </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
 
+            <!-- Row 3 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Iloilo</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">388</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Tacloban</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">388</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+    <!-- Row 5 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Manila to</div>
+                    <div class="route-bottom">Davao</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">388</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 6 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Manila</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">388</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 7 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Bohol</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">488</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 8 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Bacolod</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">588</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 9 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Siargao</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">688</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 10 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Puerto Princesa</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">688</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 11 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Zamboanga</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">688</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 12 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Clark to</div>
+                    <div class="route-bottom">Davao</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">788</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+
+            <!-- Row 13 -->
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> Davao to</div>
+                    <div class="route-bottom">Boracay (Caticlan)</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">988</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">1 Jul- 30 Nov 2026</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
             </div>
         </div>
+        <!-- ========================================== -->
+    <!-- DOMESTIC SEAT SALE SECTION -->
+    <!-- ========================================== -->
+    <div class="deals-hub-section" style="margin-top: 60px;">
         
+        <div class="hub-header">
+            <h2>Domestic #CEBSeatSale</h2>
+            <p>Sale Period: Jul 1 to Jul 15, 2026 or until seats last</p>
+        </div>
+
+        <div class="deals-list-container" id="domestic-deals-list">
+    <!-- Rows will be injected here automatically -->
+</div>
+
+    <!-- ========================================== -->
+    <!-- INTERNATIONAL DEALS SECTION -->
+    <!-- ========================================== -->
+    <div class="deals-hub-section" style="margin-top: 60px;">
+        <div class="hub-header">
+            <h2>International #CEBSeatSale</h2>
+            <p>Sale Period: Jul 1 to Jul 15, 2026 or until seats last</p>
+        </div>
+
+        <div class="deals-list-container" id="international-deals-list">
+            <!-- Rows will be injected here automatically -->
+        </div>
     </div>
+    
 
     <!-- ========================================== -->
     <!-- COPY YOUR MAIN FOOTER HERE FROM index.html -->
     <!-- ========================================== -->
-    <footer>
-         <!-- Paste your actual footer code here -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-links-grid">
+                <div class="col"><h4>BOOK</h4><a href="#">Flights</a><a href="#">Seat Sale</a></div>
+                <div class="col"><h4>MANAGE</h4><a href="#">Check in</a><a href="#">Manage Booking</a><a href="#">Flight Status</a><a href="#">Add-ons</a><a href="#">Special Assistance</a></div>
+                <div class="col"><h4>TRAVEL INFO</h4><a href="#">Baggage Information</a><a href="#">Payment Options</a><a href="#">Travel Advisories</a><a href="#">Booking & Check-in</a><a href="#">Travel Documents</a><a href="#">Service Fees</a></div>
+                <div class="col"><h4>EXPLORE</h4><a href="#">Explore</a><a href="#">Philippine Destinations</a><a href="#">International Destinations</a><a href="#">Where We Fly</a><a href="#">City Guides</a></div>
+                <div class="col"><h4>ABOUT</h4><a href="#">About</a><a href="#">Our Story</a><a href="#">Media Center</a><a href="#">Talk to Us</a><a href="#">Careers</a></div>
+                
+                <div class="col country-selector">
+                    <h4>SELECT COUNTRY</h4>
+                    <div class="country-box"><i class="fa-solid fa-earth-asia"></i> Philippines</div>
+                </div>
+            </div>
+
+            <div class="footer-right-sidebar">
+                <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                <div class="app-buttons">
+                    <img src="images/app-store.png" alt="App Store">
+                    <img src="images/google-play.png" alt="Google Play">
+                </div>
+
+                <h4>PAYMENT PARTNERS</h4>
+                <div class="payment-grid">
+                    <img src="images/visa.png" alt="Visa">
+                    <img src="images/mastercard.png" alt="Mastercard">
+                    <img src="images/gcash.png" alt="GCash">
+                </div>
+
+                <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                <div class="accreditations">
+                    <img src="images/badge1.png" alt="Badge 1">
+                    <img src="images/badge2.png" alt="Badge 2">
+                </div>
+            </div>
+
+        </div>
     </footer>
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
+
+    <script>
+const flights = [
+  { route: "Cebu to General Santos", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Cebu", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Cagayan de Oro", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Kalibo to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Kalibo", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Davao", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Pagadian", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Iloilo", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Puerto Princesa", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Boracay (Caticlan)", price: "299", period: "1 Jul- 30 Nov 2026" },
+  { route: "Pagadian to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Bohol to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Butuan", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Coron (Busuanga)", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Butuan to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Butuan", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Zamboanga", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Zamboanga to Tawi-Tawi", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Tacloban to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Bohol", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Iloilo", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Roxas to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Roxas", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Bohol", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Puerto Princesa", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Dumaguete", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Iloilo", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Bacolod", price: "399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Tacloban", price: "399", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Dumaguete", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Zamboanga to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Tuguegarao to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cauayan to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Dumaguete to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to General Santos", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Zamboanga", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Davao", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Butuan", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Bohol", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Dumaguete", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Masbate", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to General Santos", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Coron (Busuanga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Cauayan", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Tuguegarao", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "General Santos to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Puerto Princesa", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Legazpi (Daraga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Puerto Princesa", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cagayan de Oro to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Cagayan de Oro", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Tacloban", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Legazpi (Daraga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Cagayan de Oro", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Iloilo", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Tacloban", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Cagayan de Oro", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Legazpi (Daraga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to General Santos", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Tacloban", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Zamboanga", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Boracay (Caticlan)", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Boracay (Caticlan) to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Siargao", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Legazpi (Daraga) to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+  { route: "Puerto Princesa to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to Calbayog", price: "599", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Camiguin", price: "599", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Surigao", price: "599", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Cebu", price: "599", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Bohol", price: "599", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Ozamiz", price: "599", period: "1 Jul- 30 Nov 2026" },
+  { route: "Ozamiz to Manila", price: "599", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to Calbayog", price: "699", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Bacolod", price: "699", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to Pagadian", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cauayan to Manila", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Cauayan", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Ozamiz", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Dipolog", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Coron (Busuanga)", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Siargao", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Zamboanga", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Laoag", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Laoag to Manila", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Dipolog", price: "799", period: "1 Jul- 30 Nov 2026" },
+  { route: "Dipolog to Manila", price: "799", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Davao to Puerto Princesa", price: "899", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to Boracay (Caticlan)", price: "999", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Davao", price: "999", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to San Jose (Mindoro)", price: "1099", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to Boracay (Caticlan)", price: "1099", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Virac", price: "1199", period: "1 Jul- 30 Nov 2026" },
+  { route: "Virac to Manila", price: "1199", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "El Nido to Coron (Busuanga)", price: "1799", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to Masbate", price: "1899", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Naga", price: "1899", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to Siargao", price: "2099", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "El Nido to Boracay (Caticlan)", price: "2199", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to El Nido", price: "2199", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to El Nido", price: "2899", period: "1 Jul- 30 Nov 2026" },
+  { route: "El Nido to Bohol", price: "2899", period: "1 Jul- 30 Nov 2026" }
+];
+
+const container = document.getElementById('domestic-deals-list');
+
+flights.forEach(flight => {
+    container.innerHTML += `
+        <div class="hub-deal-row">
+            <div class="deal-route">
+                <div class="route-top"><i class="fa-solid fa-plane"></i> ${flight.route.split(' to ')[0]} to</div>
+                <div class="route-bottom">${flight.route.split(' to ')[1]}</div>
+            </div>
+            <div class="deal-price">
+                <div class="price-top">For as low as</div>
+                <div class="price-bottom">
+                    <span class="currency-symbol">₱</span><span class="price-amount">${flight.price}</span> 
+                    <span class="base-fare-tag">BASE FARE</span>
+                </div>
+            </div>
+            <div class="deal-dates">
+                <div class="dates-top">Travel Period:</div>
+                <div class="dates-bottom">${flight.period}</div>
+            </div>
+            <div class="deal-action">
+                <button class="hub-book-now-btn">BOOK NOW</button>
+            </div>
+        </div>
+    `;
+});
+</script>
+<script>
+const internationalFlights = [
+  { route: "Manila to Ho Chi Minh (Saigon)", price: "1099", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Kaohsiung", price: "1099", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Taipei", price: "1099", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Macau", price: "1099", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to HongKong", price: "1399", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to HongKong", price: "1399", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Osaka (Kansai)", price: "1499", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Davao to Bangkok (Don Mueang)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to Bangkok (Don Mueang)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Bangkok (Don Mueang)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+  { route: "Clark to Bangkok (Suvarnabhumi)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Bangkok (Suvarnabhumi)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Bali (Denpasar)", price: "1899", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Bangkok (Don Mueang)", price: "1899", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Bandar Seri Begawan (Brunei)", price: "1999", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Jakarta", price: "2099", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Tokyo (Narita)", price: "2099", period: "1 Jul- 30 Nov 2026" },
+  { route: "Iloilo to HongKong", price: "2099", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Fukuoka", price: "2199", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Hanoi", price: "2299", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Da Nang", price: "2399", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to Tokyo (Narita)", price: "2699", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Iloilo to Singapore", price: "2759", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Nagoya", price: "2899", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to HongKong", price: "2999", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to Tokyo (Narita)", price: "3099", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Clark to Singapore", price: "3289", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Guangzhou (Canton)", price: "3499", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Singapore", price: "3809", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to Singapore", price: "3889", period: "1 Jul- 30 Nov 2026" },
+  { route: "Davao to HongKong", price: "3899", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Cebu to Osaka (Kansai)", price: "3999", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Dubai", price: "3999", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Kuala Lumpur", price: "4009", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Shanghai", price: "4299", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Seoul (Incheon)", price: "4472", period: "1 Jul- 30 Nov 2026" },
+  { route: "Cebu to Seoul (Incheon)", price: "4552", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Riyadh", price: "4999", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Sapporo (New Chitose)", price: "5999", period: "1 Jul- 30 Nov 2026" },
+
+  { route: "Manila to Melbourne", price: "9089", period: "1 Jul- 30 Nov 2026" },
+  { route: "Manila to Sydney", price: "9099", period: "1 Jul- 30 Nov 2026" }
+];
+
+const intContainer = document.getElementById('international-deals-list');
+
+internationalFlights.forEach(flight => {
+    // Split route into origin and destination
+    const [origin, destination] = flight.route.split(' to ');
+    
+    intContainer.innerHTML += `
+        <div class="hub-deal-row">
+            <div class="deal-route">
+                <div class="route-top"><i class="fa-solid fa-plane"></i> ${origin} to</div>
+                <div class="route-bottom">${destination}</div>
+            </div>
+            <div class="deal-price">
+                <div class="price-top">For as low as</div>
+                <div class="price-bottom">
+                    <span class="currency-symbol">₱</span><span class="price-amount">${flight.price}</span> 
+                    <span class="base-fare-tag">BASE FARE</span>
+                </div>
+            </div>
+            <div class="deal-dates">
+                <div class="dates-top">Travel Period:</div>
+                <div class="dates-bottom">${flight.period}</div>
+            </div>
+            <div class="deal-action">
+                <button class="hub-book-now-btn">BOOK NOW</button>
+            </div>
+        </div>
+    `;
+});
+</script>
 </body>
 </html>

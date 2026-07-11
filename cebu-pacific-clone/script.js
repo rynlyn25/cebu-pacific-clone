@@ -11,50 +11,51 @@ function setupTabs(tabContainerSelector) {
 setupTabs('.widget-tabs');
 setupTabs('.deal-tabs');
 
-// --- 2. HERO BACKGROUND SLIDER LOGIC ---
-const destinations = [
-    { title: "SIARGAO", image: "url('images/siargao.webp')" },
-    { title: "DAVAO", image: "url('images/davao.jpg')" },
-    { title: "ILOILO", image: "url('images/iloilo1.webp')" },
-    { title: "KAOHSIUNG", image: "url('images/KAOHSIUNG.webp')" }
-];
-
+// --- 2. HERO BACKGROUND SLIDER LOGIC (HOME PAGE) ---
 const sliderContainer = document.getElementById('slider-container');
-const sliderTitle = document.getElementById('slider-title');
-const dots = document.querySelectorAll('.dot');
 
-let currentIndex = 0;
-let slideTimer;
+if (sliderContainer) { // Only run this if we are on the Home Page
+    const destinations = [
+        { title: "SIARGAO", image: "url('images/siargao.webp')" },
+        { title: "DAVAO", image: "url('images/davao.jpg')" },
+        { title: "ILOILO", image: "url('images/iloilo1.webp')" },
+        { title: "KAOHSIUNG", image: "url('images/KAOHSIUNG.webp')" }
+    ];
 
-function updateSlide(index) {
-    currentIndex = index; 
-    sliderContainer.style.backgroundImage = destinations[currentIndex].image;
-    sliderTitle.textContent = destinations[currentIndex].title;
+    const sliderTitle = document.getElementById('slider-title');
+    const homeDots = document.querySelectorAll('.dot');
 
-    dots.forEach(dot => dot.classList.remove('active'));
-    if(dots[currentIndex]) {
-        dots[currentIndex].classList.add('active');
+    let currentIndex = 0;
+    let slideTimer;
+
+    function updateSlide(index) {
+        currentIndex = index; 
+        sliderContainer.style.backgroundImage = destinations[currentIndex].image;
+        sliderTitle.textContent = destinations[currentIndex].title;
+
+        homeDots.forEach(dot => dot.classList.remove('active'));
+        if(homeDots[currentIndex]) {
+            homeDots[currentIndex].classList.add('active');
+        }
     }
-}
 
-function nextSlide() {
-    let nextIndex = (currentIndex + 1) % destinations.length; 
-    updateSlide(nextIndex);
-}
+    function nextSlide() {
+        let nextIndex = (currentIndex + 1) % destinations.length; 
+        updateSlide(nextIndex);
+    }
 
-function startTimer() {
-    clearInterval(slideTimer); 
-    slideTimer = setInterval(nextSlide, 7000); 
-}
+    function startTimer() {
+        clearInterval(slideTimer); 
+        slideTimer = setInterval(nextSlide, 7000); 
+    }
 
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        updateSlide(index); 
-        startTimer();       
+    homeDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            updateSlide(index); 
+            startTimer();       
+        });
     });
-});
 
-if (sliderContainer) {
     updateSlide(0); 
     startTimer();   
 }
@@ -290,4 +291,54 @@ if(resendLink) {
         // Restart the 10s timer if they want to click it again later
         startTimeoutWarning('step-4-email-sent'); 
     });
+}
+// --- 8. SEAT SALE BACKGROUND SLIDER LOGIC ---
+const seatSaleHero = document.querySelector('.seat-sale-hero');
+
+if (seatSaleHero) { // Only run this if we are on the Seat Sale page
+    
+    // Put your 2 image filenames here!
+    const seatSaleImages = [
+        "url('images/HPB_PH_Domestic_Boracay_MPH_KLO_13.webp')", 
+        "url('images/CEB-Cebu-Philippines-Island-3992x2992.webp')"  
+    ];
+
+    const seatSaleDots = document.querySelectorAll('.hero-slider-dots .dot');
+
+    let seatSaleIndex = 0;
+    let seatSaleTimer;
+
+    function updateSeatSaleSlide(index) {
+        seatSaleIndex = index; 
+        // Change the background image
+        seatSaleHero.style.backgroundImage = seatSaleImages[seatSaleIndex];
+
+        // Update the active dot
+        seatSaleDots.forEach(dot => dot.classList.remove('active'));
+        if(seatSaleDots[seatSaleIndex]) {
+            seatSaleDots[seatSaleIndex].classList.add('active');
+        }
+    }
+
+    function nextSeatSaleSlide() {
+        let nextIndex = (seatSaleIndex + 1) % seatSaleImages.length; 
+        updateSeatSaleSlide(nextIndex);
+    }
+
+    function startSeatSaleTimer() {
+        clearInterval(seatSaleTimer); 
+        // 7000 = 7 seconds per slide, just like the home page
+        seatSaleTimer = setInterval(nextSeatSaleSlide, 7000); 
+    }
+
+    seatSaleDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            updateSeatSaleSlide(index); 
+            startSeatSaleTimer();       
+        });
+    });
+
+    // Start the slider automatically
+    updateSeatSaleSlide(0); 
+    startSeatSaleTimer();   
 }
