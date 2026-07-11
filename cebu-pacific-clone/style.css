@@ -2184,3 +2184,103 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
     margin-left: 6px !important; 
     font-size: 10px;
 }
+
+/* =========================================
+   CEB SUPER PASS PAGE STYLES
+   ========================================= */
+
+/* 1. Header (Home page design, white background) */
+.simplified-header {
+    background: white;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.header-nav { display: flex; gap: 30px; }
+.header-nav a { color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; }
+.header-action-right { display: flex; gap: 20px; align-items: center; color: #005eb8; font-weight: 700; }
+.login-link { color: #005eb8; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+
+/* 2. Top Advisory Bar (Transparent Text) */
+.disabled-text-transparent {
+    color: rgba(255, 255, 255, 0.8);
+    pointer-events: none; 
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+/* 3. Hero Banner (Brighter Yellow & Fixed Padding) */
+.ceb-super-pass-hero {
+    background-color: #ffd800; 
+    padding: 100px 0 150px 0;
+    border-bottom-left-radius: 50% 12%; 
+    border-bottom-right-radius: 50% 12%;
+}
+
+.hero-content {
+    max-width: 1050px; 
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left; 
+}
+
+.hero-content h1 { font-size: 42px; font-weight: 900; color: #005eb8; margin-bottom: 8px; }
+.hero-content p { font-size: 18px; font-weight: 500; color: #005eb8; margin: 0; }
+
+/* 4. Main Container & Cards (Rounded and Clean) */
+.csp-main-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1050px;
+    margin: -90px auto 50px auto; 
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.csp-card, .csp-sidebar {
+    background: white;
+    border-radius: 12px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+    overflow: hidden;
+}
+
+.csp-card { flex: 2; }
+.csp-sidebar { flex: 1; padding: 30px; }
+
+/* 5. Buy/Redeem Tabs */
+.csp-tabs { display: flex; }
+.tab-btn { flex: 1; padding: 25px 20px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; }
+.tab-btn.active { background: white; border-top: 5px solid #00a4e4; color: #333; }
+.tab-btn.inactive { background: #f3f3f3; color: #999; border-top: 5px solid transparent; }
+
+/* 6. Left Card Content & Button */
+.csp-content { display: flex; padding: 40px; justify-content: space-between; align-items: center; }
+.csp-text { max-width: 55%; }
+.csp-text h2 { color: #555; font-size: 24px; margin-bottom: 10px; }
+.csp-text p { color: #555; margin-bottom: 15px; line-height: 1.5; }
+.cheap-flights-link { color: #0088CE; font-weight: 800; text-decoration: none; }
+
+.csp-search-btn {
+    background: #0088CE; color: white; border: none; padding: 12px 25px;
+    border-radius: 6px; font-size: 15px; font-weight: bold; margin-top: 10px;
+    cursor: pointer; width: 200px;
+}
+
+.csp-image-wrapper { text-align: center; }
+.csp-character { max-width: 160px; object-fit: contain; }
+
+/* 7. Right Sidebar List Layout */
+.steps-list { list-style: none; padding: 0; margin: 0; }
+.steps-list li { margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px; } 
+.step-num { 
+    background: #6dc6f2; color: white; min-width: 25px; height: 25px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; 
+}
+.step-text { font-size: 14px; color: #333; line-height: 1.4; }
+.step-text small { display: block; color: #888; margin-top: 4px; font-size: 11px; }
