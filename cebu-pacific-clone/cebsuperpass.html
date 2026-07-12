@@ -13,40 +13,250 @@
     <!-- ========================================== -->
     <div class="top-advisory-bar force-blue-bar">
         <div class="header-content-wrapper right-align-wrapper">
-            <div class="advisory-right">
+            <div class="advisory-right" style="display: flex; align-items: center;">
                 <span class="disabled-text-transparent">
-                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP 
+                    <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
                 </span>
+                
                 <span class="disabled-text-transparent" style="margin-left: 20px; margin-right: 25px;">
-                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English
+                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English 
+                    <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
                 </span>
-                <a href="#">Help</a>
+                
+                <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- WHITE NAVIGATION HEADER (Home Page Design) -->
+    <!-- WHITE NAVIGATION HEADER -->
     <!-- ========================================== -->
     <header class="hero-header simplified-header">
+        
         <a href="index.html" class="header-logo-link">
-            <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 65px;">
         </a>
+        
         <nav class="header-nav">
-            <a href="#">Book</a>
-            <a href="#">Manage</a>
-            <a href="#">Travel Info</a>
-            <a href="#">Explore</a>
-            <a href="#">About</a>
+            <nav class="nav-links">
+                
+                <!-- 1. The "Book" Item -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Book</a>
+                    
+                    <div class="mega-menu">
+                        <div class="mega-top">
+                            <a href="#" class="mega-icon-link">
+                                <div class="mega-icon">
+                                    <img src="images/flight-status-default.png" alt="Flights" class="custom-mega-img">
+                                </div>
+                                <span>Flights</span>
+                            </a>
+                            <a href="seatsale.html" class="mega-icon-link">
+                                <div class="mega-icon">
+                                    <img src="images/your-seatsale-icon.webp" alt="Seat Sale" class="custom-mega-img">
+                                </div>
+                                <span>Seat Sale</span>
+                            </a>
+                            <a href="cebsuperpass.html" class="mega-icon-link">
+                                <div class="mega-icon">
+                                    <img src="images/super-pass-default.png" alt="CEB Super Pass" class="custom-mega-img">
+                                </div>
+                                <span>CEB Super Pass</span>
+                            </a>
+                        </div>
+                            
+                        <hr class="mega-divider">
+                        
+                        <div class="mega-bottom">
+                            <h4 class="mega-heading">FOR BUSINESS</h4>
+                            <div class="business-grid">
+                                <div class="business-item">
+                                    <a href="#">Partner Agents</a>
+                                    <p>Log in with your agent ID</p>
+                                </div>
+                                <div class="business-item">
+                                    <a href="#">Cargo</a>
+                                    <p>Know more about our fast and flexible air cargo service</p>
+                                </div>
+                                <div class="business-item">
+                                    <a href="#">Sales & Group Bookings</a>
+                                    <p>Be a partner and maximize your business' travel budget</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <!-- 2. The "Manage" Item -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Manage</a>
+                    
+                    <div class="mega-menu">
+                        <div class="mega-top">
+                            <a href="#" class="mega-icon-link">
+                                <div class="mega-icon">
+                                    <img src="images/check-in-default1.png" alt="Check in" class="custom-mega-img">
+                                </div>
+                                <span>Check in</span>
+                            </a>
+                            <a href="#" class="mega-icon-link">
+                                <div class="mega-icon">
+                                    <img src="images/manage-booking-default.png" alt="Manage Booking" class="custom-mega-img">
+                                </div>
+                                <span>Manage Booking</span>
+                            </a>
+                            <a href="#" class="mega-icon-link">
+                                <div class="mega-icon">
+                                    <img src="images/FlightStatusIcon.webp" alt="Flight Status" class="custom-mega-img">
+                                </div>
+                                <span>Flight Status</span>
+                            </a>
+                        </div>
+                        
+                        <hr class="mega-divider">
+                        
+                        <div class="mega-bottom">
+                            <div class="manage-grid">
+                                <div class="manage-item">
+                                    <a href="#">
+                                        <i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons
+                                    </a>
+                                    <p>Learn how to upgrade your trip with <a href="#" class="inline-link">baggage, meals, seats,</a> and other services</p>
+                                </div>
+
+                                <div class="manage-item">
+                                    <a href="#">
+                                        <i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance
+                                    </a>
+                                    <p>Request services for guests needing special assistance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3. The "Travel Info" Item -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Travel Info</a>
+                    
+                    <div class="mega-menu">
+                        <h4 class="mega-heading">BEFORE THE FLIGHT</h4>
+                        <div class="travel-grid">
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
+                        </div>
+
+                        <hr class="mega-divider">
+
+                        <h4 class="mega-heading">FLYING WITH US</h4>
+                        <div class="travel-grid">
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-plane"></i> Flight Timetable</a></div>
+                            <div class="travel-item"><a href="#"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 4. The "Explore" Item -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Explore</a>
+                    
+                    <div class="mega-menu">
+                        <div class="explore-top-grid">
+                            <div class="explore-dest-col">
+                                <a href="#" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
+                                <div class="destination-cards">
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/boracay.jpg');"><span>Boracay</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/siargao.jpg');"><span>Siargao</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/cebu.jpg');"><span>Cebu</span></a>
+                                </div>
+                            </div>
+
+                            <div class="explore-dest-col">
+                                <a href="#" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
+                                <div class="destination-cards">
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/dubai.jpg');"><span>Dubai</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/hongkong.jpg');"><span>Hong Kong</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/singapore.jpg');"><span>Singapore</span></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="mega-divider">
+
+                        <div class="explore-bottom-grid">
+                            <div class="explore-item">
+                                <a href="#"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
+                                <p>Simple tips to make you a better and smarter traveler</p>
+                            </div>
+                            <div class="explore-item">
+                                <a href="#"><i class="fa-solid fa-map"></i> Where We Fly</a>
+                                <p>See our full list of destinations and choose where to go for your next trip</p>
+                            </div>
+                            <div class="explore-item">
+                                <a href="#"><i class="fa-solid fa-location-dot"></i> City Guides</a>
+                                <p>Know the basics and discover hidden gems in your next destination</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 5. The "About" Item -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">About</a>
+                    
+                    <div class="mega-menu">
+                        <div class="about-grid">
+                            <div class="about-item">
+                                <a href="#">Our Story</a>
+                                <p>See how we made moments happen for everyjuan from 1996 up to present</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="#">Media Center</a>
+                                <p>Be updated on the latest airline news through our press releases and media galleries</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="#">Talk to Us</a>
+                                <p>Get answers to your questions or <a href="#" class="inline-link">send feedback</a> to our customer support team</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="#">Campaigns & Partners</a>
+                                <p>Read up on our campaigns and partnership initiatives</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="#">Company Information</a>
+                                <p>Read more information about Cebu Pacific for shareholders, potential investors, and financial analysts</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="#">
+                                    Careers 
+                                    <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </nav>
+        
         <div class="header-action-right">
             <a href="login.html" class="login-link"><i class="fa-solid fa-circle-user"></i> Log in</a>
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <i class="fa-solid fa-magnifying-glass search-icon" style="margin-left: 15px; color: #005eb8; font-size: 18px; cursor: pointer;"></i>
         </div>
+        
     </header>
 
     <!-- ========================================== -->
-    <!-- HERO BANNER (Left Aligned & Brighter) -->
+    <!-- HERO BANNER -->
     <!-- ========================================== -->
     <div class="ceb-super-pass-hero">
         <div class="hero-content">
@@ -56,7 +266,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- MAIN CARDS CONTAINER (Single Block) -->
+    <!-- MAIN CARDS CONTAINER -->
     <!-- ========================================== -->
     <div class="csp-main-container">
         
@@ -66,6 +276,7 @@
                 <button class="tab-btn active">Buy</button>
                 <button class="tab-btn inactive">Redeem</button>
             </div>
+            
             <div class="csp-content">
                 <div class="csp-text">
                     <h2>We're all sold out</h2>
@@ -75,8 +286,7 @@
                     <button class="csp-search-btn">Search Flights</button>
                 </div>
                 <div class="csp-image-wrapper">
-                    <!-- Make sure image name matches yours -->
-                    <img src="images/character.png" alt="Character" class="csp-character">
+                    <img src="images/csp-girl-illustration.webp" alt="Character" class="csp-character">
                 </div>
             </div>
         </div>
@@ -85,9 +295,9 @@
         <div class="csp-sidebar">
             <h3 style="margin-bottom: 20px; display: flex; align-items: center;">
                 How to buy 
-                <!-- Make sure plane image name matches yours -->
-                <img src="images/plane-icon.png" alt="" style="height: 24px; margin-left: 8px;">
+                <img src="images/plane-icon.webp" alt="" style="height: 24px; margin-left: 8px;">
             </h3>
+            
             <ul class="steps-list">
                 <li>
                     <span class="step-num">1</span> 
@@ -102,17 +312,75 @@
                     <div class="step-text">Enter the names of the voucher holders, then pay for the amount due</div>
                 </li>
             </ul>
+            
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             <h3 style="margin-bottom: 15px;">Want to know more?</h3>
             
             <div style="display: flex; align-items: center; margin-bottom: 15px; font-weight: bold; color: #444; font-size: 14px;">
-                <!-- Make sure FAQ image name matches yours -->
-                <img src="images/faq-icon.png" alt="" style="height: 22px; margin-right: 12px;"> FAQ
+                <img src="images/HelpCentre-icon.webp" alt="" style="height: 22px; margin-right: 12px;"> FAQ
             </div>
             
             <div style="display: flex; align-items: center; font-weight: bold; color: #444; font-size: 14px;">
-                <!-- Make sure T&C image name matches yours -->
-                <img src="images/doc-icon.png" alt="" style="height: 22px; margin-right: 12px;"> Terms and Conditions
+                <img src="images/list-icon.webp" alt="" style="height: 22px; margin-right: 12px;"> Terms and Conditions
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- NEW FOOTER SECTION -->
+    <!-- ========================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-links-grid">
+                <div class="col"><h4>BOOK</h4><a href="#">Flights</a><a href="#">Seat Sale</a></div>
+                <div class="col"><h4>MANAGE</h4><a href="#">Check in</a><a href="#">Manage Booking</a><a href="#">Flight Status</a><a href="#">Add-ons</a><a href="#">Special Assistance</a></div>
+                <div class="col"><h4>TRAVEL INFO</h4><a href="#">Baggage Information</a><a href="#">Payment Options</a><a href="#">Travel Advisories</a><a href="#">Booking & Check-in</a><a href="#">Travel Documents</a><a href="#">Service Fees</a></div>
+                <div class="col"><h4>EXPLORE</h4><a href="#">Explore</a><a href="#">Philippine Destinations</a><a href="#">International Destinations</a><a href="#">Where We Fly</a><a href="#">City Guides</a></div>
+                <div class="col"><h4>ABOUT</h4><a href="#">About</a><a href="#">Our Story</a><a href="#">Media Center</a><a href="#">Talk to Us</a><a href="#">Careers</a></div>
+                
+                <div class="col country-selector">
+                    <h4>SELECT COUNTRY</h4>
+                    <div class="country-box"><i class="fa-solid fa-earth-asia"></i> Philippines</div>
+                </div>
+            </div>
+
+            <div class="footer-right-sidebar">
+                <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                <div class="app-buttons">
+                    <img src="images/app-store.png" alt="App Store">
+                    <img src="images/google-play.png" alt="Google Play">
+                </div>
+
+                <h4>PAYMENT PARTNERS</h4>
+                <div class="payment-grid">
+                    <img src="images/visa.png" alt="Visa">
+                    <img src="images/mastercard.png" alt="Mastercard">
+                    <img src="images/gcash.png" alt="GCash">
+                </div>
+
+                <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                <div class="accreditations">
+                    <img src="images/badge1.png" alt="Badge 1">
+                    <img src="images/badge2.png" alt="Badge 2">
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
             </div>
         </div>
     </div>

@@ -2199,27 +2199,75 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.header-nav { display: flex; gap: 30px; }
-.header-nav a { color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; }
-.header-action-right { display: flex; gap: 20px; align-items: center; color: #005eb8; font-weight: 700; }
-.login-link { color: #005eb8; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-
-/* 2. Top Advisory Bar (Transparent Text) */
-.disabled-text-transparent {
-    color: rgba(255, 255, 255, 0.8);
-    pointer-events: none; 
-    font-size: 13px;
-    display: inline-flex;
+/* =========================================
+   NAVIGATION FIX (Home Page Design)
+   ========================================= */
+/* =========================================
+   CEBU PACIFIC STANDARD NAVIGATION
+   ========================================= */
+.header-nav { 
+    display: flex; 
+    gap: 32px; /* The exact wide spacing between links */
     align-items: center;
-    margin-right: 15px;
 }
 
-/* 3. Hero Banner (Brighter Yellow & Fixed Padding) */
+.header-nav a { 
+    color: #005eb8; 
+    text-decoration: none; 
+    font-weight: 700; /* Standard bold */
+    font-size: 15px; 
+    font-family: "Noto Sans", Arial, sans-serif; /* Ensures the correct font family */
+    transition: color 0.2s ease-in-out;
+}
+
+/* Adds the authentic light-blue color when you hover your mouse over them */
+.header-nav a:hover {
+    color: #00a4e4; 
+}
+
+.header-action-right { 
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+    color: #005eb8; 
+}
+
+.login-link { 
+    color: #005eb8; 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    font-weight: 700; /* THE FIX: Dropped to standard bold */
+    font-size: 14px;
+}
+
+/* =========================================
+   TOP BAR FIX (True Transparency)
+   ========================================= */
+.disabled-text-transparent {
+    color: #ffffff; 
+    opacity: 0.55; /* THE FIX: This forces the entire element to be 55% transparent */
+    pointer-events: none; /* Strictly unclickable */
+    user-select: none; 
+    cursor: default; 
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* =========================================
+   HERO BANNER (Fixes text overlap & curve)
+   ========================================= */
 .ceb-super-pass-hero {
     background-color: #ffd800; 
-    padding: 100px 0 150px 0;
-    border-bottom-left-radius: 50% 12%; 
-    border-bottom-right-radius: 50% 12%;
+    /* INCREASED TOP PADDING to 130px to push text out of the white header */
+    padding: 150px 0 220px 0; 
+    
+    /* Slightly flatter curve to match original */
+    border-bottom-left-radius: 50% 8%; 
+    border-bottom-right-radius: 50% 8%;
 }
 
 .hero-content {
@@ -2229,15 +2277,41 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
     text-align: left; 
 }
 
-.hero-content h1 { font-size: 42px; font-weight: 900; color: #005eb8; margin-bottom: 8px; }
-.hero-content p { font-size: 18px; font-weight: 500; color: #005eb8; margin: 0; }
+/* =========================================
+   HERO TEXT FIX (Removed shadow, fixed blue)
+   ========================================= */
 
-/* 4. Main Container & Cards (Rounded and Clean) */
+.hero-content h1 { 
+    font-size: 38px; 
+    font-weight: 650; /* Bold, but clean */
+    color: #0060A7; /* The vibrant original blue */
+    margin-top: 0; 
+    margin-bottom: 10px; 
+    
+    /* THIS IS THE MAGIC FIX: Removes the dark shadow */
+    text-shadow: none !important; 
+    
+    letter-spacing: 0.5px;
+}
+
+.hero-content p { 
+    font-size: 20px; 
+    font-weight: 500; /* Lighter weight than the title */
+    color: #0062bd; /* Matching vibrant blue */
+    margin: 0; 
+    
+    /* Removes the shadow from the subtitle too */
+    text-shadow: none !important; 
+}
+
+/* =========================================
+   MAIN CONTAINER & CARDS (Fixes box sizes)
+   ========================================= */
 .csp-main-container {
     display: flex;
-    gap: 30px;
-    max-width: 1050px;
-    margin: -90px auto 50px auto; 
+    gap: 25px; /* Slightly tighter gap */
+    max-width: 1050px; 
+    margin: -140px auto 50px auto; /* Overlaps perfectly on the yellow */
     padding: 0 20px;
     position: relative;
     z-index: 10;
@@ -2250,26 +2324,65 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
     overflow: hidden;
 }
 
-.csp-card { flex: 2; }
+/* Balances the width between the left card and right sidebar */
+.csp-card { 
+    /* This ensures it is wider than the right sidebar */
+    flex: 2.3; 
+    background: white;
+    border-radius: 12px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+    overflow: hidden;
+} 
 .csp-sidebar { flex: 1; padding: 30px; }
 
 /* 5. Buy/Redeem Tabs */
 .csp-tabs { display: flex; }
-.tab-btn { flex: 1; padding: 25px 20px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; }
-.tab-btn.active { background: white; border-top: 5px solid #00a4e4; color: #333; }
+/* Reduces the height of the Buy & Redeem tabs */
+.tab-btn { 
+    flex: 1; 
+    /* THE FIX: Reduced top and bottom padding to 20px */
+    padding: 20px 20px; 
+    font-weight: 700; 
+    font-size: 16px; 
+    border: none; 
+    cursor: pointer; 
+}
+.tab-btn.active { background: white; border-top: 5px solid #4bc2e8; color: #333; }
 .tab-btn.inactive { background: #f3f3f3; color: #999; border-top: 5px solid transparent; }
 
 /* 6. Left Card Content & Button */
-.csp-content { display: flex; padding: 40px; justify-content: space-between; align-items: center; }
-.csp-text { max-width: 55%; }
+/* Reduces the height of the bottom half */
+/* Reduces the height of the main content area below the tabs */
+.csp-content { 
+    display: flex; 
+    /* THE FIX: Reduced vertical padding */
+    padding: 35px 40px; 
+    
+    /* THE FIX: Set to auto so it doesn't force a massive height */
+    min-height: auto; 
+    
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.csp-text { max-width: 60%; }
 .csp-text h2 { color: #555; font-size: 24px; margin-bottom: 10px; }
 .csp-text p { color: #555; margin-bottom: 15px; line-height: 1.5; }
 .cheap-flights-link { color: #0088CE; font-weight: 800; text-decoration: none; }
 
 .csp-search-btn {
-    background: #0088CE; color: white; border: none; padding: 12px 25px;
-    border-radius: 6px; font-size: 15px; font-weight: bold; margin-top: 10px;
-    cursor: pointer; width: 200px;
+    background-color: #0088ce; 
+    color: white; 
+    border: none; 
+    padding: 14px 25px;
+    border-radius: 6px; 
+    font-size: 16px; 
+    font-weight: 700; 
+    margin-top: 15px;
+    cursor: pointer; 
+    
+    /* THE FIX: Makes the button much longer */
+    width: 320px; 
 }
 
 .csp-image-wrapper { text-align: center; }
