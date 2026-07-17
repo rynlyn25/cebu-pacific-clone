@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Partner Agent Login - Cebu Pacific</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="partner-login-body">
+    
+    <!-- Replace 'mountain-bg.jpg' with your actual background image file -->
+    <div class="partner-login-bg" style="background-image: url('images/CGY Hub (6 of 13).jpg');"></div>
+
+    <div class="partner-logo-container">
+        <!-- Using a CSS filter to turn your blue logo pure white to match the image -->
+        <a href="index.html">
+            <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px; filter: brightness(0) invert(1);">
+        </a>
+    </div>
+
+    <div class="partner-login-card">
+        <h2>Login</h2>
+        <p>Enter your CEB partner account</p>
+
+        <div class="input-group">
+            <label>Agent ID</label>
+            <!-- ADDED ID -->
+            <input type="text" id="agent-id" placeholder="Enter ID">
+        </div>
+
+        <div class="input-group password-group">
+            <label>Password</label>
+            <!-- ADDED ID -->
+            <input type="password" id="agent-password" placeholder="Enter Password">
+            <i class="fa-regular fa-eye view-password-icon"></i>
+        </div>
+
+        <a href="forgot-password.html" class="forgot-password">Forgot your password?</a>
+
+        <!-- THE NEW ERROR MESSAGE (Hidden by default) -->
+        <div id="login-error-msg" class="error-message" style="display: none;">
+            <i class="fa-solid fa-circle-exclamation" style="margin-top: 3px;"></i> 
+            <span>The ID and password you entered does not match our records. Please try again or click "Forgot your password?"</span>
+        </div>
+
+        <!-- ADDED ID TO BUTTON -->
+        <button id="login-btn" class="partner-login-btn">Log in</button>
+    </div>
+    <!-- ========================================== -->
+    <!-- LOGIN VALIDATION SCRIPT (Updated) -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Find the button
+            const loginBtn = document.getElementById('login-btn');
+
+            // Make sure the button actually exists before adding the click event
+            if (loginBtn) {
+                loginBtn.addEventListener('click', function(event) {
+                    event.preventDefault(); // Stops page refresh
+
+                    // Grab the elements
+                    const agentIdInput = document.getElementById('agent-id');
+                    const passwordInput = document.getElementById('agent-password');
+                    const errorMsg = document.getElementById('login-error-msg');
+
+                    // Double check that all elements exist to prevent silent crashes
+                    if (!agentIdInput || !passwordInput || !errorMsg) {
+                        console.error("Missing an ID! Check your HTML.");
+                        return;
+                    }
+
+                    // Regex check for empty strings or pure spaces
+                    const isBlankRegex = /^\s*$/;
+
+                    if (isBlankRegex.test(agentIdInput.value) || isBlankRegex.test(passwordInput.value)) {
+                        errorMsg.style.display = 'flex';
+                    } else {
+                        errorMsg.style.display = 'none';
+                        alert("Credentials accepted! (This is a clone)");
+                    }
+                });
+            } else {
+                console.error("Could not find the login button! Check the button ID.");
+            }
+        });
+    </script>
+</body>
+</html>

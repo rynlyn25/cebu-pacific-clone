@@ -2397,3 +2397,271 @@ footer { background-color: white; padding: 60px 10% 20px; border-top: 1px solid 
 }
 .step-text { font-size: 14px; color: #333; line-height: 1.4; }
 .step-text small { display: block; color: #888; margin-top: 4px; font-size: 11px; }
+/* =========================================
+   PARTNER AGENT LOGIN PAGE
+   ========================================= */
+
+.partner-login-body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Takes up the full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Noto Sans", Arial, sans-serif;
+    position: relative;
+    overflow: hidden; /* Prevents scrollbars */
+}
+
+.partner-login-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.partner-logo-container {
+    position: absolute;
+    top: 35px;
+    left: 5%;
+}
+
+.partner-login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Soft drop shadow */
+    width: 100%;
+    max-width: 400px; /* Exact width from image */
+    box-sizing: border-box;
+}
+
+.partner-login-card h2 {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+    color: #222;
+    font-weight: 800;
+}
+
+.partner-login-card p {
+    margin: 0 0 25px 0;
+    font-size: 14px;
+    color: #444;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-group label {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+/* Highlights the box blue when typing */
+.input-group input:focus {
+    border-color: #0088ce;
+}
+
+.password-group .view-password-icon {
+    position: absolute;
+    right: 15px;
+    top: 36px;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.forgot-password {
+    display: block;
+    font-size: 12px;
+    color: #005eb8;
+    text-decoration: none;
+    margin-bottom: 25px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.partner-login-btn {
+    background: #0088ce;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.partner-login-btn:hover {
+    background: #006eb3;
+}
+.error-message {
+    color: #c8102e; /* The specific red used for errors */
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    /* We use flex to align the icon and text nicely side-by-side */
+    display: flex; 
+    align-items: flex-start;
+    gap: 8px;
+}
+/* =========================================
+   FORGOT PASSWORD PAGE OF PARTNER LOGIN
+   ========================================= */
+.forgot-pwd-body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f5f7; /* Light gray background from the image */
+    font-family: "Noto Sans", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the footer stays at the very bottom */
+}
+
+.forgot-hero {
+    background-color: #ffd800; /* Cebu Pacific Yellow */
+    padding: 40px 5%;
+    /* Creates the slight curve at the bottom of the yellow banner */
+    border-bottom-left-radius: 50% 12px;
+    border-bottom-right-radius: 50% 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.forgot-hero-content {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.forgot-hero h1 {
+    color: #005eb8; /* True Cebu Pacific Blue */
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.forgot-main {
+    flex: 1; /* Pushes the main content to fill space, keeping footer down */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.forgot-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06); /* Soft drop shadow */
+    width: 100%;
+    max-width: 520px; 
+    padding: 45px 50px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.forgot-instructions {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 30px 0;
+}
+
+.forgot-input-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.forgot-input-group label {
+    display: block;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.required-star {
+    color: #c8102e; /* Red asterisk */
+    font-weight: bold;
+}
+
+.forgot-input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.forgot-input-group input:focus {
+    border-color: #0088ce;
+}
+
+.reset-btn {
+    background-color: #c4e0eb; /* Matches the light, inactive blue in your image */
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: default; /* Keeps it looking inactive */
+    margin-bottom: 25px;
+}
+
+.cancel-link {
+    display: inline-block;
+    color: #005eb8;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}
+
+.forgot-footer {
+    background-color: #ffd800;
+    color: #005eb8;
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+/* =========================================
+   FORGOT PASSWORD ACTIVE BUTTON
+   ========================================= */
+.reset-btn.active {
+    background-color: #0088ce !important; /* The strong Cebu Pacific blue */
+    cursor: pointer !important;
+    transition: background-color 0.2s ease;
+}
+
+.reset-btn.active:hover {
+    background-color: #006eb3 !important; /* Slightly darker on hover */
+}
