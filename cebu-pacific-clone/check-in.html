@@ -2,28 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CEB Super Pass</title>
+    <title>Check-in - Cebu Pacific</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <!-- ========================================== -->
-    <!-- TOP BAR (Fixed spacing and unclickable) -->
+    <!-- TOP ADVISORY BAR -->
     <!-- ========================================== -->
     <div class="top-advisory-bar force-blue-bar">
         <div class="header-content-wrapper right-align-wrapper">
-            <div class="advisory-right" style="display: flex; align-items: center;">
+            <div class="advisory-right" style="display: flex; align-items: center; margin-left: auto;">
                 <span class="disabled-text-transparent">
-                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP 
-                    <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
                 </span>
-                
                 <span class="disabled-text-transparent" style="margin-left: 20px; margin-right: 25px;">
-                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English 
-                    <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
+                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
                 </span>
-                
                 <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
             </div>
         </div>
@@ -256,78 +252,113 @@
     </header>
 
     <!-- ========================================== -->
-    <!-- HERO BANNER -->
+    <!-- YELLOW CHECK-IN BANNER -->
     <!-- ========================================== -->
-    <div class="ceb-super-pass-hero">
-        <div class="hero-content">
-            <h1>CEB Super Pass</h1>
-            <p>Flexible, affordable one-way vouchers for any of our domestic destinations</p>
+    <div class="checkin-hero-banner" style="padding: 120px 0 50px !important;">
+        <div class="checkin-container-inner">
+            <h1>Check-in</h1>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- MAIN CARDS CONTAINER -->
+    <!-- CHECK-IN MAIN CONTENT (Grey Background) -->
     <!-- ========================================== -->
-    <div class="csp-main-container">
-        
-        <!-- Left Card: Buy/Redeem -->
-        <div class="csp-card">
-            <div class="csp-tabs">
-                <button class="tab-btn active">Buy</button>
-                <button class="tab-btn inactive">Redeem</button>
-            </div>
-            
-            <div class="csp-content">
-                <div class="csp-text">
-                    <h2>We're all sold out</h2>
-                    <p>Thank you for choosing Cebu Pacific.</p>
-                    <p>In case you weren't able to grab a CEB Super Pass, you can <br>
-                    <a href="#" class="cheap-flights-link">check out our other cheap flights</a>!</p>
-                    <button class="csp-search-btn">Search Flights</button>
+    <div class="checkin-page-bg">
+        <div class="checkin-container">
+            <div class="checkin-grid">
+                
+                <!-- LEFT CARD: Info -->
+                <div class="checkin-card info-card">
+                    <h2>Fly easy and check in ahead of your flight!</h2>
+                    
+                    <ul class="checkin-features">
+                        <li>
+                            <i class="fa-solid fa-check check-icon"></i>
+                            <div class="feature-text">
+                                <p>Online check-in is available from:</p>
+                                <div class="flight-type">
+                                    <i class="fa-solid fa-plane-departure plane-icon"></i>
+                                    <div>
+                                        <strong>Domestic:</strong><br>
+                                        48 hours up to 1 hour before flight
+                                    </div>
+                                </div>
+                                <div class="flight-type">
+                                    <i class="fa-solid fa-plane-departure plane-icon"></i>
+                                    <div>
+                                        <strong>International:</strong><br>
+                                        48 hours up to 2 hours before flight
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check check-icon"></i>
+                            <div class="feature-text">
+                                <p>You can make changes or buy add-ons for your flight after checking in</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="csp-image-wrapper">
-                    <img src="images/csp-girl-illustration.webp" alt="Character" class="csp-character">
-                </div>
-            </div>
-        </div>
 
-        <!-- Right Sidebar: How to buy -->
-        <div class="csp-sidebar">
-            <h3 style="margin-bottom: 20px; display: flex; align-items: center;">
-                How to buy 
-                <img src="images/plane-icon.webp" alt="" style="height: 24px; margin-left: 8px;">
-            </h3>
-            
-            <ul class="steps-list">
-                <li>
-                    <span class="step-num">1</span> 
-                    <div class="step-text">Sign up or log in to your MyCebuPacific account to purchase</div>
-                </li>
-                <li>
-                    <span class="step-num">2</span> 
-                    <div class="step-text">Buy up to 10 vouchers per transaction <br><small>Tip: You can transact as many times as you want</small></div>
-                </li>
-                <li>
-                    <span class="step-num">3</span> 
-                    <div class="step-text">Enter the names of the voucher holders, then pay for the amount due</div>
-                </li>
-            </ul>
-            
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-            <h3 style="margin-bottom: 15px;">Want to know more?</h3>
-            
-            <div style="display: flex; align-items: center; margin-bottom: 15px; font-weight: bold; color: #444; font-size: 14px;">
-                <img src="images/HelpCentre-icon.webp" alt="" style="height: 22px; margin-right: 12px;"> FAQ
-            </div>
-            
-            <div style="display: flex; align-items: center; font-weight: bold; color: #444; font-size: 14px;">
-                <img src="images/list-icon.webp" alt="" style="height: 22px; margin-right: 12px;"> Terms and Conditions
+                <!-- RIGHT CARD: Form -->
+                <div class="checkin-card form-card">
+                    <h2>Check-in</h2>
+                    <p class="form-subtitle">Type in your details to check in for your flight</p>
+
+                    <div class="checkin-input-group">
+                        <label>Booking Reference Number</label>
+                        <div class="input-with-icon">
+                            <input type="text" id="booking-ref" placeholder="e.g 1AB234C or 0123456789">
+                            <i class="fa-solid fa-circle-question help-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="checkin-input-group">
+                        <label>Last name or email address</label>
+                        <input type="text" id="last-name" placeholder="Enter last name or email address">
+                    </div>
+
+                    <button id="guest-btn" class="btn-guest">Continue as guest</button>
+
+                    <div class="divider-or">
+                        <span>or</span>
+                    </div>
+
+                    <button class="btn-member">Continue as MyCebuPacific member</button>
+                </div>
+
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- NEW FOOTER SECTION -->
+    <!-- SCRIPT FOR BUTTON ACTIVATION -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookingInput = document.getElementById('booking-ref');
+            const nameInput = document.getElementById('last-name');
+            const guestBtn = document.getElementById('guest-btn');
+
+            function checkInputs() {
+                // If both fields have at least 1 character, turn the button blue!
+                if (bookingInput.value.trim().length > 0 && nameInput.value.trim().length > 0) {
+                    guestBtn.classList.add('active');
+                } else {
+                    guestBtn.classList.remove('active');
+                }
+            }
+
+            // Listen for typing in both boxes
+            if (bookingInput && nameInput) {
+                bookingInput.addEventListener('input', checkInputs);
+                nameInput.addEventListener('input', checkInputs);
+            }
+        });
+    </script>
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION -->
     <!-- ========================================== -->
     <footer class="site-footer">
         <div class="footer-container">
@@ -383,6 +414,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>

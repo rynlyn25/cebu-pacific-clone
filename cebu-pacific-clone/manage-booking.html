@@ -2,34 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CEB Super Pass</title>
+    <title>Manage Booking - Cebu Pacific</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <!-- ========================================== -->
-    <!-- TOP BAR (Fixed spacing and unclickable) -->
+    <!-- TOP ADVISORY BAR (Blue) -->
     <!-- ========================================== -->
     <div class="top-advisory-bar force-blue-bar">
         <div class="header-content-wrapper right-align-wrapper">
-            <div class="advisory-right" style="display: flex; align-items: center;">
+            <div class="advisory-right" style="display: flex; align-items: center; margin-left: auto;">
                 <span class="disabled-text-transparent">
-                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP 
-                    <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
                 </span>
-                
                 <span class="disabled-text-transparent" style="margin-left: 20px; margin-right: 25px;">
-                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English 
-                    <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
+                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
                 </span>
-                
                 <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
             </div>
         </div>
     </div>
 
-    <!-- ========================================== -->
+     <!-- ========================================== -->
     <!-- WHITE NAVIGATION HEADER -->
     <!-- ========================================== -->
     <header class="hero-header simplified-header">
@@ -256,78 +252,104 @@
     </header>
 
     <!-- ========================================== -->
-    <!-- HERO BANNER -->
+    <!-- BREADCRUMBS -->
     <!-- ========================================== -->
-    <div class="ceb-super-pass-hero">
-        <div class="hero-content">
-            <h1>CEB Super Pass</h1>
-            <p>Flexible, affordable one-way vouchers for any of our domestic destinations</p>
+    <div class="breadcrumbs-container">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a> &rsaquo; 
+            <span>Manage Booking</span>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- MAIN CARDS CONTAINER -->
+    <!-- YELLOW HERO BANNER (Text Pushed Down) -->
     <!-- ========================================== -->
-    <div class="csp-main-container">
-        
-        <!-- Left Card: Buy/Redeem -->
-        <div class="csp-card">
-            <div class="csp-tabs">
-                <button class="tab-btn active">Buy</button>
-                <button class="tab-btn inactive">Redeem</button>
-            </div>
-            
-            <div class="csp-content">
-                <div class="csp-text">
-                    <h2>We're all sold out</h2>
-                    <p>Thank you for choosing Cebu Pacific.</p>
-                    <p>In case you weren't able to grab a CEB Super Pass, you can <br>
-                    <a href="#" class="cheap-flights-link">check out our other cheap flights</a>!</p>
-                    <button class="csp-search-btn">Search Flights</button>
-                </div>
-                <div class="csp-image-wrapper">
-                    <img src="images/csp-girl-illustration.webp" alt="Character" class="csp-character">
-                </div>
-            </div>
+    <div class="checkin-hero-banner" style="padding: 120px 0 50px !important;">
+        <div class="checkin-container-inner">
+            <h1>Manage Booking</h1>
         </div>
+    </div>
 
-        <!-- Right Sidebar: How to buy -->
-        <div class="csp-sidebar">
-            <h3 style="margin-bottom: 20px; display: flex; align-items: center;">
-                How to buy 
-                <img src="images/plane-icon.webp" alt="" style="height: 24px; margin-left: 8px;">
-            </h3>
-            
-            <ul class="steps-list">
-                <li>
-                    <span class="step-num">1</span> 
-                    <div class="step-text">Sign up or log in to your MyCebuPacific account to purchase</div>
-                </li>
-                <li>
-                    <span class="step-num">2</span> 
-                    <div class="step-text">Buy up to 10 vouchers per transaction <br><small>Tip: You can transact as many times as you want</small></div>
-                </li>
-                <li>
-                    <span class="step-num">3</span> 
-                    <div class="step-text">Enter the names of the voucher holders, then pay for the amount due</div>
-                </li>
-            </ul>
-            
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-            <h3 style="margin-bottom: 15px;">Want to know more?</h3>
-            
-            <div style="display: flex; align-items: center; margin-bottom: 15px; font-weight: bold; color: #444; font-size: 14px;">
-                <img src="images/HelpCentre-icon.webp" alt="" style="height: 22px; margin-right: 12px;"> FAQ
-            </div>
-            
-            <div style="display: flex; align-items: center; font-weight: bold; color: #444; font-size: 14px;">
-                <img src="images/list-icon.webp" alt="" style="height: 22px; margin-right: 12px;"> Terms and Conditions
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT (Grey Background) -->
+    <!-- ========================================== -->
+    <div class="checkin-page-bg">
+        <div class="checkin-container">
+            <div class="checkin-grid">
+                
+                <!-- LEFT CARD: 2-Column Checklist -->
+                <div class="checkin-card info-card">
+                    <h2>Manage your booking up to two (2) hours before your flight!</h2>
+                    
+                    <div class="manage-features-grid">
+                        <!-- Column 1 Items -->
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> View your itinerary</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Purchase Add-ons</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Request a refund</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Update Guest Details</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Convert to Travel Fund</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Settle your balance</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Change your flight</div>
+                        <div class="manage-feature-item"><i class="fa-solid fa-check check-icon"></i> Check-in your flight and many more...</div>
+                    </div>
+                </div>
+
+                <!-- RIGHT CARD: Form -->
+                <div class="checkin-card form-card">
+                    <h2>Manage booking</h2>
+                    <p class="form-subtitle">Type in your details to manage your booking</p>
+
+                    <div class="checkin-input-group">
+                        <label>Booking Reference Number</label>
+                        <div class="input-with-icon">
+                            <input type="text" id="booking-ref" placeholder="e.g. 1AB234 or 013402093131">
+                            <i class="fa-solid fa-circle-question help-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="checkin-input-group">
+                        <label>Last name or email address</label>
+                        <input type="text" id="last-name" placeholder="Enter last name or email address">
+                    </div>
+
+                    <button id="guest-btn" class="btn-guest">Continue as guest</button>
+
+                    <div class="divider-or">
+                        <span>or</span>
+                    </div>
+
+                    <button class="btn-member">Continue as MyCebuPacific member</button>
+                </div>
+
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- NEW FOOTER SECTION -->
+    <!-- SCRIPT FOR BUTTON ACTIVATION -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookingInput = document.getElementById('booking-ref');
+            const nameInput = document.getElementById('last-name');
+            const guestBtn = document.getElementById('guest-btn');
+
+            function checkInputs() {
+                if (bookingInput.value.trim().length > 0 && nameInput.value.trim().length > 0) {
+                    guestBtn.classList.add('active');
+                } else {
+                    guestBtn.classList.remove('active');
+                }
+            }
+
+            if (bookingInput && nameInput) {
+                bookingInput.addEventListener('input', checkInputs);
+                nameInput.addEventListener('input', checkInputs);
+            }
+        });
+    </script>
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION -->
     <!-- ========================================== -->
     <footer class="site-footer">
         <div class="footer-container">
@@ -383,6 +405,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
