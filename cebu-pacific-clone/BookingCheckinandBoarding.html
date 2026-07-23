@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking, Check-in, and Boarding Information</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* Using standard, clean system fonts uniformly for complete consistency */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #333333;
+        }
+
+        /* Smooth scrolling to anchors */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 
+           Cebu Pacific Authentic Header Design 
+           Title Case (Normal capitalization) with matching sizing
+        */
+      .page-header {
+            background-color: #FFD200; 
+            color: #0054A6; 
+            /* Keeps the text block visually grounded */
+            text-align: left; 
+            /* The 250px value moves the text away from the left edge */
+            padding: 30px 20px 50px 250px; 
+            font-size: 32px;
+            font-weight: 700;
+    
+            /* Maintains the scoop effect */
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+}
+
+        /* Main Container Layout */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            gap: 50px;
+        }
+
+        /* Left Side: Navigation Sidebar */
+        .sidebar {
+            flex: 1;
+            position: sticky;
+            top: 30px;
+            height: fit-content;
+            max-width: 260px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #0054A6;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar-link {
+            font-size: 14px; /* Uniform typography sizing matching main structure layout */
+            color: #555555;
+            text-decoration: none;
+            display: block;
+            line-height: 1.4;
+            transition: color 0.15s ease;
+        }
+
+        .sidebar-link:hover {
+            color: #0054A6;
+        }
+
+        .sidebar-link.active {
+            color: #0054A6;
+            font-weight: 700;
+        }
+
+        /* Right Side: Content Area */
+        .content-area {
+            flex: 3;
+        }
+
+        section {
+            margin-bottom: 50px;
+            scroll-margin-top: 30px;
+        }
+
+        h1, h2, h3 {
+            color: #111111;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        h1 { font-size: 26px; margin-top: 0; }
+        h2 { font-size: 22px; margin-top: 30px; }
+        h3 { font-size: 18px; margin-top: 25px; }
+
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #444444;
+        }
+
+        a {
+            color: #009cdb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: #444444;
+        }
+
+        /* Image Display Handling */
+        .banner-img {
+            width: 100%;
+            height: auto;
+            margin: 25px 0;
+            border-radius: 6px;
+            display: block;
+        }
+
+        .kiosk-steps-img {
+            width: 100%;
+            max-width: 750px;
+            height: auto;
+            margin: 20px 0;
+            display: block;
+        }
+
+        /* Take Note Box Layout */
+        .take-note-box {
+            background-color: #f4fafd;
+            border: 1px solid #d0e8f4;
+            border-radius: 6px;
+            padding: 22px;
+            margin: 30px 0;
+        }
+
+        .take-note-box h4 {
+            color: #0054A6;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .take-note-box ul {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 0;
+        }
+
+        .take-note-box li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #444444;
+        }
+
+        .take-note-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        .take-note-box li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #555555;
+            font-size: 16px;
+            top: -2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Area featuring user capitalization style directly -->
+    <div class="page-header">
+        Booking, Check-in, and Boarding Information
+    </div>
+
+    <div class="container">
+        
+        <!-- Left Side: Interactive Sidebar Menu -->
+        <div class="sidebar">
+            <div class="sidebar-title">Select an Option</div>
+            <ul class="sidebar-menu">
+                <li><a href="#booking-guidelines" class="sidebar-link active">Booking Guidelines</a></li>
+                <li><a href="#checkin-boarding-guidelines" class="sidebar-link">Check-in and Boarding Guidelines</a></li>
+                <li><a href="#checkin-options-web-mobile" class="sidebar-link">Check-in Options: Web / Mobile</a></li>
+                <li><a href="#checkin-options-airport" class="sidebar-link">Check-in Options: Airport</a></li>
+            </ul>
+        </div>
+
+        <!-- Right Side: Content Area Panels -->
+        <div class="content-area">
+            
+            <!-- Booking Guidelines Section -->
+            <section id="booking-guidelines">
+                <h1>Booking Guidelines</h1>
+                <p>Booking a flight less than 59 minutes before its scheduled time of departure? Internet bookings will no longer be allowed during this period, and bookings can only be done through our <a href="#">sales offices</a>. You may contact us <a href="#">here</a> to check the availability of your preferred flight.</p>
+            </section>
+
+            <!-- Check-In and Boarding Guidelines Section -->
+            <section id="checkin-boarding-guidelines">
+                <h2>Check-In and Boarding Guidelines</h2>
+                <ul>
+                    <li>Check in <a href="#">online</a> before going to the airport to avoid queuing. Read more about fast check-in options <a href="#">here</a>.</li>
+                    <li>Check-in counters for domestic flights strictly close 45 mins before the scheduled time of departure. Meanwhile, check-in counters for international flights close one (1) hour before the scheduled time of departure.</li>
+                    <li>Wear a face mask.</li>
+                </ul>
+            </section>
+
+            <!-- Web / Mobile Check-In Section -->
+            <section id="checkin-options-web-mobile">
+                <h2>Online Check-in</h2>
+                
+                <!-- Online Check-In Hero Illustration -->
+                <img src="image_84bbde.jpg" alt="Online Check-in Banner" class="banner-img">
+
+                <ul>
+                    <li>For international flights - available from 2 days up to 2 hours before your flight</li>
+                    <li>For domestic flights - available from 2 days up to 1 hour before your flight</li>
+                </ul>
+
+                <h3>Online Check-in is not allowed for:</h3>
+                <ul>
+                    <li>Unaccompanied Minors</li>
+                    <li>Guests who must submit a medical certificate</li>
+                    <li>Guests requiring special assistance and bag service</li>
+                    <li>Guests on group bookings with more than 20 passengers</li>
+                    <li>Guests with outstanding balance</li>
+                    <li>Guests with tax exemptions (i.e., OFWs)</li>
+                </ul>
+
+                <p>For more information on CEB's Online Check-in Procedures, you may check out <a href="#">this page</a>.</p>
+
+                <div class="take-note-box">
+                    <h4>Take Note!</h4>
+                    <ul>
+                        <li>Go to the Bag Drop Counter before counter closure to check-in your bags. In certain cases, guests flying international may have to get their travel documents verified at the airport counters.</li>
+                        <li>Cebu Pacific web and mobile boarding passes are accepted in all airports across the Philippines for domestic travel. On international flights, they are accepted when departing from these airports: Bangkok, Denpasar, Fukuoka, Hong Kong, Jakarta, Kota Kinabalu, Kuala Lumpur, Nagoya, Osaka-Kansai, Singapore, Sydney, Taipei, Tokyo-Narita and Dubai.</li>
+                        <li>Be at your assigned Boarding Gate at least 45 minutes before the flight.</li>
+                        <li>Seats are automatically assigned, but you can change and choose your seat for a fee.</li>
+                        <li>Have last-minute changes? You can still <a href="#">manage your booking</a> even after checking in.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Airport Check-In Section -->
+            <section id="checkin-options-airport">
+                <h2>Airport Check-in</h2>
+                <h3>Check-In Kiosk</h3>
+                <ul>
+                    <li>Available as early as 8 hours before your flight. You will need your booking reference number to use the check-in kiosk.</li>
+                    <li>You can use the kiosk to print your bag tag. Here's how:</li>
+                </ul>
+
+                <!-- Full visual display of steps layout displaying step panel graphic -->
+                <img src="image_84bec3.png" alt="Kiosk Step Guidelines Diagram" class="kiosk-steps-img">
+
+                <div class="take-note-box">
+                    <h4>Take Note!</h4>
+                    <ul>
+                        <li>Go to the Bag Drop Counter before counter closure to check-in your bags. If you're flying internationally, you have to get your travel documents verified in the check-in counter first.</li>
+                        <li>Be at your assigned Boarding Gate at least 45 minutes before the flight</li>
+                        <li>Seats are automatically assigned, but you can change and choose your seat for a fee</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- Active Navigation Highlight Control Logic -->
+    <script>
+        const links = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('section');
+
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            let currentSelection = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 60) {
+                    currentSelection = section.getAttribute('id');
+                }
+            });
+
+            if(currentSelection) {
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSelection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

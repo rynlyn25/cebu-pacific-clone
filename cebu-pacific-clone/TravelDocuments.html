@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Information</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFD200;
+    --blue:#0054A6;
+    --blue-btn:#0072CE;
+    --blue-btn-hover:#005fa8;
+    --text-dark:#1a1a1a;
+    --text-body:#333333;
+    --border-grey:#e2e2e2;
+    --bg-grey:#f5f5f5;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    font-family:'Poppins', Arial, sans-serif;
+    color:var(--text-body);
+    background:var(--bg-grey);
+  }
+
+  /* Header banner */
+  .page-header{
+    background:var(--yellow);
+    padding:36px 20px 46px;
+    display:flex;
+    justify-content:flex-start;
+    border-bottom-left-radius:50% 40px;
+    border-bottom-right-radius:50% 40px;
+  }
+  .page-header h1{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+    text-align:left;
+    padding-left:40px;
+    color:var(--blue);
+    font-size:28px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  }
+
+  /* Layout */
+  .layout{
+    display:flex;
+    width:100%;
+    margin:0 auto;
+    padding:40px 60px;
+    gap:56px;
+  }
+
+  /* Sidebar */
+  .sidebar{
+    width:200px;
+    flex-shrink:0;
+  }
+  .sidebar nav ul{
+    list-style:none;
+  }
+  .sidebar nav li{
+    border-bottom:1px solid var(--border-grey);
+  }
+  .sidebar nav a{
+    display:block;
+    padding:14px 6px;
+    color:var(--blue);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    line-height:1.4;
+    transition:color .15s ease;
+  }
+  .sidebar nav a:hover{
+    color:var(--blue-btn-hover);
+    text-decoration:underline;
+  }
+
+  /* Main content */
+  .content{
+    flex:1;
+    min-width:0;
+  }
+  .content h2{
+    color:#1a1a1a;
+    font-size:21px;
+    font-weight:700;
+    margin-bottom:18px;
+  }
+
+  .banner{
+    width:100%;
+    border-radius:2px;
+    overflow:hidden;
+    margin-bottom:18px;
+    line-height:0;
+  }
+  .banner img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+
+  .content p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--text-body);
+    margin-bottom:14px;
+  }
+  .content p a, .content p .link{
+    color:var(--blue-btn);
+    font-weight:700;
+    text-decoration:none;
+  }
+  .content p a:hover, .content p .link:hover{
+    text-decoration:underline;
+  }
+
+  .cta-wrap{
+    text-align:center;
+    margin-top:24px;
+  }
+  .btn-primary{
+    display:inline-block;
+    background:var(--blue-btn);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.2px;
+    padding:13px 28px;
+    border:none;
+    border-radius:2px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+  .btn-primary:hover{
+    background:var(--blue-btn-hover);
+  }
+
+  @media (max-width:768px){
+    .layout{ flex-direction:column; }
+    .sidebar{ width:100%; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Travel Information</h1>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li><a href="#">Where We Fly</a></li>
+          <li><a href="#">Frequently Asked Questions</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h2>Travel Requirements for Domestic and International Travel</h2>
+
+      <div class="banner">
+        <img src="Travelrequirements.jpg" alt="Travel Requirements for Domestic and International Travel">
+      </div>
+
+      <p>Most domestic destinations are open for tourists, including children, but we recommend checking with your destination's local government unit (LGU) for the latest travel guidelines and requirements. Continue to wear a face mask inflight.</p>
+
+      <p>Meanwhile, guests exiting the Philippines must register for <a href="#">eTravel</a> not earlier than 72 hours before the flight and not later than 3 hours before the flight. Note that proof of vaccination and/or negative COVID-19 test, among other documents, may be required to complete registration.</p>
+
+      <p>For travel document requirements per destination, please click the link below. These requirements may change from time to time, without prior notice, so we recommend all guests to continue checking relevant travel advisories to prepare for their flight.</p>
+
+      <div class="cta-wrap">
+        <a href="https://help.cebupacificair.com/" target="_blank" rel="noopener noreferrer" class="btn-primary">See travel requirements</a>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

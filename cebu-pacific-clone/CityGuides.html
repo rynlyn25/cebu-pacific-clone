@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   City Guides - Discover with Smile
+  </title>
+  <style>
+   body{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0;background-color:#ffffff;color:#333}header{position:relative;width:100%;height:240px;overflow:hidden;background:linear-gradient(135deg,#1f2a44 0%,#3a3f63 50%,#5a5a7a 100%)}header .header-img{width:100%;height:100%;object-fit:cover;display:block}header .header-overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 60px;box-sizing:border-box;background:linear-gradient(90deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.05) 60%)}header .header-overlay h1{color:#fff;font-size:2.4em;margin:0 0 8px 0;font-weight:700}header .header-overlay p{color:#fff;font-size:1em;max-width:420px;margin:0;line-height:1.4}.search-section{background-color:#ffffff;padding:30px 20px 10px 20px;display:flex;justify-content:center}.search-card{background:#fff;max-width:900px;width:100%;padding:25px 30px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.08)}.search-card label{display:block;font-size:0.85em;color:#555;margin-bottom:6px}.search-row{display:flex;gap:15px}.search-input-wrap{position:relative;flex:1}.search-input-wrap input{width:100%;padding:12px 40px 12px 14px;border:1px solid #ccc;border-radius:6px;font-size:0.95em;box-sizing:border-box}.search-input-wrap input:focus{outline:none;border-color:#1875BA}.search-input-wrap .search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#999;pointer-events:none}.search-suggestions{position:absolute;top:calc(100% + 4px);left:0;width:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;z-index:20;text-align:left}.search-suggestions .suggestion-item{padding:10px 14px;font-size:0.9em;color:#333;cursor:pointer;border-bottom:1px solid #f0f0f0}.search-suggestions .suggestion-item:last-child{border-bottom:none}.search-suggestions .suggestion-item:hover{background-color:#f4f9fc;color:#1875BA}.search-suggestions .suggestion-empty{padding:10px 14px;font-size:0.9em;color:#999}.search-btn{background-color:#1BA3DE;color:#fff;border:none;padding:0 32px;border-radius:6px;font-weight:bold;font-size:0.95em;cursor:pointer;transition:background 0.3s}.search-btn:hover{background-color:#15A7E0}.intro-filter-section{max-width:940px;margin:25px auto 0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px}.intro-text h2{margin:0 0 6px 0;color:#1f2a44;font-size:1.5em}.intro-text p{margin:0;color:#666;font-size:0.95em}.filter-wrap{min-width:260px}.filter-wrap label{display:block;font-size:0.85em;color:#555;margin-bottom:6px}.filter-dropdown{position:relative;width:260px}.filter-dropdown input{width:100%;padding:10px 14px;border:1px solid #1BA3DE;border-radius:6px;font-size:0.9em;box-sizing:border-box;color:#999}.filter-dropdown input:focus{outline:none}.filter-options{position:absolute;top:calc(100% + 4px);left:0;width:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;z-index:10}.filter-options .filter-option{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:0.9em;color:#1875BA;font-weight:600;cursor:pointer;border-bottom:1px solid #f0f0f0}.filter-options .filter-option:last-child{border-bottom:none}.filter-options .filter-option:hover{background-color:#ffffff}.filter-options .filter-option .plus{color:#1BA3DE;font-weight:bold}.destinations-section{max-width:940px;margin:0 auto;padding:25px 20px 10px 20px}.destinations-section.alt-bg{max-width:100%;background-color:#ffffff;padding:30px 0 40px 0}.destinations-section.alt-bg .inner{max-width:940px;margin:0 auto;padding:0 20px}.destinations-section h3{margin:0 0 15px 0;color:#1f2a44;font-size:1.25em}.destination-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.dest-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;aspect-ratio:4 / 3}.dest-card .dest-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#9aa3ac;font-size:0.8em;text-align:center;box-sizing:border-box;padding:10px;background:repeating-linear-gradient( 45deg,#e2e6ea,#e2e6ea 10px,#eceff2 10px,#eceff2 20px );transition:transform 0.3s ease}.dest-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease}.dest-card:hover .dest-img-placeholder,.dest-card:hover img{transform:scale(1.05)}.dest-card .dest-label{position:absolute;bottom:0;left:0;width:100%;box-sizing:border-box;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.75));color:#fff;font-weight:700;font-size:0.95em}@media (max-width:800px){.destination-grid{grid-template-columns:repeat(2,1fr)}header .header-overlay{padding:0 25px}header .header-overlay h1{font-size:1.8em}}.detail-header{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(135deg,#2a5c7a 0%,#4a8fb5 100%);border-bottom-left-radius:50% 30px;border-bottom-right-radius:50% 30px}.detail-header .detail-header-img{width:100%;height:100%;object-fit:cover;display:block}.detail-header .detail-header-overlay{position:absolute;top:0;left:0;width:60%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 40px;box-sizing:border-box;background:linear-gradient(90deg,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.05) 90%)}.back-btn-inline{display:inline-block;background:#f4f7f9;color:#1875BA;border:none;padding:8px 16px;border-radius:5px;font-weight:bold;font-size:0.85em;cursor:pointer;margin-bottom:20px}.back-btn-inline:hover{background:#e6ebef}.detail-tag{display:inline-block;background-color:#F6E100;color:#1f2a44;font-size:0.7em;font-weight:700;letter-spacing:0.5px;padding:4px 10px;border-radius:3px;margin-bottom:10px;width:fit-content}.detail-header h1{color:#fff;font-size:2.2em;margin:0 0 10px 0;font-weight:700}.detail-header p{color:#fff;font-size:0.95em;max-width:380px;margin:0;line-height:1.4}.detail-article{max-width:1000px;margin:30px auto 60px auto;padding:0 20px;color:#333}.detail-article h2{color:#1f2a44;font-size:1.4em;margin:0 0 15px 0}.detail-article p{line-height:1.7;font-size:0.95em;margin:0 0 15px 0}.detail-article h4{color:#1f2a44;font-size:0.85em;letter-spacing:0.5px;margin:25px 0 10px 0}.detail-article ul{margin:0 0 15px 0;padding-left:20px}.detail-article ul li{line-height:1.7;font-size:0.95em;margin-bottom:6px}.pagination{margin:25px 0 0 0;text-align:center;font-size:0.9em}.pagination a{color:#1875BA;text-decoration:none;margin:0 6px;cursor:pointer}.pagination a:hover{text-decoration:underline}.pagination a.active{color:#1f2a44;font-weight:700;text-decoration:none;cursor:default}.pagination a.disabled{color:#aaa;cursor:default;pointer-events:none}.other-dest-page{display:none}.other-dest-page.active{display:block}
+  </style>
+ </head>
+ <body>
+  <div id="homePage">
+   <header>
+    <img alt="City Guides" class="header-img" src="cityguides.jpg"/>
+    <div class="header-overlay">
+     <h1>
+      City Guides
+     </h1>
+     <p>
+      Here's your handy guide on what to do in your next CEB destination
+     </p>
+    </div>
+   </header>
+   <div class="search-section">
+    <div class="search-card">
+     <label for="citySearch">
+      Search keyword/s
+     </label>
+     <div class="search-row">
+      <div class="search-input-wrap">
+       <input autocomplete="off" id="citySearch" oninput="showSuggestions()" onkeydown="if(event.key==='Enter'){document.getElementById('searchSuggestions').style.display='none';searchDestinations();}" placeholder="Search" type="text"/>
+       <span class="search-icon">
+        🔍
+       </span>
+       <div class="search-suggestions" id="searchSuggestions" style="display:none;">
+       </div>
+      </div>
+      <button class="search-btn" onclick="searchDestinations()" type="button">
+       Search
+      </button>
+     </div>
+    </div>
+   </div>
+   <div class="intro-filter-section">
+    <div class="intro-text">
+     <h2>
+      City Guides
+     </h2>
+     <p>
+      Looking for an adventure? We have more destinations to choose from!
+     </p>
+    </div>
+    <div class="filter-wrap">
+     <label for="destinationFilter">
+      Filter by
+     </label>
+     <div class="filter-dropdown">
+      <input id="destinationFilter" onclick="const o=document.getElementById('filterOptions'); o.style.display = (o.style.display==='block') ? 'none' : 'block';" placeholder="Select Destinations" readonly="" type="text"/>
+      <div class="filter-options" id="filterOptions" style="display:none;">
+       <div class="filter-option" onclick="filterDestinations('philippine', 'Philippine Destinations')">
+        <span class="plus">
+         +
+        </span>
+        Philippine Destinations
+       </div>
+       <div class="filter-option" onclick="filterDestinations('international', 'International Destinations')">
+        <span class="plus">
+         +
+        </span>
+        International Destinations
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="searchResultsSection" style="display:none;">
+    <div class="destinations-section">
+     <h3 id="searchResultsHeading">
+      Search Results
+     </h3>
+     <div class="destination-grid" id="searchResultsGrid">
+     </div>
+     <p id="searchNoResults" style="display:none;color:#666;">
+      No destinations found. Try a different keyword.
+     </p>
+    </div>
+   </div>
+   <div id="defaultDestinations">
+    <div class="destinations-section">
+     <h3>
+      Popular Destinations
+     </h3>
+     <div class="destination-grid">
+      <div class="dest-card" onclick="showBoracayPage()">
+       <img alt="Boracay" src="boracay.png"/>
+       <div class="dest-label">
+        Boracay
+       </div>
+      </div>
+      <div class="dest-card" onclick="showCebuPage()">
+       <img alt="Cebu" src="cebucity.jpg"/>
+       <div class="dest-label">
+        Cebu
+       </div>
+      </div>
+      <div class="dest-card" onclick="showPalawanPage()">
+       <img alt="Palawan" src="palawan.jpg"/>
+       <div class="dest-label">
+        Palawan
+       </div>
+      </div>
+      <div class="dest-card" onclick="showManilaPage()">
+       <img alt="Manila" src="manila.jpg"/>
+       <div class="dest-label">
+        Manila
+       </div>
+      </div>
+      <div class="dest-card" onclick="showBacolodPage()">
+       <img alt="Bacolod" src="bacolod.jpg"/>
+       <div class="dest-label">
+        Bacolod
+       </div>
+      </div>
+      <div class="dest-card" onclick="showDavaoPage()">
+       <img alt="Davao" src="davao.jpg"/>
+       <div class="dest-label">
+        Davao
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="destinations-section alt-bg">
+     <div class="inner">
+      <h3>
+       Other Destinations
+      </h3>
+      <div class="other-dest-page active" id="otherDestPage1">
+       <div class="destination-grid">
+        <div class="dest-card" onclick="showBacolodPage()">
+         <img alt="Bacolod" src="bacolod.jpg"/>
+         <div class="dest-label">
+          Bacolod
+         </div>
+        </div>
+        <div class="dest-card" onclick="showBaliPage()">
+         <img alt="Bali" src="bali.jpg"/>
+         <div class="dest-label">
+          Bali
+         </div>
+        </div>
+        <div class="dest-card" onclick="showBangkokPage()">
+         <img alt="Bangkok" src="bangkokcity.jpg"/>
+         <div class="dest-label">
+          Bangkok
+         </div>
+        </div>
+        <div class="dest-card" onclick="showTokyoPage()">
+         <img alt="Tokyo" src="tokyocity.jpg"/>
+         <div class="dest-label">
+          Tokyo
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="other-dest-page" id="otherDestPage2">
+       <div class="destination-grid">
+        <div class="dest-card" onclick="showHongKongPage()">
+         <img alt="Hong Kong" src="hongkong.jpg"/>
+         <div class="dest-label">
+          Hong Kong
+         </div>
+        </div>
+        <div class="dest-card" onclick="showDavaoPage()">
+         <img alt="Davao" src="davao.jpg"/>
+         <div class="dest-label">
+          Davao
+         </div>
+        </div>
+        <div class="dest-card" onclick="showDubaiPage()">
+         <img alt="Dubai" src="dubai.jpg"/>
+         <div class="dest-label">
+          Dubai
+         </div>
+        </div>
+        <div class="dest-card" onclick="showXiamenPage()">
+         <img alt="Xiamen" src="xiamen.jpg"/>
+         <div class="dest-label">
+          Xiamen
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="other-dest-page" id="otherDestPage3">
+       <div class="destination-grid">
+        <div class="dest-card" onclick="showKualaLumpurPage()">
+         <img alt="Kuala Lumpur" src="kualalumpur.jpg"/>
+         <div class="dest-label">
+          Kuala Lumpur
+         </div>
+        </div>
+        <div class="dest-card" onclick="showShanghaiPage()">
+         <img alt="Shanghai" src="shanghai.jpg"/>
+         <div class="dest-label">
+          Shanghai
+         </div>
+        </div>
+        <div class="dest-card" onclick="showSeoulPage()">
+         <img alt="Seoul" src="seoul.jpg"/>
+         <div class="dest-label">
+          Seoul
+         </div>
+        </div>
+        <div class="dest-card" onclick="showMacauPage()">
+         <img alt="Macau" src="macau.jpg"/>
+         <div class="dest-label">
+          Macau
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="other-dest-page" id="otherDestPage4">
+       <div class="destination-grid">
+        <div class="dest-card" onclick="showJakartaPage()">
+         <img alt="Jakarta" src="jakarta.jpg"/>
+         <div class="dest-label">
+          Jakarta
+         </div>
+        </div>
+        <div class="dest-card" onclick="showTaipeiPage()">
+         <img alt="Taipei" src="taipei.jpg"/>
+         <div class="dest-label">
+          Taipei
+         </div>
+        </div>
+        <div class="dest-card" onclick="showManilaPage()">
+         <img alt="Manila" src="manila.jpg"/>
+         <div class="dest-label">
+          Manila
+         </div>
+        </div>
+        <div class="dest-card" onclick="showSingaporePage()">
+         <img alt="Singapore" src="singapore.jpg"/>
+         <div class="dest-label">
+          Singapore
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="pagination" id="otherDestPagination">
+       <a class="disabled" onclick="changeOtherDestPage(-1)" id="otherDestPrev">Prev</a>
+       <a class="active" onclick="changeOtherDestPage(1)" data-page="1">1</a>
+       <a onclick="changeOtherDestPage(2)" data-page="2">2</a>
+       <a onclick="changeOtherDestPage(3)" data-page="3">3</a>
+       <a onclick="changeOtherDestPage(4)" data-page="4">4</a>
+       <a onclick="changeOtherDestPage(2)" id="otherDestNext">Next</a>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="internationalDestinations" style="display:none;">
+    <div class="destinations-section alt-bg">
+     <div class="inner">
+      <h3>
+       Other Destinations
+      </h3>
+      <div class="destination-grid">
+       <div class="dest-card" onclick="showTokyoPage()">
+        <img alt="Tokyo" src="tokyocity.jpg"/>
+        <div class="dest-label">
+         Tokyo
+        </div>
+       </div>
+       <div class="dest-card" onclick="showXiamenPage()">
+        <img alt="Xiamen" src="xiamen.jpg"/>
+        <div class="dest-label">
+         Xiamen
+        </div>
+       </div>
+       <div class="dest-card" onclick="showBaliPage()">
+        <img alt="Bali" src="bali.jpg"/>
+        <div class="dest-label">
+         Bali
+        </div>
+       </div>
+       <div class="dest-card" onclick="showBangkokPage()">
+        <img alt="Bangkok" src="bangkokcity.jpg"/>
+        <div class="dest-label">
+         Bangkok
+        </div>
+       </div>
+       <div class="dest-card" onclick="showHongKongPage()">
+        <img alt="Hong Kong" src="hongkong.jpg"/>
+        <div class="dest-label">
+         Hong Kong
+        </div>
+       </div>
+       <div class="dest-card" onclick="showDubaiPage()">
+        <img alt="Dubai" src="dubai.jpg"/>
+        <div class="dest-label">
+         Dubai
+        </div>
+       </div>
+       <div class="dest-card" onclick="showKualaLumpurPage()">
+        <img alt="Kuala Lumpur" src="kualalumpur.jpg"/>
+        <div class="dest-label">
+         Kuala Lumpur
+        </div>
+       </div>
+       <div class="dest-card" onclick="showShanghaiPage()">
+        <img alt="Shanghai" src="shanghai.jpg"/>
+        <div class="dest-label">
+         Shanghai
+        </div>
+       </div>
+       <div class="dest-card" onclick="showSeoulPage()">
+        <img alt="Seoul" src="seoul.jpg"/>
+        <div class="dest-label">
+         Seoul
+        </div>
+       </div>
+       <div class="dest-card" onclick="showMacauPage()">
+        <img alt="Macau" src="macau.jpg"/>
+        <div class="dest-label">
+         Macau
+        </div>
+       </div>
+       <div class="dest-card" onclick="showJakartaPage()">
+        <img alt="Jakarta" src="jakarta.jpg"/>
+        <div class="dest-label">
+         Jakarta
+        </div>
+       </div>
+       <div class="dest-card" onclick="showTaipeiPage()">
+        <img alt="Taipei" src="taipei.jpg"/>
+        <div class="dest-label">
+         Taipei
+        </div>
+       </div>
+       <div class="dest-card" onclick="showSingaporePage()">
+        <img alt="Singapore" src="singapore.jpg"/>
+        <div class="dest-label">
+         Singapore
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div id="tokyoPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Tokyo" class="detail-header-img" src="tokyo.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">
+      CITY GUIDE
+     </span>
+     <h1>
+      Tokyo
+     </h1>
+     <p>
+      Explore this megacity that fully embraces technology while staying rooted in its culture
+     </p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHome()">
+     ← Back
+    </button>
+    <h2>
+     Flights to Tokyo (Narita)
+    </h2>
+    <p>
+     At first glance, Tokyo can seem intimidating — an endless sprawl that can take a lifetime to explore, infinite possibilities linked together by a complex train system. It's entirely possible, even likely, that you'll get lost in this megacity, but then that's part of the fun. A study in dualism, Tokyo surges ahead as speedily as its Shinkansen, yet offers up tranquil Zen gardens that invite stillness and silence.
+    </p>
+    <p>
+     Flights to Tokyo (Narita) will reward you with sleek structures and neon lights that dominate the landscape, but just around the corner you might stumble upon a lane of cozy izakaya. A weird and wonderful robot restaurant is a major attraction, but so is the age-old practice of picnicking under cherry blossom trees in riotous bloom.
+    </p>
+    <p>
+     Divided into 23 special wards, each one with its own personality-packed districts and neighborhoods, Tokyo feels like cities within cities within a city. With a population of 38 million, Greater Tokyo (which includes the neighboring prefecture of Yamanashi) is the biggest metropolis in the world.
+    </p>
+    <p>
+     You'll feel this most acutely as you attempt to board a crowded train at Shinjuku Station or observe the crush of people on Shibuya Crossing at rush hour. As you roam around the various districts, you're bound to encounter a gamut of characters, from suited salarymen to cosplayers. But as disparate as they are in appearance, Tokyoites share the common trait of being exceedingly polite, generally eager to help out a lost traveler.
+    </p>
+    <h4>
+     HIGHLIGHTS
+    </h4>
+    <ul>
+     <li>
+      Observe the mad scramble of pedestrians on Shibuya Crossing at rush hour
+     </li>
+     <li>
+      Get a taste of Tokyo's quirkiness in Harajuku, the epicenter of wild fashion and Japanese youth culture
+     </li>
+     <li>
+      Take a peaceful morning walk in Meiji Shrine and invite stillness and silence while in the middle of the city
+     </li>
+    </ul>
+    <h4>
+     AIRPORT IN TOKYO (NARITA)
+    </h4>
+    <ul>
+     <li>
+      Cebu Pacific has several flights to Tokyo (Narita)'s Narita International Airport
+     </li>
+    </ul>
+    <h4>
+     CURRENCY
+    </h4>
+    <ul>
+     <li>
+      Japanese Yen (JPY)
+     </li>
+    </ul>
+    <h4>
+     WHEN TO VISIT TOKYO (NARITA)
+    </h4>
+    <p>
+     Every season offers a good excuse to visit but it is especially popular to book flights to Tokyo (Narita) in the spring, when the Cherry Blossom Festival takes place around March or April. Stay a little longer and you might catch the azaleas and wisteria blossoming from April to May.
+    </p>
+    <h4>
+     BOOK FLIGHTS TO TOKYO (NARITA)
+    </h4>
+    <p>
+     The largest airline in the Philippines, Cebu Pacific has multiple flights to Tokyo (Narita) from Manila, Clark, and Cebu, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Tokyo (Narita) and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.
+    </p>
+   </div>
+  </div>
+  <div id="xiamenPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Xiamen" class="detail-header-img" src="xiamen.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">
+      CITY GUIDE
+     </span>
+     <h1>
+      Xiamen
+     </h1>
+     <p>
+      Find out how Xiamen brings together history, culture, nature, culinary delights, and excitement in a relatively compact package
+     </p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromXiamen()">
+     ← Back
+    </button>
+    <h2>
+     Flights to Xiamen
+    </h2>
+    <p>
+     A coastal city located in the Fujian Province, Xiamen was once one of the major seaports in the country, which is why it was given this name, which means "the Gate of China." Today, the city is known for its cultural, natural, and man-made attractions, which makes it a great place to visit for tourists who want to learn more about the past of the city and how it came to be what it is today.
+    </p>
+    <p>
+     Hop on flights to Xiamen and head over to Gulangyu Island, which is an 8-minute ferry ride from downtown. It's known for its beaches and colonial-style architecture, but also its museums, including the Organ Museum and the Huaijiu Gulangyu Museum. While you're there, make it a point to also visit the Gulangyu Beach, which is a good spot to be if you're one who likes to take afternoon walks by the shore.
+    </p>
+    <p>
+     Aside from visiting Gulangyu Island, other places that are worth visiting when in Xiamen include: South Putuo Temple, one of the eight most popular sites in the city; Xiamen Botanical Garden, which houses over 5,000 species of plants; Hulishan Fort, which was founded in the 1800s; and the Zeng Cuo An, an artsy fishing village which comes alive at night, thanks to the bars that's open to locals and tourists alike.
+    </p>
+    <p>
+     You can also visit Underwater World, which features more than 10,000 creatures, and allows visitors to hand-feed turtles and baby sharks.
+    </p>
+    <h4>
+     HIGHLIGHTS
+    </h4>
+    <ul>
+     <li>
+      Load up on local seafood dishes and satay noodles (sha cha mian) at food markets like Taiwan Snack Street and Eighth Seafood Market
+     </li>
+     <li>
+      For culture vultures, Aotou Arts Village is a must-visit place, home to institutions such as the Chaokuang Art Museum and the Nordic Contemporary Art Centre
+     </li>
+     <li>
+      Wander Xiamen's many green spaces, especially the Wanshi Botanical Gardens and the serene grounds of the Nanputuo Temple, Wulao Peak, and beautiful Xiamen University
+     </li>
+    </ul>
+    <h4>
+     AIRPORTS
+    </h4>
+    <ul>
+     <li>
+      Cebu Pacific has multiple flights to Xiamen's Xiamen Gaoqi International Airport
+     </li>
+    </ul>
+    <h4>
+     CURRENCY
+    </h4>
+    <ul>
+     <li>
+      Chinese Yuan (CNY)
+     </li>
+    </ul>
+    <h4>
+     WHEN TO VISIT
+    </h4>
+    <p>
+     Since the city has mild subtropical weather with typhoons in the late summer, the best time to get on flights to Xiamen is from April to November.
+    </p>
+    <h4>
+     BOOK FLIGHTS TO XIAMEN
+    </h4>
+    <p>
+     The largest airline in the Philippines, Cebu Pacific has multiple flights to Xiamen from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Xiamen and also operates the most flight connections to the rest of the Philippines' top beach, dive, and island destinations, such as Palawan (El Nido), Boracay (Caticlan) and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.
+    </p>
+   </div>
+  </div>
+  <div id="boracayPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Boracay" class="detail-header-img" src="boracay.png"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">
+      CITY GUIDE
+     </span>
+     <h1>
+      Boracay
+     </h1>
+     <p>
+      Whether you're a budget backpacker or a luxury traveler, you can find a noteworthy getaway on Boracay's famed shores
+     </p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromBoracay()">
+     ← Back
+    </button>
+    <h2>
+     Flights to Boracay (Caticlan)
+    </h2>
+    <p>
+     Once a quiet town with just a handful of resorts, Boracay has become the Philippines’ top tourist magnet. Hop on flights to Boracay (Caticlan), and go on a boat ride that will take you to this tiny, bone-shaped island on the northwest corner of Panay province in the Western Visayas region. Whether you’re a budget backpacker or a luxury traveler, you can find a noteworthy getaway on Boracay’s famed shores.
+    </p>
+    <p>
+     Known globally for its white sand beaches, vivid waters, friendly locals and thriving nightlife, Boracay counts tourism as its bread and butter. Driven by the desire to protect the island from over-tourism, the Philippine government closed Boracay for rehabilitation in 2018, reopening several months later and welcoming visitors with a spruced-up beachfront and promising sustainable tourism.
+    </p>
+    <p>
+     There is always plenty to do on this idyllic Philippine resort island, which annually charms millions of holidaymakers (including Hollywood celebrities) and rivals other tourism hotspots in Southeast Asia. Boracay has managed to retain its mellow island vibe, despite the influx of tourists and rapid development – making its waters and serene coastlines the perfect urban escape.
+    </p>
+    <p>
+     Most of Boracay’s attractions can be found along the picture-perfect White Beach, which is divided into three stations (Stations 1, 2 and 3, running from north to south) and has the highest concentration of hotels, restaurants and nightlife spots. Station 1 has the finest sand, the most luxurious resorts and the quietest environs. Station 2 is the busiest, with plenty of restaurants, bars and mid-range hotels. Station 3 is closest to the jetty port and has budget-friendly accommodation options. Some hotels provide easy access to the main road behind them, where motorized rickshaws and motorcycles traverse.
+    </p>
+    <p>
+     At peak times, White Beach is filled with sun worshippers and divers. Here, you can cap off your day with a cold drink, warm sand between your toes and a front-row seat to Boracay’s breathtaking sunset. Watch — or join in! — as locals and tourists alike play volleyball and beach ultimate Frisbee (the island is home to some of the best teams in the world) on the sand.
+    </p>
+    <p>
+     But White Beach is certainly not the only thing that the island has to offer. There are over a dozen other lesser-known beaches that attract fewer tourists and have plenty of activities for those looking for more than a tan. Walk to the main road and flag down a tricycle to take you to Bulabog Beach on the other side of the island, considered the best kiteboarding and windsurfing spot in Asia. Seek refuge from the crowds at Diniwid Beach beyond Station 1. Hop on a boat and visit Puka Shell Beach on the northern tip of the island and Tambisaan Beach in the south; return to the coast and cliff-jump into turquoise waters; feel the adrenaline rush and go parasailing for a spectacular bird’s-eye view of Boracay; and snorkel in the pristine waters of the Coral Garden. After enjoying the water sports, you can recuperate and pamper yourself with a traditional Filipino massage.
+    </p>
+    <p>
+     Looking for souvenirs? Get a permanent one from the slew of tattoo studios on Boracay. After dark, wade into the island’s vibrant nightlife scene and find out for yourself why it’s earned its “Party Beach” reputation. Enjoy the music and booze and meet people from different parts of the world. Alternatively, you can join a pub crawl, where you mix and mingle with fellow tourists while hitting the hottest spots in matching T-shirts.
+    </p>
+    <h4>
+     HIGHLIGHTS
+    </h4>
+    <ul>
+     <li>
+      Hop on a boat and visit Puka Shell Beach on the northern tip of the island or Tambisaan Beach in the south
+     </li>
+     <li>
+      Enjoy the island's turquoise waters and feel the adrenaline with water sports like cliff-diving, snorkeling, and parasailing
+     </li>
+     <li>
+      Cap off your day with a cold drink, warm sand between your toes, and a front-row seat to Boracay's breathtaking sunset
+     </li>
+    </ul>
+    <h4>
+     CURRENCY
+    </h4>
+    <ul>
+     <li>
+      Philippine Peso (PHP)
+     </li>
+    </ul>
+    <h4>
+     AIRPORTS
+    </h4>
+    <ul>
+     <li>
+      Cebu Pacific has several flights to Boracay's Godofredo P. Ramos Airport
+     </li>
+    </ul>
+    <h4>
+     WHEN TO VISIT
+    </h4>
+    <p>
+     While summer is a good time to go, the sun can be scorching and the crowds, maddening (particularly around Holy Week and Labor Day). Book a flight to Boracay (Caticlan) during the off-season, outside of the rainy month (June to October), for less-busy beaches and cooler weather. Check out Cebu Pacific's scheduled flights to Boracay (Caticlan) and year-round low fares.
+    </p>
+    <h4>
+     BOOK CHEAP FLIGHTS TO BORACAY (CATICLAN)
+    </h4>
+    <p>
+     The largest airline in the Philippines, Cebu Pacific, has multiple flights to Boracay (Caticlan) from Manila, Clark and Cebu, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul, and Singapore. Cebu Pacific offers cheap flights to Boracay (Caticlan) and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.
+    </p>
+    <h4>
+     WHAT TO DO
+    </h4>
+    <p>
+     <strong>
+      Ariel's Point
+     </strong>
+     , Batason, Buruanga; +63 928 226 8210; arielspoint.com. Head to this eco-adventure destination (listed by The Huffington Post as one of the best cliff-diving destinations in the world!) for activities like cliff-diving and kayaking. Day trips from Boracay are offered seven days a week.
+    </p>
+    <p>
+     <strong>
+      Boracay Sun Cruiser
+     </strong>
+     , Willy's Beach Hotel, Main Rd, Station 1, Balabag District; +63 36 288 9079; boracaysuncruiser.com. Party onboard this 65ft outrigger fiberglass boat customized to accommodate up to 80 passengers. It's equipped with a giant inflatable slide that launches you straight into the sea, but if you'd rather relax with a drink courtesy of the full-bar service, there are sun beds and bean bags on spacious decks.
+    </p>
+    <p>
+     <strong>
+      Butterfly Garden and Farm
+     </strong>
+     , Bulabog Beach; +63 36 288 6701; boracaybutterfly.com. A beautiful sanctuary that's home to approximately 300 butterfly species.
+    </p>
+    <p>
+     <strong>
+      Crocodile Island.
+     </strong>
+     Perfect for snorkeling and swimming. Package tours available from travel agents or hotels or resorts.
+    </p>
+    <p>
+     <strong>
+      Hinugtan Beach
+     </strong>
+     , Buruanga; +63 36 288 3288; hinugtanbeach.com. Escape the crowds on this private beach on the pristine coast of Panay Island, just a 45-minute boat ride from Boracay.
+    </p>
+    <p>
+     <strong>
+      Kitesurfing.
+     </strong>
+     Bulabog Beach is said to be one of the best kitesurfing beaches in Asia, so it would be a shame not to visit! An introductory two-hour course costs from ₱3,000.
+    </p>
+    <p>
+     <strong>
+      Mandala Spa &amp; Villas
+     </strong>
+     , Station 3; +63 36 288 5857; mandalaspaandresortvillas.com. Pamper yourself with a traditional Filipino massage, which involves the use of banana leaves and bamboo sticks.
+    </p>
+    <p>
+     <strong>
+      Motag Living Museum
+     </strong>
+     , Brgy Motag; +63 921 556 3111; motaglivingmuseum.com. The first interactive living museum in the Philippines where you can watch farmers at work, learn how to make toys from coconut leaves and play traditional games.
+    </p>
+    <p>
+     <strong>
+      Parasailing.
+     </strong>
+     Check out Diamond Watersports (+63 36 288 6621) for parasailing. You'll get an unbeatable bird's-eye view of Boracay.
+    </p>
+    <p>
+     <strong>
+      White Beach.
+     </strong>
+     Hands down the most popular beach in Boracay, with a 4km stretch of fine white sands and crystal-clear waters.
+    </p>
+    <p>
+     <strong>
+      Yaninks Tattoo Studio
+     </strong>
+     , Station 3; +63 917 327 9841; yaninks.com. Get a permanent souvenir at this tattoo studio, whose famous clientele include boxing legend Manny Pacquiao, Journey frontman Arnel Pineda and actor Michael Madsen.
+    </p>
+   </div>
+  </div>
+  <div id="cebuPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Cebu" class="detail-header-img" src="cebucity.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Cebu</h1>
+     <p>The Queen City of the South blends centuries of history with island-hopping adventures and a food scene all its own</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromCebu()">&larr; Back</button>
+    <h2>Flights to Cebu</h2>
+    <p>While Cebu lures tourists with the promise of the perfect island getaway, at the center of it all is a booming metropolis complete with a highly developed urban landscape.</p>
+    <p>A long and narrow island in Central Visayas (Region VII), Cebu is where the past and the future merge. Its thriving tourism industry – as evidenced by several daily flights to Cebu – banks on the island’s majestic coves, beautiful beaches, friendly locals and rich history. But its capital city, nicknamed fondly as the Queen City of the South, is a regional powerhouse that helps charge the national economy’s growth.</p>
+    <p>The newly upgraded Mactan–Cebu International Airport serves flights to Cebu. This airport is located in Mactan Island’s Lapu-Lapu City, about 15km east of the Cebu capital.</p>
+    <p>Linked to Metro Cebu by two bridges, the busy island of Mactan is a coral island with its share of great beaches and diving spots, and a host of accommodations to match. Many Mactan visitors also include island-hopping in the Bohol Strait in their itinerary.</p>
+    <p>Keeping the province’s growth engine humming is Cebu City, a major center for business outsourcing such as call centers. Like many Asian cities, it’s pulsing with energy and activity, with a vibrant nightlife, shopping malls and gastronomic spots. But all this progress also means more cars on the roads, and while there are plans to build a Bus Rapid Transit system to help decongest the city, you should prepare yourself for a bit of traffic.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Try out the Cebuanos’ famous lechon! Revered for its crispy skin and flavorful meat that comes in classic and spicy variants, lechon is sold in plenty of shops in Cebu — some places even pack it up for you to take on the plane.</li>
+     <li>Cebu is home to a number of attractions for Catholic pilgrims like the Basilica Minore del Santo Niño and Magellan’s Cross.</li>
+     <li>Travel outside the city and head to the coastal town of Oslob, which is a hotspot for spotting whale sharks, known locally as butanding or tuki.</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has multiple flights to Cebu's Mactan-Cebu International Airport</li>
+    </ul>
+     <h4>CURRENCY</h4>
+    <ul>
+     <li>Philippine Peso (PHP)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>Plan your flights to Cebu in January for the city's famed Sinulog Festival, celebrated on the third Sunday of the month. This is Cebu’s most popular and grandest festival, drawing Christian pilgrims from around the archipelago and showcasing street dances and colorful</p>
+    <h4>BOOK FLIGHTS TO CEBU</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Cebu from Manila, Clark and Davao, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Cebu and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="palawanPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Palawan" class="detail-header-img" src="palawan.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Palawan</h1>
+     <p>See the wonders of the country's last ecological frontier</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromPalawan()">&larr; Back</button>
+    <h2>Flights to Palawan</h2>
+    <p>Palawan is an archipelagic province in Region IV-B, MIMAROPA, Philippines, known as the country's <em>last ecological frontier</em> for its rich biodiversity. It has received numerous recognitions, including 1st place in U.S. News &amp; World Report's "World's Best Islands to Visit 2025" and 6th in Condé Nast Traveler's "Best Islands in Asia 2023."</p>
+    <p>Hop on flights to Palawan and explore Puerto Princesa, Coron, El Nido, and San Vicente, each offering different kinds of experiences for the nature lovers and the adventure travelers.</p>
+    <h4>TOP DESTINATIONS IN PALAWAN</h4>
+    <p><strong>Puerto Princesa</strong></p>
+    <p>Visit Puerto Princesa – the Capital City – and see the Puerto Princesa Subterranean River, a UNESCO Heritage Site and one of the New 7 Wonders of Nature. The city is also known for its caves, limestone formations, and forests that are home to distinct wildlife.</p>
+    <p><strong>Coron</strong></p>
+    <p>Go island-hopping in Coron, most popular for its 3 famous islands – Kayangan Lake, Luluyan Lake, and Twin Lagoons. This destination is also a popular dive spot for those who want to see shipwrecks, some of which include the wrecks of a Japanese fleet from World War II, the large warship called Akitsushima, and more.</p>
+    <p><strong>El Nido</strong></p>
+    <p>Experience paradise in El Nido, home to not only limestone cliffs and diverse marine life, but also lagoons and dive spots for the sightseers and adventure-seekers. Those who want to have a relaxing vacation, however, can stay at Lio Beach and Nacpan Beach, which are great spots for leisurely walks and sunset-viewing.</p>
+    <p><strong>San Vicente (Port Barton)</strong></p>
+    <p>Relax in San Vicente (Port Barton), a must-visit for those who are looking for a more off-the-beaten-path adventure. When here, make sure to visit Long Beach, known for having the longest white sand beach in the country, best explored whilst on a habal-habal. Port Barton is another popular destination in San Vicente, perfect for backpackers looking for a new island paradise to explore. The destination is also known for its dive and snorkel spots – Naonao Beach, Boayan Island, and Aquarium 4 – where you can swim with a variety of marine animals.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>See the Puerto Princesa Subterranean River National Park – a UNESCO Heritage Site and known to be one of the New 7 Wonders of Nature.</li>
+     <li>Go on island-hopping tours in Coron, hitting popular spots like Kayangan Lake, Luluyan Lake, and Twin Lagoons</li>
+     <li>Relax in El Nido's Lio Beach and Nacpan Beach, or see diverse marine life in one of its popular dive spots.</li>
+     <li>Experience a more laidback side of Palawan in San Vicente, exploring the white-sand beaches of Long Beach and waters of Naonao Beach, and Boayan Island.</li>
+    </ul>
+    <h4>HOW TO GET TO PALAWAN</h4>
+    <p>Cebu Pacific has multiple flights to Palawan from the following hubs:</p>
+    <p><strong>Puerto Princesa</strong></p>
+    <ul>
+     <li>From Manila - 1h 35m</li>
+     <li>From Clark - 1h 25m</li>
+     <li>From Cebu - 1h 25m</li>
+     <li>From Iloilo - 1h 10m</li>
+     <li>From Davao - 1h 45m</li>
+    </ul>
+    <p><strong>Coron</strong></p>
+    <ul>
+     <li>From Manila - 1h 25m</li>
+     <li>From Clark - 1h 25m</li>
+     <li>From Cebu - 1h 40m</li>
+    </ul>
+    <p><strong>El Nido</strong></p>
+    <ul>
+     <li>From Manila - 1h 35m</li>
+     <li>From Clark - 1h 35m</li>
+     <li>From Cebu - 1h 40m</li>
+    </ul>
+    <p><strong>San Vicente (Port Barton)</strong></p>
+    <ul>
+     <li>From Cebu - 1h 45m</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Philippine Peso (PHP)</li>
+    </ul>
+    <h4>WHEN IS THE BEST TIME TO VISIT PALAWAN?</h4>
+    <p>The best time to hop on flights to Palawan is during the dry season, between December and May. It's the optimal time to go island hopping and do water activities, as it offers sunny days and calm seas.</p>
+    <h4>BOOK FLIGHTS TO PALAWAN</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Palawan's Puerto Princesa, Coron, El Nido, and San Vicente (Port Barton). Cebu Pacific offers cheap flights to Palawan and also operates the most flight connections to the rest of the Philippines' top beach, dive, and island destinations, such as Siargao and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="bacolodPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Bacolod" class="detail-header-img" src="bacolod.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Bacolod</h1>
+     <p>A metropolis that has retained its aura of romance, the City of Smiles</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromBacolod()">&larr; Back</button>
+    <h2>Flights to Bacolod</h2>
+    <p>Sprawling sugarcane plantations are the first sight to welcome you as your flight to Bacolod City lands at the Bacolod–Silay International Airport. This pastoral, idyllic first impression hints at the history of an area that is nonetheless classified as a highly urbanized city. In Bacolod, progress and modernity co-exist with bucolic sugarcane fields and heritage houses that lend the place an air of romance and nostalgia. Both the urban explorer and the traveler who envisions an immersive adventure away from big cities will find something to enjoy in the affectionately nicknamed City of Smiles.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Celebrate the Masskara Festival with the locals and enjoy the colorful parades with distinctively decorated masks</li>
+     <li>Feast on local dishes like chicken inasal, cansi, and sugary treats</li>
+     <li>Take a trip to Talisay, a city just outside of Bacolod, and visit 'The Ruins' - a picturesque remnant of an old mansion</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Bacolod's Bacolod-Silay International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Philippine Peso (PHP)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>The best time to book flights to Bacolod is in October to experience the famous Masskara Festival</p>
+    <h4>BOOK FLIGHTS TO BACOLOD</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific, has multiple flights to Bacolod from Manila, Clark and Cebu, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul, and Singapore. Cebu Pacific offers cheap flights to Bacolod and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+    <h4>WHAT TO DO</h4>
+    <p>The Bacolod Public Plaza is the center of life in Bacolod, and so just around it are a wealth of tourist attractions. For the religious or for the history buff, there's a late 19th-century Catholic church, the papal tower commemorating the 1995 visit of Pope John Paul II, and the Negros Museum. Feeling hungry after arriving on your flight to Bacolod? There's nearby Manokan Country, which will fulfill your chicken inasal cravings with grilled chicken marinated in vinegar, calamansi, and annatto.</p>
+    <p>Get your fill of hearty beef soup at one of the humble cansi houses at the city's Chinatown. Feast on seafood and satisfy your sweet tooth with one of the city's many sugary treats — the Negros region produces about half the country's sugar output, after all. Talisay, bounding Bacolod to the north, boasts a highland resort and the magnificent remnants of an old mansion known simply as The Ruins. East of Talisay, about 25km from Bacolod City, is the beautiful Silay, renowned for streets lined with well-preserved heritage houses. Known as the "Paris of Negros," Silay saw culture and the arts flourish, fueled by wealth from the sugar economy that began booming in the late-1800s. Sugar barons built splendid mansions that still stand today and which have been declared official heritage landmarks by the National Historical Commission of the Philippines.</p>
+    <p>Take a tour inside Balay Negrense, built by sugar-industry pioneer Yves Leopold Germain Gaston, or in any of the other houses that are open to the public, to get a fascinating glimpse of a different time. If you'd like to nurse some coffee and chill near the river, driving about 40km south will take you to Bantayan Park in Bago City. Don't expect anything fancy, but it is charming and quaint: You'll see huts offering snacks and native coffee along the waterfront promenade. While you're in the area, don't miss the Spanish colonial house-turned-museum that was home to the city's hero.</p>
+    <p>The south also offers its share of picturesque beaches, including Sugar Beach in Sipalay. Willing to go on a longer road trip? Bacolod offers access to Mount Kanlaon, the highest point in the Visayas, and which is located nearly 100km southeast of Bacolod City in Canlaon City. Check with local authorities beforehand, though, as the mountain is an active volcano. If you're not up for a hike, visiting the national park and enjoying mountain resorts in the area are other outdoorsy options. Canlaon City also has a century-old tree that is worth checking out.</p>
+   </div>
+  </div>
+  <div id="baliPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Bali" class="detail-header-img" src="bali.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Bali</h1>
+     <p>There's more to the island than sun, sand, sea, and shopping — go and dip into the sacred spirit of the land</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromBali()">&larr; Back</button>
+    <h2>Flights to Bali</h2>
+    <p>Bali, in Indonesia's East Java region, is a sprawling 5,780km2 island province in the Indian Ocean that is made up of over 17,000 separate islands. Hop on flights to Bali and experience the island's colorful and dynamic food traditions, traditional and holistic ways of life, green, rustic and raw landscape as well as vibrant sea and jungle ecology Bali has everything — from its no-frills, 24-hour warung (small family-owned businesses) to award-winning fine-dining restaurants; vast stretches of farmland that celebrate the earth's bounty to busy beaches drawing hordes of travelers; tranquil temple grounds to a bustling cultural heart centered in Ubud; and more.</p>
+    <p>Much of Bali moves along to island time — acknowledged as living in the present moment and taking things easy — which, when combined with its tropical monsoon climate (wet from October to April and dry from May to September, with higher humidity in the wet season and a year-round average temperature of 31°C), often results in slow-moving traffic and long commutes. Prep for outdoor adventures with light, layered clothing and plan your itinerary with ample buffer and travel time in between activities.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Visit tranquil temple grounds and the bustling cultural heart in Ubud</li>
+     <li>Get in an early surf in the morning and enjoy the livelier side of the island at night</li>
+     <li>Go on a yoga retreat and enjoy the slow life Bali has to offer</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Bali's Denpasar International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Indonesian Rupiah (IDR)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>Book a flight to Bali any time of the year. The wet season is from October to April, and the dry season is from May to September, with higher humidity in the wet season and a year-round average temperature of 31°C.</p>
+    <h4>BOOK FLIGHTS TO BALI (DENPASAR)</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Bali (Denpasar) from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Bali (Denpasar) and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+    <h4>WHAT TO DO</h4>
+    <p>There are so many ways to cover ground on Bali — from an inland farm to the shore, getting in an early surf (weather and conditions permitting) and venturing into the forest shade or going from a retreat to a livelier, bouncier side of the island. As you prepare for your flight to Bali, you're advised to plan your activities based on a general area (there's Badung, Canggu, Legian, Sanur, islands like Nusa Penida, and more) or type of activity (such as waterfall-chasing, Balinese craft classes, yoga retreats, festivals or concerts). For small groups looking to customize their mainland trips, chartering a private car or van (oftentimes your driver will also be your guide) is a good way to start — you get to circumvent the lack of public transport options, and avoid hiked-up tourist prices. Inter-island trips may be best booked by your accommodation concierge or local tour agencies.</p>
+   </div>
+  </div>
+  <div id="bangkokPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Bangkok" class="detail-header-img" src="bangkokcity.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Bangkok</h1>
+     <p>Experience the vibrant street life and thriving retail paradise in the capital of Thailand!</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromBangkok()">&larr; Back</button>
+    <h2>Flights to Bangkok</h2>
+    <p>Bangkok occupies 1,568.7Km2 of land in central Thailand and is the country's most populous city with almost 10.7 million residents. Established as capital territory in the late 18th century, Bangkok has lived through world wars and managed to evade total colonialism by the world's earlier power nations.</p>
+    <p>Hop on flights to Bangkok to personally witness how this resilience and canniness seem to endure in some part today, in the spirit and nationalism of the Thai people — a beloved monarchy rules, just as a young, innovative generation come to the fore. Combined with the modern philosophy of <em>sanuk</em> (to enjoy yourself and have a good time), this sums up the mood and ambiance of Krung Thep (City of Angels).</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Ride a tuk-tuk and explore the glitzy shopping complexes and architectural marvels in the city.</li>
+     <li>Tackle the intensity of an open-air night market for local street food and unique dining options.</li>
+     <li>Cap off the night at an old-school coffee shop or a swanky rooftop bar with a bird's eye view of the city.</li>
+    </ul>
+    <h4>AIRPORT</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Bangkok's Suvarnabhumi Airport (BKK) and Don Mueang Airport (DMK)</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Thai Baht (THB)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>Book flights to Bangkok any time of the year. Bangkok has a tropical wet climate — that leads to three seasons: dry (February to April), rainy (May to October), and cold (November to February) — with an average year-round temperature of 28°C.</p>
+    <h4>BOOK FLIGHTS TO BANGKOK</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Bangkok from Manila, Clark, Cebu, Iloilo, and Davao, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Bangkok and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="manilaPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Manila" class="detail-header-img" src="manila.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Manila</h1>
+     <p>Though underrated by many, this pearl of a city will make a lasting impression that may just entice you to return again and again</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromManila()">&larr; Back</button>
+    <h2>Flights to Manila</h2>
+    <p>The capital city of the Philippines, Manila is the center of culture, education, economy, and government in the Philippines. It's home to the top hotel, entertainment, shopping, and dining establishments, making it a must-visit to experience the best of the country.</p>
+    <p>Book flights to Manila and visit Intramuros where you can learn more about the country's colonial Hispanice past. Afterwards, you can head on over to one of the shopping complexes in the city to see what it's all about, perfect on days where it gets extra hot and humid or when you want to wait out the rush hour traffic. At night, you can see the city after-hours by going to clubs, gigs, or maybe even catching a drag show or two!</p>
+    <p>Got a bit more time on your hands? You can drive south of Metro Manila and visit Tagaytay in Cavite or go on a beach and diving getaway by going further south to Batangas.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Learn about the city's rich and storied history at Intramuros where the country's colonial Hispanic past comes alive</li>
+     <li>Book a flight to Manila, home to the best and top hotel, entertainment, shopping and dining establishments in the Philippines.</li>
+     <li>Experience the after-hours vibes of the city and catch a drag show, dance the night away in clubs, or check out late-night dives for some excellent indie music</li>
+     <li>Duck into one of the massive shopping complexes that string together multiple malls to escape the rush hour traffic or to cool off from the humid, tropical weather</li>
+     <li>Wander off south of Metro Manila — to Tagaytay, a serene but rapidly developing mountain town in the neighboring province of Cavite; or to Batangas, where one can choose from small-town, beach, or diving getaways</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Manila's Ninoy Aquino International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Philippine Peso (PHP)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>While it is a year-round destination, the best time to book a flight to Manila is during the cooler months of December to February when the sun is not scorching and there's little chance of rain.</p>
+    <h4>BOOK FLIGHTS TO MANILA</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Manila from Cebu, Davao, Iloilo and the rest of our Philippine destinations. Manila may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Manila and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Boracay (Caticlan) With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="davaoPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Davao" class="detail-header-img" src="davao.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Davao</h1>
+     <p>The Crown Jewel of South Philippines brims with charm, curious delicacies, and vivid sights</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromDavao()">&larr; Back</button>
+    <h2>Flights to Davao</h2>
+    <p>Dabaw, as the locals call it, is the largest city in the Philippines with a land area of 2,443.61km&sup2;. The city is located in Region XI, in the southeastern part of Mindanao. A flight to Davao will reveal many similarities with cities across Southeast Asia — the hot and humid climate, the crowds and cacophony of industrial sounds — it also has plenty of wide, open spaces and pockets of tranquility within and near the city.</p>
+    <p>Hop on flights to Davao and visit Samal Island, known for being the largest resort city in the Philippines. The island is accessible via a quick ferry ride, and is popular for its beaches, snorkeling and diving sites, as well as the resorts that people who have different budget ranges can visit.</p>
+    <p>Another spot to add to everyone's Davao itinerary is the Davao Crocodile Park, where you can visit Pangil – the Philippine's largest living croc.</p>
+    <p>When it comes to food and pasalubong, one should definitely not miss durian, the fruit Davao is known for. Don't worry if you're not yet ready to try the fruit as is yet, as you can always have a taste of other durian-based treats, from tart to coffee.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Bring the family to Davao Crocodile Park and learn about different species and sizes of crocodiles. Don't forget to say hi to the country's largest living croc, the 5.5m-long Pangil!</li>
+     <li>Take a quick boat ride from either Santa Ana Wharf or Sasa Wharf to Samal Island, a white-sand beach dotted with resorts.</li>
+     <li>Find peace and quiet in the middle of the metropolis at the Lon Hua Buddhist Temple.</li>
+     <li>Support local and shop for organic and sustainable produce and products at the Dayaw Market.</li>
+     <li>Don't leave Davao without trying durian - a prickly fruit with a distinctively pungent smell! If you're not feeling that adventurous yet, try durian-based treats like tarts, candy, and even coffee.</li>
+    </ul>
+    <h4>AIRPORT</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Davao's Francisco Bangoy International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Philippine Peso (PHP)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>The best time to book a flight to Davao is during the Kadayawan Festival, which happens every August. The city streets are flooded with vibrant colors and dancing to celebrate a good harvest and honor the unity between indigenous peoples.</p>
+    <h4>BOOK FLIGHTS TO DAVAO</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Davao from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Davao and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Boracay (Caticlan). With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+    <h4>WHAT TO DO</h4>
+    <p><strong>Giant Clam Sanctuary</strong>, Barangay Adecor, Samal Island; +63 908 118 5162. Enjoy snorkeling and spotting the rare giant clams of the island.</p>
+    <p><strong>Pearl Farm Beach Resort</strong>, Barangay Adecor Kaputian, Samal Island; +63 82 235 1234. A beach resort which offers luxurious lodgings and stilt houses with full-board buffet meals.</p>
+    <p><strong>Davao Crocodile Park and Zoo</strong>, Diversion Front/Riverfront, Corporate City; +63 82 286 8883; crocodilepark.ph. Meet a menagerie of delightful animals — eagles, ostriches, orangutans, snakes, crocodiles and one Aira Iguana, charmingly described as a good swimmer — in this sanctuary. The attraction is home to a crocodile farm that's equipped with modern facilities and equipment, and encourages visitors to respect our connections with nature. Guided tours available. $</p>
+    <p><strong>Lon Hua Buddhist Temple</strong>, Cabaguio Ave, Agdao. One of the biggest Buddhist temples in the Philippines and the biggest in the island of Mindanao. Italian marble slabs make up the walls of this temple; it also hosts a gold Kuan Yin, wood carvings featuring the life of Buddha, and lily ponds. Visit for some peace and meditation.</p>
+    <p><strong>Davao Museum of History and Ethnography</strong>, Zonta Building, 113 Agusan Circle, Insular Village 1, Lanang; +63 82 233 1734. Immerse yourself in Davao's rich culture and history with a two-hour tour.</p>
+    <p><strong>Eden Park Nature Resort</strong>, Davao-Bukidnon Eden, Toril, Davao City; +63 82 286 0383; +63 86 286 0385. A nature resort that offers various outdoor activities for the family. View the city from a skycycle, tour the farm on horseback, zip through the forest canopy on the sky swing, or just hang out by the swimming pool. For overnight visits, there are rooms and villas available.</p>
+    <p><strong>Gap Farming Resort</strong>, Green Meadow, Ma-a; +63 82 244 0156. This mountain resort is a popular weekend destination, with horseback riding facilities, picnic areas, various orchards, a campsite and an Olympic-size swimming pool.</p>
+    <p><strong>Giant Clam Sanctuary</strong>, Barangay Adecor, Samal Island; +63 908 118 5162. Enjoy snorkeling and spotting the rare giant clams — locally known as Taklobo, and are the largest living bivalves whose size can reach up to 1.5m — of the island. Formally known as the Marine Reserve Park, it highlights the indispensable role of marine protected areas in giant clam conservations. Taklobo Tours offers tourists a one-of-a-kind underwater adventure. Take the two-hour tour (including travel time) from Sta. Ana Wharf in Davao City, or just a five-to-seven-minute boat ride from Barangay Adecor to the Marine Reserve Park. $</p>
+    <p><strong>Hagimit Falls and Nature Park</strong>, Poblacion Pe&ntilde;aplata, Samal Island; +63 999 705 5330. Admire the beauty of the Hagimit Falls. You can choose to stay overnight in the park, either by pitching tents or renting cozy cottages.</p>
+    <p><strong>Mel's Davao City Food Tour</strong>, +63 947 361 3544. Dive into Davao's delicacies with a six-hour tour that will take you to various food stops and historical sites.</p>
+    <p><strong>Philippine Eagle Nature Center</strong>, philippineeagle.org/center. A conservation breeding facility for the critically endangered Philippine Eagle. View these majestic creatures up close, along with other birds, mammals and reptiles endemic to the country.</p>
+    <p><strong>Samal Island</strong>, samal-island.com. A popular beach paradise that's just a 10-minute ferry ride away from the hustle and bustle of Davao City. Hike up Mount Puting Bato and enjoy beautiful views of Davao Gulf at the summit.</p>
+   </div>
+  </div>
+  <div id="hongKongPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Hong Kong" class="detail-header-img" src="hongkong.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Hong Kong</h1>
+     <p>Eat, drink, and be merry in the bustling Fragrant Harbour</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromHongKong()">&larr; Back</button>
+    <h2>Flights to Hong Kong</h2>
+    <p>Mention Hong Kong to most travellers and they'll almost definitely refer to the vibrant city's longstanding reputation for being a food and shopping paradise. There's never a dull moment here — the buzzing metropolis is home to nearly 7.5 million people, which means streets sometimes remain packed even after dark. The beckoning neon lights of shopping hubs Causeway Bay and Wan Chai will keep you on your toes all night long, and if you're feeling peckish at 2am? There are plenty of 24-hour eateries that will whet your appetite.</p>
+    <p>Hop on flights to Hong Kong and discover for yourself how it more than just a concrete jungle. The city isn't just a single island — it's made up of more than 260 islands. The main regions include Hong Kong Island, New Territories and the Kowloon peninsula, but the city's territory also spans a vast number of outlying islands such as Lantau (the largest in the area, and home to HK Disneyland) and tranquil Peng Chau. All it takes to cross over to some of the many islands is a ferry ride, usually up to an hour each way. It's a great way to enjoy Hong Kong from a different point of view — far from the madding crowd, with the sea breeze in your hair.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Eat your way through Hong Kong from Michelin-starred restaurants to local cha chaan teng (tea houses)</li>
+     <li>Visit Causeway Bay, Hong Kong's shopping district, for luxury brands and local fashion retailers</li>
+     <li>For the brave-hearted: Spend a day at Ladies' Market in Mongkok and browse through over 100 stalls</li>
+     <li>Bring the entire family to the happiest place on earth - Hong Kong Disneyland!</li>
+    </ul>
+    <h4>AIRPORT</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Hong Kong International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Hong Kong Dollar (HKD)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>Book flights to Hong Kong any time of the year for its varied arts and culture calendar:</p>
+    <ul>
+     <li>March - Arts Month - featuring the long-established HK Arts Festival as well as Art Basel</li>
+     <li>June - the dragon-boat festivities begin on Victoria Harbour</li>
+     <li>October - HK Wine &amp; Dine Festival</li>
+     <li>December - Winter Fest, and finally, the year-end extravaganza complete with fireworks over the harbour every December 31.</li>
+    </ul>
+    <h4>BOOK FLIGHTS TO HONG KONG</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Hong Kong from Manila, Clark, Cebu, Iloilo, and Davao, which may be reached via key hubs such as Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Hong Kong and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="dubaiPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Dubai" class="detail-header-img" src="dubai.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Dubai</h1>
+     <p>A city where the world meets and where the impossible is made possible every day</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromDubai()">&larr; Back</button>
+    <h2>Flights to Dubai</h2>
+    <p>Dubai is the capital of the Emirate of Dubai and is one of the 7 emirates of the United Arab Emirates. The city, which used to be a fishing village back in the 18th century, is now one of the world's most popular tourist destinations, especially because of how the city features a mix of local and international cultures and lifestyles.</p>
+    <p>City people can hop on flights to Dubai to see first-hand some of the world's most popular sites – from the world's tallest building, Burj Khalifa, to the world's largest performing fountain, the Dubai Fountain. Meanwhile, those who love to shop can visit Dubai and choose from over 70 shopping centers, with the largest one being the Dubai Mall, home to over 1,300 retail outlets.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Go up Burj Khalifa, the world's tallest building, and get the best vantage point of the city</li>
+     <li>Catch an extraordinary fountain show at the world's largest performing fountain - Dubai Fountain</li>
+     <li>Shop your heart out at the Dubai Mall, which is home to more than 1,300 retail outlets, including 200 F&amp;B options</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Dubai's Dubai International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>United Arab Emirates Dirham (AED)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>The best time to hop on flights to Dubai is during the winter months, between November and April. During this time, tourists can dress for the summer as the temperature can go from the mid-20s to the mid-30s. However, note that temperature can also drop to below 15 degrees on winter mornings, so it's also best to pack a light jacket with you for your trip.</p>
+    <h4>BOOK FLIGHTS TO DUBAI</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Dubai from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul, and Singapore, among others. Cebu Pacific offers cheap flights to Dubai and also operates the most flight connections to the rest of the Philippines' top beach, dive, and island destinations, such as Palawan (El Nido), Boracay (Caticlan), and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="kualaLumpurPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Kuala Lumpur" class="detail-header-img" src="kualalumpur.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Kuala Lumpur</h1>
+     <p>The Malaysian capital is a gateway to exploring the rest of the country, but is also a city worth discovering on its own</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromKualaLumpur()">&larr; Back</button>
+    <h2>Flights to Kuala Lumpur</h2>
+    <p>Kuala Lumpur – Malaysia's capital city – is a place where the past and the present co-exist and where one can experience and learn more about their diverse culture. Its name means "muddy confluence" in Malay, because of its location at the meeting point of the Klang and Gombak rivers.</p>
+    <p>Get on flights to Kuala Lumpur and head on to Merdeka Square, where Malaysia's freedom from Great Britain was declared in August 1957. Just a stone's throw away from it is the Masjid Jamek, the city's oldest mosque. One can also check out Chinatown, where you can have a hawker and fine dining experience.</p>
+    <p>When in Kuala Lumpur, make sure to add the Petronas Towers to your itinerary. While they're no longer the tallest buildings in the world, it's still worth seeing one of Malaysia's most popular spots in person.</p>
+    <p>For an area that has a little bit of everything, there's Bukit Bintang, which is home to malls like the Sungei Wang Plaza, Low Yat Plaza, and Pavillion. From here, you can also walk to Jalan Alor, where you can try out Malaysian street food, and Changkat Bukit Bintang where you can drink and party the night away.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Get a view of the Petronas Twin Towers, which remains a potent symbol of Malaysia's rise to prosperity.</li>
+     <li>Start your day right with a morning walk at the Perdana Botanical Garden.</li>
+     <li>Travel across the Islamic world through art at the largest museum dedicated to Islamic art — the Islamic Arts Museum Malaysia (IAMM).</li>
+    </ul>
+    <h4>AIRPORT</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Kuala Lumpur's Kuala Lumpur International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Malaysian Ringgit (MYR)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>While you can schedule your trip to the city throughout the year, the best time to get on flights to Kuala Lumpur is during the dry season from November to March so you won't have to worry about rain.</p>
+    <h4>BOOK CHEAP FLIGHTS TO KUALA LUMPUR</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Kuala Lumpur from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul, and Singapore, among others. Cebu Pacific offers cheap flights to Kuala Lumpur and also operates the most flight connections to the rest of the Philippines' top beach, dive, and island destinations, such as Palawan (El Nido), Boracay (Caticlan) and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="shanghaiPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Shanghai" class="detail-header-img" src="shanghai.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Shanghai</h1>
+     <p>This city of superlatives and juxtapositions is at once modern and traditional</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromShanghai()">&larr; Back</button>
+    <h2>Flights to Shanghai</h2>
+    <p>Shanghai is located south of the Yangtze River and is the largest economic and trade center in China. It's also one of the most popular cities to visit in China, because of how it's home to so many cultural landmarks, but also to towering skyscrapers that scream modernity.</p>
+    <p>A trip to Shanghai is, of course, not complete without a visit to the Bund – a waterfront area and a protected historical district in Shanghai. The area used to operate as a legally protected treaty port, making it the center of foreign establishment in Shanghai. Today, one can take a strong along the Bund and take in the views of the skyline.</p>
+    <p>Those who want to learn more about the city's history and culture can visit the Jing'an Temple, which houses the Jade Buddha, Yuyuan Gardens, which was built back in the Ming Dynasty, and the Shanghai Museum, which houses art works, ceramics, and sculptures from the Ming and the Qing dynasties.</p>
+    <p>For the kids and the kids at heart, one place they should definitely add to their itineraries is Shanghai Disneyland. Here, they can enjoy seven themed areas – Mickey Avenue, Gardens of Imagination, Fantasyland, Treasure Cove, Adventure Isle, Tomorrowland, and Toy Story Land.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>A trip to Shanghai is incomplete without paying a visit to the iconic waterfront promenade - The Bund</li>
+     <li>Join a walking tour which takes you through the ins and outs of its colorful neighborhoods and get a feel of Shanghai's rich and varied culture</li>
+     <li>If you're traveling with kids, you can't miss Shanghai Disney Resort!</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has multiple flights to Shanghai's Shanghai Pudong International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Chinese Yuan (CNY)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>There really is no bad time to hop on flights to Shanghai, but if you want to enjoy milder weather, it would be ideal to visit in Spring (March to May) or Autumn (September to November). Those who want to avoid a huge crowd of tourists, though, must keep in mind to avoid two long festivals – Chinese New Year in January or February and the Chinese National Day Holiday in October.</p>
+    <h4>BOOK FLIGHTS TO SHANGHAI</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Shanghai from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul, and Singapore, among others. Cebu Pacific offers cheap flights to Shanghai and also operates the most flight connections to the rest of the Philippines' top beach, dive, and island destinations, such as Palawan (El Nido), Boracay (Caticlan) and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="seoulPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Seoul" class="detail-header-img" src="seoul.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Seoul</h1>
+     <p>Experience the vibrant city of Seoul where tradition and modernity meets</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromSeoul()">&larr; Back</button>
+    <h2>Flights to Seoul (Incheon)</h2>
+    <p>The capital and largest city in South Korea spans a largely hilly terrain of 605.2 km2, comprises 25 districts and is home to about 10 million people — about half of the country's population. Hop on a flight to Seoul to meet its people, a majority of whom identify as Christians and Buddhists, and are at once deeply traditional and trained toward a global state of mind.</p>
+    <p>Not surprisingly, Seoul has become a common feature in world economic and liveability indexes and a frontrunner in innovating design and technology. It carries a dynamic identity and is easily associated with global brands such as Hyundai, Kia Motors, LG Corporation and Samsung; is acknowledged as being at the forefront of aesthetic medicine; is recognized for offering some of the fastest internet speeds in the world; and is seen as the home-base of K-pop and Hallyu — all this while being home to five majestic royal palaces, as well as a host of museums and galleries, big and small.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Go back in time and take a palace stroll (in <em>hanbok</em>, if you so desire) or visit traditional Korean houses called <em>hanok</em> in Bukchon</li>
+     <li>Live your fan dream and attend a concert or a fan-meet, visit entertainment companies, or dine at celebrity-owned restaurants</li>
+     <li>Bar hop at Itaewon and sing your hearts out in a <em>noraebang</em> (karaoke room) and cap off the night with some soju or beer</li>
+    </ul>
+    <h4>AIRPORT</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Seoul (Incheon)'s Incheon International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Korean Won (KRW)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>Snowfall can be expected from around late-November to early December, with temperatures falling below -10°C in January.</p>
+    <p>If you want to catch the cherry blossoms festivals, book flights to Seoul (Incheon) from late March to April.</p>
+    <h4>BOOK FLIGHTS TO SEOUL (INCHEON)</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Seoul (Incheon) from Manila, Clark and Cebu, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai and Singapore, among others. Cebu Pacific offers cheap flights to Seoul (Incheon) and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="jakartaPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Jakarta" class="detail-header-img" src="jakarta.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Jakarta</h1>
+     <p>A megacity pulsing with chaotic energy, but with a big soul</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromJakarta()">&larr; Back</button>
+    <h2>Flights to Jakarta</h2>
+    <p>Playfully nicknamed the Big Durian, Jakarta is a melting pot of 10 million people, with many residents originating from elsewhere. Seeking better fortunes in the capital, they bring with them the distinct culture and traditions from Indonesia's 17,000 islands, which makes Jakarta a true cross-section of the archipelago. (You only need to sample the food to see how different regions are well represented.)</p>
+    <p>Located in the world's most populous island of Java, the capital of Indonesia is divided into five administrative municipalities: Central Jakarta, West Jakarta, South Jakarta, East Jakarta (where you'll find the international airport), and North Jakarta. With the notorious traffic, getting from place to place can test your patience — which is a big reason why home deliveries for every conceivable product are widely available. Book a flight to Jakarta and spot the signs of its megalopolis status: wide roads choked with vehicles, the ever-present sounds of construction, digitized modes of payment even in the quaintest of stores. But pull off the highway and you might suddenly find yourself in a narrow street lined with streetside eateries called warung, the smell of grilled meat mingling with the smog. Jakarta is a big city, all right, but it's a big city with soul.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Visit Kota Tua or Old Town to get a picture of what Jakarta was like before the high-rises took over</li>
+     <li>Find respite from the jampacked streets at Merdeka Square, which is marked by the towering National Monument</li>
+     <li>Cap of the night in Central Jakarta where you'll find a good selection of lounges, bars, and speakeasies</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Jakarta's Soekarno-Hatta International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Indonesian Rupiah (IDR)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>The best time to book a flight to Jakarta is during the dry season between June and September.</p>
+    <h4>BOOK FLIGHTS TO JAKARTA</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Jakarta from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Jakarta and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="taipeiPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Taipei" class="detail-header-img" src="taipei.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Taipei</h1>
+     <p>Delicious street food, historic cultural landmarks, and easy day trips to lush nature spots — Taipei has it all</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromTaipei()">&larr; Back</button>
+    <h2>Flights to Taipei</h2>
+    <p>With a vibrant urban center and plenty of verdant natural attractions at its doorstep, Taipei offers the best of both city and country life. Despite having a 300-year history and a population of roughly 2.7 million, the city still manages to give off a friendly and low-key vibe — but that doesn't make it any less of an exciting holiday destination.</p>
+    <p>In the mood for a history lesson or to soak up some culture? Hop on cheap flights to Taipei and head on over to one of Taipei's many palaces, museums or temples. Need to get away from the action for a bit? Take an easy day trip to a tranquil hot spring, forest reserve, hillside village or national park. Hankering after a midnight snack? Simply hit up one of the famed night markets to get a taste of the mouth-watering street food scene.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Feast on culinary delights at local night markets - from the buzzy Shilin market to legendary stand-alone stalls that dot the different districts</li>
+     <li>Culture buffs can learn more about Taiwan's history through its great mix of museums, temples, and historic landmarks</li>
+     <li>Escape the city and take a day trip to nearby towns such as Jiufen and Jinguashi or explore natural wonders such as Yangmingshan National Park and Beitou Hot Springs</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Taipei's Taoyuan International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Philippine Peso (PHP)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>The best time to jump on flights to Taipei is almost any time of the year. In Spring you may catch a glimpse of cherry trees, while Fall is an ideal time to visit as temperatures hover around 20°C. Summer is the main peak tourism season — so expect some crowd-jostling if you're visiting at this time — and when the area is likely to experience a typhoon or two.</p>
+    <h4>BOOK FLIGHTS TO TAIPEI</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Taipei from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Taipei and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="macauPage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Macau" class="detail-header-img" src="macau.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Macau</h1>
+     <p>Find well-preserved ruins, delicious European-inspired street food, and a burgeoning art scene in this southern city</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromMacau()">&larr; Back</button>
+    <h2>Flights to Macau</h2>
+    <p>For the historically inclined, Macau is a heritage wonderland. The city has beautifully preserved numerous heritage sites that speak of its long and storied past, including landmarks such as the iconic 16th-century Ruins of Saint Paul or the Western-style Dom Pedro V Theatre that was built in 1860. Hop on flights to Macau and visit the Unesco-listed Senado Square, where the famous wavy mosaic-tiled pavements and bright-hued buildings will surely get you likes on Instagram. Then climb up Monte Fort for a panoramic view of the city that includes the neighboring church ruins and the Grand Lisboa Hotel in the distance, a 261m-tall giant that's both striking in its golden silhouette as well as daunting as a monumental marker of Macau's gambling strip. Travel south by bus (30 minutes) or car (10 minutes) to get to Taipa Village, home to Rua do Cunha, a lively food street selling delicious Portuguese, Macanese and Chinese snacks. It's the perfect place to spend an afternoon with friends.</p>
+    <p>Feeling lucky? No trip is complete without the requisite visit to the Cotai Strip, where you can while away an evening throwing die and catching world-class theatrical productions. Or, take a romantic gondola ride through the canals at the Venetian Macao — the surrounding buildings, crystal-clear waters and Italian gondolier will make you forget you aren't in Europe.</p>
+    <p>Check out the city's annual calendar for these exciting events: Witness fresh blooms all across the city in celebration of the Macao Lotus Flower Festival in June; jive to locally composed music created to accompany an impressive display of fireworks at the Macau International Fireworks Display Contest in September; eat to your heart's content at the Food Festival in November; and join in the festivities as the city celebrates its handover to China with the annual Macao International Parade in December. The parade begins in the Ruins of Saint Paul and finishes at Sai Van Lake Square. And don't forget the Hush! Full Music Festival in April, where local and international bands gather at Hac Sa Beach in Coloane, 8km south of Taipa Village, for two days of music and fun.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Start your day at the Unesco-listed Senado Square, where the famous wavy mosaic-tiled pavements and bright-hued buildings will surely get you likes on Instagram</li>
+     <li>Journey down the cobbled streets in search of local bakeries selling fragrant Portuguese egg tarts, Macanese almond cookies, and various Chinese snacks</li>
+     <li>No trip is complete without the requisite visit to the (in)famous Cotai Strip, where you can while away an evening throwing die and catching world-class theatrical productions</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Macau International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Macanese Pataca (MOP)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>Check out the city's annual calendar for these exciting events:</p>
+    <ul>
+     <li><strong>June:</strong> Macao Lotus Flower Festival</li>
+     <li><strong>September:</strong> Macao International Fireworks Display Contest</li>
+     <li><strong>November:</strong> Food Festival</li>
+     <li><strong>December:</strong> Macao International Parade</li>
+    </ul>
+    <h4>BOOK FLIGHTS TO MACAU</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Macau from Manila, which may be reached via key hubs such as Hong Kong, Tokyo, Dubai, Seoul and Singapore, among others. Cebu Pacific offers cheap flights to Macau and also operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales and promos, Cebu Pacific's cheap flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <div id="singaporePage" style="display:none;">
+   <div class="detail-header">
+    <img alt="Singapore" class="detail-header-img" src="singapore.jpg"/>
+    <div class="detail-header-overlay">
+     <span class="detail-tag">CITY GUIDE</span>
+     <h1>Singapore</h1>
+     <p>This tiny-city state has become a modern-day trailblazer that will transport you into the future</p>
+    </div>
+   </div>
+   <div class="detail-article">
+    <button class="back-btn-inline" onclick="backToHomeFromSingapore()">&larr; Back</button>
+    <h2>Flights to Singapore</h2>
+    <p>Located at the southern tip of the Malay Peninsula, Singapore is home to the world's best airport and one of the globe's busiest container ports. These have helped entice many international corporations to put up headquarters in the city; in turn spurring massive investments in infrastructure and technology — apparent in the impressive Singapore skyline.</p>
+    <p>Hop on flights to Singapore and experience for yourself the efficiency and pragmatism that permeates this nation of almost 6 million. Spot this in everything from the burgeoning start-ups that include internationally lauded bars and restaurants, to the mom-and-pop shops in the heartlands and ethnic enclaves. The city is also buoyed by an integrated transportation system that connects people and visitors to destinations such as the Gardens by the Bay conservatories, popular Orchard Road shopping strip and award-winning Wildlife Reserves parks.</p>
+    <h4>HIGHLIGHTS</h4>
+    <ul>
+     <li>Begin your dining experience at a kopitiam (traditional breakfast or coffee shop) or hawker center, and work your way to one of the city's top-rated fine dining restaurants.</li>
+     <li>Head downtown to the Marina Bay Sands boardwalk and take in Singapore's iconic skyline.</li>
+     <li>Go on a family tour and hit all the must-see attractions like the Singapore Zoo, Gardens by the Bay, the ArtScience Museum, and Universal Studios.</li>
+    </ul>
+    <h4>AIRPORTS</h4>
+    <ul>
+     <li>Cebu Pacific has several flights to Singapore's Changi International Airport</li>
+    </ul>
+    <h4>CURRENCY</h4>
+    <ul>
+     <li>Singapore Dollar (SGD)</li>
+    </ul>
+    <h4>WHEN TO VISIT</h4>
+    <p>While Singapore is a year-round destination, the best time to book a flight to Singapore is during the dry season between February and April when there is less rainfall.</p>
+    <h4>BOOK FLIGHTS TO SINGAPORE</h4>
+    <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Singapore from Manila, Clark, Cebu, and Iloilo, which may be reached via key hubs such as Tokyo, Dubai, Seoul and Hong Kong among others. Cebu Pacific offers cheap flights to Singapore and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets, and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
+   </div>
+  </div>
+  <script>
+   var allDestinations = [
+{ name: 'Boracay', img: 'boracay.png', fn: 'showBoracayPage' },
+{ name: 'Cebu', img: 'cebucity.jpg', fn: 'showCebuPage' },
+{ name: 'Palawan', img: 'palawan.jpg', fn: 'showPalawanPage' },
+{ name: 'Manila', img: 'manila.jpg', fn: 'showManilaPage' },
+{ name: 'Bacolod', img: 'bacolod.jpg', fn: 'showBacolodPage' },
+{ name: 'Davao', img: 'davao.jpg', fn: 'showDavaoPage' },
+{ name: 'Tokyo', img: 'tokyocity.jpg', fn: 'showTokyoPage' },
+{ name: 'Xiamen', img: 'xiamen.jpg', fn: 'showXiamenPage' },
+{ name: 'Bali', img: 'bali.jpg', fn: 'showBaliPage' },
+{ name: 'Bangkok', img: 'bangkokcity.jpg', fn: 'showBangkokPage' },
+{ name: 'Hong Kong', img: 'hongkong.jpg', fn: 'showHongKongPage' },
+{ name: 'Dubai', img: 'dubai.jpg', fn: 'showDubaiPage' },
+{ name: 'Kuala Lumpur', img: 'kualalumpur.jpg', fn: 'showKualaLumpurPage' },
+{ name: 'Shanghai', img: 'shanghai.jpg', fn: 'showShanghaiPage' },
+{ name: 'Seoul', img: 'seoul.jpg', fn: 'showSeoulPage' },
+{ name: 'Macau', img: 'macau.jpg', fn: 'showMacauPage' },
+{ name: 'Jakarta', img: 'jakarta.jpg', fn: 'showJakartaPage' },
+{ name: 'Taipei', img: 'taipei.jpg', fn: 'showTaipeiPage' },
+{ name: 'Singapore', img: 'singapore.jpg', fn: 'showSingaporePage' }
+];
+function showSuggestions() {
+var input = document.getElementById('citySearch');
+var query = input.value.trim().toLowerCase();
+var box = document.getElementById('searchSuggestions');
+box.innerHTML = '';
+if (query === '') {
+box.style.display = 'none';
+return;
+}
+var matches = allDestinations.filter(function(d) { return d.name.toLowerCase().indexOf(query) === 0; });
+if (matches.length === 0) {
+var empty = document.createElement('div');
+empty.className = 'suggestion-empty';
+empty.textContent = 'No matching destinations';
+box.appendChild(empty);
+} else {
+matches.forEach(function(d) {
+var item = document.createElement('div');
+item.className = 'suggestion-item';
+item.textContent = d.name;
+item.onclick = function() { selectSuggestion(d.name); };
+box.appendChild(item);
+});
+}
+box.style.display = 'block';
+}
+function selectSuggestion(name) {
+document.getElementById('citySearch').value = name;
+document.getElementById('searchSuggestions').style.display = 'none';
+searchDestinations();
+}
+document.addEventListener('click', function(e) {
+var wrap = document.getElementById('citySearch').parentElement;
+if (wrap && !wrap.contains(e.target)) {
+document.getElementById('searchSuggestions').style.display = 'none';
+}
+});
+function searchDestinations() {
+var query = document.getElementById('citySearch').value.trim().toLowerCase();
+document.getElementById('filterOptions').style.display = 'none';
+if (query === '') {
+document.getElementById('searchResultsSection').style.display = 'none';
+document.getElementById('defaultDestinations').style.display = 'block';
+return;
+}
+var matches = allDestinations.filter(function(d) { return d.name.toLowerCase().indexOf(query) !== -1; });
+document.getElementById('defaultDestinations').style.display = 'none';
+document.getElementById('internationalDestinations').style.display = 'none';
+document.getElementById('destinationFilter').value = '';
+var grid = document.getElementById('searchResultsGrid');
+grid.innerHTML = '';
+var noResults = document.getElementById('searchNoResults');
+if (matches.length === 0) {
+noResults.style.display = 'block';
+} else {
+noResults.style.display = 'none';
+matches.forEach(function(d) {
+var card = document.createElement('div');
+card.className = 'dest-card';
+card.setAttribute('onclick', d.fn + '()');
+var img = document.createElement('img');
+img.src = d.img;
+img.alt = d.name;
+var label = document.createElement('div');
+label.className = 'dest-label';
+label.textContent = d.name;
+card.appendChild(img);
+card.appendChild(label);
+grid.appendChild(card);
+});
+}
+document.getElementById('searchResultsHeading').textContent = 'Search Results for "' + document.getElementById('citySearch').value.trim() + '"';
+document.getElementById('searchResultsSection').style.display = 'block';
+}
+function filterDestinations(type, label) {
+document.getElementById('citySearch').value = '';
+document.getElementById('searchResultsSection').style.display = 'none';
+document.getElementById('destinationFilter').value = label;
+document.getElementById('filterOptions').style.display = 'none';
+if (type === 'international') {
+document.getElementById('defaultDestinations').style.display = 'none';
+document.getElementById('internationalDestinations').style.display = 'block';
+} else {
+document.getElementById('internationalDestinations').style.display = 'none';
+document.getElementById('defaultDestinations').style.display = 'block';
+}
+}
+function changeOtherDestPage(page) {
+if (page < 1) page = 1;
+if (page > 4) page = 4;
+document.querySelectorAll('.other-dest-page').forEach(function(el) { el.classList.remove('active'); });
+var target = document.getElementById('otherDestPage' + page) || document.getElementById('otherDestPage3');
+target.classList.add('active');
+document.querySelectorAll('#otherDestPagination a[data-page]').forEach(function(el) {
+el.classList.toggle('active', parseInt(el.getAttribute('data-page')) === page);
+});
+document.getElementById('otherDestPrev').classList.toggle('disabled', page === 1);
+document.getElementById('otherDestNext').classList.toggle('disabled', page === 4);
+document.getElementById('otherDestPrev').onclick = function() { changeOtherDestPage(page - 1); };
+document.getElementById('otherDestNext').onclick = function() { changeOtherDestPage(page + 1); };
+}
+function showTokyoPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('tokyoPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHome() {
+document.getElementById('tokyoPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showXiamenPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('xiamenPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromXiamen() {
+document.getElementById('xiamenPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showBoracayPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('boracayPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromBoracay() {
+document.getElementById('boracayPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showCebuPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('cebuPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromCebu() {
+document.getElementById('cebuPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showPalawanPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('palawanPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromPalawan() {
+document.getElementById('palawanPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showBacolodPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('bacolodPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromBacolod() {
+document.getElementById('bacolodPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showBaliPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('baliPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromBali() {
+document.getElementById('baliPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showBangkokPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('bangkokPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromBangkok() {
+document.getElementById('bangkokPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showManilaPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('manilaPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromManila() {
+document.getElementById('manilaPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showDavaoPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('davaoPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromDavao() {
+document.getElementById('davaoPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showHongKongPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('hongKongPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromHongKong() {
+document.getElementById('hongKongPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showDubaiPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('dubaiPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromDubai() {
+document.getElementById('dubaiPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showKualaLumpurPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('kualaLumpurPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromKualaLumpur() {
+document.getElementById('kualaLumpurPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showShanghaiPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('shanghaiPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromShanghai() {
+document.getElementById('shanghaiPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showSeoulPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('seoulPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromSeoul() {
+document.getElementById('seoulPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showJakartaPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('jakartaPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromJakarta() {
+document.getElementById('jakartaPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showTaipeiPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('taipeiPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromTaipei() {
+document.getElementById('taipeiPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showMacauPage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('macauPage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromMacau() {
+document.getElementById('macauPage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function showSingaporePage() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('singaporePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+function backToHomeFromSingapore() {
+document.getElementById('singaporePage').style.display = 'none';
+document.getElementById('homePage').style.display = 'block';
+window.scrollTo(0, 0);
+}
+  </script>
+ </body>
+</html>

@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Guest Details - Booking</title>
+<style>
+  :root{
+    --yellow:#FFD200;
+    --blue-link:#0072CE;
+    --blue-dark:#12395B;
+    --text-dark:#1a1a1a;
+    --text-gray:#6b7280;
+    --border:#d1d5db;
+    --error-red:#e02020;
+    --info-blue:#e8f4fd;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f2f2f2;
+    color:var(--text-dark);
+  }
+
+  /* ---------- HEADER / STEPPER ---------- */
+  .header{
+    background:var(--yellow);
+    padding:22px 0 16px;
+  }
+  .stepper{
+    max-width:900px;
+    margin:0 auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+  }
+  .step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    width:150px;
+  }
+  .step .circle-badge{
+    padding:5px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .step .circle{
+    width:30px;height:30px;border-radius:50%;
+    background:#fff;
+    border:2px solid var(--blue-dark);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--blue-dark);
+    z-index:2;
+  }
+  .step.done .circle, .step.active .circle{
+    background:var(--blue-dark);
+    color:#fff;
+  }
+  .step .circle svg{ width:15px; height:15px; }
+  .step label{
+    margin-top:6px;
+    font-size:12.5px;
+    font-weight:bold;
+    color:var(--blue-dark);
+  }
+  .step:not(.done):not(.active) label{ color:var(--blue-link); font-weight:normal;}
+  .connector{
+    position:absolute;
+    top:19px; left:calc(-75px + 15px);
+    width:150px;height:0;
+    border-top:2px dotted var(--blue-dark);
+    z-index:1;
+  }
+  .step:not(.done):not(.active) .connector{ border-top-color:#fff; }
+  .step:first-child .connector{display:none;}
+
+  /* ---------- PAGE CONTENT ---------- */
+  .page-intro{
+    max-width:900px;
+    margin:18px auto 4px;
+    padding:0 20px;
+    font-size:13px;
+    color:#333;
+  }
+  h1.page-title{
+    max-width:900px;
+    margin:2px auto 18px;
+    padding:0 20px;
+    font-size:26px;
+  }
+  .content-wrap{
+    max-width:900px;
+    margin:0 auto 40px;
+    padding:0 20px;
+    display:flex;
+    gap:20px;
+  }
+  .guest-tabs{
+    width:180px;
+    background:#fff;
+    border-radius:4px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.12);
+  }
+  .guest-tab{
+    padding:14px 16px;
+    border-left:4px solid var(--blue-link);
+    font-size:13px;
+    cursor:pointer;
+  }
+  .guest-tab .num{ color:var(--text-gray); font-size:11px; display:block;}
+  .guest-tab .name{ font-weight:bold; color:var(--text-dark);}
+
+  .form-card{
+    flex:1;
+    background:#fff;
+    border-radius:4px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.12);
+    padding:24px 28px;
+  }
+
+  .bundle-label{
+    font-size:11px; font-weight:bold; color:var(--blue-link);
+    letter-spacing:.3px;
+  }
+  .bundle-route{ font-size:12px; font-weight:bold; margin-top:8px;}
+  .bundle-fare{ font-size:12px; margin-top:2px; display:flex; align-items:center; gap:4px;}
+  hr.sep{ border:none; border-top:1px solid #e5e5e5; margin:14px 0 18px;}
+
+  .field-label{
+    font-size:12px; font-weight:bold; margin-bottom:6px; display:block;
+  }
+  .req{ color:var(--error-red); }
+  .helper-text{ font-size:11.5px; color:#555; margin:-4px 0 12px;}
+
+  .row{ display:flex; gap:14px; margin-bottom:16px;}
+  .row > div{ flex:1; display:flex; flex-direction:column;}
+
+  input[type=text], input[type=tel], input[type=email], input[type=number], select{
+    padding:9px 10px;
+    border:1px solid var(--border);
+    border-radius:3px;
+    font-size:13px;
+    width:100%;
+    font-family:inherit;
+    color:var(--text-dark);
+  }
+  select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background-color:#fff;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+    background-size:14px;
+    padding-right:32px;
+    cursor:pointer;
+  }
+  select:disabled{ cursor:default; }
+  select:required:invalid, select option[value=""]{ color:#9aa0a6; }
+  input:focus, select:focus{
+    outline:none;
+    border-color:var(--blue-link);
+    box-shadow:0 0 0 2px rgba(0,114,206,0.15);
+  }
+  input.invalid, select.invalid{
+    border-color:var(--error-red);
+    border-width:1.5px;
+    background-color:#fff5f5;
+  }
+  .error-msg{
+    color:var(--error-red);
+    font-size:11px;
+    margin-top:4px;
+    display:none;
+    align-items:center;
+    gap:6px;
+  }
+  .error-msg.show{ display:flex; }
+  .error-msg.show::before{
+    content:"!";
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:14px;height:14px;
+    min-width:14px;
+    border-radius:50%;
+    background:var(--error-red);
+    color:#fff;
+    font-size:10px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+
+  .checkbox-row{
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; margin:6px 0;
+  }
+  .checkbox-row input{ width:16px;height:16px;}
+  .no-first-name{
+    display:flex; align-items:center; gap:6px;
+    font-size:12px; color:#333; margin-top:8px;
+  }
+  .info-icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:14px;height:14px; border-radius:50%;
+    background:var(--text-gray); color:#fff; font-size:9px; font-style:normal;
+    cursor:default;
+  }
+
+  .note-box{
+    background:var(--info-blue);
+    border-radius:4px;
+    padding:12px 14px;
+    font-size:12px;
+    color:#1a1a1a;
+    display:flex;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .note-box .dot{
+    width:16px;height:16px;border-radius:50%;
+    background:var(--blue-link); color:#fff;
+    font-size:10px; display:flex;align-items:center;justify-content:center;
+    flex-shrink:0; margin-top:1px;
+  }
+
+  .decl-details{
+    font-size:12.5px; margin-bottom:10px;
+  }
+  .decl-details b{ font-size:13px; }
+  .decl-details .date{ display:block; margin-top:2px; color:#333;}
+
+  .decl-row{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .decl-row .dropdown{
+    flex:1;
+    margin-bottom:0;
+  }
+  .decl-remove{
+    flex-shrink:0;
+    width:22px;height:22px;
+    margin-top:6px;
+    display:flex;align-items:center;justify-content:center;
+    border:none;background:none;
+    color:#9aa0a6;
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+    border-radius:50%;
+  }
+  .decl-remove:hover{ color:#d32f2f; background:#fdecea; }
+
+  a.add-link{
+    color:var(--blue-link);
+    font-size:13px;
+    font-weight:bold;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+  }
+  a.add-link.hidden{ display:none; }
+  a.add-link .plus{
+    width:18px;height:18px;border-radius:50%;
+    background:var(--blue-link); color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;
+  }
+
+  .warn-box{
+    background:#fdf6e3;
+    border-radius:4px;
+    padding:12px 14px;
+    font-size:11.5px;
+    color:#444;
+    margin-top:14px;
+  }
+  .warn-box b{ font-size:12px; }
+
+  /* ---------- CUSTOM DROPDOWN ---------- */
+  .dropdown{
+    position:relative;
+  }
+  .dropdown-input{
+    padding:9px 10px;
+    border:1px solid var(--border);
+    border-radius:3px;
+    font-size:13px;
+    width:100%;
+    font-family:inherit;
+    color:var(--text-dark);
+    background:#fff;
+    cursor:pointer;
+  }
+  .dropdown-input::placeholder{ color:#9aa0a6; }
+  .dropdown-input:focus, .dropdown.open .dropdown-input{
+    outline:none;
+    border-color:var(--blue-link);
+    box-shadow:0 0 0 2px rgba(0,114,206,0.15);
+  }
+  .dropdown-list{
+    position:absolute;
+    top:calc(100% + 2px);
+    left:0; right:0;
+    background:#fff;
+    border:1px solid #e0e0e0;
+    border-radius:3px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    max-height:190px;
+    overflow-y:auto;
+    z-index:20;
+    display:none;
+    padding:4px 0;
+  }
+  .dropdown.open .dropdown-list{ display:block; }
+  .dropdown-list .opt{
+    padding:9px 14px;
+    font-size:13px;
+    color:var(--text-dark);
+    cursor:pointer;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  /* Country code list needs to be wider than its small input so full country names are readable */
+  #countryCodeList{
+    left:0;
+    right:auto;
+    width:300px;
+    max-width:80vw;
+  }
+  #countryCodeList .opt{
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+    line-height:1.3;
+  }
+  .dropdown-list .opt:hover{ background:#f2f7fc; }
+  .dropdown-list .opt.placeholder-opt{ color:#9aa0a6; }
+  .dropdown-list .opt.selected{ color:var(--blue-link); font-weight:bold; }
+
+  /* Contact info section */
+  .contact-section{
+    max-width:900px;
+    margin:30px auto 60px;
+    padding:0 20px;
+  }
+  .contact-section h1{ font-size:24px; margin-bottom:4px;}
+  .contact-sub{ font-size:13px; color:#333; margin-bottom:16px;}
+  .contact-card{
+    background:#fff; border-radius:4px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.12);
+    padding:26px 28px;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+    font-size:13px; font-weight:bold;
+  }
+  .switch{
+    position:relative; width:40px; height:22px;
+    display:inline-block;
+  }
+  .switch input{ opacity:0; width:0; height:0; }
+  .slider{
+    position:absolute; cursor:pointer; inset:0;
+    background:var(--blue-link); border-radius:22px;
+    transition:.2s;
+  }
+  .slider:before{
+    content:""; position:absolute; height:16px;width:16px;
+    left:3px; top:3px; background:#fff; border-radius:50%;
+    transition:.2s;
+  }
+  .switch input:checked + .slider{ background:var(--blue-link); }
+  .switch input:checked + .slider:before{ transform:translateX(18px); }
+  .switch input:not(:checked) + .slider{ background:#bbb; }
+
+  .select-guest-label{ font-size:12px; font-weight:bold; margin-bottom:4px;}
+  select#guestSelect{ margin-bottom:20px; color:#999; }
+
+  .contact-number-label{ font-size:12px; font-weight:bold; margin-bottom:8px; display:block;}
+  .contact-row{ display:flex; gap:14px; margin-bottom:20px;}
+  .contact-row .cc{ width:110px; }
+  .contact-row .mobile{ flex:1; }
+
+  .terms-card{
+    background:#fff; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,0.12);
+    padding:20px 24px; margin-top:16px;
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:12.5px; color:#333;
+    border:1.5px solid transparent;
+  }
+  .terms-card input{ margin-top:3px; width:16px;height:16px;}
+  .terms-card a{ color:var(--blue-link); font-weight:bold; text-decoration:none;}
+  .terms-card.invalid{
+    background:#fff5f5;
+    border-color:var(--error-red);
+  }
+  .terms-card.invalid input{ outline:1.5px solid var(--error-red); outline-offset:1px; }
+
+  .actions{
+    display:flex; justify-content:flex-end; gap:14px; margin-top:20px;
+  }
+  button{
+    font-family:inherit; font-size:14px; font-weight:bold;
+    padding:11px 30px; border-radius:24px; cursor:pointer; border:none;
+  }
+  .btn-back{
+    background:#fff; color:var(--blue-link); border:1px solid var(--blue-link);
+  }
+  .btn-continue{
+    background:#ccc; color:#fff;
+  }
+  .btn-continue.enabled{
+    background:var(--blue-link); color:#fff;
+  }
+  .btn-continue.enabled:hover{ background:#005ba3; }
+</style>
+</head>
+<body>
+
+<!-- HEADER STEPPER -->
+<div class="header">
+  <div class="stepper">
+    <div class="step done">
+      <div class="circle-badge"><div class="circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </div></div>
+      <label>Select Flight</label>
+    </div>
+    <div class="step active">
+      <div class="connector"></div>
+      <div class="circle-badge"><div class="circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 20c0-3 2-5 5-5s5 2 5 5"/></svg>
+      </div></div>
+      <label>Guest Details</label>
+    </div>
+    <div class="step">
+      <div class="connector"></div>
+      <div class="circle-badge"><div class="circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div></div>
+      <label>Add-ons</label>
+    </div>
+    <div class="step">
+      <div class="connector"></div>
+      <div class="circle-badge"><div class="circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+      </div></div>
+      <label>Payment</label>
+    </div>
+    <div class="step">
+      <div class="connector"></div>
+      <div class="circle-badge"><div class="circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div></div>
+      <label>Confirmation</label>
+    </div>
+  </div>
+</div>
+
+<p class="page-intro">Now that you've selected your flight, enter your details.</p>
+<h1 class="page-title">Guest Details</h1>
+
+<div class="content-wrap">
+  <div class="guest-tabs">
+    <div class="guest-tab">
+      <span class="num">Adult 1</span>
+      <span class="name" id="tabName">Guest</span>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <span class="bundle-label">SELECTED BUNDLES FOR THIS GUEST</span>
+    <div class="bundle-route">MNL–MBT</div>
+    <div class="bundle-fare">GO Basic &#9992;</div>
+    <hr class="sep">
+
+    <span class="field-label">Name</span>
+    <p class="helper-text">Please make sure that you enter your name exactly as it is shown on your Valid ID.</p>
+
+    <div class="row">
+      <div style="max-width:110px;">
+        <label class="field-label">Title<span class="req">*</span></label>
+        <select id="title">
+          <option value="" selected disabled>Select</option>
+          <option>Mr.</option>
+          <option>Ms.</option>
+          <option>Mrs.</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-label">First name<span class="req">*</span></label>
+        <input type="text" id="firstName" placeholder="e.g. Andrew" oninput="syncName()">
+      </div>
+      <div>
+        <label class="field-label">Last name<span class="req">*</span></label>
+        <input type="text" id="lastName" placeholder="e.g. Cruz" oninput="syncName()">
+      </div>
+    </div>
+
+    <label class="no-first-name">
+      <input type="checkbox" id="noFirstName" onchange="toggleFirstName()">
+      I have no first name <i class="info-icon">i</i>
+    </label>
+
+    <hr class="sep">
+
+    <span class="field-label">Date of Birth</span>
+    <div class="row" style="margin-top:8px;">
+      <div style="max-width:90px;">
+        <label class="field-label">Day<span class="req">*</span></label>
+        <div class="dropdown" id="dayDropdown">
+          <input type="text" class="dropdown-input" id="dayInput" placeholder="DD" readonly>
+          <div class="dropdown-list" id="dayList"></div>
+        </div>
+      </div>
+      <div style="max-width:140px;">
+        <label class="field-label">Month<span class="req">*</span></label>
+        <div class="dropdown" id="monthDropdown">
+          <input type="text" class="dropdown-input" id="monthInput" placeholder="Month" readonly>
+          <div class="dropdown-list" id="monthList"></div>
+        </div>
+      </div>
+      <div style="max-width:110px;">
+        <label class="field-label">Year<span class="req">*</span></label>
+        <div class="dropdown" id="yearDropdown">
+          <input type="text" class="dropdown-input" id="yearInput" placeholder="YYYY" readonly>
+          <div class="dropdown-list" id="yearList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="nationalityField" style="margin-bottom:18px;">
+    <label class="field-label">Nationality<span class="req">*</span></label>
+    <select id="nationalitySelect">
+<option value="" selected disabled>Select nationality</option>
+<option>Philippines, Republic of the</option>
+<option>Afghanistan</option>
+<option>Aland Islands</option>
+<option>Albania, People's Socialist Republic of</option>
+<option>Algeria, People's Democratic Republic of</option>
+<option>American Samoa</option>
+<option>Andorra, Principality of</option>
+<option>Angola, Republic of</option>
+<option>Anguilla</option>
+<option>Antigua and Barbuda</option>
+<option>Argentina, Argentine Republic</option>
+<option>Armenia</option>
+<option>Aruba</option>
+<option>Australia</option>
+<option>Austria, Republic of</option>
+<option>Azerbaijan, Rpublic of</option>
+<option>Bahamas, Commonwealth of the</option>
+<option>Bahrain, Kingdom of</option>
+<option>Bangladesh, People's Republic of</option>
+<option>Barbados</option>
+<option>Belarus</option>
+<option>Belgium, Kingdom of</option>
+<option>Belize</option>
+<option>Benin (Was Dahomey), People's Republic of</option>
+<option>Bermuda</option>
+<option>Bhutan, Kingdom of</option>
+<option>Bolivia, Republic of</option>
+<option>Bosnia and Herzegovina</option>
+<option>Botswana, Republic of</option>
+<option>Brazil, Federative Republic of</option>
+<option>British Virgin Islands</option>
+<option>Brunei, Darussalam</option>
+<option>Bulgaria, Republic of</option>
+<option>Burkini Faso(was Upper Volta)</option>
+<option>Burundi, Republic of</option>
+<option>Cambodia</option>
+<option>Cameroon, United Republic of</option>
+<option>Canada</option>
+<option>Cape Verde, Republic of</option>
+<option>Cayman Islands</option>
+<option>Central African Republic</option>
+<option>Chad, Republic of</option>
+<option>Chile, Republic of</option>
+<option>China</option>
+<option>Christmas Islands</option>
+<option>Cocos(Keeling) Islands</option>
+<option>Colombia, Republic of</option>
+<option>Comoros, Union of the </option>
+<option>Congo, Democratic Republic of(was Zaire)</option>
+<option>Cook Islands</option>
+<option>Costa Rica, Republic of</option>
+<option>Croatia</option>
+<option>Cuba, Republic of</option>
+<option>Curacao, </option>
+<option>Cyprus, Republic of</option>
+<option>Czech Republic</option>
+<option>Denmark, Kingdom of</option>
+<option>Djibouti, Republic of(French Afas and Isaac)</option>
+<option>Dominica, Commonwealth of</option>
+<option>Dominican Republic</option>
+<option>Ecuador, Republic of</option>
+<option>Egypt, Arab Republic of</option>
+<option>El Salvador, Republic of</option>
+<option>Equatorial Guinea, Republic of</option>
+<option>Eritrea</option>
+<option>Estonia</option>
+<option>Eswatini</option>
+<option>Ethiopia</option>
+<option>Faeroe Islands</option>
+<option>Falkland Islands (Malvinas)</option>
+<option>Fiji, Republic of the Fiji Islands</option>
+<option>Finland, Republic of</option>
+<option>France, French Republic</option>
+<option>French Guiana</option>
+<option>French Polynesia</option>
+<option>French Southern Territories</option>
+<option>Gabon, Gabonese Republic</option>
+<option>Gambia, Republic of the</option>
+<option>Georgia</option>
+<option>Germany</option>
+<option>Ghana, Rpublic of</option>
+<option>Gilbratar</option>
+<option>Greece, Hellenic Republic</option>
+<option>Greenlanda</option>
+<option>Grenada</option>
+<option>Guadoloupe</option>
+<option>Guam</option>
+<option>Guatamela, Republic of</option>
+<option>Guernsey</option>
+<option>Guinea-Bissau, Republic of (was Portugese Guinea)</option>
+<option>Guinea, Revolutionary People's Rep'c of</option>
+<option>Guyana, Republic of</option>
+<option>Haiti, Republic of</option>
+<option>Heard and McDonald Islands</option>
+<option>Holy See(Vatican City State)</option>
+<option>Honduras, Republic of</option>
+<option>Hong Kong(China)</option>
+<option>Hungary</option>
+<option>Iceland, Republic of</option>
+<option>India, Republic of</option>
+<option>Indonesia</option>
+<option>Iran, Islamic Republic of</option>
+<option>Iraq, Republic of</option>
+<option>Ireland</option>
+<option>Isle of Man</option>
+<option>Israel, State of</option>
+<option>Italy, Italian Republic</option>
+<option>Ivory Coast(was Cote D'Ivore), Republic of the</option>
+<option>Jamaica</option>
+<option>Japan</option>
+<option>Jersey</option>
+<option>Jordan, Hashemite Kingdom of</option>
+<option>Kazakhstan, Republic of</option>
+<option>Kenya, Republic of</option>
+<option>Kiribati, Republic of (was Gilbert Islands)</option>
+<option>Korea, Democratic People's Republic of</option>
+<option>Korea</option>
+<option>Kuwait</option>
+<option>Kyrgyz Republic</option>
+<option>Laos, People's Democratic Repbublic of</option>
+<option>Latvia</option>
+<option>Lebanon, Lebanese Republic</option>
+<option>Lesotho, Kingdom of</option>
+<option>Liberia, Republic of</option>
+<option>Libya</option>
+<option>Liechtenstein, Principality of</option>
+<option>Lithuania</option>
+<option>Luxembourg, Grand Duchy of</option>
+<option>Macau(China)</option>
+<option>North Macedonia</option>
+<option>Madagascar, Republic of</option>
+<option>Malawi, Republic of</option>
+<option>Malaysia</option>
+<option>Maldives, Republic of</option>
+<option>Mali, Republic of</option>
+<option>Malta, Republic of</option>
+<option>Marshall Islands</option>
+<option>Martinique</option>
+<option>Mauritania, Islamic Republic of</option>
+<option>Mauritius</option>
+<option>Mayotte</option>
+<option>Mexico, United Mexican States</option>
+<option>Micronesia, Federated States of</option>
+<option>Moldova, Republic of</option>
+<option>Monaco, Principality of</option>
+<option>Mongolia, Mongolian People's Republic</option>
+<option>Monteserrat</option>
+<option>Montenegro</option>
+<option>Morocco, Kingdom of</option>
+<option>Mozambique, People's Republic</option>
+<option>Namibia</option>
+<option>Nauru, Republic of</option>
+<option>Nepal, Kingdom of</option>
+<option>Netherlands, Kingdom of the</option>
+<option>New Caledonia</option>
+<option>New Zealand</option>
+<option>Nicaragua, Republic of</option>
+<option>Niger, Republic of the</option>
+<option>Nigeria, Rederal Republic of</option>
+<option>Niue, Republic of</option>
+<option>Norfolk Islands</option>
+<option>Northern Mariana Islands</option>
+<option>Norway, Kingdom of</option>
+<option>Oman, Sultanate of(was Muscat and Oman)</option>
+<option>Pakistan, Islamic Republic of</option>
+<option>Palau</option>
+<option>Palestinian Territory, Occupied</option>
+<option>Panama, Republic off</option>
+<option>Papua New Guinea</option>
+<option>Paraguay, Repblic of</option>
+<option>Peru, Republic of</option>
+<option>Pitcairn Island</option>
+<option>Poland, Republic of</option>
+<option>Portugal, Portugenese Republic</option>
+<option>Puerto Rico</option>
+<option>Qatar</option>
+<option>Republic of Kosovo</option>
+<option>Reunion</option>
+<option>Romania</option>
+<option>Russia Federation</option>
+<option>Rwanda, Rwandese Republic</option>
+<option>Saint Barthelemy</option>
+<option>Saint Martin</option>
+<option>Samoa, Independent State of(was Western Samoa)</option>
+<option>San Marino, Republic of</option>
+<option>Sao Tome and Principe, Democratic Republic of</option>
+<option>Saudi Arabia, Kingdom of</option>
+<option>Serbia</option>
+<option>Serbia and Montenegro</option>
+<option>Senegal, Republic of</option>
+<option>Seychelles, Republic of</option>
+<option>Sierra Leone, Republic of</option>
+<option>Singapore</option>
+<option>Sint Maarten</option>
+<option>Slovakia, Slovak Republic</option>
+<option>Slovenia</option>
+<option>Solomon Islands(was British Solomon Islands)</option>
+<option>Somalia, Somali Republic</option>
+<option>South Africa, Republic of</option>
+<option>South Georgia and the South Sandwich Islands</option>
+<option>South Sudan</option>
+<option>Spain, Spanish State</option>
+<option>Sri Lanka, Democratic Socialist Republic of(was Ceylon)</option>
+<option>St. Helena</option>
+<option>St. Kitts and Nevis</option>
+<option>St. Lucia</option>
+<option>St. Pierre and Miquelon</option>
+<option>St. Vincent and the Grenadines</option>
+<option>Sudan, Democratic Republic of the</option>
+<option>Suriname, Republic of</option>
+<option>Svalbard & Jan Mayen Islands</option>
+<option>Swaziland, Kingdom of</option>
+<option>Swedem, Kingdom of</option>
+<option>Switzerland, Swiss Confederation</option>
+<option>Syrean Arab Republic</option>
+<option>Taiwan</option>
+<option>Tajikistan</option>
+<option>Tanzania, United Republic of</option>
+<option>Thailand</option>
+<option>Timor-Leste, Democratic Republic of</option>
+<option>Togo, Togolese Republic</option>
+<option>Tokelau(Tokelau Islands)</option>
+<option>Tonga, Kingdom of</option>
+<option>Trinidad and Tobago, Republic of</option>
+<option>Tunisia, Republic of</option>
+<option>Turkey, Republic of</option>
+<option>Turkmenistan</option>
+<option>Turks and Caicos Islands</option>
+<option>Tuvalu(was part of Gilbert & Ellice Islands)</option>
+<option>Uganda, Republic of</option>
+<option>Ukraine</option>
+<option>United Arab Emirates</option>
+<option>United Kingdom</option>
+<option>United States Minor Outlying Islands</option>
+<option>United States of America</option>
+<option>Uruguay, Eastern Republic of</option>
+<option>US Virgin Islands</option>
+<option>Uzbekistan</option>
+<option>Vanuatu(was New Herbrides)</option>
+<option>Venezuela, Bolivarian Republic of</option>
+<option>Vietnam</option>
+<option>Wallis and Futun Islands</option>
+<option>Western Sahara(was Spanish Sahara)</option>
+<option>Yemen</option>
+<option>Zambia, Republic of</option>
+<option>Zimbabwe(was Southern Rhodesia)</option>
+</select>
+
+    </div>
+
+    <label class="field-label">Go Rewards Membership ID (Optional)</label>
+    <input type="text" placeholder="e.g. 4041178445" style="margin-bottom:14px;">
+
+    <div class="note-box">
+      <span class="dot">i</span>
+      <span>To earn points, your Go Rewards account name must match your passenger name.</span>
+    </div>
+
+    <hr class="sep">
+
+    <span class="field-label">Passport Information (Optional)</span>
+    <div class="row" style="margin-top:8px;">
+      <div>
+        <label class="field-label">Passport number</label>
+        <input type="text" id="passportNumber" placeholder="Enter passport number">
+      </div>
+      <div>
+        <label class="field-label">Country of Issue</label>
+        <select id="passportCountry">
+          <option value="" selected disabled>Select country</option>
+        </select>
+      </div>
+    </div>
+
+    <span class="field-label">Expiration date</span>
+    <div class="row" style="margin-top:8px;">
+      <div style="max-width:90px;">
+        <label class="field-label">Day</label>
+        <div class="dropdown" id="passExpDayDropdown">
+          <input type="text" class="dropdown-input" id="passExpDayInput" placeholder="DD" readonly>
+          <div class="dropdown-list" id="passExpDayList"></div>
+        </div>
+      </div>
+      <div style="max-width:140px;">
+        <label class="field-label">Month</label>
+        <div class="dropdown" id="passExpMonthDropdown">
+          <input type="text" class="dropdown-input" id="passExpMonthInput" placeholder="Month" readonly>
+          <div class="dropdown-list" id="passExpMonthList"></div>
+        </div>
+      </div>
+      <div style="max-width:110px;">
+        <label class="field-label">Year</label>
+        <div class="dropdown" id="passExpYearDropdown">
+          <input type="text" class="dropdown-input" id="passExpYearInput" placeholder="YYYY" readonly>
+          <div class="dropdown-list" id="passExpYearList"></div>
+        </div>
+      </div>
+    </div>
+
+    <label class="checkbox-row" style="margin-bottom:2px;">
+      <input type="checkbox" id="ofwCheck" onchange="toggleOfw()">
+      I am an Overseas Filipino Worker (OFW)
+    </label>
+
+    <div id="ofwBlock" style="margin-bottom:6px;">
+      <label class="field-label">OEC/MEC number<span class="req">*</span></label>
+      <input type="text" id="oecMecInput" placeholder="e.g. 1234567890" style="margin-bottom:14px;">
+
+      <div class="warn-box">
+        Overseas Filipino Workers (OFWs) exempted by law from paying the Terminal Fee should present any of the following documents at the Airport Bag Drop counters:
+        <ul style="margin:8px 0 8px 18px;padding:0;">
+          <li>Overseas Employment Certificate (OEC) issued by the Overseas Workers Welfare Administration (OWWA)</li>
+          <li>OEC Balik Manggagawa Certificate</li>
+          <li>Exemption Certificate (MEC) issued by the Manila International Airport Authority (MIAA)</li>
+        </ul>
+        Guests who fail to present the required documents may be denied boarding.
+      </div>
+    </div>
+
+    <label class="checkbox-row" style="margin-bottom:2px;">
+      <input type="checkbox" id="declCheck" onchange="toggleDecl()">
+      I have a declaration / request
+    </label>
+
+    <div id="declBlock" style="margin-bottom:6px;">
+      <p class="helper-text" style="margin-top:2px;">Select up to two (2) options below</p>
+      <div class="decl-details">
+        <b>Manila MNL &#9992; Masbate MBT</b> via Cebu CEB
+        <span class="date">22 Jul 2026</span>
+      </div>
+      <label class="field-label">Declaration / request</label>
+      <div class="dropdown" id="declDropdown0" style="margin-bottom:10px;">
+        <input type="text" class="dropdown-input decl-input" id="declInput0" placeholder="&#9873; Select declaration / request" readonly>
+        <div class="dropdown-list decl-list" id="declList0"></div>
+      </div>
+
+      <a class="add-link" id="addDeclLink" onclick="addDeclaration()"><span class="plus">+</span> Add another</a>
+    </div>
+
+    <label class="checkbox-row" style="margin-top:6px;">
+      <input type="checkbox" id="pwdCheck" onchange="togglePwd()">
+      I am a Person with Disability
+    </label>
+
+    <div id="pwdBlock">
+      <label class="field-label">PWD ID number<span class="req">*</span></label>
+      <input type="text" id="pwdIdInput" placeholder="eg. 1234567890" style="margin-bottom:14px;">
+
+      <div class="warn-box">
+        <b>Note:</b> PWD discount does not apply to flights with promos or discounts, but VAT exemptions still apply (Base Fare only). Upon check-in or boarding, be prepared to present PWD ID issued by the National Council on Disability Affairs (NCDA) or local government unit.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT INFORMATION -->
+<div class="contact-section">
+  <h1>Contact Information</h1>
+  <p class="contact-sub">Let us know how we may reach you if there are changes or questions related to your booking and payment. We will also be sending your itinerary to below email.</p>
+
+  <div class="contact-card">
+    <div class="toggle-row">
+      <label class="switch">
+        <input type="checkbox" id="useGuestToggle" checked onchange="toggleGuestSelect()">
+        <span class="slider"></span>
+      </label>
+      Use guest's details
+    </div>
+
+    <div id="guestSelectBlock">
+      <label class="select-guest-label">Select a guest</label>
+      <select id="guestSelect">
+        <option value="" selected disabled>Select a guest</option>
+      </select>
+    </div>
+
+    <div id="manualNameBlock" style="display:none;">
+      <span class="field-label">Name</span>
+      <div class="row">
+        <div style="max-width:110px;">
+          <label class="field-label">Title<span class="req">*</span></label>
+          <select id="contactTitle">
+            <option value="" selected disabled>Select</option>
+            <option>Mr.</option>
+            <option>Ms.</option>
+            <option>Mrs.</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">First name<span class="req">*</span></label>
+          <input type="text" id="contactFirstName" placeholder="Enter first name">
+        </div>
+        <div>
+          <label class="field-label">Last name<span class="req">*</span></label>
+          <input type="text" id="contactLastName" placeholder="Enter last name">
+        </div>
+      </div>
+
+      <label class="no-first-name" style="margin-bottom:18px;">
+        <input type="checkbox" id="contactNoFirstName" onchange="toggleContactFirstName()">
+        I have no first name <i class="info-icon">i</i>
+      </label>
+    </div>
+
+    <label class="contact-number-label">Contact Number</label>
+    <div class="contact-row">
+      <div class="cc">
+        <label class="field-label">Country code<span class="req">*</span></label>
+        <div class="dropdown" id="countryCodeDropdown">
+          <input type="text" class="dropdown-input" id="countryCodeInput" placeholder="Select" readonly>
+          <div class="dropdown-list" id="countryCodeList"></div>
+        </div>
+      </div>
+      <div class="mobile">
+        <label class="field-label">Mobile number<span class="req">*</span> <i class="info-icon">i</i></label>
+        <input type="tel" id="mobileInput" placeholder="e.g. 9998043744" oninput="validateMobile()">
+        <span class="error-msg" id="mobileError">Please enter a valid mobile number</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label class="field-label">Email<span class="req">*</span></label>
+        <input type="email" id="contactEmail" placeholder="sample@email.com">
+      </div>
+      <div>
+        <label class="field-label">Retype email<span class="req">*</span></label>
+        <input type="email" id="contactEmailRetype" placeholder="sample@email.com">
+      </div>
+    </div>
+  </div>
+
+  <div class="terms-card">
+    <input type="checkbox" id="termsCheck" onchange="checkFormValid()">
+    <span>I confirm that I have read, understood, and agree to the updated Cebu Pacific <a href="#">Privacy Policy</a>. I consent to the collection, use, processing and sharing of my personal information in accordance therewith.</span>
+  </div>
+
+  <div class="actions">
+    <button class="btn-back" onclick="alert('Going back...')">Back</button>
+    <button class="btn-continue" id="continueBtn" onclick="handleContinue()">Continue</button>
+  </div>
+</div>
+
+<script>
+function syncName(){
+  const f = document.getElementById('firstName').value.trim();
+  const l = document.getElementById('lastName').value.trim();
+  document.getElementById('tabName').textContent = f ? (f.charAt(0).toUpperCase()+f.slice(1)) : (l.charAt(0).toUpperCase()+l.slice(1));
+  if(document.getElementById('useGuestToggle').checked){
+    syncGuestSelectFromDetails();
+  }
+}
+
+function toggleFirstName(){
+  const checked = document.getElementById('noFirstName').checked;
+  const fn = document.getElementById('firstName');
+  fn.disabled = checked;
+  if(checked){ fn.value=''; syncName(); }
+}
+
+function toggleDecl(){
+  document.getElementById('declBlock').style.display =
+    document.getElementById('declCheck').checked ? 'block' : 'none';
+}
+
+function togglePwd(){
+  const checked = document.getElementById('pwdCheck').checked;
+  document.getElementById('pwdBlock').style.display = checked ? 'block' : 'none';
+  if(!checked){
+    // Unchecking removes the requirement entirely, so clear any error left over
+    const el = document.getElementById('pwdIdInput');
+    if(el && typeof clearFieldError === 'function') clearFieldError(el);
+  }
+}
+
+function toggleOfw(){
+  const checked = document.getElementById('ofwCheck').checked;
+  document.getElementById('ofwBlock').style.display = checked ? 'block' : 'none';
+  if(!checked){
+    // Unchecking removes the requirement entirely, so clear any error left over
+    const el = document.getElementById('oecMecInput');
+    if(el && typeof clearFieldError === 'function') clearFieldError(el);
+  }
+}
+
+/* ---------- CUSTOM DROPDOWN ENGINE ---------- */
+const DECLARATION_OPTIONS = [
+  'Traveling with a Service Dog',
+  'Traveling with a Portable Oxygen Concentrator (POC)',
+  'Wheelchair - Cabin',
+  'Wheelchair - Ramp',
+  'Wheelchair - Steps',
+  'Traveling with an Infant',
+  'Pregnant Passenger',
+  'Unaccompanied Minor'
+];
+
+function buildDropdown(wrapper, input, list, options, placeholder){
+  list.innerHTML = '';
+  options.forEach(opt => {
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.textContent = opt;
+    div.onclick = (e) => {
+      e.stopPropagation();
+      input.value = opt;
+      closeDropdown(wrapper);
+      if(typeof clearFieldError === 'function') clearFieldError(input);
+    };
+    list.appendChild(div);
+  });
+
+  input.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.dropdown.open').forEach(d => { if(d!==wrapper) closeDropdown(d); });
+    wrapper.classList.toggle('open');
+  });
+}
+
+function closeDropdown(wrapper){
+  wrapper.classList.remove('open');
+}
+
+/* Searchable variant for long lists (e.g. Nationality): input is typable and filters the list */
+function buildSearchableDropdown(wrapper, input, list, items, formatLabel, onSelect){
+  function render(filterText){
+    const f = (filterText || '').trim().toLowerCase();
+    list.innerHTML = '';
+    const filtered = f ? items.filter(it => formatLabel(it).toLowerCase().includes(f)) : items;
+    if(filtered.length === 0){
+      const div = document.createElement('div');
+      div.className = 'opt';
+      div.style.color = '#9aa0a6';
+      div.style.cursor = 'default';
+      div.textContent = 'No matches found';
+      list.appendChild(div);
+      return;
+    }
+    filtered.forEach(it => {
+      const div = document.createElement('div');
+      div.className = 'opt';
+      div.textContent = formatLabel(it);
+      div.onclick = (e) => {
+        e.stopPropagation();
+        onSelect(it);
+        closeDropdown(wrapper);
+        if(typeof clearFieldError === 'function') clearFieldError(input);
+      };
+      list.appendChild(div);
+    });
+  }
+
+  render('');
+  input.readOnly = false;
+
+  input.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.dropdown.open').forEach(d => { if(d!==wrapper) closeDropdown(d); });
+    wrapper.classList.add('open');
+  });
+
+  input.addEventListener('input', () => {
+    wrapper.classList.add('open');
+    render(input.value);
+    if(typeof clearFieldError === 'function') clearFieldError(input);
+  });
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown.open').forEach(d => closeDropdown(d));
+});
+
+/* Day dropdown: 01-31 */
+const dayOptions = Array.from({length:31}, (_,i) => String(i+1).padStart(2,'0'));
+buildDropdown(
+  document.getElementById('dayDropdown'),
+  document.getElementById('dayInput'),
+  document.getElementById('dayList'),
+  dayOptions
+);
+
+/* Month dropdown */
+const monthOptions = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+buildDropdown(
+  document.getElementById('monthDropdown'),
+  document.getElementById('monthInput'),
+  document.getElementById('monthList'),
+  monthOptions
+);
+
+/* Year dropdown: current year down to 100 years ago */
+const currentYear = new Date().getFullYear();
+const yearOptions = Array.from({length:100}, (_,i) => String(currentYear - i));
+buildDropdown(
+  document.getElementById('yearDropdown'),
+  document.getElementById('yearInput'),
+  document.getElementById('yearList'),
+  yearOptions
+);
+
+const NATIONALITY_OPTIONS = [
+  {name:'Philippines, Republic of the', code:'63'},
+  {name:'Afghanistan', code:'93'},
+  {name:'Aland Islands', code:'358'},
+  {name:'Albania, People\'s Socialist Republic of', code:'355'},
+  {name:'Algeria, People\'s Democratic Republic of', code:'213'},
+  {name:'American Samoa', code:'1684'},
+  {name:'Andorra, Principality of', code:'376'},
+  {name:'Angola, Republic of', code:'244'},
+  {name:'Anguilla', code:'1264'},
+  {name:'Antigua and Barbuda', code:'1268'},
+  {name:'Argentina, Argentine Republic', code:'54'},
+  {name:'Armenia', code:'374'},
+  {name:'Aruba', code:'297'},
+  {name:'Australia', code:'61'},
+  {name:'Austria, Republic of', code:'43'},
+  {name:'Azerbaijan, Rpublic of', code:'994'},
+  {name:'Bahamas, Commonwealth of the', code:'1242'},
+  {name:'Bahrain, Kingdom of', code:'973'},
+  {name:'Bangladesh, People\'s Republic of', code:'880'},
+  {name:'Barbados', code:'1246'},
+  {name:'Belarus', code:'375'},
+  {name:'Belgium, Kingdom of', code:'32'},
+  {name:'Belize', code:'501'},
+  {name:'Benin (Was Dahomey), People\'s Republic of', code:'229'},
+  {name:'Bermuda', code:'1441'},
+  {name:'Bhutan, Kingdom of', code:'975'},
+  {name:'Bolivia, Republic of', code:'591'},
+  {name:'Bosnia and Herzegovina', code:'387'},
+  {name:'Botswana, Republic of', code:'267'},
+  {name:'Brazil, Federative Republic of', code:'55'},
+  {name:'British Virgin Islands', code:'1284'},
+  {name:'Brunei, Darussalam', code:'673'},
+  {name:'Bulgaria, Republic of', code:'359'},
+  {name:'Burkini Faso(was Upper Volta)', code:'226'},
+  {name:'Burundi, Republic of', code:'257'},
+  {name:'Cambodia', code:'855'},
+  {name:'Cameroon, United Republic of', code:'237'},
+  {name:'Canada', code:'1'},
+  {name:'Cape Verde, Republic of', code:'238'},
+  {name:'Cayman Islands', code:'1345'},
+  {name:'Central African Republic', code:'236'},
+  {name:'Chad, Republic of', code:'235'},
+  {name:'Chile, Republic of', code:'56'},
+  {name:'China', code:'86'},
+  {name:'Christmas Islands', code:'61'},
+  {name:'Cocos(Keeling) Islands', code:'61'},
+  {name:'Colombia, Republic of', code:'57'},
+  {name:'Comoros, Union of the ', code:'269'},
+  {name:'Congo, Democratic Republic of(was Zaire)', code:'243'},
+  {name:'Cook Islands', code:'682'},
+  {name:'Costa Rica, Republic of', code:'506'},
+  {name:'Croatia', code:'385'},
+  {name:'Cuba, Republic of', code:'53'},
+  {name:'Curacao, ', code:'599'},
+  {name:'Cyprus, Republic of', code:'357'},
+  {name:'Czech Republic', code:'420'},
+  {name:'Denmark, Kingdom of', code:'45'},
+  {name:'Djibouti, Republic of(French Afas and Isaac)', code:'253'},
+  {name:'Dominica, Commonwealth of', code:'1767'},
+  {name:'Dominican Republic', code:'1809'},
+  {name:'Ecuador, Republic of', code:'593'},
+  {name:'Egypt, Arab Republic of', code:'20'},
+  {name:'El Salvador, Republic of', code:'503'},
+  {name:'Equatorial Guinea, Republic of', code:'240'},
+  {name:'Eritrea', code:'291'},
+  {name:'Estonia', code:'372'},
+  {name:'Eswatini', code:'268'},
+  {name:'Ethiopia', code:'251'},
+  {name:'Faeroe Islands', code:'298'},
+  {name:'Falkland Islands (Malvinas)', code:'500'},
+  {name:'Fiji, Republic of the Fiji Islands', code:'679'},
+  {name:'Finland, Republic of', code:'358'},
+  {name:'France, French Republic', code:'33'},
+  {name:'French Guiana', code:'594'},
+  {name:'French Polynesia', code:'689'},
+  {name:'French Southern Territories', code:'262'},
+  {name:'Gabon, Gabonese Republic', code:'241'},
+  {name:'Gambia, Republic of the', code:'220'},
+  {name:'Georgia', code:'995'},
+  {name:'Germany', code:'49'},
+  {name:'Ghana, Rpublic of', code:'233'},
+  {name:'Gilbratar', code:'350'},
+  {name:'Greece, Hellenic Republic', code:'30'},
+  {name:'Greenlanda', code:'299'},
+  {name:'Grenada', code:'1473'},
+  {name:'Guadoloupe', code:'590'},
+  {name:'Guam', code:'1671'},
+  {name:'Guatamela, Republic of', code:'502'},
+  {name:'Guernsey', code:'44'},
+  {name:'Guinea-Bissau, Republic of (was Portugese Guinea)', code:'245'},
+  {name:'Guinea, Revolutionary People\'s Rep\'c of', code:'224'},
+  {name:'Guyana, Republic of', code:'592'},
+  {name:'Haiti, Republic of', code:'509'},
+  {name:'Heard and McDonald Islands', code:'672'},
+  {name:'Holy See(Vatican City State)', code:'379'},
+  {name:'Honduras, Republic of', code:'504'},
+  {name:'Hong Kong(China)', code:'852'},
+  {name:'Hungary', code:'36'},
+  {name:'Iceland, Republic of', code:'354'},
+  {name:'India, Republic of', code:'91'},
+  {name:'Indonesia', code:'62'},
+  {name:'Iran, Islamic Republic of', code:'98'},
+  {name:'Iraq, Republic of', code:'964'},
+  {name:'Ireland', code:'353'},
+  {name:'Isle of Man', code:'44'},
+  {name:'Israel, State of', code:'972'},
+  {name:'Italy, Italian Republic', code:'39'},
+  {name:'Ivory Coast(was Cote D\'Ivore), Republic of the', code:'225'},
+  {name:'Jamaica', code:'1876'},
+  {name:'Japan', code:'81'},
+  {name:'Jersey', code:'44'},
+  {name:'Jordan, Hashemite Kingdom of', code:'962'},
+  {name:'Kazakhstan, Republic of', code:'7'},
+  {name:'Kenya, Republic of', code:'254'},
+  {name:'Kiribati, Republic of (was Gilbert Islands)', code:'686'},
+  {name:'Korea, Democratic People\'s Republic of', code:'850'},
+  {name:'Korea', code:'82'},
+  {name:'Kuwait', code:'965'},
+  {name:'Kyrgyz Republic', code:'996'},
+  {name:'Laos, People\'s Democratic Repbublic of', code:'856'},
+  {name:'Latvia', code:'371'},
+  {name:'Lebanon, Lebanese Republic', code:'961'},
+  {name:'Lesotho, Kingdom of', code:'266'},
+  {name:'Liberia, Republic of', code:'231'},
+  {name:'Libya', code:'218'},
+  {name:'Liechtenstein, Principality of', code:'423'},
+  {name:'Lithuania', code:'370'},
+  {name:'Luxembourg, Grand Duchy of', code:'352'},
+  {name:'Macau(China)', code:'853'},
+  {name:'North Macedonia', code:'389'},
+  {name:'Madagascar, Republic of', code:'261'},
+  {name:'Malawi, Republic of', code:'265'},
+  {name:'Malaysia', code:'60'},
+  {name:'Maldives, Republic of', code:'960'},
+  {name:'Mali, Republic of', code:'223'},
+  {name:'Malta, Republic of', code:'356'},
+  {name:'Marshall Islands', code:'692'},
+  {name:'Martinique', code:'596'},
+  {name:'Mauritania, Islamic Republic of', code:'222'},
+  {name:'Mauritius', code:'230'},
+  {name:'Mayotte', code:'262'},
+  {name:'Mexico, United Mexican States', code:'52'},
+  {name:'Micronesia, Federated States of', code:'691'},
+  {name:'Moldova, Republic of', code:'373'},
+  {name:'Monaco, Principality of', code:'377'},
+  {name:'Mongolia, Mongolian People\'s Republic', code:'976'},
+  {name:'Monteserrat', code:'1664'},
+  {name:'Montenegro', code:'382'},
+  {name:'Morocco, Kingdom of', code:'212'},
+  {name:'Mozambique, People\'s Republic', code:'258'},
+  {name:'Namibia', code:'264'},
+  {name:'Nauru, Republic of', code:'674'},
+  {name:'Nepal, Kingdom of', code:'977'},
+  {name:'Netherlands, Kingdom of the', code:'31'},
+  {name:'New Caledonia', code:'687'},
+  {name:'New Zealand', code:'64'},
+  {name:'Nicaragua, Republic of', code:'505'},
+  {name:'Niger, Republic of the', code:'227'},
+  {name:'Nigeria, Rederal Republic of', code:'234'},
+  {name:'Niue, Republic of', code:'683'},
+  {name:'Norfolk Islands', code:'672'},
+  {name:'Northern Mariana Islands', code:'1670'},
+  {name:'Norway, Kingdom of', code:'47'},
+  {name:'Oman, Sultanate of(was Muscat and Oman)', code:'968'},
+  {name:'Pakistan, Islamic Republic of', code:'92'},
+  {name:'Palau', code:'680'},
+  {name:'Palestinian Territory, Occupied', code:'970'},
+  {name:'Panama, Republic off', code:'507'},
+  {name:'Papua New Guinea', code:'675'},
+  {name:'Paraguay, Repblic of', code:'595'},
+  {name:'Peru, Republic of', code:'51'},
+  {name:'Pitcairn Island', code:'64'},
+  {name:'Poland, Republic of', code:'48'},
+  {name:'Portugal, Portugenese Republic', code:'351'},
+  {name:'Puerto Rico', code:'1787'},
+  {name:'Qatar', code:'974'},
+  {name:'Republic of Kosovo', code:'383'},
+  {name:'Reunion', code:'262'},
+  {name:'Romania', code:'40'},
+  {name:'Russia Federation', code:'7'},
+  {name:'Rwanda, Rwandese Republic', code:'250'},
+  {name:'Saint Barthelemy', code:'590'},
+  {name:'Saint Martin', code:'590'},
+  {name:'Samoa, Independent State of(was Western Samoa)', code:'685'},
+  {name:'San Marino, Republic of', code:'378'},
+  {name:'Sao Tome and Principe, Democratic Republic of', code:'239'},
+  {name:'Saudi Arabia, Kingdom of', code:'966'},
+  {name:'Serbia', code:'381'},
+  {name:'Serbia and Montenegro', code:'381'},
+  {name:'Senegal, Republic of', code:'221'},
+  {name:'Seychelles, Republic of', code:'248'},
+  {name:'Sierra Leone, Republic of', code:'232'},
+  {name:'Singapore', code:'65'},
+  {name:'Sint Maarten', code:'1721'},
+  {name:'Slovakia, Slovak Republic', code:'421'},
+  {name:'Slovenia', code:'386'},
+  {name:'Solomon Islands(was British Solomon Islands)', code:'677'},
+  {name:'Somalia, Somali Republic', code:'252'},
+  {name:'South Africa, Republic of', code:'27'},
+  {name:'South Georgia and the South Sandwich Islands', code:'500'},
+  {name:'South Sudan', code:'211'},
+  {name:'Spain, Spanish State', code:'34'},
+  {name:'Sri Lanka, Democratic Socialist Republic of(was Ceylon)', code:'94'},
+  {name:'St. Helena', code:'290'},
+  {name:'St. Kitts and Nevis', code:'1869'},
+  {name:'St. Lucia', code:'1758'},
+  {name:'St. Pierre and Miquelon', code:'508'},
+  {name:'St. Vincent and the Grenadines', code:'1784'},
+  {name:'Sudan, Democratic Republic of the', code:'249'},
+  {name:'Suriname, Republic of', code:'597'},
+  {name:'Svalbard & Jan Mayen Islands', code:'47'},
+  {name:'Swaziland, Kingdom of', code:'268'},
+  {name:'Swedem, Kingdom of', code:'46'},
+  {name:'Switzerland, Swiss Confederation', code:'41'},
+  {name:'Syrean Arab Republic', code:'963'},
+  {name:'Taiwan', code:'886'},
+  {name:'Tajikistan', code:'992'},
+  {name:'Tanzania, United Republic of', code:'255'},
+  {name:'Thailand', code:'66'},
+  {name:'Timor-Leste, Democratic Republic of', code:'670'},
+  {name:'Togo, Togolese Republic', code:'228'},
+  {name:'Tokelau(Tokelau Islands)', code:'690'},
+  {name:'Tonga, Kingdom of', code:'676'},
+  {name:'Trinidad and Tobago, Republic of', code:'1868'},
+  {name:'Tunisia, Republic of', code:'216'},
+  {name:'Turkey, Republic of', code:'90'},
+  {name:'Turkmenistan', code:'993'},
+  {name:'Turks and Caicos Islands', code:'1649'},
+  {name:'Tuvalu(was part of Gilbert & Ellice Islands)', code:'688'},
+  {name:'Uganda, Republic of', code:'256'},
+  {name:'Ukraine', code:'380'},
+  {name:'United Arab Emirates', code:'971'},
+  {name:'United Kingdom', code:'44'},
+  {name:'United States Minor Outlying Islands', code:'1'},
+  {name:'United States of America', code:'1'},
+  {name:'Uruguay, Eastern Republic of', code:'598'},
+  {name:'US Virgin Islands', code:'1340'},
+  {name:'Uzbekistan', code:'998'},
+  {name:'Vanuatu(was New Herbrides)', code:'678'},
+  {name:'Venezuela, Bolivarian Republic of', code:'58'},
+  {name:'Vietnam', code:'84'},
+  {name:'Wallis and Futun Islands', code:'681'},
+  {name:'Western Sahara(was Spanish Sahara)', code:'212'},
+  {name:'Yemen', code:'967'},
+  {name:'Zambia, Republic of', code:'260'},
+  {name:'Zimbabwe(was Southern Rhodesia)', code:'263'}
+];
+
+/* Passport country of issue: reuse the same country list as Nationality */
+const passportCountrySelect = document.getElementById('passportCountry');
+NATIONALITY_OPTIONS.forEach(it => {
+  const opt = document.createElement('option');
+  opt.value = it.name;
+  opt.textContent = it.name;
+  passportCountrySelect.appendChild(opt);
+});
+
+/* Passport expiration date dropdowns: day/month reuse the DOB options,
+   year looks forward (current year through +20) since passports expire in the future */
+buildDropdown(
+  document.getElementById('passExpDayDropdown'),
+  document.getElementById('passExpDayInput'),
+  document.getElementById('passExpDayList'),
+  dayOptions
+);
+buildDropdown(
+  document.getElementById('passExpMonthDropdown'),
+  document.getElementById('passExpMonthInput'),
+  document.getElementById('passExpMonthList'),
+  monthOptions
+);
+const passExpYearOptions = Array.from({length:21}, (_,i) => String(currentYear + i));
+buildDropdown(
+  document.getElementById('passExpYearDropdown'),
+  document.getElementById('passExpYearInput'),
+  document.getElementById('passExpYearList'),
+  passExpYearOptions
+);
+
+buildSearchableDropdown(
+  document.getElementById('countryCodeDropdown'),
+  document.getElementById('countryCodeInput'),
+  document.getElementById('countryCodeList'),
+  NATIONALITY_OPTIONS,
+  (it) => it.name + ' (+' + it.code + ')',
+  (it) => { document.getElementById('countryCodeInput').value = '(+' + it.code + ')'; }
+);
+
+/* Declaration dropdown (first instance) */
+buildDropdown(
+  document.getElementById('declDropdown0'),
+  document.getElementById('declInput0'),
+  document.getElementById('declList0'),
+  DECLARATION_OPTIONS
+);
+
+let declCounter = 1;
+const MAX_DECLARATIONS = 2;
+
+function updateAddDeclLinkVisibility(){
+  const block = document.getElementById('declBlock');
+  const count = block.querySelectorAll('.decl-input').length;
+  document.getElementById('addDeclLink').classList.toggle('hidden', count >= MAX_DECLARATIONS);
+}
+
+function addDeclaration(){
+  const block = document.getElementById('declBlock');
+  const count = block.querySelectorAll('.decl-input').length;
+  if(count >= MAX_DECLARATIONS) return;
+
+  const idx = declCounter++;
+
+  const row = document.createElement('div');
+  row.className = 'decl-row';
+  row.id = 'declRow' + idx;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'dropdown';
+  wrapper.id = 'declDropdown' + idx;
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'dropdown-input decl-input';
+  input.id = 'declInput' + idx;
+  input.placeholder = 'Select declaration / request';
+  input.readOnly = true;
+
+  const listEl = document.createElement('div');
+  listEl.className = 'dropdown-list decl-list';
+  listEl.id = 'declList' + idx;
+
+  wrapper.appendChild(input);
+  wrapper.appendChild(listEl);
+
+  const removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'decl-remove';
+  removeBtn.innerHTML = '&times;';
+  removeBtn.setAttribute('aria-label', 'Remove declaration / request');
+  removeBtn.onclick = () => removeDeclaration(idx);
+
+  row.appendChild(wrapper);
+  row.appendChild(removeBtn);
+  block.insertBefore(row, block.querySelector('.add-link'));
+
+  buildDropdown(wrapper, input, listEl, DECLARATION_OPTIONS);
+  updateAddDeclLinkVisibility();
+}
+
+function removeDeclaration(idx){
+  const row = document.getElementById('declRow' + idx);
+  if(row) row.remove();
+  updateAddDeclLinkVisibility();
+  checkFormValid();
+}
+
+function toggleGuestSelect(){
+  const on = document.getElementById('useGuestToggle').checked;
+  document.getElementById('guestSelectBlock').style.display = on ? 'block' : 'none';
+  document.getElementById('manualNameBlock').style.display = on ? 'none' : 'block';
+  if(on){
+    syncGuestSelectFromDetails();
+    ['contactTitle','contactFirstName','contactLastName'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el && typeof clearFieldError==='function') clearFieldError(el);
+    });
+  }
+}
+
+function syncGuestSelectFromDetails(){
+  const first = document.getElementById('firstName').value.trim();
+  const last = document.getElementById('lastName').value.trim();
+  const select = document.getElementById('guestSelect');
+  const fullName = (first + ' ' + last).trim();
+
+  if(fullName){
+    select.innerHTML = `<option value="guest1" selected>${fullName}</option>`;
+  } else {
+    select.innerHTML = `<option value="" selected disabled>Select a guest</option>`;
+  }
+}
+
+function toggleContactFirstName(){
+  const checked = document.getElementById('contactNoFirstName').checked;
+  const fn = document.getElementById('contactFirstName');
+  fn.disabled = checked;
+  if(checked){ fn.value=''; }
+}
+
+function validateMobile(){
+  // Presence-based, same rule as every other field: something typed clears
+  // the error, an empty box shows it. Real-time toggling itself is handled
+  // by the shared validateRequiredField() listener; this just keeps the
+  // Continue button state in sync as the user types.
+  checkFormValid();
+}
+
+function checkFormValid(){
+  const terms = document.getElementById('termsCheck').checked;
+  const btn = document.getElementById('continueBtn');
+  if(terms){
+    btn.classList.add('enabled');
+  } else {
+    btn.classList.remove('enabled');
+  }
+}
+
+function handleContinue(){
+  if(!document.getElementById('continueBtn').classList.contains('enabled')){
+    alert('Please complete required fields and accept the Privacy Policy to continue.');
+    return;
+  }
+  alert('Continuing to Add-ons...');
+}
+
+// init
+toggleDecl();
+togglePwd();
+toggleOfw();
+toggleGuestSelect();
+</script>
+
+
+<script>
+/* ---------- Shared required-field definitions ---------- */
+const REQUIRED_FIELDS=[
+['title','Please select title'],
+['firstName','Please enter your first name'],
+['lastName','Please enter your last name'],
+['dayInput','Please select day'],
+['monthInput','Please select month'],
+['yearInput','Please select year'],
+['nationalitySelect','Please select your nationality'],
+['pwdIdInput','Please enter PWD ID number'],
+['oecMecInput','Please enter OEC/MEC number'],
+['contactTitle','Please select your title'],
+['contactFirstName','Please enter your first name'],
+['contactLastName','Please enter your last name'],
+['countryCodeInput','Please select country code'],
+['mobileInput','Please enter a valid mobile number'],
+['contactEmail','Please enter your email'],
+['contactEmailRetype','Please enter your email']
+];  
+const REQUIRED_MSG={};
+REQUIRED_FIELDS.forEach(r=>REQUIRED_MSG[r[0]]=r[1]);
+
+// Some fields become optional depending on toggles/checkboxes elsewhere on the page
+function isFieldSkipped(id){
+  const usingGuestDetails = document.getElementById('useGuestToggle').checked;
+  if(id==='firstName') return document.getElementById('noFirstName').checked;
+  if(id==='pwdIdInput') return !document.getElementById('pwdCheck').checked;
+  if(id==='oecMecInput') return !document.getElementById('ofwCheck').checked;
+  if(id==='contactTitle' || id==='contactLastName') return usingGuestDetails;
+  if(id==='contactFirstName') return usingGuestDetails || document.getElementById('contactNoFirstName').checked;
+  return false;
+}
+
+// Fields that already have a hard-coded error element in the markup instead of an auto-generated one
+const DEDICATED_ERROR_EL={ mobileInput:'mobileError' };
+
+function getErrorEl(el,create){
+  if(DEDICATED_ERROR_EL[el.id]) return document.getElementById(DEDICATED_ERROR_EL[el.id]);
+  let e=el.parentElement.querySelector('.error-msg.auto');
+  if(!e && create){ e=document.createElement('div'); e.className='error-msg auto'; el.parentElement.appendChild(e); }
+  return e;
+}
+function showFieldError(el,msg){
+  const e=getErrorEl(el,true);
+  if(e){ e.textContent=msg; e.classList.add('show'); }
+  el.classList.add('invalid');
+}
+function clearFieldError(el){
+  const e=getErrorEl(el,false);
+  if(e) e.classList.remove('show');
+  el.classList.remove('invalid');
+}
+
+function checkEmailMatch(){
+  const e1=document.getElementById('contactEmail');
+  const e2=document.getElementById('contactEmailRetype');
+  if(!e1||!e2) return;
+  if(e2.value.trim() && e1.value.trim() && e1.value.trim()!==e2.value.trim()){
+    showFieldError(e2,'Emails do not match');
+  }
+}
+
+// The single rule for every required field: empty -> show its error, has a value -> clear it
+function validateRequiredField(el){
+  if(!el || !el.id || !(el.id in REQUIRED_MSG)) return;
+  if(isFieldSkipped(el.id)){ clearFieldError(el); return; }
+  if(!el.value.trim()){ showFieldError(el, REQUIRED_MSG[el.id]); }
+  else{
+    clearFieldError(el);
+    if(el.id==='contactEmail' || el.id==='contactEmailRetype') checkEmailMatch();
+  }
+}
+
+// Checkbox/toggle -> the field(s) whose required-ness depends on it
+const DEPENDENTS={
+  noFirstName:['firstName'],
+  contactNoFirstName:['contactFirstName']
+};
+
+document.addEventListener('input', function(ev){
+  const t=ev.target; if(!t) return;
+  if(t.id in REQUIRED_MSG){ validateRequiredField(t); return; }
+  if(t.classList && t.classList.contains('decl-input')){
+    if(t.value.trim() || !document.getElementById('declCheck').checked) clearFieldError(t);
+    else showFieldError(t,'Please select a declaration / request');
+    return;
+  }
+  if(t.value && t.value.trim()) clearFieldError(t);
+});
+document.addEventListener('change', function(ev){
+  const t=ev.target; if(!t) return;
+  if(t.id in REQUIRED_MSG){ validateRequiredField(t); }
+  else if(t.tagName==='SELECT'){
+    if(!t.closest('#manualNameBlock') && t.id!=='passportCountry' && (t.previousElementSibling||{}).classList?.contains('field-label') && t.selectedIndex===0){
+      showFieldError(t,'This field is required');
+    } else clearFieldError(t);
+  } else if(t.value && t.value.trim()){
+    clearFieldError(t);
+  }
+  // A toggle just changed — re-check whichever fields depend on it (shows the
+  // error immediately if that field is now required and still empty, or
+  // clears it if the field just became optional)
+  if(DEPENDENTS[t.id]){
+    DEPENDENTS[t.id].forEach(id=>{
+      const dep=document.getElementById(id);
+      if(dep) validateRequiredField(dep);
+    });
+  }
+});
+
+// Visual order on the page: name/DOB/nationality, then declaration, then PWD, then contact info.
+// Split here so Continue-button validation checks (and scrolls to) declaration errors before PWD ones.
+const PRE_DECL_FIELDS=['title','firstName','lastName','dayInput','monthInput','yearInput','nationalitySelect','oecMecInput'];
+const POST_DECL_FIELDS=['pwdIdInput','contactTitle','contactFirstName','contactLastName','countryCodeInput','mobileInput','contactEmail','contactEmailRetype'];
+
+document.getElementById('continueBtn').onclick=function(ev){
+ let ok=true;
+ function checkRequired(id){
+  let el=document.getElementById(id); if(!el)return;
+  if(isFieldSkipped(id)){ clearFieldError(el); return; }
+  if(!el.value.trim()){showFieldError(el,REQUIRED_MSG[id]); if(ok){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();} ok=false;}
+  else clearFieldError(el);
+ }
+ PRE_DECL_FIELDS.forEach(checkRequired);
+ const declOn = document.getElementById('declCheck').checked;
+ document.querySelectorAll('.decl-input').forEach(el=>{
+  if(!declOn){clearFieldError(el);return;}
+  if(!el.value.trim()){showFieldError(el,'Please select a declaration / request'); if(ok){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();} ok=false;}
+  else clearFieldError(el);
+ });
+ POST_DECL_FIELDS.forEach(checkRequired);
+ document.querySelectorAll('select').forEach(s=>{
+   if(s.closest('#manualNameBlock')) return;
+   if(s.id in REQUIRED_MSG) return;
+   if(s.id==='passportCountry') return; // Passport Information is optional
+   if((s.previousElementSibling||{}).classList?.contains('field-label') && s.selectedIndex==0){
+      showFieldError(s,'This field is required');
+      if(ok){s.scrollIntoView({behavior:'smooth',block:'center'});s.focus();}
+      ok=false;
+   } else clearFieldError(s);
+ });
+ checkEmailMatch();
+ const retype=document.getElementById('contactEmailRetype');
+ if(retype && retype.classList.contains('invalid')) ok=false;
+ const termsCard=document.querySelector('.terms-card');
+ if(!document.getElementById('termsCheck').checked){
+   termsCard.classList.add('invalid');
+   if(ok){termsCard.scrollIntoView({behavior:'smooth',block:'center'});}
+   ok=false;
+ } else {
+   termsCard.classList.remove('invalid');
+ }
+ if(!ok){ev.preventDefault();return false;}
+ alert('Continuing to Add-ons...');
+}
+</script>
+</body>
+</html>

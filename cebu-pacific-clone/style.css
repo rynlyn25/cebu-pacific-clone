@@ -3079,14 +3079,15 @@ html {
     }
 }
 /* =========================================
-   CHECK-IN YELLOW BANNER (Fixed Overlap)
+   YELLOW HERO BANNER (With Deep Curve)
    ========================================= */
 .checkin-hero-banner {
     background-color: #ffd800 !important;
-    /* THE FIX: Changed top padding to 120px to push the text down from under the header */
-    padding: 120px 0 50px !important; 
-    border-bottom-left-radius: 50% 8px;
-    border-bottom-right-radius: 50% 8px;
+    
+    /* THE FIX: Changed the 8px to 30px to create a much deeper, visible curve */
+    border-bottom-left-radius: 50% 30px !important;
+    border-bottom-right-radius: 50% 30px !important;
+    
     margin-top: 0 !important;
 }
 
@@ -3135,5 +3136,175 @@ html {
 @media (max-width: 768px) {
     .manage-features-grid {
         grid-template-columns: 1fr; 
+    }
+}
+
+/* =========================================
+   FLIGHT STATUS PAGE STYLES
+   ========================================= */
+
+.status-page-bg {
+    background-color: #fafbfc; /* Very light grey */
+    padding: 50px 20px 100px;
+}
+
+.status-container {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.status-disclaimer {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    max-width: 900px;
+}
+
+/* The White Card */
+.status-form-card {
+    background: white;
+    border-radius: 12px;
+    padding: 35px 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eaeaea;
+}
+
+/* Radio Buttons */
+.status-radio-group {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.radio-label {
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.radio-label.active {
+    color: #0088ce;
+    font-weight: 700;
+}
+
+.radio-label.inactive {
+    color: #0088ce;
+    font-weight: 400;
+}
+
+/* Input Row Layout */
+.status-inputs-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end; /* Aligns the bottom of the boxes and button */
+    position: relative;
+}
+
+.status-input-box {
+    flex: 1; /* Makes inputs share space equally */
+}
+
+.status-input-box label {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.required {
+    color: #d32f2f; /* Red Asterisk */
+}
+
+.input-wrapper {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: #999;
+}
+
+/* Icons inside inputs */
+.clear-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #005eb8;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 15px;
+    top: 16px;
+    color: #888;
+    font-size: 14px;
+}
+
+/* The Swap Icon (Positioned between From and To) */
+.swap-icon-container {
+    width: 28px;
+    height: 28px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 27%; /* Adjust based on flex widths */
+    bottom: 12px;
+    z-index: 10;
+    color: #999;
+    font-size: 12px;
+}
+
+/* Check Status Button */
+.status-button-box {
+    flex: 0.8; /* Slightly narrower than the inputs */
+}
+
+.btn-check-status {
+    width: 100%;
+    padding: 15px;
+    background-color: #81c0e3; /* Light soft blue */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-check-status:hover {
+    background-color: #5baedb;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .status-inputs-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .swap-icon-container {
+        display: none; /* Hides swap icon on small screens to avoid mess */
     }
 }

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Status - Cebu Pacific</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY BAR -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper">
+            <div class="advisory-right" style="display: flex; align-items: center; margin-left: auto;">
+                <span class="disabled-text-transparent">
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
+                </span>
+                <span class="disabled-text-transparent" style="margin-left: 20px; margin-right: 25px;">
+                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English <i class="fa-solid fa-caret-down" style="margin-left: 5px; font-size: 11px;"></i>
+                </span>
+                <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- WHITE NAVIGATION HEADER -->
+    <!-- ========================================== -->
+    <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="header-logo-link">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            </a>
+            <div class="header-action-right" style="display: flex; align-items: center;">
+                <a href="partner-login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                </a>
+                <i class="fa-solid fa-magnifying-glass search-icon" style="margin-left: 25px; color: #005eb8; font-size: 18px; cursor: pointer;"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- BREADCRUMBS -->
+    <!-- ========================================== -->
+    <div class="breadcrumbs-container">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a> &rsaquo; 
+            <span>Flight Status</span>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- YELLOW HERO BANNER (With Subtitle) -->
+    <!-- ========================================== -->
+    <div class="checkin-hero-banner" style="padding: 90px 0 60px !important;">
+        <div class="checkin-container-inner">
+            <h1 style="margin-bottom: 15px !important;">Flight Status</h1>
+            <p style="color: #005eb8; font-size: 22px; margin: 0;">Get real-time status of your flight</p>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- FLIGHT STATUS CONTENT -->
+    <!-- ========================================== -->
+    <div class="status-page-bg">
+        <div class="status-container">
+            
+            <p class="status-disclaimer">
+                Check the flight status for departures and arrivals within 24 hours. The info is displayed in each airport's local time and may change. Final timings will be announced at the airport.
+            </p>
+
+            <!-- Search Form Card -->
+            <div class="status-form-card">
+                
+                <!-- Radio Buttons -->
+                <div class="status-radio-group">
+                    <label class="radio-label active">
+                        <i class="fa-regular fa-circle-dot"></i> By route
+                    </label>
+                    <label class="radio-label inactive">
+                        <i class="fa-regular fa-circle"></i> Flight No.
+                    </label>
+                </div>
+
+                <!-- Input Fields Row -->
+                <div class="status-inputs-row">
+                    
+                    <!-- From -->
+                    <div class="status-input-box from-box">
+                        <label>From<span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" value="Manila MNL">
+                            <i class="fa-solid fa-xmark clear-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Swap Button Overlay -->
+                    <div class="swap-icon-container">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    </div>
+
+                    <!-- To -->
+                    <div class="status-input-box to-box">
+                        <label>To<span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Select Destination">
+                        </div>
+                    </div>
+
+                    <!-- Flight Date -->
+                    <div class="status-input-box date-box">
+                        <label>Flight Date<span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Select">
+                            <i class="fa-solid fa-caret-down dropdown-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="status-button-box">
+                        <button class="btn-check-status">Check status</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION -->
+    <!-- ========================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-links-grid">
+                <div class="col"><h4>BOOK</h4><a href="#">Flights</a><a href="#">Seat Sale</a></div>
+                <div class="col"><h4>MANAGE</h4><a href="#">Check in</a><a href="#">Manage Booking</a><a href="#">Flight Status</a><a href="#">Add-ons</a><a href="#">Special Assistance</a></div>
+                <div class="col"><h4>TRAVEL INFO</h4><a href="#">Baggage Information</a><a href="#">Payment Options</a><a href="#">Travel Advisories</a><a href="#">Booking & Check-in</a><a href="#">Travel Documents</a><a href="#">Service Fees</a></div>
+                <div class="col"><h4>EXPLORE</h4><a href="#">Explore</a><a href="#">Philippine Destinations</a><a href="#">International Destinations</a><a href="#">Where We Fly</a><a href="#">City Guides</a></div>
+                <div class="col"><h4>ABOUT</h4><a href="#">About</a><a href="#">Our Story</a><a href="#">Media Center</a><a href="#">Talk to Us</a><a href="#">Careers</a></div>
+                
+                <div class="col country-selector">
+                    <h4>SELECT COUNTRY</h4>
+                    <div class="country-box"><i class="fa-solid fa-earth-asia"></i> Philippines</div>
+                </div>
+            </div>
+
+            <div class="footer-right-sidebar">
+                <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                <div class="app-buttons">
+                    <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                    <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+                </div>
+
+                <h4>PAYMENT PARTNERS</h4>
+                <div class="payment-grid">
+                    <img src="images/Visa-logo.webp" alt="Visa">
+                    <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                    <img src="images/GCash-276x96.webp" alt="GCash">
+                </div>
+
+                <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                <div class="accreditations">
+                    <img src="images/CEB-7Star-Emblem.webp" alt="Badge 1">
+                    <img src="images/New_NPC_Logo.webp" alt="Badge 2">
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
+</body>
+</html>
