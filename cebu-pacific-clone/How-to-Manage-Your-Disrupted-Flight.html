@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Manage Your Disrupted Flight</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #4a4a4a;
+        }
+
+        /* Header Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px 80px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            margin-right: auto;
+        }
+
+        .logo-img {
+            height: 38px;
+        }
+
+        /* Page Layout with Sidebar */
+        .page-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Navigation - Sticky Behavior */
+        .sidebar {
+            width: 250px;
+            padding-top: 60px;
+            padding-right: 20px;
+            border-right: 1px solid #e2e8f0;
+            position: sticky;
+            top: 80px;
+            height: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .sidebar-nav li {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar-nav a {
+            text-decoration: none;
+            color: #555555;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 6px 16px;
+            display: inline-block;
+        }
+
+        .sidebar-nav li.active a {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        /* Blue indicator pill for active tab */
+        .sidebar-nav li.active::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #0073e6;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Main Content Container */
+        .container {
+            flex: 1;
+            max-width: 900px;
+            padding: 60px 40px 40px 40px;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #4a4d4e;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #555555;
+            margin-bottom: 40px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        /* Article Sections */
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 16px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .note-box {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: underline;
+        }
+
+        .guidelines-intro {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .guidelines-list {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .guidelines-list li {
+            margin-bottom: 10px;
+        }
+
+        .sub-list {
+            margin-left: 20px;
+            margin-top: 6px;
+            list-style-type: disc;
+        }
+
+        /* Disruption Options Styles */
+        .portal-text {
+            font-size: 14px;
+            color: #333333;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .disruption-intro {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .options-list>li {
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .options-list>li::before {
+            content: "• ";
+            font-size: 16px;
+        }
+
+        .options-sub-list {
+            margin-left: 24px;
+            margin-top: 8px;
+            font-weight: normal;
+            list-style-type: disc;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .options-sub-list li {
+            margin-bottom: 8px;
+        }
+
+        .screenshot-container {
+            margin: 16px 0 16px 24px;
+            max-width: 450px;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+        }
+
+        /* Eligible Scenarios Table Styles */
+        .scenarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 16px;
+            margin-bottom: 30px;
+        }
+
+        .scenarios-table th {
+            background-color: #0073e6;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 12px;
+            border: 1px solid #0073e6;
+        }
+
+        .scenarios-table th:first-child {
+            text-align: left;
+            width: 55%;
+        }
+
+        .scenarios-table th:not(:first-child) {
+            text-align: center;
+            width: 15%;
+        }
+
+        .scenarios-table td {
+            border: 1px solid #0056b3;
+            padding: 14px 12px;
+            color: #333333;
+            vertical-align: middle;
+        }
+
+        .scenarios-table td:first-child {
+            font-weight: 600;
+        }
+
+        .scenarios-table td:not(:first-child) {
+            text-align: center;
+            font-size: 13px;
+            color: #555555;
+        }
+
+        .scenario-icon {
+            margin-right: 6px;
+            display: inline-block;
+        }
+
+        /* Policies & Guides Accordion Styles */
+        .accordion-section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #4a4d4e;
+            margin-top: 30px;
+            margin-bottom: 16px;
+        }
+
+        .accordion-group-label {
+            font-size: 13px;
+            color: #666666;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .accordion-item {
+            border: 1px solid #0073e6;
+            border-radius: 4px;
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-item[open] {
+            background-color: #eef6fc;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a4a4a;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-item[open] .accordion-header {
+            color: #0073e6;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .accordion-icon {
+            color: #0073e6;
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item[open] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            padding: 0 16px 16px 16px;
+            font-size: 13px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .accordion-body p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .accordion-body ul {
+            margin-left: 20px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            list-style-type: disc;
+        }
+
+        .accordion-body ul li {
+            margin-bottom: 4px;
+        }
+
+        /* Fare Difference Computation Box Styling */
+        .computation-box {
+            margin-top: 16px;
+            max-width: 550px;
+        }
+
+        .computation-header {
+            background-color: #0073e6;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 10px 14px;
+            font-size: 13px;
+        }
+
+        .computation-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background-color: transparent;
+        }
+
+        .computation-label {
+            color: #555555;
+        }
+
+        .computation-value {
+            color: #333333;
+            text-align: right;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img class="logo-img" src="images/Cebu Pacific Logo.jpg" alt="Cebu Pacific Air">
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li id="nav-overview" class="active"><a href="#overview">Overview</a></li>
+                <li id="nav-policies"><a href="#policies-guides">Policies & Guides</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Body Content -->
+        <main class="container">
+            <h1 class="main-title">How to Manage Your Disrupted Flight</h1>
+            <p class="subtitle">Manage disrupted flights anywhere — no need to visit the airport!</p>
+
+            <hr class="divider">
+
+            <!-- Content Sections -->
+            <h2 id="overview" class="section-title">Overview</h2>
+            <p class="section-content">Description</p>
+
+            <p class="note-box">
+                👉 This article is about flight disruptions. If you want to voluntarily cancel or rebook a flight
+
+            </p>
+
+            <hr class="divider">
+
+            <h2 class="section-title">General Guidelines</h2>
+
+            <p class="guidelines-intro">
+                While we continuously work to ensure your flight departs and arrives on time, on-the-spot delays or
+                cancelations may occur due to environmental, operational or technical reasons.
+            </p>
+
+            <ul class="guidelines-list">
+                <li>Affected passengers will be notified by Cebu Pacific frontline team, email, and/or text message.
+                </li>
+                <li>You can check the real-time status of your flight through our Flight Status page.
+                </li>
+                <li>We will ensure your welfare is taken care of whenever there are planned or on-the-spot changes to
+                    flights.
+                    <ul class="sub-list">
+                        <li>Know your rights as an air passenger through the article "Passenger Rights & Airline
+                            Policies"
+                        </li>
+                        <li>Check the applicable options for on-the-spot disruptions:</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="portal-text">
+                After being notified of the disruption, you will be given a link to our <strong>Self-Service Disruption
+                    Portal (SSDP)</strong>.
+            </p>
+            <p class="portal-text">
+                You may also access this by going to <a href="#">Manage Booking</a> on the Cebu Pacific app or website.
+            </p>
+
+            <hr class="divider">
+
+            <h2 class="section-title">📦 Disruption options</h2>
+
+            <p class="disruption-intro">We offer the following flexible options for disrupted guests:</p>
+
+            <ul class="options-list">
+                <li>
+                    Rebook your flight
+                    <ul class="options-sub-list">
+                        <li>Rebook your flight for free up to 30 days before or 30 days after your original schedule.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Request a refund
+                    <ul class="options-sub-list">
+                        <li>Request a refund of your fare according to your form of payment.</li>
+                        <li>Travel Tax and unused TravelSure will have to be refunded separately.</li>
+                    </ul>
+                </li>
+                <li>
+                    Convert to Travel Fund
+                    <ul class="options-sub-list">
+                        <li>When converting your disrupted flight to Travel Fund, it will be stored in your
+                            <strong>booking reference number</strong> or <strong>your MyCebuPacific account</strong>
+                            within 24 hours.
+                        </li>
+                        <li>With this, you can use it to pay for future flights or add-ons.</li>
+                        <li>Once you reach the payment page, simply enter the <strong>six-digit booking reference
+                                number</strong> that contains the Travel Fund.</li>
+                    </ul>
+                    <div class="screenshot-container">
+                        <img class="screenshot-img" src="payment-method-screenshot.jpg"
+                            alt="Payment Method - Travel Fund">
+                    </div>
+                    <ul class="options-sub-list">
+                        <li>Learn more about the Travel Fund here: <a href="CFTF-index.html">CEB Flexi & Travel Fund</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    💡 Remember!
+                    <ul class="options-sub-list">
+                        <li>Once you pick an option, it's final and can't be changed or undone.</li>
+                        <li>You can only rebook, refund, or convert your disrupted flight to Travel Fund
+                            <strong>once</strong>.
+                        </li>
+                        <li>When rebooking, make sure you're selecting the correct flight dates!</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <hr class="divider">
+
+            <h2 class="section-title">✈️ Eligible scenarios</h2>
+
+            <table class="scenarios-table">
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Rebook</th>
+                        <th>Refund</th>
+                        <th>Convert to Travel Fund</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="scenario-icon">❌</span> Your flight was cancelled</td>
+                        <td>✓ Yes</td>
+                        <td>✓ Yes</td>
+                        <td>✓ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-icon">⏱️</span> Your flight had a schedule change of less than 1 hour
+                        </td>
+                        <td>X No</td>
+                        <td>X No</td>
+                        <td>X No</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-icon">⏳</span> Your flight had a schedule change of 1 hour or more
+                        </td>
+                        <td>✓ Yes</td>
+                        <td>X No</td>
+                        <td>✓ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-icon">🛂</span> If you were denied entry by immigration</td>
+                        <td>✓ Yes</td>
+                        <td>✓ Yes</td>
+                        <td>✓ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><span class="scenario-icon">🚫</span> If you were <a href="#">denied boarding</a> by us</td>
+                        <td>✓ Yes</td>
+                        <td>✓ Yes</td>
+                        <td>✓ Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr class="divider">
+
+            <!-- Policies & Guides Section -->
+            <h2 id="policies-guides" class="accordion-section-title">Policies & Guides</h2>
+
+            <p class="accordion-group-label">Policies</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Deadline for choosing a disruption option</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    There is no deadline for selecting a flexible option for disrupted flights. However, it is advisable
+                    to manage your booking online before the original flight date to avoid having to queue up for a live
+                    agent.
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Managing booking with multiple guests</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    To rebook for separate guests, select different disruption options, or split the Travel Fund among
+                    yourselves, please chat with us via our app or website to connect with a Live Agent
+                    who can help you split the booking.
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Changing flight destination</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p><strong>Rerouting or changing flight destination is not allowed.</strong></p>
+                    <p>Rebooking only includes changing the flight schedule.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>CEB Super Pass</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>In the event of flight disruptions, you will be provided options based on the
+                        existing policy of Cebu Pacific.</p>
+                    <p>With this, your CEB Super Pass will be voided / will not be returned to you if you decide to
+                        rebook, refund, or convert to Travel Fund.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Fare difference</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>Fare difference is the amount difference between your original booking and the newly rebooked
+                        flight. Here's a sample computation for illustration purposes:</p>
+
+                    <div class="computation-box">
+                        <div class="computation-header">Current Booking</div>
+                        <div class="computation-row">
+                            <span class="computation-label">(A) Total Ticket Cost Paid</span>
+                            <span class="computation-value">PHP 5,500</span>
+                        </div>
+
+                        <div class="computation-header">Rebooking</div>
+                        <div class="computation-row">
+                            <span class="computation-label">(B) Ticket Cost</span>
+                            <span class="computation-value">PHP 6,300</span>
+                        </div>
+                        <div class="computation-row">
+                            <span class="computation-label">Fare difference to be paid<br><small>(B - A)</small></span>
+                            <span class="computation-value"><br>(PHP 6,300 - PHP 5,500) = <strong>PHP
+                                    800</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Refund inclusions</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>Refund <strong>includes</strong> fares, taxes, all unused ancillaries, Admin Fee, and handling
+                        fees (i.e. Unaccompanied Minor), but <strong>excludes</strong> Flight Fees (i.e. Hold Fee,
+                        Cancel Fee, Change Fee).</p>
+                    <p>Guests must coordinate with CHUBB for refund for insurance add-on. CHUBB is our provider for
+                        insurance.</p>
+                    <p>Flights booked via Go Rewards will be refunded through Travel Fund.</p>
+                    <p>For more information, visit this article: <a href="RC-index.html">Refund Concerns</a></p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Certificate of Flight Disruption (COFD)</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>This certificate serves as proof that a certain flight was canceled or affected by a schedule
+                        change.</p>
+
+                    <p>✅ <strong>You can request if:</strong></p>
+                    <ul>
+                        <li>Your flight was canceled, or</li>
+                        <li>Your departure or arrival time was significantly changed by Cebu Pacific.</li>
+                    </ul>
+
+                    <p>❌ <strong>You cannot request if:</strong></p>
+                    <ul>
+                        <li>Your flight was completed as scheduled, or</li>
+                        <li>Any changes were made at your request (e.g., voluntary rebooking)</li>
+                    </ul>
+
+                    <p style="margin-top: 16px;">🙋 <strong>How to request:</strong></p>
+                    <p>Please chat to request a COFD. You will be asked to
+                        provide
+                        your booking reference number and your last name.</p>
+                    <p>This certificate is free of charge.</p>
+                </div>
+            </details>
+
+        </main>
+    </div>
+
+    <!-- Active Indicator Scroll Spy Script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navOverview = document.getElementById('nav-overview');
+            const navPolicies = document.getElementById('nav-policies');
+            const policiesSection = document.getElementById('policies-guides');
+
+            function onScroll() {
+                const rect = policiesSection.getBoundingClientRect();
+                // When Policies & Guides section approaches the top quarter of the viewport
+                if (rect.top <= window.innerHeight * 0.35) {
+                    navOverview.classList.remove('active');
+                    navPolicies.classList.add('active');
+                } else {
+                    navPolicies.classList.remove('active');
+                    navOverview.classList.add('active');
+                }
+            }
+
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
+
+</body>
+
+</html>

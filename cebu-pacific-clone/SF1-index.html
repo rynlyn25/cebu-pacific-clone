@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Flight</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fa;
+        }
+
+        /* Top Header Bar */
+        .header {
+            background-color: #FFCC00;
+            color: #0042ad;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .header-content {
+            max-width: 950px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .close-btn {
+            font-size: 22px;
+            cursor: pointer;
+            color: #0042ad;
+            font-weight: 400;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        h2 {
+            font-size: 26px;
+            color: #111;
+            margin-bottom: 35px;
+            font-weight: 700;
+        }
+
+        /* Options Row (Flight & Round-trip) */
+        .options-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 20px;
+        }
+
+        .flight-option {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #111;
+            margin-right: 40px;
+            font-size: 14px;
+        }
+
+        .flight-option span {
+            color: #f5a623;
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .divider {
+            width: 1px;
+            height: 24px;
+            background-color: #ddd;
+            margin-right: 40px;
+        }
+
+        .trip-type-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .trip-type {
+            font-size: 14px;
+            color: #007aff;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .trip-type::after {
+            content: "▼";
+            font-size: 9px;
+            margin-left: 6px;
+            color: #666;
+        }
+
+        .trip-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            z-index: 1000;
+            width: 140px;
+        }
+
+        .trip-dropdown.active {
+            display: block;
+        }
+
+        .trip-dropdown-item {
+            padding: 10px 14px;
+            font-size: 14px;
+            color: #007aff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .trip-dropdown-item:hover {
+            background-color: #f0f8ff;
+        }
+
+        .trip-dropdown-item.secondary {
+            color: #333;
+            font-weight: 600;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .trip-dropdown-item.secondary:hover {
+            color: #007aff;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group.span-2 {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            background-color: #fff;
+            padding: 10px 12px;
+            height: 46px;
+            cursor: pointer;
+        }
+
+        .input-box.active-tab {
+            border-color: #00a2ed;
+            box-shadow: 0 0 0 1px #00a2ed;
+        }
+
+        .input-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            color: #333;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .input-box input::placeholder {
+            color: #aaa;
+        }
+
+        .input-box select {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            color: #333;
+            background: transparent;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .input-box::after {
+            content: "";
+            position: absolute;
+            right: 12px;
+            pointer-events: none;
+        }
+
+        /* Select arrow for dropdowns in row 2 */
+        .form-grid:nth-of-type(2) .input-box {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='10' viewBox='0 0 24 24' width='10' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        .input-box .icon-right {
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .input-box .clear-icon {
+            color: #007aff;
+            font-weight: bold;
+            margin-right: 6px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .input-box .swap-icon {
+            background: #f0f0f0;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: -12px;
+            z-index: 2;
+            cursor: pointer;
+            border: 1px solid #dcdcdc;
+            color: #666;
+            font-size: 11px;
+        }
+
+        .sub-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* Search Button Container */
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .search-btn {
+            background-color: #cce3ed;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: #b3d7e5;
+        }
+
+        /* Dropdown Modal Popup */
+        .location-modal {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            width: 550px;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .location-modal.active {
+            display: flex;
+        }
+
+        .modal-left {
+            width: 180px;
+            background-color: #f7f9fa;
+            border-right: 1px solid #eaeaea;
+            padding: 15px 0;
+        }
+
+        .modal-left-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            background-color: #fff;
+            border-left: 3px solid #00a2ed;
+        }
+
+        .modal-left-item span {
+            color: #00a2ed;
+            margin-right: 8px;
+        }
+
+        .modal-left-item .arrow {
+            margin-left: auto;
+            color: #00a2ed;
+            font-weight: bold;
+        }
+
+        .modal-right {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .modal-right h4 {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            color: #111;
+            font-weight: 700;
+        }
+
+        .country-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 12px;
+            column-gap: 20px;
+        }
+
+        .country-item {
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .country-item:hover {
+            color: #007aff;
+        }
+
+        .country-item.active-country {
+            color: #333;
+        }
+
+        .city-item {
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-left: 15px;
+            display: none;
+        }
+
+        .city-item:hover {
+            color: #007aff;
+        }
+
+        .city-item.show {
+            display: block;
+        }
+
+        /* Calendar Modal Styles */
+        .calendar-modal {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            width: 680px;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .calendar-modal.active {
+            display: block;
+        }
+
+        .calendar-container {
+            display: flex;
+            gap: 20px;
+            user-select: none;
+        }
+
+        .calendar-month {
+            flex: 1;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 15px;
+            color: #111;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
+        .calendar-header button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #00a2ed;
+            font-weight: bold;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            row-gap: 4px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 50%;
+            margin: auto;
+            width: 32px;
+            height: 32px;
+        }
+
+        .calendar-day:hover:not(.empty):not(.disabled) {
+            background-color: #f0f0f0;
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.selected-start,
+        .calendar-day.selected-end {
+            background-color: #00a2ed !important;
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        .calendar-day.in-range {
+            background-color: #e6f4fb;
+            border-radius: 0;
+        }
+
+        .calendar-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            border-top: 1px solid #eaeaea;
+            padding-top: 15px;
+        }
+
+        .select-dates-btn {
+            background-color: #b3d7e5;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .select-dates-btn.active-confirm {
+            background-color: #00a2ed;
+        }
+
+        .select-dates-btn.active-confirm:hover {
+            background-color: #008bbd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div style="color: #0042ad;">Search Flight</div>
+            <div class="close-btn" style="color: #0042ad;">&times;</div>
+        </div>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <h2>Hi, where would you like to go?</h2>
+
+        <div class="options-row">
+            <div class="flight-option">
+                <span>✈</span> Flight
+            </div>
+            <div class="divider"></div>
+            <div class="trip-type-container">
+                <div class="trip-type" id="tripTypeBtn">
+                    Round-trip
+                </div>
+                <div class="trip-dropdown" id="tripDropdown">
+                    <div class="trip-dropdown-item" id="tripRoundOption">Round-trip</div>
+                    <div class="trip-dropdown-item secondary" id="tripOneWayOption">One-way</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- First Row of Inputs -->
+        <div class="form-grid">
+            <div class="form-group">
+                <label>From</label>
+                <div class="input-box" id="origin-box">
+                    <input type="text" id="origin-input" placeholder="Select Origin" readonly>
+                    <span class="icon-right">📍</span>
+                </div>
+                <!-- Location Dropdown Modal -->
+                <div class="location-modal" id="locationModal">
+                    <div class="modal-left">
+                        <div class="modal-left-item">
+                            <span>📍</span> All Locations <span class="arrow">&gt;</span>
+                        </div>
+                    </div>
+                    <div class="modal-right">
+                        <h4>Country</h4>
+                        <div class="country-grid">
+                            <div>
+                                <div class="country-item" id="australiaBtn">Australia</div>
+                                <div class="city-item" id="melbourneBtn">Melbourne</div>
+                                <div class="city-item" id="sydneyBtn">Sydney</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="chinaBtn">China</div>
+                                <div class="city-item" id="guangzhouBtn">Guangzhou (Canton)</div>
+                                <div class="city-item" id="shanghaiBtn">Shanghai</div>
+                                <div class="city-item" id="shenzhenBtn">Shenzhen</div>
+                                <div class="city-item" id="xiamenBtn">Xiamen</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="bruneiBtn">Brunei Darussalam</div>
+                                <div class="city-item" id="bandarBtn">Bandar Seri Begawan (Brunei)</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="hongKongBtn">Hong Kong (China)</div>
+                                <div class="city-item" id="hongKongCityBtn">HongKong</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="indonesiaBtn">Indonesia</div>
+                                <div class="city-item" id="baliBtn">Bali (Denpasar)</div>
+                                <div class="city-item" id="jakartaBtn">Jakarta</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="japanBtn">Japan</div>
+                                <div class="city-item" id="fukuokaBtn">Fukuoka</div>
+                                <div class="city-item" id="nagoyaBtn">Nagoya</div>
+                                <div class="city-item" id="osakaBtn">Osaka (Kansai)</div>
+                                <div class="city-item" id="sapporoBtn">Sapporo (New Chitose)</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="macauBtn">Macau (China)</div>
+                                <div class="city-item" id="macauCityBtn">Macau</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="malaysiaBtn">Malaysia</div>
+                                <div class="city-item" id="kualaLumpurBtn">Kuala Lumpur</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="philippinesBtn">Philippines</div>
+                                <div class="city-item" id="bacolodBtn">Bacolod</div>
+                                <div class="city-item" id="boholBtn">Bohol</div>
+                                <div class="city-item" id="boracayBtn">Boracay (Caticlan)</div>
+                                <div class="city-item" id="butuanBtn">Butuan</div>
+                                <div class="city-item" id="cagayanBtn">Cagayan de Oro</div>
+                                <div class="city-item" id="calbayogBtn">Calbayog</div>
+                                <div class="city-item" id="camiguinBtn">Camiguin</div>
+                                <div class="city-item" id="cauayanBtn">Cauayan</div>
+                                <div class="city-item" id="cebuBtn">Cebu</div>
+                                <div class="city-item" id="clarkBtn">Clark</div>
+                                <div class="city-item" id="coronBtn">Coron (Busuanga)</div>
+                                <div class="city-item" id="cotabatoBtn">Cotabato</div>
+                                <div class="city-item" id="davaoBtn">Davao</div>
+                                <div class="city-item" id="dipologBtn">Dipolog</div>
+                                <div class="city-item" id="dumagueteBtn">Dumaguete</div>
+                                <div class="city-item" id="elNidoBtn">El Nido</div>
+                                <div class="city-item" id="generalSantosBtn">General Santos</div>
+                                <div class="city-item" id="iloiloBtn">Iloilo</div>
+                                <div class="city-item" id="kaliboBtn">Kalibo</div>
+                                <div class="city-item" id="laoagBtn">Laoag</div>
+                                <div class="city-item" id="legazpiBtn">Legazpi (Daraga)</div>
+                                <div class="city-item" id="manilaBtn">Manila</div>
+                                <div class="city-item" id="masbateBtn">Masbate</div>
+                                <div class="city-item" id="nagaBtn">Naga</div>
+                                <div class="city-item" id="ozamizBtn">Ozamiz</div>
+                                <div class="city-item" id="pagadianBtn">Pagadian</div>
+                                <div class="city-item" id="puertoPrincesaBtn">Puerto Princesa</div>
+                                <div class="city-item" id="roxasBtn">Roxas</div>
+                                <div class="city-item" id="sanJoseBtn">San Jose (Mindoro)</div>
+                                <div class="city-item" id="sanVicenteBtn">San Vicente (Port Barton)</div>
+                                <div class="city-item" id="siargaoBtn">Siargao</div>
+                                <div class="city-item" id="surigaoBtn">Surigao</div>
+                                <div class="city-item" id="taclobanBtn">Tacloban</div>
+                                <div class="city-item" id="tawiTawiBtn">Tawi-Tawi</div>
+                                <div class="city-item" id="tuguegaraoBtn">Tuguegarao</div>
+                                <div class="city-item" id="viracBtn">Virac</div>
+                                <div class="city-item" id="zamboangaBtn">Zamboanga</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="saudiArabiaBtn">Saudi Arabia</div>
+                                <div class="city-item" id="riyadhBtn">Riyadh</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="singaporeBtn">Singapore</div>
+                                <div class="city-item" id="singaporeCityBtn">Singapore</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="southKoreaBtn">South Korea</div>
+                                <div class="city-item" id="seoulBtn">Seoul (Incheon)</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="taiwanBtn">Taiwan (China)</div>
+                                <div class="city-item" id="kaohsiungBtn">Kaohsiung</div>
+                                <div class="city-item" id="taipeiBtn">Taipei</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="thailandBtn">Thailand</div>
+                                <div class="city-item" id="bangkokDonMueangBtn">Bangkok (Don Mueang)</div>
+                                <div class="city-item" id="bangkokSuvarnabhumiBtn">Bangkok (Suvarnabhumi)</div>
+                                <div class="city-item" id="chiangMaiBtn">Chiang Mai</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="uaeBtn">United Arab Emirates</div>
+                                <div class="city-item" id="dubaiBtn">Dubai</div>
+                            </div>
+                            <div>
+                                <div class="country-item" id="vietnamBtn">Vietnam</div>
+                                <div class="city-item" id="daNangBtn">Da Nang</div>
+                                <div class="city-item" id="hanoiBtn">Hanoi</div>
+                                <div class="city-item" id="hoChiMinhBtn">Ho Chi Minh (Saigon)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="position: relative;">
+                <label>To</label>
+                <div class="input-box" id="destination-box" style="position: relative;">
+                    <div class="swap-icon" id="swapBtn">⇄</div>
+                    <input type="text" id="destination-input" placeholder="Select Destination" readonly>
+                    <span class="icon-right">📍</span>
+                </div>
+                <!-- Location Dropdown Modal for Destination -->
+                <div class="location-modal" id="destinationLocationModal">
+                    <div class="modal-left">
+                        <div class="modal-left-item">
+                            <span>📍</span> All Locations <span class="arrow">&gt;</span>
+                        </div>
+                    </div>
+                    <div class="modal-right">
+                        <h4>Country</h4>
+                        <div class="country-grid">
+                            <div class="dest-country-wrapper" data-country="Australia">
+                                <div class="country-item" id="dest-australiaBtn">Australia</div>
+                                <div class="city-item dest-city-item" id="dest-melbourneBtn" data-city-name="Melbourne">
+                                    Melbourne</div>
+                                <div class="city-item dest-city-item" id="dest-sydneyBtn" data-city-name="Sydney">Sydney
+                                </div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="China">
+                                <div class="country-item" id="dest-chinaBtn">China</div>
+                                <div class="city-item dest-city-item" id="dest-guangzhouBtn"
+                                    data-city-name="Guangzhou (Canton)">Guangzhou (Canton)</div>
+                                <div class="city-item dest-city-item" id="dest-shanghaiBtn" data-city-name="Shanghai">
+                                    Shanghai</div>
+                                <div class="city-item dest-city-item" id="dest-shenzhenBtn" data-city-name="Shenzhen">
+                                    Shenzhen</div>
+                                <div class="city-item dest-city-item" id="dest-xiamenBtn" data-city-name="Xiamen">Xiamen
+                                </div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Brunei Darussalam">
+                                <div class="country-item" id="dest-bruneiBtn">Brunei Darussalam</div>
+                                <div class="city-item dest-city-item" id="dest-bandarBtn"
+                                    data-city-name="Bandar Seri Begawan (Brunei)">Bandar Seri Begawan (Brunei)</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Hong Kong (China)">
+                                <div class="country-item" id="dest-hongKongBtn">Hong Kong (China)</div>
+                                <div class="city-item dest-city-item" id="dest-hongKongCityBtn"
+                                    data-city-name="HongKong">HongKong</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Indonesia">
+                                <div class="country-item" id="dest-indonesiaBtn">Indonesia</div>
+                                <div class="city-item dest-city-item" id="dest-baliBtn"
+                                    data-city-name="Bali (Denpasar)">Bali (Denpasar)</div>
+                                <div class="city-item dest-city-item" id="dest-jakartaBtn" data-city-name="Jakarta">
+                                    Jakarta</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Japan">
+                                <div class="country-item" id="dest-japanBtn">Japan</div>
+                                <div class="city-item dest-city-item" id="dest-fukuokaBtn" data-city-name="Fukuoka">
+                                    Fukuoka</div>
+                                <div class="city-item dest-city-item" id="dest-nagoyaBtn" data-city-name="Nagoya">Nagoya
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-osakaBtn"
+                                    data-city-name="Osaka (Kansai)">Osaka (Kansai)</div>
+                                <div class="city-item dest-city-item" id="dest-sapporoBtn"
+                                    data-city-name="Sapporo (New Chitose)">Sapporo (New Chitose)</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Macau (China)">
+                                <div class="country-item" id="dest-macauBtn">Macau (China)</div>
+                                <div class="city-item dest-city-item" id="dest-macauCityBtn" data-city-name="Macau">
+                                    Macau</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Malaysia">
+                                <div class="country-item" id="dest-malaysiaBtn">Malaysia</div>
+                                <div class="city-item dest-city-item" id="dest-kualaLumpurBtn"
+                                    data-city-name="Kuala Lumpur">Kuala Lumpur</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Philippines">
+                                <div class="country-item" id="dest-philippinesBtn">Philippines</div>
+                                <div class="city-item dest-city-item" id="dest-bacolodBtn" data-city-name="Bacolod">
+                                    Bacolod</div>
+                                <div class="city-item dest-city-item" id="dest-boholBtn" data-city-name="Bohol">Bohol
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-boracayBtn"
+                                    data-city-name="Boracay (Caticlan)">Boracay (Caticlan)</div>
+                                <div class="city-item dest-city-item" id="dest-butuanBtn" data-city-name="Butuan">Butuan
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-cagayanBtn"
+                                    data-city-name="Cagayan de Oro">Cagayan de Oro</div>
+                                <div class="city-item dest-city-item" id="dest-calbayogBtn" data-city-name="Calbayog">
+                                    Calbayog</div>
+                                <div class="city-item dest-city-item" id="dest-camiguinBtn" data-city-name="Camiguin">
+                                    Camiguin</div>
+                                <div class="city-item dest-city-item" id="dest-cauayanBtn" data-city-name="Cauayan">
+                                    Cauayan</div>
+                                <div class="city-item dest-city-item" id="dest-cebuBtn" data-city-name="Cebu">Cebu</div>
+                                <div class="city-item dest-city-item" id="dest-clarkBtn" data-city-name="Clark">Clark
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-coronBtn"
+                                    data-city-name="Coron (Busuanga)">Coron (Busuanga)</div>
+                                <div class="city-item dest-city-item" id="dest-cotabatoBtn" data-city-name="Cotabato">
+                                    Cotabato</div>
+                                <div class="city-item dest-city-item" id="dest-davaoBtn" data-city-name="Davao">Davao
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-dipologBtn" data-city-name="Dipolog">
+                                    Dipolog</div>
+                                <div class="city-item dest-city-item" id="dest-dumagueteBtn" data-city-name="Dumaguete">
+                                    Dumaguete</div>
+                                <div class="city-item dest-city-item" id="dest-elNidoBtn" data-city-name="El Nido">El
+                                    Nido</div>
+                                <div class="city-item dest-city-item" id="dest-generalSantosBtn"
+                                    data-city-name="General Santos">General Santos</div>
+                                <div class="city-item dest-city-item" id="dest-iloiloBtn" data-city-name="Iloilo">Iloilo
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-kaliboBtn" data-city-name="Kalibo">Kalibo
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-laoagBtn" data-city-name="Laoag">Laoag
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-legazpiBtn"
+                                    data-city-name="Legazpi (Daraga)">Legazpi (Daraga)</div>
+                                <div class="city-item dest-city-item" id="dest-manilaBtn" data-city-name="Manila">Manila
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-masbateBtn" data-city-name="Masbate">
+                                    Masbate</div>
+                                <div class="city-item dest-city-item" id="dest-nagaBtn" data-city-name="Naga">Naga</div>
+                                <div class="city-item dest-city-item" id="dest-ozamizBtn" data-city-name="Ozamiz">Ozamiz
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-pagadianBtn" data-city-name="Pagadian">
+                                    Pagadian</div>
+                                <div class="city-item dest-city-item" id="dest-puertoPrincesaBtn"
+                                    data-city-name="Puerto Princesa">Puerto Princesa</div>
+                                <div class="city-item dest-city-item" id="dest-roxasBtn" data-city-name="Roxas">Roxas
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-sanJoseBtn"
+                                    data-city-name="San Jose (Mindoro)">San Jose (Mindoro)</div>
+                                <div class="city-item dest-city-item" id="dest-sanVicenteBtn"
+                                    data-city-name="San Vicente (Port Barton)">San Vicente (Port Barton)</div>
+                                <div class="city-item dest-city-item" id="dest-siargaoBtn" data-city-name="Siargao">
+                                    Siargao</div>
+                                <div class="city-item dest-city-item" id="dest-surigaoBtn" data-city-name="Surigao">
+                                    Surigao</div>
+                                <div class="city-item dest-city-item" id="dest-taclobanBtn" data-city-name="Tacloban">
+                                    Tacloban</div>
+                                <div class="city-item dest-city-item" id="dest-tawiTawiBtn" data-city-name="Tawi-Tawi">
+                                    Tawi-Tawi</div>
+                                <div class="city-item dest-city-item" id="dest-tuguegaraoBtn"
+                                    data-city-name="Tuguegarao">Tuguegarao</div>
+                                <div class="city-item dest-city-item" id="dest-viracBtn" data-city-name="Virac">Virac
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-zamboangaBtn" data-city-name="Zamboanga">
+                                    Zamboanga</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Saudi Arabia">
+                                <div class="country-item" id="dest-saudiArabiaBtn">Saudi Arabia</div>
+                                <div class="city-item dest-city-item" id="dest-riyadhBtn" data-city-name="Riyadh">Riyadh
+                                </div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Singapore">
+                                <div class="country-item" id="dest-singaporeBtn">Singapore</div>
+                                <div class="city-item dest-city-item" id="dest-singaporeCityBtn"
+                                    data-city-name="Singapore">Singapore</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="South Korea">
+                                <div class="country-item" id="dest-southKoreaBtn">South Korea</div>
+                                <div class="city-item dest-city-item" id="dest-seoulBtn"
+                                    data-city-name="Seoul (Incheon)">Seoul (Incheon)</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Taiwan (China)">
+                                <div class="country-item" id="dest-taiwanBtn">Taiwan (China)</div>
+                                <div class="city-item dest-city-item" id="dest-kaohsiungBtn" data-city-name="Kaohsiung">
+                                    Kaohsiung</div>
+                                <div class="city-item dest-city-item" id="dest-taipeiBtn" data-city-name="Taipei">Taipei
+                                </div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Thailand">
+                                <div class="country-item" id="dest-thailandBtn">Thailand</div>
+                                <div class="city-item dest-city-item" id="dest-bangkokDonMueangBtn"
+                                    data-city-name="Bangkok (Don Mueang)">Bangkok (Don Mueang)</div>
+                                <div class="city-item dest-city-item" id="dest-bangkokSuvarnabhumiBtn"
+                                    data-city-name="Bangkok (Suvarnabhumi)">Bangkok (Suvarnabhumi)</div>
+                                <div class="city-item dest-city-item" id="dest-chiangMaiBtn"
+                                    data-city-name="Chiang Mai">Chiang Mai</div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="United Arab Emirates">
+                                <div class="country-item" id="dest-uaeBtn">United Arab Emirates</div>
+                                <div class="city-item dest-city-item" id="dest-dubaiBtn" data-city-name="Dubai">Dubai
+                                </div>
+                            </div>
+                            <div class="dest-country-wrapper" data-country="Vietnam">
+                                <div class="country-item" id="dest-vietnamBtn">Vietnam</div>
+                                <div class="city-item dest-city-item" id="dest-daNangBtn" data-city-name="Da Nang">Da
+                                    Nang</div>
+                                <div class="city-item dest-city-item" id="dest-hanoiBtn" data-city-name="Hanoi">Hanoi
+                                </div>
+                                <div class="city-item dest-city-item" id="dest-hoChiMinhBtn"
+                                    data-city-name="Ho Chi Minh (Saigon)">Ho Chi Minh (Saigon)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="position: relative;">
+                <label>Depart</label>
+                <div class="input-box" id="depart-box">
+                    <input type="text" id="depart-input" value="24 Jul 2026" readonly>
+                    <span class="icon-right">📅</span>
+                </div>
+
+                <!-- Calendar Popup Modal -->
+                <div class="calendar-modal" id="calendarModal">
+                    <div class="calendar-container">
+                        <!-- Left Month -->
+                        <div class="calendar-month">
+                            <div class="calendar-header">
+                                <button type="button" id="prevMonthBtn">&lt;</button>
+                                <span id="month1Label">July 2026</span>
+                                <span></span>
+                            </div>
+                            <div class="calendar-weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="calendar-grid" id="month1Grid"></div>
+                        </div>
+                        <!-- Right Month -->
+                        <div class="calendar-month">
+                            <div class="calendar-header">
+                                <span></span>
+                                <span id="month2Label">August 2026</span>
+                                <button type="button" id="nextMonthBtn">&gt;</button>
+                            </div>
+                            <div class="calendar-weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="calendar-grid" id="month2Grid"></div>
+                        </div>
+                    </div>
+                    <div class="calendar-footer">
+                        <button type="button" class="select-dates-btn" id="selectDatesBtn">Select dates</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="position: relative;">
+                <label>Return</label>
+                <div class="input-box" id="return-box">
+                    <input type="text" id="return-input" placeholder="Returning on" readonly>
+                    <span class="icon-right">📅</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Row of Inputs -->
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Adults</label>
+                <div class="input-box">
+                    <select id="adults-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </div>
+                <div class="sub-label">12+ years</div>
+            </div>
+
+            <div class="form-group">
+                <label>Children</label>
+                <div class="input-box">
+                    <select id="children-select">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </div>
+                <div class="sub-label">2 - 11 years</div>
+            </div>
+
+            <div class="form-group">
+                <label>Infant</label>
+                <div class="input-box">
+                    <select>
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+                <div class="sub-label">under 2 years</div>
+            </div>
+
+            <div class="form-group">
+                <label>Enter promo code</label>
+                <div class="input-box">
+                    <input type="text" placeholder="Promo Code (Optional)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="button-container">
+            <button class="search-btn">Search flights</button>
+        </div>
+    </div>
+
+    <script>
+        const originBox = document.getElementById('origin-box');
+        const locationModal = document.getElementById('locationModal');
+        const australiaBtn = document.getElementById('australiaBtn');
+        const melbourneBtn = document.getElementById('melbourneBtn');
+        const sydneyBtn = document.getElementById('sydneyBtn');
+        const chinaBtn = document.getElementById('chinaBtn');
+        const guangzhouBtn = document.getElementById('guangzhouBtn');
+        const shanghaiBtn = document.getElementById('shanghaiBtn');
+        const shenzhenBtn = document.getElementById('shenzhenBtn');
+        const xiamenBtn = document.getElementById('xiamenBtn');
+        const bruneiBtn = document.getElementById('bruneiBtn');
+        const bandarBtn = document.getElementById('bandarBtn');
+        const hongKongBtn = document.getElementById('hongKongBtn');
+        const hongKongCityBtn = document.getElementById('hongKongCityBtn');
+        const indonesiaBtn = document.getElementById('indonesiaBtn');
+        const baliBtn = document.getElementById('baliBtn');
+        const jakartaBtn = document.getElementById('jakartaBtn');
+        const japanBtn = document.getElementById('japanBtn');
+        const fukuokaBtn = document.getElementById('fukuokaBtn');
+        const nagoyaBtn = document.getElementById('nagoyaBtn');
+        const osakaBtn = document.getElementById('osakaBtn');
+        const sapporoBtn = document.getElementById('sapporoBtn');
+        const macauBtn = document.getElementById('macauBtn');
+        const macauCityBtn = document.getElementById('macauCityBtn');
+        const malaysiaBtn = document.getElementById('malaysiaBtn');
+        const kualaLumpurBtn = document.getElementById('kualaLumpurBtn');
+        const philippinesBtn = document.getElementById('philippinesBtn');
+        const bacolodBtn = document.getElementById('bacolodBtn');
+        const boholBtn = document.getElementById('boholBtn');
+        const boracayBtn = document.getElementById('boracayBtn');
+        const butuanBtn = document.getElementById('butuanBtn');
+        const cagayanBtn = document.getElementById('cagayanBtn');
+        const calbayogBtn = document.getElementById('calbayogBtn');
+        const camiguinBtn = document.getElementById('camiguinBtn');
+        const cauayanBtn = document.getElementById('cauayanBtn');
+        const cebuBtn = document.getElementById('cebuBtn');
+        const clarkBtn = document.getElementById('clarkBtn');
+        const coronBtn = document.getElementById('coronBtn');
+        const cotabatoBtn = document.getElementById('cotabatoBtn');
+        const davaoBtn = document.getElementById('davaoBtn');
+        const dipologBtn = document.getElementById('dipologBtn');
+        const dumagueteBtn = document.getElementById('dumagueteBtn');
+        const elNidoBtn = document.getElementById('elNidoBtn');
+        const generalSantosBtn = document.getElementById('generalSantosBtn');
+        const iloiloBtn = document.getElementById('iloiloBtn');
+        const kaliboBtn = document.getElementById('kaliboBtn');
+        const laoagBtn = document.getElementById('laoagBtn');
+        const legazpiBtn = document.getElementById('legazpiBtn');
+        const manilaBtn = document.getElementById('manilaBtn');
+        const masbateBtn = document.getElementById('masbateBtn');
+        const nagaBtn = document.getElementById('nagaBtn');
+        const ozamizBtn = document.getElementById('ozamizBtn');
+        const pagadianBtn = document.getElementById('pagadianBtn');
+        const puertoPrincesaBtn = document.getElementById('puertoPrincesaBtn');
+        const roxasBtn = document.getElementById('roxasBtn');
+        const sanJoseBtn = document.getElementById('sanJoseBtn');
+        const sanVicenteBtn = document.getElementById('sanVicenteBtn');
+        const siargaoBtn = document.getElementById('siargaoBtn');
+        const surigaoBtn = document.getElementById('surigaoBtn');
+        const taclobanBtn = document.getElementById('taclobanBtn');
+        const tawiTawiBtn = document.getElementById('tawiTawiBtn');
+        const tuguegaraoBtn = document.getElementById('tuguegaraoBtn');
+        const viracBtn = document.getElementById('viracBtn');
+        const zamboangaBtn = document.getElementById('zamboangaBtn');
+        const saudiArabiaBtn = document.getElementById('saudiArabiaBtn');
+        const riyadhBtn = document.getElementById('riyadhBtn');
+        const singaporeBtn = document.getElementById('singaporeBtn');
+        const singaporeCityBtn = document.getElementById('singaporeCityBtn');
+        const southKoreaBtn = document.getElementById('southKoreaBtn');
+        const seoulBtn = document.getElementById('seoulBtn');
+        const taiwanBtn = document.getElementById('taiwanBtn');
+        const kaohsiungBtn = document.getElementById('kaohsiungBtn');
+        const taipeiBtn = document.getElementById('taipeiBtn');
+        const thailandBtn = document.getElementById('thailandBtn');
+        const bangkokDonMueangBtn = document.getElementById('bangkokDonMueangBtn');
+        const bangkokSuvarnabhumiBtn = document.getElementById('bangkokSuvarnabhumiBtn');
+        const chiangMaiBtn = document.getElementById('chiangMaiBtn');
+        const uaeBtn = document.getElementById('uaeBtn');
+        const dubaiBtn = document.getElementById('dubaiBtn');
+        const vietnamBtn = document.getElementById('vietnamBtn');
+        const daNangBtn = document.getElementById('daNangBtn');
+        const hanoiBtn = document.getElementById('hanoiBtn');
+        const hoChiMinhBtn = document.getElementById('hoChiMinhBtn');
+        const originInput = document.getElementById('origin-input');
+
+        const destinationBox = document.getElementById('destination-box');
+        const destinationLocationModal = document.getElementById('destinationLocationModal');
+        const destinationInput = document.getElementById('destination-input');
+        const swapBtn = document.getElementById('swapBtn');
+        const destAustraliaBtn = document.getElementById('dest-australiaBtn');
+        const destMelbourneBtn = document.getElementById('dest-melbourneBtn');
+        const destSydneyBtn = document.getElementById('dest-sydneyBtn');
+        const destChinaBtn = document.getElementById('dest-chinaBtn');
+        const destGuangzhouBtn = document.getElementById('dest-guangzhouBtn');
+        const destShanghaiBtn = document.getElementById('dest-shanghaiBtn');
+        const destShenzhenBtn = document.getElementById('dest-shenzhenBtn');
+        const destXiamenBtn = document.getElementById('dest-xiamenBtn');
+        const destBruneiBtn = document.getElementById('dest-bruneiBtn');
+        const destBandarBtn = document.getElementById('dest-bandarBtn');
+        const destHongKongBtn = document.getElementById('dest-hongKongBtn');
+        const destHongKongCityBtn = document.getElementById('dest-hongKongCityBtn');
+        const destIndonesiaBtn = document.getElementById('dest-indonesiaBtn');
+        const destBaliBtn = document.getElementById('dest-baliBtn');
+        const destJakartaBtn = document.getElementById('dest-jakartaBtn');
+        const destJapanBtn = document.getElementById('dest-japanBtn');
+        const destFukuokaBtn = document.getElementById('dest-fukuokaBtn');
+        const destNagoyaBtn = document.getElementById('dest-nagoyaBtn');
+        const destOsakaBtn = document.getElementById('dest-osakaBtn');
+        const destSapporoBtn = document.getElementById('dest-sapporoBtn');
+        const destMacauBtn = document.getElementById('dest-macauBtn');
+        const destMacauCityBtn = document.getElementById('dest-macauCityBtn');
+        const destMalaysiaBtn = document.getElementById('dest-malaysiaBtn');
+        const destKualaLumpurBtn = document.getElementById('dest-kualaLumpurBtn');
+        const destPhilippinesBtn = document.getElementById('dest-philippinesBtn');
+        const destBacolodBtn = document.getElementById('dest-bacolodBtn');
+        const destBoholBtn = document.getElementById('dest-boholBtn');
+        const destBoracayBtn = document.getElementById('dest-boracayBtn');
+        const destButuanBtn = document.getElementById('dest-butuanBtn');
+        const destCagayanBtn = document.getElementById('dest-cagayanBtn');
+        const destCalbayogBtn = document.getElementById('dest-calbayogBtn');
+        const destCamiguinBtn = document.getElementById('dest-camiguinBtn');
+        const destCauayanBtn = document.getElementById('dest-cauayanBtn');
+        const destCebuBtn = document.getElementById('dest-cebuBtn');
+        const destClarkBtn = document.getElementById('dest-clarkBtn');
+        const destCoronBtn = document.getElementById('dest-coronBtn');
+        const destCotabatoBtn = document.getElementById('dest-cotabatoBtn');
+        const destDavaoBtn = document.getElementById('dest-davaoBtn');
+        const destDipologBtn = document.getElementById('dest-dipologBtn');
+        const destDumagueteBtn = document.getElementById('dest-dumagueteBtn');
+        const destElNidoBtn = document.getElementById('dest-elNidoBtn');
+        const destGeneralSantosBtn = document.getElementById('dest-generalSantosBtn');
+        const destIloiloBtn = document.getElementById('dest-iloiloBtn');
+        const destKaliboBtn = document.getElementById('dest-kaliboBtn');
+        const destLaoagBtn = document.getElementById('dest-laoagBtn');
+        const destLegazpiBtn = document.getElementById('dest-legazpiBtn');
+        const destManilaBtn = document.getElementById('dest-manilaBtn');
+        const destMasbateBtn = document.getElementById('dest-masbateBtn');
+        const destNagaBtn = document.getElementById('dest-nagaBtn');
+        const destOzamizBtn = document.getElementById('dest-ozamizBtn');
+        const destPagadianBtn = document.getElementById('dest-pagadianBtn');
+        const destPuertoPrincesaBtn = document.getElementById('dest-puertoPrincesaBtn');
+        const destRoxasBtn = document.getElementById('dest-roxasBtn');
+        const destSanJoseBtn = document.getElementById('dest-sanJoseBtn');
+        const destSanVicenteBtn = document.getElementById('dest-sanVicenteBtn');
+        const destSiargaoBtn = document.getElementById('dest-siargaoBtn');
+        const destSurigaoBtn = document.getElementById('dest-surigaoBtn');
+        const destTaclobanBtn = document.getElementById('dest-taclobanBtn');
+        const destTawiTawiBtn = document.getElementById('dest-tawiTawiBtn');
+        const destTuguegaraoBtn = document.getElementById('dest-tuguegaraoBtn');
+        const destViracBtn = document.getElementById('dest-viracBtn');
+        const destZamboangaBtn = document.getElementById('dest-zamboangaBtn');
+        const destSaudiArabiaBtn = document.getElementById('dest-saudiArabiaBtn');
+        const destRiyadhBtn = document.getElementById('dest-riyadhBtn');
+        const destSingaporeBtn = document.getElementById('dest-singaporeBtn');
+        const destSingaporeCityBtn = document.getElementById('dest-singaporeCityBtn');
+        const destSouthKoreaBtn = document.getElementById('dest-southKoreaBtn');
+        const destSeoulBtn = document.getElementById('dest-seoulBtn');
+        const destTaiwanBtn = document.getElementById('dest-taiwanBtn');
+        const destKaohsiungBtn = document.getElementById('dest-kaohsiungBtn');
+        const destTaipeiBtn = document.getElementById('dest-taipeiBtn');
+        const destThailandBtn = document.getElementById('dest-thailandBtn');
+        const destBangkokDonMueangBtn = document.getElementById('dest-bangkokDonMueangBtn');
+        const destBangkokSuvarnabhumiBtn = document.getElementById('dest-bangkokSuvarnabhumiBtn');
+        const destChiangMaiBtn = document.getElementById('dest-chiangMaiBtn');
+        const destUaeBtn = document.getElementById('dest-uaeBtn');
+        const destDubaiBtn = document.getElementById('dest-dubaiBtn');
+        const destVietnamBtn = document.getElementById('dest-vietnamBtn');
+        const destDaNangBtn = document.getElementById('dest-daNangBtn');
+        const destHanoiBtn = document.getElementById('dest-hanoiBtn');
+        const destHoChiMinhBtn = document.getElementById('dest-hoChiMinhBtn');
+
+        // Trip type dropdown handling
+        const tripTypeBtn = document.getElementById('tripTypeBtn');
+        const tripDropdown = document.getElementById('tripDropdown');
+        const tripRoundOption = document.getElementById('tripRoundOption');
+        const tripOneWayOption = document.getElementById('tripOneWayOption');
+        const returnBoxContainer = document.getElementById('return-box').closest('.form-group');
+
+        tripTypeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            locationModal.classList.remove('active');
+            destinationLocationModal.classList.remove('active');
+            calendarModal.classList.remove('active');
+            tripDropdown.classList.toggle('active');
+        });
+
+        tripRoundOption.addEventListener('click', function (e) {
+            e.stopPropagation();
+            tripTypeBtn.innerText = 'Round-trip';
+            tripDropdown.classList.remove('active');
+            returnBoxContainer.style.display = 'flex';
+        });
+
+        tripOneWayOption.addEventListener('click', function (e) {
+            e.stopPropagation();
+            tripTypeBtn.innerText = 'One-way';
+            tripDropdown.classList.remove('active');
+            returnBoxContainer.style.display = 'none';
+            endDate = null;
+            returnInput.value = '';
+            returnInput.placeholder = 'Returning on';
+        });
+
+        // Swap functionality for the swap button
+        swapBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const temp = originInput.value;
+            originInput.value = destinationInput.value;
+            destinationInput.value = temp;
+        });
+
+        originBox.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationLocationModal.classList.remove('active');
+            calendarModal.classList.remove('active');
+            tripDropdown.classList.remove('active');
+            departBox.classList.remove('active-tab');
+            locationModal.classList.toggle('active');
+        });
+
+        destinationBox.addEventListener('click', function (e) {
+            e.stopPropagation();
+            locationModal.classList.remove('active');
+            calendarModal.classList.remove('active');
+            tripDropdown.classList.remove('active');
+            departBox.classList.remove('active-tab');
+            destinationLocationModal.classList.toggle('active');
+        });
+
+        /* Calendar Interaction Logic */
+        const departBox = document.getElementById('depart-box');
+        const returnBox = document.getElementById('return-box');
+        const calendarModal = document.getElementById('calendarModal');
+        const departInput = document.getElementById('depart-input');
+        const returnInput = document.getElementById('return-input');
+        const selectDatesBtn = document.getElementById('selectDatesBtn');
+
+        const month1Grid = document.getElementById('month1Grid');
+        const month2Grid = document.getElementById('month2Grid');
+        const month1Label = document.getElementById('month1Label');
+        const month2Label = document.getElementById('month2Label');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+        let currentYear = 2026;
+        let currentMonth = 6; // July (0-indexed)
+
+        // Default selected dates matching the initial UI state (24 Jul 2026)
+        let startDate = new Date(2026, 6, 24);
+        let endDate = null;
+
+        // Today's date baseline for disabling past dates
+        const today = new Date(2026, 6, 24); // July 24, 2026 based on initial UI/system time
+        today.setHours(0, 0, 0, 0);
+
+        function openCalendar(e) {
+            e.stopPropagation();
+            locationModal.classList.remove('active');
+            destinationLocationModal.classList.remove('active');
+            tripDropdown.classList.remove('active');
+            calendarModal.classList.add('active');
+            departBox.classList.add('active-tab');
+            renderCalendar();
+        }
+
+        departBox.addEventListener('click', openCalendar);
+        returnBox.addEventListener('click', openCalendar);
+
+        prevMonthBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
+
+        function formatDate(date) {
+            if (!date) return '';
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        function renderMonth(year, month, gridElement, labelElement) {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            labelElement.innerText = `${monthNames[month]} ${year}`;
+            gridElement.innerHTML = '';
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const totalDays = new Date(year, month + 1, 0).getDate();
+
+            // Blank slots for previous month trailing days
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.classList.add('calendar-day', 'empty');
+                gridElement.appendChild(emptyDiv);
+            }
+
+            // Days of current month
+            for (let day = 1; day <= totalDays; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('calendar-day');
+                dayDiv.innerText = day;
+
+                const thisDate = new Date(year, month, day);
+                thisDate.setHours(0, 0, 0, 0);
+
+                // Disable past dates
+                if (thisDate < today) {
+                    dayDiv.classList.add('disabled');
+                } else {
+                    // Highlight status check
+                    if (startDate && thisDate.toDateString() === startDate.toDateString()) {
+                        dayDiv.classList.add('selected-start');
+                    }
+                    if (endDate && thisDate.toDateString() === endDate.toDateString()) {
+                        dayDiv.classList.add('selected-end');
+                    }
+                    if (startDate && endDate && thisDate > startDate && thisDate < endDate) {
+                        dayDiv.classList.add('in-range');
+                    }
+
+                    dayDiv.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        handleDateSelection(thisDate);
+                    });
+                }
+
+                gridElement.appendChild(dayDiv);
+            }
+        }
+
+        function renderCalendar() {
+            renderMonth(currentYear, currentMonth, month1Grid, month1Label);
+
+            let nextMonth = currentMonth + 1;
+            let nextYear = currentYear;
+            if (nextMonth > 11) {
+                nextMonth = 0;
+                nextYear++;
+            }
+            renderMonth(nextYear, nextMonth, month2Grid, month2Label);
+
+            updateConfirmButtonState();
+        }
+
+        function handleDateSelection(date) {
+            if (tripTypeBtn.innerText === 'One-way') {
+                startDate = date;
+                endDate = null;
+                departInput.value = formatDate(startDate);
+                calendarModal.classList.remove('active');
+                departBox.classList.remove('active-tab');
+            } else {
+                if (!startDate || (startDate && endDate)) {
+                    startDate = date;
+                    endDate = null;
+                    departInput.value = formatDate(startDate);
+                    returnInput.value = '';
+                    returnInput.placeholder = 'Returning on';
+                } else if (startDate && !endDate) {
+                    if (date < startDate) {
+                        startDate = date;
+                        departInput.value = formatDate(startDate);
+                    } else {
+                        endDate = date;
+                        returnInput.value = formatDate(endDate);
+                    }
+                }
+            }
+            renderCalendar();
+        }
+
+        function updateConfirmButtonState() {
+            if (tripTypeBtn.innerText === 'One-way') {
+                selectDatesBtn.classList.add('active-confirm');
+            } else if (startDate && endDate) {
+                selectDatesBtn.classList.add('active-confirm');
+            } else {
+                selectDatesBtn.classList.remove('active-confirm');
+            }
+        }
+
+        selectDatesBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (tripTypeBtn.innerText === 'One-way' && startDate) {
+                calendarModal.classList.remove('active');
+                departBox.classList.remove('active-tab');
+            } else if (startDate && endDate) {
+                calendarModal.classList.remove('active');
+                departBox.classList.remove('active-tab');
+            }
+        });
+
+        australiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            melbourneBtn.classList.toggle('show');
+            sydneyBtn.classList.toggle('show');
+        });
+
+        chinaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            guangzhouBtn.classList.toggle('show');
+            shanghaiBtn.classList.toggle('show');
+            shenzhenBtn.classList.toggle('show');
+            xiamenBtn.classList.toggle('show');
+        });
+
+        bruneiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            bandarBtn.classList.toggle('show');
+        });
+
+        hongKongBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            hongKongCityBtn.classList.toggle('show');
+        });
+
+        indonesiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            baliBtn.classList.toggle('show');
+            jakartaBtn.classList.toggle('show');
+        });
+
+        japanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            fukuokaBtn.classList.toggle('show');
+            nagoyaBtn.classList.toggle('show');
+            osakaBtn.classList.toggle('show');
+            sapporoBtn.classList.toggle('show');
+        });
+
+        macauBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            macauCityBtn.classList.toggle('show');
+        });
+
+        malaysiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            kualaLumpurBtn.classList.toggle('show');
+        });
+
+        philippinesBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            bacolodBtn.classList.toggle('show');
+            boholBtn.classList.toggle('show');
+            boracayBtn.classList.toggle('show');
+            butuanBtn.classList.toggle('show');
+            cagayanBtn.classList.toggle('show');
+            calbayogBtn.classList.toggle('show');
+            camiguinBtn.classList.toggle('show');
+            cauayanBtn.classList.toggle('show');
+            cebuBtn.classList.toggle('show');
+            clarkBtn.classList.toggle('show');
+            coronBtn.classList.toggle('show');
+            cotabatoBtn.classList.toggle('show');
+            davaoBtn.classList.toggle('show');
+            dipologBtn.classList.toggle('show');
+            dumagueteBtn.classList.toggle('show');
+            elNidoBtn.classList.toggle('show');
+            generalSantosBtn.classList.toggle('show');
+            iloiloBtn.classList.toggle('show');
+            kaliboBtn.classList.toggle('show');
+            laoagBtn.classList.toggle('show');
+            legazpiBtn.classList.toggle('show');
+            manilaBtn.classList.toggle('show');
+            masbateBtn.classList.toggle('show');
+            nagaBtn.classList.toggle('show');
+            ozamizBtn.classList.toggle('show');
+            pagadianBtn.classList.toggle('show');
+            puertoPrincesaBtn.classList.toggle('show');
+            roxasBtn.classList.toggle('show');
+            sanJoseBtn.classList.toggle('show');
+            sanVicenteBtn.classList.toggle('show');
+            siargaoBtn.classList.toggle('show');
+            surigaoBtn.classList.toggle('show');
+            taclobanBtn.classList.toggle('show');
+            tawiTawiBtn.classList.toggle('show');
+            tuguegaraoBtn.classList.toggle('show');
+            viracBtn.classList.toggle('show');
+            zamboangaBtn.classList.toggle('show');
+        });
+
+        saudiArabiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            riyadhBtn.classList.toggle('show');
+        });
+
+        singaporeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            singaporeCityBtn.classList.toggle('show');
+        });
+
+        southKoreaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            seoulBtn.classList.toggle('show');
+        });
+
+        taiwanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            kaohsiungBtn.classList.toggle('show');
+            taipeiBtn.classList.toggle('show');
+        });
+
+        thailandBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            bangkokDonMueangBtn.classList.toggle('show');
+            bangkokSuvarnabhumiBtn.classList.toggle('show');
+            chiangMaiBtn.classList.toggle('show');
+        });
+
+        uaeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dubaiBtn.classList.toggle('show');
+        });
+
+        vietnamBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            daNangBtn.classList.toggle('show');
+            hanoiBtn.classList.toggle('show');
+            hoChiMinhBtn.classList.toggle('show');
+        });
+
+        destAustraliaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destMelbourneBtn.classList.toggle('show');
+            destSydneyBtn.classList.toggle('show');
+        });
+
+        destChinaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destGuangzhouBtn.classList.toggle('show');
+            destShanghaiBtn.classList.toggle('show');
+            destShenzhenBtn.classList.toggle('show');
+            destXiamenBtn.classList.toggle('show');
+        });
+
+        destBruneiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destBandarBtn.classList.toggle('show');
+        });
+
+        destHongKongBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destHongKongCityBtn.classList.toggle('show');
+        });
+
+        destIndonesiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destBaliBtn.classList.toggle('show');
+            destJakartaBtn.classList.toggle('show');
+        });
+
+        destJapanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destFukuokaBtn.classList.toggle('show');
+            destNagoyaBtn.classList.toggle('show');
+            destOsakaBtn.classList.toggle('show');
+            destSapporoBtn.classList.toggle('show');
+        });
+
+        destMacauBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destMacauCityBtn.classList.toggle('show');
+        });
+
+        destMalaysiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destKualaLumpurBtn.classList.toggle('show');
+        });
+
+        destPhilippinesBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destBacolodBtn.classList.toggle('show');
+            destBoholBtn.classList.toggle('show');
+            destBoracayBtn.classList.toggle('show');
+            destButuanBtn.classList.toggle('show');
+            destCagayanBtn.classList.toggle('show');
+            destCalbayogBtn.classList.toggle('show');
+            destCamiguinBtn.classList.toggle('show');
+            destCauayanBtn.classList.toggle('show');
+            destCebuBtn.classList.toggle('show');
+            destClarkBtn.classList.toggle('show');
+            destCoronBtn.classList.toggle('show');
+            destCotabatoBtn.classList.toggle('show');
+            destDavaoBtn.classList.toggle('show');
+            destDipologBtn.classList.toggle('show');
+            destDumagueteBtn.classList.toggle('show');
+            destElNidoBtn.classList.toggle('show');
+            destGeneralSantosBtn.classList.toggle('show');
+            destIloiloBtn.classList.toggle('show');
+            destKaliboBtn.classList.toggle('show');
+            destLaoagBtn.classList.toggle('show');
+            destLegazpiBtn.classList.toggle('show');
+            destManilaBtn.classList.toggle('show');
+            destMasbateBtn.classList.toggle('show');
+            destNagaBtn.classList.toggle('show');
+            destOzamizBtn.classList.toggle('show');
+            destPagadianBtn.classList.toggle('show');
+            destPuertoPrincesaBtn.classList.toggle('show');
+            destRoxasBtn.classList.toggle('show');
+            destSanJoseBtn.classList.toggle('show');
+            destSanVicenteBtn.classList.toggle('show');
+            destSiargaoBtn.classList.toggle('show');
+            destSurigaoBtn.classList.toggle('show');
+            destTaclobanBtn.classList.toggle('show');
+            destTawiTawiBtn.classList.toggle('show');
+            destTuguegaraoBtn.classList.toggle('show');
+            destViracBtn.classList.toggle('show');
+            destZamboangaBtn.classList.toggle('show');
+        });
+
+        destSaudiArabiaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destRiyadhBtn.classList.toggle('show');
+        });
+
+        destSingaporeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destSingaporeCityBtn.classList.toggle('show');
+        });
+
+        destSouthKoreaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destSeoulBtn.classList.toggle('show');
+        });
+
+        destTaiwanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destKaohsiungBtn.classList.toggle('show');
+            destTaipeiBtn.classList.toggle('show');
+        });
+
+        destThailandBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destBangkokDonMueangBtn.classList.toggle('show');
+            destBangkokSuvarnabhumiBtn.classList.toggle('show');
+            destChiangMaiBtn.classList.toggle('show');
+        });
+
+        destUaeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destDubaiBtn.classList.toggle('show');
+        });
+
+        destVietnamBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destDaNangBtn.classList.toggle('show');
+            destHanoiBtn.classList.toggle('show');
+            destHoChiMinhBtn.classList.toggle('show');
+        });
+
+        function updateDestinationAvailability(selectedCity) {
+            const allDestCities = document.querySelectorAll('.dest-city-item');
+            allDestCities.forEach(cityEl => {
+                if (cityEl.getAttribute('data-city-name') === selectedCity) {
+                    cityEl.style.display = 'none';
+                    cityEl.classList.remove('show');
+                }
+            });
+        }
+
+        melbourneBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Melbourne';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Melbourne');
+        });
+
+        sydneyBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Sydney';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Sydney');
+        });
+
+        guangzhouBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Guangzhou (Canton)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Guangzhou (Canton)');
+        });
+
+        shanghaiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Shanghai';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Shanghai');
+        });
+
+        shenzhenBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Shenzhen';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Shenzhen');
+        });
+
+        xiamenBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Xiamen';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Xiamen');
+        });
+
+        bandarBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Bandar Seri Begawan (Brunei)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Bandar Seri Begawan (Brunei)');
+        });
+
+        hongKongCityBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'HongKong';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('HongKong');
+        });
+
+        baliBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Bali (Denpasar)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Bali (Denpasar)');
+        });
+
+        jakartaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Jakarta';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Jakarta');
+        });
+
+        fukuokaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Fukuoka';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Fukuoka');
+        });
+
+        nagoyaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Nagoya';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Nagoya');
+        });
+
+        osakaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Osaka (Kansai)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Osaka (Kansai)');
+        });
+
+        sapporoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Sapporo (New Chitose)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Sapporo (New Chitose)');
+        });
+
+        macauCityBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Macau';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Macau');
+        });
+
+        kualaLumpurBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Kuala Lumpur';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Kuala Lumpur');
+        });
+
+        bacolodBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Bacolod';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Bacolod');
+        });
+
+        boholBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Bohol';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Bohol');
+        });
+
+        boracayBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Boracay (Caticlan)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Boracay (Caticlan)');
+        });
+
+        butuanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Butuan';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Butuan');
+        });
+
+        cagayanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Cagayan de Oro';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Cagayan de Oro');
+        });
+
+        calbayogBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Calbayog';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Calbayog');
+        });
+
+        camiguinBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Camiguin';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Camiguin');
+        });
+
+        cauayanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Cauayan';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Cauayan');
+        });
+
+        cebuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Cebu';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Cebu');
+        });
+
+        clarkBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Clark';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Clark');
+        });
+
+        coronBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Coron (Busuanga)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Coron (Busuanga)');
+        });
+
+        cotabatoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Cotabato';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Cotabato');
+        });
+
+        davaoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Davao';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Davao');
+        });
+
+        dipologBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Dipolog';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Dipolog');
+        });
+
+        dumagueteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Dumaguete';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Dumaguete');
+        });
+
+        elNidoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'El Nido';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('El Nido');
+        });
+
+        generalSantosBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'General Santos';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('General Santos');
+        });
+
+        iloiloBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Iloilo';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Iloilo');
+        });
+
+        kaliboBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Kalibo';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Kalibo');
+        });
+
+        laoagBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Laoag';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Laoag');
+        });
+
+        legazpiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Legazpi (Daraga)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Legazpi (Daraga)');
+        });
+
+        manilaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Manila';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Manila');
+        });
+
+        masbateBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Masbate';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Masbate');
+        });
+
+        nagaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Naga';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Naga');
+        });
+
+        ozamizBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Ozamiz';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Ozamiz');
+        });
+
+        pagadianBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Pagadian';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Pagadian');
+        });
+
+        puertoPrincesaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Puerto Princesa';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Puerto Princesa');
+        });
+
+        roxasBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Roxas';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Roxas');
+        });
+
+        sanJoseBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'San Jose (Mindoro)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('San Jose (Mindoro)');
+        });
+
+        sanVicenteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'San Vicente (Port Barton)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('San Vicente (Port Barton)');
+        });
+
+        siargaoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Siargao';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Siargao');
+        });
+
+        surigaoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Surigao';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Surigao');
+        });
+
+        taclobanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Tacloban';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Tacloban');
+        });
+
+        tawiTawiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Tawi-Tawi';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Tawi-Tawi');
+        });
+
+        tuguegaraoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Tuguegarao';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Tuguegarao');
+        });
+
+        viracBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Virac';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Virac');
+        });
+
+        zamboangaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Zamboanga';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Zamboanga');
+        });
+
+        riyadhBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Riyadh';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Riyadh');
+        });
+
+        singaporeCityBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Singapore';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Singapore');
+        });
+
+        seoulBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Seoul (Incheon)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Seoul (Incheon)');
+        });
+
+        kaohsiungBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Kaohsiung';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Kaohsiung');
+        });
+
+        taipeiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Taipei';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Taipei');
+        });
+
+        bangkokDonMueangBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Bangkok (Don Mueang)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Bangkok (Don Mueang)');
+        });
+
+        bangkokSuvarnabhumiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Bangkok (Suvarnabhumi)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Bangkok (Suvarnabhumi)');
+        });
+
+        chiangMaiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Chiang Mai';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Chiang Mai');
+        });
+
+        dubaiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Dubai';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Dubai');
+        });
+
+        daNangBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Da Nang';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Da Nang');
+        });
+
+        hanoiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Hanoi';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Hanoi');
+        });
+
+        hoChiMinhBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            originInput.value = 'Ho Chi Minh (Saigon)';
+            locationModal.classList.remove('active');
+            updateDestinationAvailability('Ho Chi Minh (Saigon)');
+        });
+
+        destMelbourneBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Melbourne';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSydneyBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Sydney';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destGuangzhouBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Guangzhou (Canton)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destShanghaiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Shanghai';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destShenzhenBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Shenzhen';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destXiamenBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Xiamen';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBandarBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Bandar Seri Begawan (Brunei)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destHongKongCityBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'HongKong';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBaliBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Bali (Denpasar)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destJakartaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Jakarta';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destFukuokaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Fukuoka';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destNagoyaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Nagoya';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destOsakaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Osaka (Kansai)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSapporoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Sapporo (New Chitose)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destMacauCityBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Macau';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destKualaLumpurBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Kuala Lumpur';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBacolodBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Bacolod';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBoholBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Bohol';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBoracayBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Boracay (Caticlan)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destButuanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Butuan';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCagayanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Cagayan de Oro';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCalbayogBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Calbayog';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCamiguinBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Camiguin';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCauayanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Cauayan';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCebuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Cebu';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destClarkBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Clark';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCoronBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Coron (Busuanga)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destCotabatoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Cotabato';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destDavaoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Davao';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destDipologBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Dipolog';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destDumagueteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Dumaguete';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destElNidoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'El Nido';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destGeneralSantosBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'General Santos';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destIloiloBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Iloilo';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destKaliboBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Kalibo';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destLaoagBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Laoag';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destLegazpiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Legazpi (Daraga)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destManilaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Manila';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destMasbateBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Masbate';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destNagaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Naga';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destOzamizBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Ozamiz';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destPagadianBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Pagadian';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destPuertoPrincesaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Puerto Princesa';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destRoxasBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Roxas';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSanJoseBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'San Jose (Mindoro)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSanVicenteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'San Vicente (Port Barton)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSiargaoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Siargao';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSurigaoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Surigao';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destTaclobanBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Tacloban';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destTawiTawiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Tawi-Tawi';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destTuguegaraoBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Tuguegarao';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destViracBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Virac';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destZamboangaBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Zamboanga';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destRiyadhBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Riyadh';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSingaporeCityBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Singapore';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destSeoulBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Seoul (Incheon)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destKaohsiungBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Kaohsiung';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destTaipeiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Taipei';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBangkokDonMueangBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Bangkok (Don Mueang)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destBangkokSuvarnabhumiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Bangkok (Suvarnabhumi)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destChiangMaiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Chiang Mai';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destDubaiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Dubai';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destDaNangBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Da Nang';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destHanoiBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Hanoi';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        destHoChiMinhBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            destinationInput.value = 'Ho Chi Minh (Saigon)';
+            destinationLocationModal.classList.remove('active');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!locationModal.contains(e.target) && !originBox.contains(e.target)) {
+                locationModal.classList.remove('active');
+            }
+            if (!destinationLocationModal.contains(e.target) && !destinationBox.contains(e.target)) {
+                destinationLocationModal.classList.remove('active');
+            }
+            if (!calendarModal.contains(e.target) && !departBox.contains(e.target) && !returnBox.contains(e.target)) {
+                calendarModal.classList.remove('active');
+                departBox.classList.remove('active-tab');
+            }
+            if (!tripTypeBtn.contains(e.target) && !tripDropdown.contains(e.target)) {
+                tripDropdown.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+```[cite: 1]

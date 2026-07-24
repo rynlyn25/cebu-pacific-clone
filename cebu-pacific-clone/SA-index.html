@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Needing Special Assistance - Cebu Pacific</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* THE FIX: Cleaned up the body to remove conflicting flex and padding rules */
+        body {
+            background-color: #f4f7f6;
+            color: #333333;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           TOP ADVISORY BAR & HEADER STYLES
+           ========================================= */
+        .top-advisory-bar {
+            width: 100%;
+            background-color: #00a4e4; 
+            padding: 8px 0;
+        }
+
+        .header-content-wrapper {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-header {
+            width: 100%; 
+        }
+
+        /* =========================================
+           YELLOW HERO BANNER (Fixed Layout)
+           ========================================= */
+        .special-assistance-banner {
+            width: 100%;
+            background-color: #ffd200;
+            padding: 45px 0 55px 0;
+            margin-bottom: 30px;
+            border-bottom-left-radius: 50% 15px;
+            border-bottom-right-radius: 50% 15px;
+        }
+
+        .special-assistance-banner-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            color: #005eb8;
+            font-size: 38px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        /* =========================================
+           MAIN CONTENT STYLES
+           ========================================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px; /* Added padding to the container instead of body */
+        }
+
+        h1 {
+            color: #0c2340;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .intro-text a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .intro-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Accordion Container */
+        .accordion-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+            padding: 10px 24px;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #0c2340;
+            font-size: 20px;
+            font-weight: 700;
+            transition: color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            color: #0073e6;
+        }
+
+        .icon {
+            width: 14px;
+            height: 14px;
+            border-right: 2px solid #0073e6;
+            border-bottom: 2px solid #0073e6;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .accordion-item.active .icon {
+            transform: rotate(-135deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content p {
+            padding: 0 0 24px 0;
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* =========================================
+           FOOTER STYLES
+           ========================================= */
+        .site-footer {
+            background-color: #ffffff;
+            padding: 50px 20px;
+            border-top: 1px solid #eaeaea;
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .footer-links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            flex: 2;
+        }
+
+        .footer-links-grid .col {
+            flex: 1;
+            min-width: 120px; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-links-grid h4, .footer-right-sidebar h4 {
+            font-size: 13px;
+            color: #111111; 
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .footer-links-grid a {
+            color: #009cdb; 
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links-grid a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-right-sidebar {
+            flex: 1;
+            min-width: 280px;
+            border-left: 1px solid #dcdcdc; 
+            padding-left: 35px;
+        }
+
+        .app-buttons img {
+            height: 38px;
+            width: auto;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .payment-grid img {
+            height: 30px; 
+            width: auto;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            vertical-align: middle;
+        }
+
+        .accreditations img {
+            height: 60px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .country-selector {
+            flex-basis: 100%;
+            margin-top: 15px;
+        }
+
+        .country-box {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+            cursor: pointer;
+            width: fit-content; 
+        }
+        
+        .country-box i {
+            margin-right: 8px;
+            color: #111;
+        }
+
+        /* BOTTOM YELLOW BAR */
+        .footer-bottom {
+            background-color: #ffcc00; 
+            padding: 20px;
+            width: 100%; 
+        }
+
+        .footer-bottom-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px; 
+        }
+
+        .footer-legal-links a {
+            color: #0054A6; 
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .footer-legal-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright-text {
+            font-size: 14px;
+            color: #0054A6; 
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY BAR -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper">
+            <div class="advisory-right" style="display: flex; align-items: center; margin-left: auto; justify-content: flex-end;">
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="color: rgba(255, 255, 255, 0.7); margin-right: 6px; font-size: 14px;"></i> PHP
+                </a>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center; margin-left: 25px; margin-right: 25px;">
+                    <i class="fa-solid fa-globe" style="color: rgba(255, 255, 255, 0.7); margin-right: 6px; font-size: 14px;"></i> English
+                </a>
+                <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- WHITE NAVIGATION HEADER -->
+    <!-- ========================================== -->
+    <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="header-logo-link">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            </a>
+            <div class="header-action-right" style="display: flex; align-items: center;">
+                <a href="partner-login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- YELLOW BANNER (Fixed Layout) -->
+    <!-- ========================================== -->
+    <div class="special-assistance-banner">
+        <div class="special-assistance-banner-inner">
+            Special Assistance
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT CONTAINER -->
+    <!-- ========================================== -->
+    <div class="container">
+        <h1>Guest Needing Special Assistance</h1>
+        <p class="intro-text">Guests requiring special assistance are accepted for carriage, subject to coordination
+            with Cebu Pacific at least (2) hours before the flight. Please refer to the guidelines below for details.
+        </p>
+        <p class="intro-text">In certain airports such as Macau, there is a minimal handling fee for the use of lifts
+            for wheelchairs. Please inform us at least three (3) days prior the scheduled flight.</p>
+        <p class="intro-text">For more information, feel free to <a href="#">contact us</a>.</p>
+
+        <!-- Accordion List -->
+        <div class="accordion-container">
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Expectant Mothers</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>On all flights, expectant mothers with age of gestation thirty-four (34) weeks and beyond, are
+                        required to present a medical certificate stating that the guest is "fit to travel" and signed
+                        by personal physician with his/her PRC number, and written or typed on the signing physician's
+                        prescription pad or the hospital's official document with letterhead. The expectant mother must
+                        complete her travel within the validity period of the medical certificate, which should be ten
+                        (10) days from date of issuance.</p>
+                    <p>Please inform us by declaring this when you book a flight.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Unaccompanied Minors</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Children below 7 years old by the date of travel will not be accepted for carriage without an
+                        accompanying adult.</p>
+                    <p>For flights within the Philippines, children aged 7 to below 12 years old travelling alone are
+                        considered Unaccompanied Minors. They may be accepted for carriage, only after the Passenger
+                        Handling Form is accomplished and submitted at least 24 hours before the flight, and the
+                        prescribed Unaccompanied Minor Handling Fee is paid. We do not accept unaccompanied minors on
+                        flights outside the Philippines. Unaccompanied Minors who require Portable Oxygen Concentrators
+                        (POC) will not be accepted for flight.</p>
+                    <p>Filipino minors (below 18 years old) traveling with companions who are not their parents/legal
+                        guardians are considered Accompanied Minors and must take note of additional requirements from
+                        the Department of Social Welfare and Development (DSWD). Please check the rules governing minor
+                        travel, as issued by DSWD. For minors with foreign nationalities, please check the rules
+                        governing minor travel as issued by your respective governments.</p>
+                    <p>Please inform us by declaring this when you book a flight.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Young Passengers</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Young Passengers are minors aged between 12 years old to 17 years old. For <strong>Domestic
+                            Flights</strong>, these young passengers are allowed to travel unaccompanied; however, all
+                        passengers below 18 years old traveling to and from Davao and traveling unaccompanied or with
+                        companions who are not their parents/legal guardians must secure a permit to travel from the
+                        City Social Welfare and Development Office (CSWDO) prior to the flight. This is in compliance
+                        with the Davao City Children's Welfare Code.</p>
+                    <p>For <strong>International Flights</strong>, a young passenger traveling unaccompanied and holding
+                        a Philippine Passport must also present a travel clearance from the Department of Social Welfare
+                        and Development (DSWD) upon check-in. On the other hand, young passengers aged between 12 to 14
+                        years old, who are not Philippine residents and do not hold a Philippine Passport must present
+                        an Affidavit of Consent (notarized or with attached copies of the parent/s passport) for Waiver
+                        of Exclusion Ground (WEG) in addition to the required travel documents. This is applicable to
+                        flights going to the Philippines.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Infants</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Infants that may be accepted for carriage are those between 8 days old and below 2 years of age,
+                        accompanied by an
+                        adult passenger. Infants below 8 days old will not be accepted for carriage. Guests travelling
+                        with infants between 8
+                        days old and below 2 years of age must also present the infant’s birth certificate, baby book,
+                        or valid ID upon check-in
+                        and boarding.</p>
+                    <p>Infants shall sit on the adult passenger’s lap. The passenger may also purchase a seat for the
+                        infant and provide a
+                        Child Restraint System approved by the Federal Aviation Administration (FAA) or one that
+                        conforms to all applicable
+                        Federal Motor Vehicle Safety Standards (FMVSS) or any SRS certified by any Civil Aviation
+                        Authority (CAA). CARES, a
+                        harness-type safety device is also an approved alternative. It is designed specifically for
+                        aviation use, for children who
+                        are at least one (1) year old, weighing between 22-44 pounds.</p>
+                    <p>Mothers who are traveling with infants must present a medical certificate, if the birth was
+                        recent. Note that the
+                        medical certificate should state that the guest is “fit to travel” and signed by personal
+                        physician with his/her PRC number,
+                        and written or typed on the signing physician’s prescription pad or the hospital’s official
+                        document with letterhead.</p>
+                    <p>Please inform us by declaring this when you book a flight. For more information, feel free to
+                        contact us.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Guests Requiring Extra Seat</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Our seats range from 16.7 inches to 17.3 inches. Guests of size or guests needing space for their
+                        standard-sized carry-on baggage are requested to book two seats for a more comfortable flight.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Prisoners</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>A maximum of two (2) prisoners may be accepted per domestic flight for A320 and A330 aircraft and
+                        only one (1)
+                        prisoner per domestic flight on ATRs. It is mandatory that for every prisoner, at least one (1)
+                        security officer from the
+                        PNP or NBI is present.</p>
+                    <p>The special handling must be arranged with Cebu Pacific at least 24 hours before the flight.</p>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Senior Citizen and Person with Disability (PWD) and Person with Reduced Mobility (PRM)</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Filipino nationals at least sixty (60) years old & above, Person with Disability, and Person with
+                        Reduced Mobility are entitled to 20% discount on the base fare and VAT exemption on flights
+                        within the Philippines.</p>
+                    <p>Senior Citizens and PRMs/PWDs are encouraged to book their flight online.</p>
+                    <p style="padding-bottom: 8px;">The Senior Citizen and PWD discount does not apply to:</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• Promotional fares with discount higher than
+                        20% of the lowest Go fare</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• Add-ons such as baggage allowance or inflight
+                        meals</p>
+                    <p style="padding-bottom: 24px; padding-left: 20px;">• International flights or connecting flights
+                        with international sector (Domestic to International and/or International to Domestic)</p>
+                    <p>For Senior Citizens, presentation of a Senior Citizen ID (OSCA ID) or a valid government-issued
+                        ID bearing the name, picture, date of birth, nationality of the Senior Citizen is required upon
+                        check-in or boarding.</p>
+                    <p>For PWDs or PRMs, presentation of a valid ID issued by the National Council on Disability Affairs
+                        (NCDA) or a local government unit is required upon check-in or boarding. Please visit the
+                        National Council on Disability Affairs for more information.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Service / Emotional Support Animals</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Service / Emotional Support Animals may be accepted for carriage in the cabin provided:</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• There should be only one (1) Service /
+                        Emotional Support Animal per passenger, per flight. Please make sure to declare this upon
+                        booking your flight to ensure that they can be accepted for carriage.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The Service Animal / Emotional Support Animal
+                        must be a dog.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For Service Animals:</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Make sure they are securely leashed at all
+                        times.</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• They are not required to wear a
+                        mouth-restraint device (i.e., muzzle, mouthguard, mouth cover, collar).</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For Emotional Support Animals:</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Make sure the soft carrier is compact enough
+                        to fit under the seat (approx. 8in x 8in x 14in).</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• If inside a soft carrier, a leash and
+                        mouth-restraint device are not required.</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• If outside a soft carrier, both a leash and
+                        mouth-restraint device are required.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The owner must make sure the dog is equipped
+                        with pet diapers.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For all flights, the owner must bring
+                        moisture-absorbent material (e.g. absorbent plastic-backed pads) and is responsible for cleaning
+                        up after their Service / Emotional Support Animal. Otherwise, a document showing that the animal
+                        does not need to relieve itself for the duration of the flight will suffice.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The owner assumes full responsibility for any
+                        required clearances from the appropriate government authorities.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The following documents confirming that the
+                        Service / Emotional Support Animal has been trained to an acceptable level must be presented
+                        upon check-in:</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Complete and updated vaccination papers</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Document confirming the Service Animal has
+                        been trained.</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Document confirming the Emotional Support
+                        Animal has been trained and/or document with letterhead from a mental health professional
+                        stating that the guest has a mental disability</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Shipping permit issued by the Bureau of Animal
+                        Industry - Department of Agriculture</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• Upon check-in, the owner must also present
+                        documentation that stipulates their need for the Service / Emotional Support Animal from their
+                        medical doctor.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The Service / Emotional Support Animal will
+                        not occupy a seat.</p>
+                    <p style="font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Government Clearances</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For guests coming to / from Australia, please
+                        visit http://www.agriculture.gov.au/cats-dogs/assistance-dogs for more information on traveling
+                        with your Service / Emotional Support Animal.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• All animals imported, transshipped, or
+                        exported to/from Singapore require a valid Animal & Veterinary Service (AVS) license.</p>
+                    <p style="padding-top: 10px;">To learn more, please visit special assistance guidelines on the Help
+                        Center.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION -->
+    <!-- ========================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-links-grid">
+                <div class="col">
+                    <h4>BOOK</h4>
+                    <a href="#">Flights</a>
+                    <a href="#">Seat Sale</a>
+                </div>
+                <div class="col">
+                    <h4>MANAGE</h4>
+                    <a href="#">Check in</a>
+                    <a href="#">Manage Booking</a>
+                    <a href="#">Flight Status</a>
+                    <a href="#">Add-ons</a>
+                    <a href="#">Special Assistance</a>
+                </div>
+                <div class="col">
+                    <h4>TRAVEL INFO</h4>
+                    <a href="#">Baggage Information</a>
+                    <a href="#">Payment Options</a>
+                    <a href="#">Travel Advisories</a>
+                    <a href="#">Booking & Check-in</a>
+                    <a href="#">Travel Documents</a>
+                    <a href="#">Service Fees</a>
+                </div>
+                <div class="col">
+                    <h4>EXPLORE</h4>
+                    <a href="#">Explore</a>
+                    <a href="#">Philippine Destinations</a>
+                    <a href="#">International Destinations</a>
+                    <a href="#">Where We Fly</a>
+                    <a href="#">City Guides</a>
+                </div>
+                <div class="col">
+                    <h4>ABOUT</h4>
+                    <a href="#">About</a>
+                    <a href="#">Our Story</a>
+                    <a href="#">Media Center</a>
+                    <a href="#">Talk to Us</a>
+                    <a href="#">Careers</a>
+                </div>
+                
+                <div class="col country-selector">
+                    <h4>SELECT COUNTRY</h4>
+                    <div class="country-box"><i class="fa-solid fa-globe"></i> Philippines</div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDEBAR -->
+            <div class="footer-right-sidebar">
+                <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                <div class="app-buttons">
+                    <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                    <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+                </div>
+
+                <h4>PAYMENT PARTNERS</h4>
+                <div class="payment-grid">
+                    <img src="images/Visa-logo.webp" alt="Visa">
+                    <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                    <img src="images/GCash-276x96.webp" alt="GCash">
+                </div>
+
+                <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                <div class="accreditations">
+                    <img src="images/CEB-7Star-Emblem.webp" alt="Badge 1">
+                    <img src="images/New_NPC_Logo.webp" alt="Badge 2">
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    
+    <!-- ========================================== -->
+    <!-- BOTTOM YELLOW BAR -->
+    <!-- ========================================== -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+
+                // Toggle active class on item
+                item.classList.toggle('active');
+
+                // Toggle content visibility smoothly using scrollHeight
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = "0px";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
