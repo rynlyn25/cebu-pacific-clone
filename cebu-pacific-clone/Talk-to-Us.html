@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk to Us - Cebu Pacific</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           GLOBAL RESET & TYPOGRAPHY
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+        }
+
+        /* =========================================
+           TOP ADVISORY BAR & HEADER STYLES
+           ========================================= */
+        .top-advisory-bar {
+            width: 100%;
+            background-color: #00a4e4; 
+            padding: 8px 0;
+        }
+
+        .header-content-wrapper {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-header {
+            width: 100%; 
+            background: white; 
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #005eb8;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* =========================================
+           BREADCRUMBS
+           ========================================= */
+        .breadcrumbs-container {
+            max-width: 1150px;
+            margin: 15px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .breadcrumbs a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            color: #005eb8;
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           YELLOW HERO BANNER
+           ========================================= */
+        .top-header {
+            background-color: #FFD400;
+            padding: 45px 0 55px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 40px; 
+            border-bottom-right-radius: 50% 40px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .header-banner-content {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 38px;
+            margin: 0;
+        }
+
+        /* =========================================
+           DESTINATION CIRCLES
+           ========================================= */
+        .destination-circles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 0 auto 50px auto;
+            max-width: 1000px;
+        }
+
+        .circle-item {
+            text-align: center;
+            width: 110px;
+        }
+
+        .circle-img-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #00a4e4;
+            padding: 3px; 
+            margin: 0 auto 15px auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .circle-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .circle-item span {
+            color: #005eb8;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           MAIN PAGE LAYOUT (SIDEBAR + CONTENT)
+           ========================================= */
+        .page-container {
+            max-width: 1150px;
+            margin: 0 auto 80px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h4 {
+            color: #005eb8;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .sidebar li {
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 0;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Main Content General */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+        }
+
+        .main-content h2 {
+            font-size: 28px;
+            color: #222;
+            font-weight: 800;
+            margin: 0 0 15px 0;
+        }
+
+        .main-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        .main-content a.bold-link {
+            color: #005eb8;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .main-content a.bold-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Customer Care Grid */
+        .customer-care-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .care-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .care-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .care-card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .care-card-content h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .care-card-content p {
+            font-size: 15px;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: #0088ce;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #006eb3;
+        }
+
+        /* Head Office Map */
+        .map-section {
+            margin-bottom: 40px;
+        }
+
+        .map-section img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        /* Accordion Structure */
+        .accordion-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 10px 25px;
+            margin-bottom: 40px;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #222;
+            font-weight: 500;
+        }
+
+        .accordion-header i {
+            color: #005eb8;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .accordion-inner {
+            padding-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Hotline List Styles */
+        .hotline-country {
+            margin-bottom: 25px;
+        }
+
+        .hotline-country h4 {
+            font-size: 16px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .hotline-country p {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hotline-country i {
+            color: #005eb8;
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .hotline-country a {
+            color: #005eb8;
+            text-decoration: none;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .group-booking-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .group-booking-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Advertise Section Specifics */
+        .advertise-hero {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .ad-card {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .ad-card img {
+            width: 35%;
+            object-fit: cover;
+        }
+
+        .ad-card-content {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .ad-card-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .ad-card-content p {
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .ad-btn {
+            background-color: #0088ce;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* =========================================
+           FOOTER STYLES
+           ========================================= */
+        .site-footer {
+            background-color: #ffffff;
+            padding: 50px 20px;
+            border-top: 1px solid #eaeaea;
+            width: 100%; 
+        }
+
+        .footer-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .footer-links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            flex: 2;
+        }
+
+        .footer-links-grid .col {
+            flex: 1;
+            min-width: 120px; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-links-grid h4, .footer-right-sidebar h4 {
+            font-size: 13px;
+            color: #111111; 
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .footer-links-grid a {
+            color: #009cdb; 
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links-grid a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-right-sidebar {
+            flex: 1;
+            min-width: 280px;
+            border-left: 1px solid #dcdcdc; 
+            padding-left: 35px;
+        }
+
+        .app-buttons img {
+            height: 38px;
+            width: auto;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .payment-grid img {
+            height: 30px; 
+            width: auto;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            vertical-align: middle;
+        }
+
+        .accreditations img {
+            height: 60px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .country-selector {
+            flex-basis: 100%;
+            margin-top: 15px;
+        }
+
+        .country-box {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+            cursor: pointer;
+            width: fit-content; 
+        }
+        
+        .country-box i {
+            margin-right: 8px;
+            color: #111;
+        }
+
+        .footer-bottom {
+            background-color: #ffcc00; 
+            padding: 20px;
+            width: 100%; 
+        }
+
+        .footer-bottom-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px; 
+        }
+
+        .footer-legal-links a {
+            color: #0054A6; 
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .footer-legal-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright-text {
+            font-size: 14px;
+            color: #0054A6; 
+            font-weight: 700;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .customer-care-grid {
+                grid-template-columns: 1fr;
+            }
+            .ad-card {
+                flex-direction: column;
+            }
+            .ad-card img {
+                width: 100%;
+                height: 200px;
+            }
+            .footer-right-sidebar { 
+                border-left: none; 
+                padding-left: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY & NAVIGATION -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper" style="display: flex; justify-content: space-between;">
+            <div class="advisory-left" style="display: flex; align-items: center; color: white; font-size: 13px;">
+            </div>
+            <div class="advisory-right" style="display: flex; align-items: center;">
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP
+                </a>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center; margin-left: 25px; margin-right: 25px;">
+                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English
+                </a>
+                <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero-header">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="header-logo-link">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            </a>
+            <div class="header-action-right" style="display: flex; align-items: center;">
+                <a href="partner-login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs-container">
+        <div class="breadcrumbs" id="breadcrumbTrail">
+            <a href="index.html">Home</a> &rsaquo; 
+            <a href="#">About</a> &rsaquo; 
+            <span id="breadcrumbCurrent">Talk to Us</span>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- YELLOW HERO BANNER -->
+    <!-- ========================================== -->
+    <header class="top-header">
+        <div class="header-banner-content">
+            <h1 class="header-title" id="mainPageTitle">Talk to Us</h1>
+        </div>
+    </header>
+
+    <!-- Destination Circles -->
+    <div class="destination-circles">
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/clark.jpg" alt="Clark"></div>
+            <span>Clark</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/cebu.jpg" alt="Cebu"></div>
+            <span>Cebu</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/iloilo.jpg" alt="Iloilo"></div>
+            <span>Iloilo</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/davao.jpg" alt="Davao"></div>
+            <span>Davao</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/InStory Cover-1772421524.webp" alt="Fly Here Next"></div>
+            <span>Fly Here Next</span>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN PAGE CONTENT (SIDEBAR + SECTIONS) -->
+    <!-- ========================================== -->
+    <div class="page-container">
+        
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <h4>SELECT AN OPTION</h4>
+            <ul>
+                <li><a href="#" class="sidebar-link active" onclick="switchTab(event, 'talkToUsSection', 'Talk to Us')">Talk to Us</a></li>
+                <li><a href="#" class="sidebar-link" onclick="switchTab(event, 'advertiseSection', 'Advertise With Us')">Advertise with Us</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- SECTION 1: TALK TO US -->
+            <div id="talkToUsSection" style="display: block;">
+                <h2>Talk to Us</h2>
+                <p>Need help with your booking or have questions about essential travel? Visit the <a href="#" class="bold-link">CEB Help Center</a> to get answers on frequently asked questions. Alternatively, <a href="#" class="bold-link">chat with us</a> -- we're available 24/7 and always ready to assist!</p>
+
+                <h2>Customer Care</h2>
+                
+                <div class="customer-care-grid">
+                    <div class="care-card">
+                        <img src="images/CabinCrew-Group-InsideAircraft-Aisle-2-HD.jpg" alt="Guest Feedback">
+                        <div class="care-card-content">
+                            <h3>Guest feedback form</h3>
+                            <p>We'd like to hear about your experience! Your feedback is important to us as we continuously improve your experience with us.</p>
+                        </div>
+                    </div>
+
+                    <div class="care-card">
+                        <img src="images/TalkToUs-ConnectThoughSocialMedia (1).jpg" alt="Social Media">
+                        <div class="care-card-content">
+                            <h3>Connect via social media</h3>
+                            <p>Send us a message on our official Facebook and Twitter accounts for booking concerns or assistance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-section">
+                    <h2>Head Office</h2>
+                    <img src="images/CEB-Googlemap (1).jpg" alt="Map to Head Office">
+                    <h3>Cebu Pacific Customer Care</h3>
+                    <p style="margin-bottom: 40px;">Cebu Pacific Building, Domestic Airport Road, Pasay City 1301 Philippines</p>
+                </div>
+
+                <h2>Booking Inquiries</h2>
+
+                <div class="accordion-container">
+                    
+                    <!-- Accordion 1: Hotlines -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Call Center Hotlines</span>
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                
+                                <div class="hotline-country">
+                                    <h4>Australia</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +612 9119 2956</p>
+                                    <p><i class="fa-regular fa-clock"></i> 7am-10pm (PH local time), daily</p>
+                                </div>
+
+                                <div class="hotline-country">
+                                    <h4>Japan</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +81 3 4578 1447</p>
+                                    <p><i class="fa-regular fa-clock"></i> 8am-6pm (JP local time), Monday - Friday</p>
+                                </div>
+
+                                <div class="hotline-country">
+                                    <h4>Hong Kong</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +852 5803 3088</p>
+                                    <p><i class="fa-regular fa-clock"></i> 7am-10pm (PH local time), daily</p>
+                                </div>
+
+                                <div class="hotline-country">
+                                    <h4>China</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +86-400-670-0780</p>
+                                    <p><i class="fa-regular fa-clock"></i> 8am-6pm (CN local time), daily</p>
+                                    <a href="mailto:cebcustomercarechina@cebupacificair.com">cebcustomercarechina@cebupacificair.com</a> (for China only)
+                                </div>
+
+                                <div class="hotline-country">
+                                    <h4>South Korea</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +82-2-6105-2037</p>
+                                    <p><i class="fa-regular fa-clock"></i> 8am-6pm (KR Local Time), Monday - Friday</p>
+                                </div>
+
+                                <div class="hotline-country">
+                                    <h4>Taiwan</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +886-2-2656-3576</p>
+                                    <p><i class="fa-regular fa-clock"></i> 8am-5pm (TW local time), Monday - Friday</p>
+                                </div>
+
+                                <div class="hotline-country">
+                                    <h4>Riyadh</h4>
+                                    <p><i class="fa-solid fa-mobile-screen"></i> +966 59 727 0221</p>
+                                    <p><i class="fa-regular fa-clock"></i> 9am-6pm, Sunday-Thursday</p>
+                                    <a href="mailto:support@cebupacificgsa-sa.com">support@cebupacificgsa-sa.com</a> (for KSA only)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 2: Sales Offices -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Sales Offices</span>
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <a href="Sales-&-Group-Bookings.html" class="bold-link">View our Sales Offices</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 3: Group Booking -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Group Booking</span>
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <p>If you would like to get a quote for your group:</p>
+                                <ul class="group-booking-list">
+                                    <li>Domestic: Minimum of 20 passengers</li>
+                                    <li>International: Minimum of 10 passengers</li>
+                                </ul>
+                                <p>Please email us at <a href="mailto:groupbookings@cebupacificair.com" class="bold-link">groupbookings@cebupacificair.com</a> with the following details:</p>
+                                <ul class="group-booking-list" style="margin-bottom: 0;">
+                                    <li>Contact Person's Name</li>
+                                    <li>Company Name</li>
+                                    <li>Address</li>
+                                    <li>Contact Number(s)</li>
+                                    <li><strong>Destination</strong></li>
+                                    <li>Travel Date(s)</li>
+                                    <li>Preferred Flight Schedule</li>
+                                    <li>Total number of passengers (Adult/Children/Infant/PWD/Senior)</li>
+                                    <li><strong>Other add-ons</strong> (Baggage allowance, meals, etc.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SECTION 2: ADVERTISE WITH US -->
+            <div id="advertiseSection" style="display: none;">
+                <h2>Advertise With Us</h2>
+                <img src="images/Customers-OurHisto.jpg" alt="Advertise With Us" class="advertise-hero">
+
+                <h3>CEB Advertising Media</h3>
+                <p>Here at Cebu Pacific we provide you a unique and effective media platform to communicate your brand promise.</p>
+                <p>Through our out-of-the-box media channels, you can maximize your advertising budget by reaching a highly targeted audience for so much less.</p>
+                <p>As the Philippines' largest national carrier, you get access to our growing number of guests ensuring that your campaigns are carried out to meet your specific needs and advertising goals - build brand awareness, increase product utilization and improve customer reach.</p>
+                <p>To advertise with us, drop us an email and our team will get back to you as soon as we can! Below is a list of advertising opportunities that await you.</p>
+
+                <!-- Cards -->
+                <div class="ad-card">
+                    <img src="images/AdvertiseWithUs-InflightMagazine-600x300.jpg" alt="In-Flight Magazine">
+                    <div class="ad-card-content">
+                        <h3>In-Flight Magazine</h3>
+                        <p>Smile is CEB's in-flight magazine, giving travelers not only the latest on the airlines, but also the information they need on what to do in CEB destinations</p>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="images/AdvertiseWithUs-DigitalAdvertising-600x300.jpg" alt="Digital Advertising">
+                    <div class="ad-card-content">
+                        <h3>Digital Advertising</h3>
+                        <p>This includes targeted advertising on the website and mobile app, as well as on the itinerary receipt, and digital boarding pass</p>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="images/AdvertiseWithUs-AmbientAdvertising-600x300.jpg" alt="Ambient Advertising">
+                    <div class="ad-card-content">
+                        <h3>Ambient Advertising</h3>
+                        <p>This includes ads that are seen on cargo conveyor belts, shuttle bus handles and side panels, as well as in-flight seatback devices and sidewall panels</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION -->
+    <!-- ========================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-links-grid">
+                <div class="col">
+                    <h4>BOOK</h4>
+                    <a href="#">Flights</a>
+                    <a href="#">Seat Sale</a>
+                </div>
+                <div class="col">
+                    <h4>MANAGE</h4>
+                    <a href="#">Check in</a>
+                    <a href="#">Manage Booking</a>
+                    <a href="#">Flight Status</a>
+                    <a href="#">Add-ons</a>
+                    <a href="#">Special Assistance</a>
+                </div>
+                <div class="col">
+                    <h4>TRAVEL INFO</h4>
+                    <a href="#">Baggage Information</a>
+                    <a href="#">Payment Options</a>
+                    <a href="#">Travel Advisories</a>
+                    <a href="#">Booking & Check-in</a>
+                    <a href="#">Travel Documents</a>
+                    <a href="#">Service Fees</a>
+                </div>
+                <div class="col">
+                    <h4>EXPLORE</h4>
+                    <a href="#">Explore</a>
+                    <a href="#">Philippine Destinations</a>
+                    <a href="#">International Destinations</a>
+                    <a href="#">Where We Fly</a>
+                    <a href="#">City Guides</a>
+                </div>
+                <div class="col">
+                    <h4>ABOUT</h4>
+                    <a href="#">About</a>
+                    <a href="#">Our Story</a>
+                    <a href="#">Media Center</a>
+                    <a href="#">Talk to Us</a>
+                    <a href="#">Careers</a>
+                </div>
+                
+                <div class="col country-selector">
+                    <h4>SELECT COUNTRY</h4>
+                    <div class="country-box"><i class="fa-solid fa-globe"></i> Philippines</div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDEBAR -->
+            <div class="footer-right-sidebar">
+                <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                <div class="app-buttons">
+                    <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                    <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+                </div>
+
+                <h4>PAYMENT PARTNERS</h4>
+                <div class="payment-grid">
+                    <img src="images/Visa-logo.webp" alt="Visa">
+                    <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                    <img src="images/GCash-276x96.webp" alt="GCash">
+                </div>
+
+                <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                <div class="accreditations">
+                    <img src="images/CEB-7Star-Emblem.webp" alt="Badge 1">
+                    <img src="images/New_NPC_Logo.webp" alt="Badge 2">
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    
+    <!-- ========================================== -->
+    <!-- BOTTOM YELLOW BAR -->
+    <!-- ========================================== -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Sidebar Toggling Logic
+        function switchTab(event, sectionId, title) {
+            event.preventDefault();
+            
+            // Hide all sections
+            document.getElementById('talkToUsSection').style.display = 'none';
+            document.getElementById('advertiseSection').style.display = 'none';
+
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Update Sidebar Active state
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update Breadcrumb and Hero Banner Title
+            document.getElementById('breadcrumbCurrent').innerText = title;
+            document.getElementById('mainPageTitle').innerText = title;
+        }
+
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = header.nextElementSibling;
+                
+                // Toggle active class
+                item.classList.toggle('active');
+
+                // Smooth scroll logic
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
