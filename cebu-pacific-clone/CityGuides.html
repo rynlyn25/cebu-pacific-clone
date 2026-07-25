@@ -2,17 +2,179 @@
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
-  <title>
-   City Guides - Discover with Smile
-  </title>
+  <title>City Guides - Discover with Smile</title>
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-   body{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0;background-color:#ffffff;color:#333}header{position:relative;width:100%;height:240px;overflow:hidden;background:linear-gradient(135deg,#1f2a44 0%,#3a3f63 50%,#5a5a7a 100%)}header .header-img{width:100%;height:100%;object-fit:cover;display:block}header .header-overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 60px;box-sizing:border-box;background:linear-gradient(90deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.05) 60%)}header .header-overlay h1{color:#fff;font-size:2.4em;margin:0 0 8px 0;font-weight:700}header .header-overlay p{color:#fff;font-size:1em;max-width:420px;margin:0;line-height:1.4}.search-section{background-color:#ffffff;padding:30px 20px 10px 20px;display:flex;justify-content:center}.search-card{background:#fff;max-width:900px;width:100%;padding:25px 30px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.08)}.search-card label{display:block;font-size:0.85em;color:#555;margin-bottom:6px}.search-row{display:flex;gap:15px}.search-input-wrap{position:relative;flex:1}.search-input-wrap input{width:100%;padding:12px 40px 12px 14px;border:1px solid #ccc;border-radius:6px;font-size:0.95em;box-sizing:border-box}.search-input-wrap input:focus{outline:none;border-color:#1875BA}.search-input-wrap .search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#999;pointer-events:none}.search-suggestions{position:absolute;top:calc(100% + 4px);left:0;width:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;z-index:20;text-align:left}.search-suggestions .suggestion-item{padding:10px 14px;font-size:0.9em;color:#333;cursor:pointer;border-bottom:1px solid #f0f0f0}.search-suggestions .suggestion-item:last-child{border-bottom:none}.search-suggestions .suggestion-item:hover{background-color:#f4f9fc;color:#1875BA}.search-suggestions .suggestion-empty{padding:10px 14px;font-size:0.9em;color:#999}.search-btn{background-color:#1BA3DE;color:#fff;border:none;padding:0 32px;border-radius:6px;font-weight:bold;font-size:0.95em;cursor:pointer;transition:background 0.3s}.search-btn:hover{background-color:#15A7E0}.intro-filter-section{max-width:940px;margin:25px auto 0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px}.intro-text h2{margin:0 0 6px 0;color:#1f2a44;font-size:1.5em}.intro-text p{margin:0;color:#666;font-size:0.95em}.filter-wrap{min-width:260px}.filter-wrap label{display:block;font-size:0.85em;color:#555;margin-bottom:6px}.filter-dropdown{position:relative;width:260px}.filter-dropdown input{width:100%;padding:10px 14px;border:1px solid #1BA3DE;border-radius:6px;font-size:0.9em;box-sizing:border-box;color:#999}.filter-dropdown input:focus{outline:none}.filter-options{position:absolute;top:calc(100% + 4px);left:0;width:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;z-index:10}.filter-options .filter-option{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:0.9em;color:#1875BA;font-weight:600;cursor:pointer;border-bottom:1px solid #f0f0f0}.filter-options .filter-option:last-child{border-bottom:none}.filter-options .filter-option:hover{background-color:#ffffff}.filter-options .filter-option .plus{color:#1BA3DE;font-weight:bold}.destinations-section{max-width:940px;margin:0 auto;padding:25px 20px 10px 20px}.destinations-section.alt-bg{max-width:100%;background-color:#ffffff;padding:30px 0 40px 0}.destinations-section.alt-bg .inner{max-width:940px;margin:0 auto;padding:0 20px}.destinations-section h3{margin:0 0 15px 0;color:#1f2a44;font-size:1.25em}.destination-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.dest-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;aspect-ratio:4 / 3}.dest-card .dest-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#9aa3ac;font-size:0.8em;text-align:center;box-sizing:border-box;padding:10px;background:repeating-linear-gradient( 45deg,#e2e6ea,#e2e6ea 10px,#eceff2 10px,#eceff2 20px );transition:transform 0.3s ease}.dest-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease}.dest-card:hover .dest-img-placeholder,.dest-card:hover img{transform:scale(1.05)}.dest-card .dest-label{position:absolute;bottom:0;left:0;width:100%;box-sizing:border-box;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.75));color:#fff;font-weight:700;font-size:0.95em}@media (max-width:800px){.destination-grid{grid-template-columns:repeat(2,1fr)}header .header-overlay{padding:0 25px}header .header-overlay h1{font-size:1.8em}}.detail-header{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(135deg,#2a5c7a 0%,#4a8fb5 100%);border-bottom-left-radius:50% 30px;border-bottom-right-radius:50% 30px}.detail-header .detail-header-img{width:100%;height:100%;object-fit:cover;display:block}.detail-header .detail-header-overlay{position:absolute;top:0;left:0;width:60%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 40px;box-sizing:border-box;background:linear-gradient(90deg,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.05) 90%)}.back-btn-inline{display:inline-block;background:#f4f7f9;color:#1875BA;border:none;padding:8px 16px;border-radius:5px;font-weight:bold;font-size:0.85em;cursor:pointer;margin-bottom:20px}.back-btn-inline:hover{background:#e6ebef}.detail-tag{display:inline-block;background-color:#F6E100;color:#1f2a44;font-size:0.7em;font-weight:700;letter-spacing:0.5px;padding:4px 10px;border-radius:3px;margin-bottom:10px;width:fit-content}.detail-header h1{color:#fff;font-size:2.2em;margin:0 0 10px 0;font-weight:700}.detail-header p{color:#fff;font-size:0.95em;max-width:380px;margin:0;line-height:1.4}.detail-article{max-width:1000px;margin:30px auto 60px auto;padding:0 20px;color:#333}.detail-article h2{color:#1f2a44;font-size:1.4em;margin:0 0 15px 0}.detail-article p{line-height:1.7;font-size:0.95em;margin:0 0 15px 0}.detail-article h4{color:#1f2a44;font-size:0.85em;letter-spacing:0.5px;margin:25px 0 10px 0}.detail-article ul{margin:0 0 15px 0;padding-left:20px}.detail-article ul li{line-height:1.7;font-size:0.95em;margin-bottom:6px}.pagination{margin:25px 0 0 0;text-align:center;font-size:0.9em}.pagination a{color:#1875BA;text-decoration:none;margin:0 6px;cursor:pointer}.pagination a:hover{text-decoration:underline}.pagination a.active{color:#1f2a44;font-weight:700;text-decoration:none;cursor:default}.pagination a.disabled{color:#aaa;cursor:default;pointer-events:none}.other-dest-page{display:none}.other-dest-page.active{display:block}
+    /* =========================================
+       GLOBAL RESET & HEADER/FOOTER STYLES
+       ========================================= */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    html, body {
+        overflow-x: hidden;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #ffffff;
+        color: #333333;
+    }
+
+    .top-advisory-bar { width: 100%; background-color: #00a4e4; padding: 8px 0; }
+    .header-content-wrapper { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+    .hero-header { width: 100%; }
+    
+    .site-footer { background-color: #ffffff; padding: 50px 20px; border-top: 1px solid #eaeaea; margin-top: 50px; width: 100%; }
+    .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
+    .footer-links-grid { display: flex; flex-wrap: wrap; gap: 30px; flex: 2; }
+    .footer-links-grid .col { flex: 1; min-width: 120px; display: flex; flex-direction: column; }
+    .footer-links-grid h4, .footer-right-sidebar h4 { font-size: 13px; color: #111111; margin-bottom: 15px; font-weight: 800; }
+    .footer-links-grid a { color: #009cdb; text-decoration: none; font-size: 14px; margin-bottom: 12px; transition: color 0.2s; }
+    .footer-links-grid a:hover { text-decoration: underline; }
+    .footer-right-sidebar { flex: 1; min-width: 280px; border-left: 1px solid #dcdcdc; padding-left: 35px; }
+    .app-buttons img { height: 38px; width: auto; margin-right: 10px; margin-bottom: 10px; }
+    .payment-grid img { height: 30px; width: auto; margin-right: 15px; margin-bottom: 15px; vertical-align: middle; }
+    .accreditations img { height: 60px; width: auto; margin-right: 15px; }
+    .country-selector { flex-basis: 100%; margin-top: 15px; }
+    .country-box { display: inline-flex; align-items: center; border: 1px solid #ccc; padding: 10px 15px; border-radius: 4px; font-size: 14px; color: #111; font-weight: 600; cursor: pointer; width: fit-content; }
+    .country-box i { margin-right: 8px; color: #111; }
+    
+    .footer-bottom { background-color: #ffcc00; padding: 20px; width: 100%; }
+    .footer-bottom-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .footer-legal-links { display: flex; flex-wrap: wrap; gap: 25px; }
+    .footer-legal-links a { color: #0054A6; text-decoration: none; font-size: 14px; font-weight: 700; }
+    .footer-legal-links a:hover { text-decoration: underline; }
+    .copyright-text { font-size: 14px; color: #0054A6; font-weight: 700; }
+
+    @media (max-width: 768px) { .footer-right-sidebar { border-left: none; padding-left: 0; } }
+
+    /* =========================================
+       CITY GUIDES PAGE SPECIFIC STYLES
+       ========================================= */
+    /* Renamed from header to .city-guide-hero to prevent conflicts */
+    .city-guide-hero{position:relative;width:100%;height:240px;overflow:hidden;background:linear-gradient(135deg,#1f2a44 0%,#3a3f63 50%,#5a5a7a 100%)}
+    .city-guide-hero .header-img{width:100%;height:100%;object-fit:cover;display:block}
+    .city-guide-hero .header-overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 60px;box-sizing:border-box;background:linear-gradient(90deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.05) 60%)}
+    .city-guide-hero .header-overlay h1{color:#fff;font-size:2.4em;margin:0 0 8px 0;font-weight:700}
+    .city-guide-hero .header-overlay p{color:#fff;font-size:1em;max-width:420px;margin:0;line-height:1.4}
+    
+    .search-section{background-color:#ffffff;padding:30px 20px 10px 20px;display:flex;justify-content:center}
+    .search-card{background:#fff;max-width:900px;width:100%;padding:25px 30px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.08)}
+    .search-card label{display:block;font-size:0.85em;color:#555;margin-bottom:6px}
+    .search-row{display:flex;gap:15px}
+    .search-input-wrap{position:relative;flex:1}
+    .search-input-wrap input{width:100%;padding:12px 40px 12px 14px;border:1px solid #ccc;border-radius:6px;font-size:0.95em;box-sizing:border-box}
+    .search-input-wrap input:focus{outline:none;border-color:#1875BA}
+    .search-input-wrap .search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#999;pointer-events:none}
+    .search-suggestions{position:absolute;top:calc(100% + 4px);left:0;width:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;z-index:20;text-align:left}
+    .search-suggestions .suggestion-item{padding:10px 14px;font-size:0.9em;color:#333;cursor:pointer;border-bottom:1px solid #f0f0f0}
+    .search-suggestions .suggestion-item:last-child{border-bottom:none}
+    .search-suggestions .suggestion-item:hover{background-color:#f4f9fc;color:#1875BA}
+    .search-suggestions .suggestion-empty{padding:10px 14px;font-size:0.9em;color:#999}
+    .search-btn{background-color:#1BA3DE;color:#fff;border:none;padding:0 32px;border-radius:6px;font-weight:bold;font-size:0.95em;cursor:pointer;transition:background 0.3s}
+    .search-btn:hover{background-color:#15A7E0}
+    
+    .intro-filter-section{max-width:940px;margin:25px auto 0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px}
+    .intro-text h2{margin:0 0 6px 0;color:#1f2a44;font-size:1.5em}
+    .intro-text p{margin:0;color:#666;font-size:0.95em}
+    .filter-wrap{min-width:260px}
+    .filter-wrap label{display:block;font-size:0.85em;color:#555;margin-bottom:6px}
+    .filter-dropdown{position:relative;width:260px}
+    .filter-dropdown input{width:100%;padding:10px 14px;border:1px solid #1BA3DE;border-radius:6px;font-size:0.9em;box-sizing:border-box;color:#999}
+    .filter-dropdown input:focus{outline:none}
+    .filter-options{position:absolute;top:calc(100% + 4px);left:0;width:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;z-index:10}
+    .filter-options .filter-option{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:0.9em;color:#1875BA;font-weight:600;cursor:pointer;border-bottom:1px solid #f0f0f0}
+    .filter-options .filter-option:last-child{border-bottom:none}
+    .filter-options .filter-option:hover{background-color:#ffffff}
+    .filter-options .filter-option .plus{color:#1BA3DE;font-weight:bold}
+    
+    .destinations-section{max-width:940px;margin:0 auto;padding:25px 20px 10px 20px}
+    .destinations-section.alt-bg{max-width:100%;background-color:#ffffff;padding:30px 0 40px 0}
+    .destinations-section.alt-bg .inner{max-width:940px;margin:0 auto;padding:0 20px}
+    .destinations-section h3{margin:0 0 15px 0;color:#1f2a44;font-size:1.25em}
+    .destination-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    
+    .dest-card{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;aspect-ratio:4 / 3}
+    .dest-card .dest-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#9aa3ac;font-size:0.8em;text-align:center;box-sizing:border-box;padding:10px;background:repeating-linear-gradient( 45deg,#e2e6ea,#e2e6ea 10px,#eceff2 10px,#eceff2 20px );transition:transform 0.3s ease}
+    .dest-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease}
+    .dest-card:hover .dest-img-placeholder,.dest-card:hover img{transform:scale(1.05)}
+    .dest-card .dest-label{position:absolute;bottom:0;left:0;width:100%;box-sizing:border-box;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.75));color:#fff;font-weight:700;font-size:0.95em}
+    
+    @media (max-width:800px){
+        .destination-grid{grid-template-columns:repeat(2,1fr)}
+        .city-guide-hero .header-overlay{padding:0 25px}
+        .city-guide-hero .header-overlay h1{font-size:1.8em}
+    }
+    
+    .detail-header{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(135deg,#2a5c7a 0%,#4a8fb5 100%);border-bottom-left-radius:50% 30px;border-bottom-right-radius:50% 30px}
+    .detail-header .detail-header-img{width:100%;height:100%;object-fit:cover;display:block}
+    .detail-header .detail-header-overlay{position:absolute;top:0;left:0;width:60%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 40px;box-sizing:border-box;background:linear-gradient(90deg,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.05) 90%)}
+    
+    .back-btn-inline{display:inline-block;background:#f4f7f9;color:#1875BA;border:none;padding:8px 16px;border-radius:5px;font-weight:bold;font-size:0.85em;cursor:pointer;margin-bottom:20px}
+    .back-btn-inline:hover{background:#e6ebef}
+    .detail-tag{display:inline-block;background-color:#F6E100;color:#1f2a44;font-size:0.7em;font-weight:700;letter-spacing:0.5px;padding:4px 10px;border-radius:3px;margin-bottom:10px;width:fit-content}
+    .detail-header h1{color:#fff;font-size:2.2em;margin:0 0 10px 0;font-weight:700}
+    .detail-header p{color:#fff;font-size:0.95em;max-width:380px;margin:0;line-height:1.4}
+    
+    .detail-article{max-width:1000px;margin:30px auto 60px auto;padding:0 20px;color:#333}
+    .detail-article h2{color:#1f2a44;font-size:1.4em;margin:0 0 15px 0}
+    .detail-article p{line-height:1.7;font-size:0.95em;margin:0 0 15px 0}
+    .detail-article h4{color:#1f2a44;font-size:0.85em;letter-spacing:0.5px;margin:25px 0 10px 0}
+    .detail-article ul{margin:0 0 15px 0;padding-left:20px}
+    .detail-article ul li{line-height:1.7;font-size:0.95em;margin-bottom:6px}
+    
+    .pagination{margin:25px 0 0 0;text-align:center;font-size:0.9em}
+    .pagination a{color:#1875BA;text-decoration:none;margin:0 6px;cursor:pointer}
+    .pagination a:hover{text-decoration:underline}
+    .pagination a.active{color:#1f2a44;font-weight:700;text-decoration:none;cursor:default}
+    .pagination a.disabled{color:#aaa;cursor:default;pointer-events:none}
+    
+    .other-dest-page{display:none}
+    .other-dest-page.active{display:block}
   </style>
  </head>
  <body>
+
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY BAR -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper">
+            <div class="advisory-right" style="display: flex; align-items: center; margin-left: auto; justify-content: flex-end;">
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="color: rgba(255, 255, 255, 0.7); margin-right: 6px; font-size: 14px;"></i> PHP
+                </a>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center; margin-left: 25px; margin-right: 25px;">
+                    <i class="fa-solid fa-globe" style="color: rgba(255, 255, 255, 0.7); margin-right: 6px; font-size: 14px;"></i> English
+                </a>
+                <a href="#" style="color: white; font-weight: 700; text-decoration: none; font-size: 13px;">Help</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- WHITE NAVIGATION HEADER -->
+    <!-- ========================================== -->
+    <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="header-logo-link">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            </a>
+            <div class="header-action-right" style="display: flex; align-items: center;">
+                <a href="partner-login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                </a>
+            </div>
+        </div>
+    </header>
+
+
   <div id="homePage">
-   <header>
-    <img alt="City Guides" class="header-img" src="cityguides.jpg"/>
+   <div class="city-guide-hero">
+    <img alt="City Guides" class="header-img" src="images/cityguides.jpg"/>
     <div class="header-overlay">
      <h1>
       City Guides
@@ -21,7 +183,7 @@
       Here's your handy guide on what to do in your next CEB destination
      </p>
     </div>
-   </header>
+   </div>
    <div class="search-section">
     <div class="search-card">
      <label for="citySearch">
@@ -93,37 +255,37 @@
      </h3>
      <div class="destination-grid">
       <div class="dest-card" onclick="showBoracayPage()">
-       <img alt="Boracay" src="boracay.png"/>
+       <img alt="Boracay" src="images/boracay.png"/>
        <div class="dest-label">
         Boracay
        </div>
       </div>
       <div class="dest-card" onclick="showCebuPage()">
-       <img alt="Cebu" src="cebucity.jpg"/>
+       <img alt="Cebu" src="images/cebucity.jpg"/>
        <div class="dest-label">
         Cebu
        </div>
       </div>
       <div class="dest-card" onclick="showPalawanPage()">
-       <img alt="Palawan" src="palawan.jpg"/>
+       <img alt="Palawan" src="images/palawan.jpg"/>
        <div class="dest-label">
         Palawan
        </div>
       </div>
       <div class="dest-card" onclick="showManilaPage()">
-       <img alt="Manila" src="manila.jpg"/>
+       <img alt="Manila" src="images/manila.jpg"/>
        <div class="dest-label">
         Manila
        </div>
       </div>
       <div class="dest-card" onclick="showBacolodPage()">
-       <img alt="Bacolod" src="bacolod.jpg"/>
+       <img alt="Bacolod" src="images/bacolod.jpg"/>
        <div class="dest-label">
         Bacolod
        </div>
       </div>
       <div class="dest-card" onclick="showDavaoPage()">
-       <img alt="Davao" src="davao.jpg"/>
+       <img alt="Davao" src="images/davao.jpg"/>
        <div class="dest-label">
         Davao
        </div>
@@ -138,25 +300,25 @@
       <div class="other-dest-page active" id="otherDestPage1">
        <div class="destination-grid">
         <div class="dest-card" onclick="showBacolodPage()">
-         <img alt="Bacolod" src="bacolod.jpg"/>
+         <img alt="Bacolod" src="images/bacolod.jpg"/>
          <div class="dest-label">
           Bacolod
          </div>
         </div>
         <div class="dest-card" onclick="showBaliPage()">
-         <img alt="Bali" src="bali.jpg"/>
+         <img alt="Bali" src="images/bali.jpg"/>
          <div class="dest-label">
           Bali
          </div>
         </div>
         <div class="dest-card" onclick="showBangkokPage()">
-         <img alt="Bangkok" src="bangkokcity.jpg"/>
+         <img alt="Bangkok" src="images/bangkokcity.jpg"/>
          <div class="dest-label">
           Bangkok
          </div>
         </div>
         <div class="dest-card" onclick="showTokyoPage()">
-         <img alt="Tokyo" src="tokyocity.jpg"/>
+         <img alt="Tokyo" src="images/tokyocity.jpg"/>
          <div class="dest-label">
           Tokyo
          </div>
@@ -166,25 +328,25 @@
       <div class="other-dest-page" id="otherDestPage2">
        <div class="destination-grid">
         <div class="dest-card" onclick="showHongKongPage()">
-         <img alt="Hong Kong" src="hongkong.jpg"/>
+         <img alt="Hong Kong" src="images/hongkong.jpg"/>
          <div class="dest-label">
           Hong Kong
          </div>
         </div>
         <div class="dest-card" onclick="showDavaoPage()">
-         <img alt="Davao" src="davao.jpg"/>
+         <img alt="Davao" src="images/davao.jpg"/>
          <div class="dest-label">
           Davao
          </div>
         </div>
         <div class="dest-card" onclick="showDubaiPage()">
-         <img alt="Dubai" src="dubai.jpg"/>
+         <img alt="Dubai" src="images/dubai.jpg"/>
          <div class="dest-label">
           Dubai
          </div>
         </div>
         <div class="dest-card" onclick="showXiamenPage()">
-         <img alt="Xiamen" src="xiamen.jpg"/>
+         <img alt="Xiamen" src="images/xiamen.jpg"/>
          <div class="dest-label">
           Xiamen
          </div>
@@ -194,25 +356,25 @@
       <div class="other-dest-page" id="otherDestPage3">
        <div class="destination-grid">
         <div class="dest-card" onclick="showKualaLumpurPage()">
-         <img alt="Kuala Lumpur" src="kualalumpur.jpg"/>
+         <img alt="Kuala Lumpur" src="images/kualalumpur.jpg"/>
          <div class="dest-label">
           Kuala Lumpur
          </div>
         </div>
         <div class="dest-card" onclick="showShanghaiPage()">
-         <img alt="Shanghai" src="shanghai.jpg"/>
+         <img alt="Shanghai" src="images/shanghai.jpg"/>
          <div class="dest-label">
           Shanghai
          </div>
         </div>
         <div class="dest-card" onclick="showSeoulPage()">
-         <img alt="Seoul" src="seoul.jpg"/>
+         <img alt="Seoul" src="images/seoul.jpg"/>
          <div class="dest-label">
           Seoul
          </div>
         </div>
         <div class="dest-card" onclick="showMacauPage()">
-         <img alt="Macau" src="macau.jpg"/>
+         <img alt="Macau" src="images/macau.jpg"/>
          <div class="dest-label">
           Macau
          </div>
@@ -222,25 +384,25 @@
       <div class="other-dest-page" id="otherDestPage4">
        <div class="destination-grid">
         <div class="dest-card" onclick="showJakartaPage()">
-         <img alt="Jakarta" src="jakarta.jpg"/>
+         <img alt="Jakarta" src="images/jakarta.jpg"/>
          <div class="dest-label">
           Jakarta
          </div>
         </div>
         <div class="dest-card" onclick="showTaipeiPage()">
-         <img alt="Taipei" src="taipei.jpg"/>
+         <img alt="Taipei" src="images/taipei.jpg"/>
          <div class="dest-label">
           Taipei
          </div>
         </div>
         <div class="dest-card" onclick="showManilaPage()">
-         <img alt="Manila" src="manila.jpg"/>
+         <img alt="Manila" src="images/manila.jpg"/>
          <div class="dest-label">
           Manila
          </div>
         </div>
         <div class="dest-card" onclick="showSingaporePage()">
-         <img alt="Singapore" src="singapore.jpg"/>
+         <img alt="Singapore" src="images/singapore.jpg"/>
          <div class="dest-label">
           Singapore
          </div>
@@ -266,79 +428,79 @@
       </h3>
       <div class="destination-grid">
        <div class="dest-card" onclick="showTokyoPage()">
-        <img alt="Tokyo" src="tokyocity.jpg"/>
+        <img alt="Tokyo" src="images/tokyocity.jpg"/>
         <div class="dest-label">
          Tokyo
         </div>
        </div>
        <div class="dest-card" onclick="showXiamenPage()">
-        <img alt="Xiamen" src="xiamen.jpg"/>
+        <img alt="Xiamen" src="images/xiamen.jpg"/>
         <div class="dest-label">
          Xiamen
         </div>
        </div>
        <div class="dest-card" onclick="showBaliPage()">
-        <img alt="Bali" src="bali.jpg"/>
+        <img alt="Bali" src="images/bali.jpg"/>
         <div class="dest-label">
          Bali
         </div>
        </div>
        <div class="dest-card" onclick="showBangkokPage()">
-        <img alt="Bangkok" src="bangkokcity.jpg"/>
+        <img alt="Bangkok" src="images/bangkokcity.jpg"/>
         <div class="dest-label">
          Bangkok
         </div>
        </div>
        <div class="dest-card" onclick="showHongKongPage()">
-        <img alt="Hong Kong" src="hongkong.jpg"/>
+        <img alt="Hong Kong" src="images/hongkong.jpg"/>
         <div class="dest-label">
          Hong Kong
         </div>
        </div>
        <div class="dest-card" onclick="showDubaiPage()">
-        <img alt="Dubai" src="dubai.jpg"/>
+        <img alt="Dubai" src="images/dubai.jpg"/>
         <div class="dest-label">
          Dubai
         </div>
        </div>
        <div class="dest-card" onclick="showKualaLumpurPage()">
-        <img alt="Kuala Lumpur" src="kualalumpur.jpg"/>
+        <img alt="Kuala Lumpur" src="images/kualalumpur.jpg"/>
         <div class="dest-label">
          Kuala Lumpur
         </div>
        </div>
        <div class="dest-card" onclick="showShanghaiPage()">
-        <img alt="Shanghai" src="shanghai.jpg"/>
+        <img alt="Shanghai" src="images/shanghai.jpg"/>
         <div class="dest-label">
          Shanghai
         </div>
        </div>
        <div class="dest-card" onclick="showSeoulPage()">
-        <img alt="Seoul" src="seoul.jpg"/>
+        <img alt="Seoul" src="images/seoul.jpg"/>
         <div class="dest-label">
          Seoul
         </div>
        </div>
        <div class="dest-card" onclick="showMacauPage()">
-        <img alt="Macau" src="macau.jpg"/>
+        <img alt="Macau" src="images/macau.jpg"/>
         <div class="dest-label">
          Macau
         </div>
        </div>
        <div class="dest-card" onclick="showJakartaPage()">
-        <img alt="Jakarta" src="jakarta.jpg"/>
+        <img alt="Jakarta" src="images/jakarta.jpg"/>
         <div class="dest-label">
          Jakarta
         </div>
        </div>
        <div class="dest-card" onclick="showTaipeiPage()">
-        <img alt="Taipei" src="taipei.jpg"/>
+        <img alt="Taipei" src="images/taipei.jpg"/>
         <div class="dest-label">
          Taipei
         </div>
        </div>
        <div class="dest-card" onclick="showSingaporePage()">
-        <img alt="Singapore" src="singapore.jpg"/>
+        <img alt="Singapore" src="images/singapore.jpg"/>
         <div class="dest-label">
          Singapore
         </div>
@@ -348,9 +510,10 @@
     </div>
    </div>
   </div>
+  
   <div id="tokyoPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Tokyo" class="detail-header-img" src="tokyo.jpg"/>
+    <img alt="Tokyo" class="detail-header-img" src="images/tokyo.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">
       CITY GUIDE
@@ -428,7 +591,7 @@
   </div>
   <div id="xiamenPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Xiamen" class="detail-header-img" src="xiamen.jpg"/>
+    <img alt="Xiamen" class="detail-header-img" src="images/xiamen.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">
       CITY GUIDE
@@ -506,7 +669,7 @@
   </div>
   <div id="boracayPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Boracay" class="detail-header-img" src="boracay.png"/>
+    <img alt="Boracay" class="detail-header-img" src="images/boracay.png"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">
       CITY GUIDE
@@ -662,7 +825,7 @@
   </div>
   <div id="cebuPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Cebu" class="detail-header-img" src="cebucity.jpg"/>
+    <img alt="Cebu" class="detail-header-img" src="images/cebucity.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Cebu</h1>
@@ -699,7 +862,7 @@
   </div>
   <div id="palawanPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Palawan" class="detail-header-img" src="palawan.jpg"/>
+    <img alt="Palawan" class="detail-header-img" src="images/palawan.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Palawan</h1>
@@ -765,7 +928,7 @@
   </div>
   <div id="bacolodPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Bacolod" class="detail-header-img" src="bacolod.jpg"/>
+    <img alt="Bacolod" class="detail-header-img" src="images/bacolod.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Bacolod</h1>
@@ -803,7 +966,7 @@
   </div>
   <div id="baliPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Bali" class="detail-header-img" src="bali.jpg"/>
+    <img alt="Bali" class="detail-header-img" src="images/bali.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Bali</h1>
@@ -839,7 +1002,7 @@
   </div>
   <div id="bangkokPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Bangkok" class="detail-header-img" src="bangkokcity.jpg"/>
+    <img alt="Bangkok" class="detail-header-img" src="images/bangkokcity.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Bangkok</h1>
@@ -873,7 +1036,7 @@
   </div>
   <div id="manilaPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Manila" class="detail-header-img" src="manila.jpg"/>
+    <img alt="Manila" class="detail-header-img" src="images/manila.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Manila</h1>
@@ -910,7 +1073,7 @@
   </div>
   <div id="davaoPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Davao" class="detail-header-img" src="davao.jpg"/>
+    <img alt="Davao" class="detail-header-img" src="images/davao.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Davao</h1>
@@ -961,7 +1124,7 @@
   </div>
   <div id="hongKongPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Hong Kong" class="detail-header-img" src="hongkong.jpg"/>
+    <img alt="Hong Kong" class="detail-header-img" src="images/hongkong.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Hong Kong</h1>
@@ -1002,7 +1165,7 @@
   </div>
   <div id="dubaiPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Dubai" class="detail-header-img" src="dubai.jpg"/>
+    <img alt="Dubai" class="detail-header-img" src="images/dubai.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Dubai</h1>
@@ -1036,7 +1199,7 @@
   </div>
   <div id="kualaLumpurPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Kuala Lumpur" class="detail-header-img" src="kualalumpur.jpg"/>
+    <img alt="Kuala Lumpur" class="detail-header-img" src="images/kualalumpur.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Kuala Lumpur</h1>
@@ -1072,7 +1235,7 @@
   </div>
   <div id="shanghaiPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Shanghai" class="detail-header-img" src="shanghai.jpg"/>
+    <img alt="Shanghai" class="detail-header-img" src="images/shanghai.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Shanghai</h1>
@@ -1108,7 +1271,7 @@
   </div>
   <div id="seoulPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Seoul" class="detail-header-img" src="seoul.jpg"/>
+    <img alt="Seoul" class="detail-header-img" src="images/seoul.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Seoul</h1>
@@ -1143,7 +1306,7 @@
   </div>
   <div id="jakartaPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Jakarta" class="detail-header-img" src="jakarta.jpg"/>
+    <img alt="Jakarta" class="detail-header-img" src="images/jakarta.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Jakarta</h1>
@@ -1177,7 +1340,7 @@
   </div>
   <div id="taipeiPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Taipei" class="detail-header-img" src="taipei.jpg"/>
+    <img alt="Taipei" class="detail-header-img" src="images/taipei.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Taipei</h1>
@@ -1211,7 +1374,7 @@
   </div>
   <div id="macauPage" style="display:none;">
    <div class="detail-header">
-    <img alt="Macau" class="detail-header-img" src="macau.jpg"/>
+    <img alt="Macau" class="detail-header-img" src="images/macau.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Macau</h1>
@@ -1252,7 +1415,7 @@
   </div>
   <div id="singaporePage" style="display:none;">
    <div class="detail-header">
-    <img alt="Singapore" class="detail-header-img" src="singapore.jpg"/>
+    <img alt="Singapore" class="detail-header-img" src="images/singapore.jpg"/>
     <div class="detail-header-overlay">
      <span class="detail-tag">CITY GUIDE</span>
      <h1>Singapore</h1>
@@ -1284,6 +1447,103 @@
     <p>The largest airline in the Philippines, Cebu Pacific has multiple flights to Singapore from Manila, Clark, Cebu, and Iloilo, which may be reached via key hubs such as Tokyo, Dubai, Seoul and Hong Kong among others. Cebu Pacific offers cheap flights to Singapore and operates the most flight connections to the rest of the Philippines' top beach, dive and island destinations, such as Palawan (El Nido), Siargao and Davao. With its seat sales, discount tickets, and promos, Cebu Pacific's affordable flights make travel around the Philippines easy and convenient for everyone.</p>
    </div>
   </div>
+
+  <!-- ========================================== -->
+  <!-- FOOTER SECTION -->
+  <!-- ========================================== -->
+  <footer class="site-footer">
+      <div class="footer-container">
+          
+          <div class="footer-links-grid">
+              <div class="col">
+                  <h4>BOOK</h4>
+                  <a href="#">Flights</a>
+                  <a href="#">Seat Sale</a>
+              </div>
+              <div class="col">
+                  <h4>MANAGE</h4>
+                  <a href="#">Check in</a>
+                  <a href="#">Manage Booking</a>
+                  <a href="#">Flight Status</a>
+                  <a href="#">Add-ons</a>
+                  <a href="#">Special Assistance</a>
+              </div>
+              <div class="col">
+                  <h4>TRAVEL INFO</h4>
+                  <a href="#">Baggage Information</a>
+                  <a href="#">Payment Options</a>
+                  <a href="#">Travel Advisories</a>
+                  <a href="#">Booking & Check-in</a>
+                  <a href="#">Travel Documents</a>
+                  <a href="#">Service Fees</a>
+              </div>
+              <div class="col">
+                  <h4>EXPLORE</h4>
+                  <a href="#">Explore</a>
+                  <a href="#">Philippine Destinations</a>
+                  <a href="#">International Destinations</a>
+                  <a href="#">Where We Fly</a>
+                  <a href="#">City Guides</a>
+              </div>
+              <div class="col">
+                  <h4>ABOUT</h4>
+                  <a href="#">About</a>
+                  <a href="#">Our Story</a>
+                  <a href="#">Media Center</a>
+                  <a href="#">Talk to Us</a>
+                  <a href="#">Careers</a>
+              </div>
+              
+              <div class="col country-selector">
+                  <h4>SELECT COUNTRY</h4>
+                  <div class="country-box"><i class="fa-solid fa-globe"></i> Philippines</div>
+              </div>
+          </div>
+
+          <!-- RIGHT SIDEBAR -->
+          <div class="footer-right-sidebar">
+              <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+              <div class="app-buttons">
+                  <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                  <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+              </div>
+
+              <h4>PAYMENT PARTNERS</h4>
+              <div class="payment-grid">
+                  <img src="images/Visa-logo.webp" alt="Visa">
+                  <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                  <img src="images/GCash-276x96.webp" alt="GCash">
+              </div>
+
+              <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+              <div class="accreditations">
+                  <img src="images/CEB-7Star-Emblem.webp" alt="Badge 1">
+                  <img src="images/New_NPC_Logo.webp" alt="Badge 2">
+              </div>
+          </div>
+
+      </div>
+  </footer>
+  
+  <!-- ========================================== -->
+  <!-- BOTTOM YELLOW BAR -->
+  <!-- ========================================== -->
+  <div class="footer-bottom">
+      <div class="footer-bottom-container">
+          <div class="footer-legal-links">
+              <a href="#">Privacy and Cookie Policy</a>
+              <a href="#">Website Terms of Use</a>
+              <a href="#">Security</a>
+              <a href="#">Accessibility</a>
+              <a href="#">Site Map</a>
+          </div>
+          
+          <div class="copyright-text">
+              © Copyright 2026 Cebu Pacific: SE GROUP 7
+          </div>
+      </div>
+  </div>
+
   <script>
    var allDestinations = [
 { name: 'Boracay', img: 'boracay.png', fn: 'showBoracayPage' },
