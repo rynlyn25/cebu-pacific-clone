@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in - Cebu Pacific</title>
+    <title>Wallet - Cebu Pacific</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -11,7 +11,7 @@
            GLOBAL RESET & TYPOGRAPHY
            ========================================= */
         :root {
-            --ceb-yellow: #FFC000;
+            --ceb-yellow: #FDDF00;
             --ceb-blue: #005eb8;
             --ceb-light-blue: #0088ce;
             --text-dark: #222222;
@@ -28,7 +28,7 @@
         html, body {
             overflow-x: hidden;
             scroll-behavior: smooth;
-            background-color: #fdfdfd;
+            background-color: #ffffff; /* White background for this specific page */
             color: #333333;
         }
 
@@ -242,7 +242,7 @@
         .about-item a:hover { text-decoration: underline; color: #007bb5 !important; }
         .about-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
 
-        /* Login Dropdown & Button Fix */
+        /* Login Dropdown Fix */
         .login-dropdown-wrapper { 
             position: relative !important; 
             display: flex;
@@ -310,164 +310,87 @@
         .header-search-icon:hover { color: #00a1e4; }
 
         /* =========================================
-           CHECK-IN PAGE STYLES
+           COMING SOON SPECIFIC STYLES
            ========================================= */
-
-        /* YELLOW HERO BANNER */
-        .checkin-hero-banner {
-            background-color: #ffd800 !important;
-            border-bottom-left-radius: 50% 30px !important;
-            border-bottom-right-radius: 50% 30px !important;
-            margin-top: 105px !important; /* THE FIX: Pushes it down to clear the header */
-            padding: 80px 0 60px !important;
+        
+        .coming-soon-banner {
+            background-color: var(--ceb-yellow);
+            margin-top: 105px; /* Clears the fixed header */
+            padding: 40px 0;
+            width: 100%;
         }
 
-        .checkin-container-inner {
+        .coming-soon-banner h1 {
+            color: var(--ceb-blue);
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 auto;
             max-width: 1150px;
-            margin: 0 auto;
             padding: 0 20px;
-            box-sizing: border-box;
         }
 
-        .checkin-hero-banner h1 {
-            color: #005eb8 !important;
-            font-size: 40px !important;
-            font-weight: 800 !important;
-            margin: 0 !important;
-            letter-spacing: 0.5px;
-        }
-
-        /* CHECK-IN CONTENT BACKGROUND */
-        .checkin-page-bg {
-            background-color: #f4f5f7;
-            padding: 50px 20px 80px; 
-            min-height: 60vh;
-        }
-
-        .checkin-container {
-            max-width: 1000px; 
+        .coming-soon-content {
+            text-align: center;
+            padding: 80px 20px 120px 20px;
+            max-width: 600px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .checkin-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 30px;
+        .coming-soon-content img {
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 30px;
         }
 
-        /* CARDS */
-        .checkin-card {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-            box-sizing: border-box;
-        }
-
-        .checkin-card h2 {
-            font-size: 25px;
+        .coming-soon-content h2 {
+            font-size: 26px;
             font-weight: 800;
             color: #333;
-            margin: 0 0 25px 0;
+            margin-bottom: 12px;
         }
 
-        /* LEFT CARD: INFO */
-        .checkin-features { list-style: none; padding: 0; margin: 0; }
-        .checkin-features li { display: flex; align-items: flex-start; margin-bottom: 25px; }
-        .check-icon { color: #00a4e4; font-size: 20px; margin-right: 15px; margin-top: 2px; }
-        .feature-text p { margin: 0 0 15px 0; font-size: 15px; color: #333; }
-        
-        .flight-type { 
-            display: flex; 
-            align-items: flex-start; 
-            margin-bottom: 15px; 
-            font-size: 14px; 
-            color: #555; 
-            line-height: 1.5; 
-        }
-        
-        .plane-icon { color: #005eb8; margin-right: 12px; margin-top: 4px; }
-
-        /* RIGHT CARD: FORM */
-        .form-subtitle { font-size: 15px; color: #444; margin-bottom: 25px; }
-        .checkin-input-group { margin-bottom: 20px; }
-        .checkin-input-group label { display: block; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; }
-        .input-with-icon { position: relative; }
-        .checkin-input-group input { 
-            width: 100%; 
-            padding: 14px 15px; 
-            border: 1px solid #ccc; 
-            border-radius: 6px; 
-            font-size: 14px; 
-            box-sizing: border-box; 
-            outline: none; 
-            transition: border-color 0.2s; 
-        }
-        .checkin-input-group input:focus { border-color: #0088ce; }
-        .help-icon { position: absolute; right: 15px; top: 15px; color: #005eb8; font-size: 16px; cursor: pointer; }
-
-        /* BUTTONS */
-        .btn-guest { 
-            width: 100%; 
-            padding: 15px; 
-            background-color: #c4e0eb; 
-            color: white; 
-            border: none; 
-            border-radius: 6px; 
-            font-size: 16px; 
-            font-weight: 700; 
-            cursor: default; 
-            transition: background-color 0.2s; 
-        }
-        
-        .btn-guest.active { background-color: #0088ce; cursor: pointer; }
-        .btn-guest.active:hover { background-color: #006eb3; }
-
-        .divider-or { text-align: center; position: relative; margin: 25px 0; }
-        .divider-or::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background-color: #eaeaea; z-index: 1; }
-        .divider-or span { background: white; padding: 0 15px; color: #888; font-size: 13px; position: relative; z-index: 2; }
-
-        .btn-member { 
-            width: 100%; 
-            padding: 15px; 
-            background-color: white; 
-            color: #005eb8; 
-            border: 1px solid #005eb8; 
-            border-radius: 6px; 
-            font-size: 16px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            transition: background-color 0.2s; 
-        }
-        
-        .btn-member:hover { background-color: #f4f9ff; }
-
-        /* RESPONSIVENESS */
-        @media (max-width: 768px) { .checkin-grid { grid-template-columns: 1fr; } }
-
-        /* EXTRA: MANAGE BOOKING FIX (if needed) */
-        .manage-features-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            column-gap: 15px;
-            row-gap: 25px;
-            margin-top: 25px;
-        }
-        .manage-feature-item {
-            display: flex;
-            align-items: flex-start;
+        .coming-soon-content p {
             font-size: 15px;
-            color: #333;
-            line-height: 1.4;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 35px;
         }
-        .manage-feature-item .check-icon {
-            color: #00a4e4;
-            font-size: 18px;
-            margin-right: 12px;
-            margin-top: 2px;
+
+        .social-icons-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 35px;
         }
-        @media (max-width: 768px) {
-            .manage-features-grid { grid-template-columns: 1fr; }
+
+        .social-icons-row a {
+            color: #0088ce;
+            font-size: 20px;
+            transition: color 0.2s ease;
+            text-decoration: none;
+        }
+
+        .social-icons-row a:hover {
+            color: #005eb8;
+        }
+
+        .go-back-btn {
+            background-color: #0088ce;
+            color: white;
+            border: none;
+            padding: 14px 60px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .go-back-btn:hover {
+            background-color: #006eb3;
         }
 
         /* =========================================
@@ -570,7 +493,7 @@
                                     <p>Know more about our fast and flexible air cargo service</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="#">Sales & Group Bookings</a>
+                                    <a href="Sales-&-Group-Bookings.html">Sales & Group Bookings</a>
                                     <p>Be a partner and maximize your business' travel budget</p>
                                 </div>
                             </div>
@@ -632,6 +555,7 @@
                             <div class="travel-item"><a href="Service-Fees.html"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
                             <div class="travel-item"><a href="CEB-Add-ons.html"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
                             <div class="travel-item"><a href="flight-status.html"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                            <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-plane"></i> Flight Timetable</a></div>
                             <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
                         </div>
                     </div>
@@ -692,7 +616,7 @@
                             </div>
                             <div class="about-item">
                                 <a href="Talk-to-Us.html">Talk to Us</a>
-                                <p>Get answers to your questions or send feedback</a> to our customer support team</p>
+                                <p>Get answers to your questions or <a href="#" class="inline-link">send feedback</a> to our customer support team</p>
                             </div>
                             <div class="about-item">
                                 <a href="Campaigns-&-Partners.html">Campaigns & Partners</a>
@@ -737,11 +661,10 @@
                                 </a>
                             </div>
                             <div class="login-action-area">
-                            <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
-                            <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
-                           </div>
+                                <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
+                                <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
+                            </div>
                         </div>
-                        
                         </div>
                     </div>
                 </div>
@@ -753,84 +676,23 @@
     </header>
 
     <!-- ========================================== -->
-    <!-- YELLOW CHECK-IN BANNER -->
+    <!-- COMING SOON BANNER -->
     <!-- ========================================== -->
-    <div class="checkin-hero-banner">
-        <div class="checkin-container-inner">
-            <h1>Check-in</h1>
-        </div>
+    <div class="coming-soon-banner">
+        <h1>Coming soon</h1>
     </div>
 
     <!-- ========================================== -->
-    <!-- CHECK-IN MAIN CONTENT (Grey Background) -->
+    <!-- COMING SOON CONTENT -->
     <!-- ========================================== -->
-    <div class="checkin-page-bg">
-        <div class="checkin-container">
-            <div class="checkin-grid">
-                
-                <!-- LEFT CARD: Info -->
-                <div class="checkin-card info-card">
-                    <h2>Fly easy and check in ahead of your flight!</h2>
-                    
-                    <ul class="checkin-features">
-                        <li>
-                            <i class="fa-solid fa-check check-icon"></i>
-                            <div class="feature-text">
-                                <p>Online check-in is available from:</p>
-                                <div class="flight-type">
-                                    <i class="fa-solid fa-plane-departure plane-icon"></i>
-                                    <div>
-                                        <strong>Domestic:</strong><br>
-                                        48 hours up to 1 hour before flight
-                                    </div>
-                                </div>
-                                <div class="flight-type">
-                                    <i class="fa-solid fa-plane-departure plane-icon"></i>
-                                    <div>
-                                        <strong>International:</strong><br>
-                                        48 hours up to 2 hours before flight
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check check-icon"></i>
-                            <div class="feature-text">
-                                <p>You can make changes or buy add-ons for your flight after checking in</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- RIGHT CARD: Form -->
-                <div class="checkin-card form-card">
-                    <h2>Check-in</h2>
-                    <p class="form-subtitle">Type in your details to check in for your flight</p>
-
-                    <div class="checkin-input-group">
-                        <label>Booking Reference Number</label>
-                        <div class="input-with-icon">
-                            <input type="text" id="booking-ref" placeholder="e.g 1AB234C or 0123456789">
-                            <i class="fa-solid fa-circle-question help-icon"></i>
-                        </div>
-                    </div>
-
-                    <div class="checkin-input-group">
-                        <label>Last name or email address</label>
-                        <input type="text" id="last-name" placeholder="Enter last name or email address">
-                    </div>
-
-                    <button id="guest-btn" class="btn-guest">Continue as guest</button>
-
-                    <div class="divider-or">
-                        <span>or</span>
-                    </div>
-
-                    <button class="btn-member">Continue as MyCebuPacific member</button>
-                </div>
-
-            </div>
-        </div>
+    <div class="coming-soon-content">
+        <!-- Assuming the generic illustration path based on the structure -->
+        <img src="images/page-under-construction.webp" alt="Feature not yet available" onerror="this.style.display='none'">
+        
+        <h2>This feature is not yet available</h2>
+        <p>Let's go back for now, but stay tuned<br>for the next update!</p>
+        
+        <button class="go-back-btn" onclick="window.history.back();">Go Back</button>
     </div>
 
     <!-- ========================================== -->
@@ -858,11 +720,11 @@
                 <div class="footer-col">
                     <div class="footer-group">
                         <h4>MANAGE</h4>
-                        <a href="#">Check in</a>
-                        <a href="#">Manage Booking</a>
-                        <a href="#">Flight Status</a>
-                        <a href="#">Add-ons</a>
-                        <a href="#">Special Assistance</a>
+                        <a href="check-in.html">Check in</a>
+                        <a href="manage-booking.html">Manage Booking</a>
+                        <a href="flight-status.html">Flight Status</a>
+                        <a href="CEB-Add-ons.html">Add-ons</a>
+                        <a href="Special-Assistance.html">Special Assistance</a>
                     </div>
                 </div>
 
@@ -888,10 +750,10 @@
                     <div class="footer-group">
                         <h4>EXPLORE</h4>
                         <a href="#">Explore</a>
-                        <a href="#">Philippine Destinations</a>
-                        <a href="#">International Destinations</a>
-                        <a href="#">Where We Fly</a>
-                        <a href="#">City Guides</a>
+                        <a href="CityGuides.html">Philippine Destinations</a>
+                        <a href="CityGuides.html">International Destinations</a>
+                        <a href="where-we-fly.html">Where We Fly</a>
+                        <a href="CityGuides.html">City Guides</a>
                     </div>
                 </div>
             </div>
@@ -944,31 +806,5 @@
             </div>
         </div>
     </div>
-
-    <!-- ========================================== -->
-    <!-- SCRIPT FOR BUTTON ACTIVATION -->
-    <!-- ========================================== -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const bookingInput = document.getElementById('booking-ref');
-            const nameInput = document.getElementById('last-name');
-            const guestBtn = document.getElementById('guest-btn');
-
-            function checkInputs() {
-                // If both fields have at least 1 character, turn the button blue!
-                if (bookingInput.value.trim().length > 0 && nameInput.value.trim().length > 0) {
-                    guestBtn.classList.add('active');
-                } else {
-                    guestBtn.classList.remove('active');
-                }
-            }
-
-            // Listen for typing in both boxes
-            if (bookingInput && nameInput) {
-                bookingInput.addEventListener('input', checkInputs);
-                nameInput.addEventListener('input', checkInputs);
-            }
-        });
-    </script>
 </body>
 </html>
