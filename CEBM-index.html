@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Meals</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Banner Section */
+        .meals-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 20px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .meals-img-container {
+            width: 48%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .meals-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .meals-logo-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .meals-logo-badge img {
+            width: 80px;
+            height: auto;
+            border-radius: 0;
+        }
+
+        .meals-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .meals-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tabs Selection */
+        .meals-tabs {
+            display: none;
+        }
+
+        .tab-item {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .tab-item.active {
+            color: #0073ba;
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -11px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #0073ba;
+        }
+
+        .tab-item.inactive {
+            color: #718096;
+        }
+
+        /* Filter Dropdowns */
+        .filter-container {
+            display: none;
+        }
+
+        .filter-dropdown {
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #4a5568;
+            background: #fff;
+            width: 220px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Meals Grid */
+        .meals-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .meal-card {
+            background: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meal-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .meal-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+
+        .meal-card h4 {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000000;
+            margin: 0;
+        }
+
+        .meal-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .meal-desc {
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.4;
+            margin: 0 0 10px 0;
+        }
+
+        .meal-allergens {
+            font-size: 11px;
+            color: #2d3748;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .meal-allergens strong {
+            color: #1a202c;
+        }
+
+        .info-icon {
+            font-size: 12px;
+            color: #a0aec0;
+            cursor: pointer;
+        }
+
+        /* Dietary tags inside card */
+        .card-dietary-tags {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 8px;
+            font-size: 10px;
+            background: #f7fafc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            align-items: center;
+            width: fit-content;
+        }
+
+        /* Accordion Section */
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 13px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .accordion-content ol {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .accordion-content li {
+            margin-bottom: 12px;
+        }
+
+        .accordion-content ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 6px 0;
+        }
+
+        .accordion-content ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Rules Box */
+        .rules-box {
+            background: #f0f7ff;
+            border: 1px solid #d0e3fc;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 30px;
+        }
+
+        .rules-box h3 {
+            font-size: 16px;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .rules-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .rules-box li {
+            font-size: 13px;
+            color: #333333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .rules-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .meals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB Meals</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature: CEB Meals Banner matching reference image -->
+            <div class="meals-banner">
+                <div class="meals-img-container">
+                    <img src="CEBM.png" alt="CEB Meals Tray">
+                </div>
+                <div class="meals-info">
+                    <h3>Don't go hungry on your flight!</h3>
+                    <a href="#" class="btn-primary">Pre-order meal</a>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="meals-tabs">
+                <div class="tab-item active">Fun Cafe</div>
+                <div class="tab-item inactive">On-board meals</div>
+            </div>
+
+            <!-- Filter Dropdowns -->
+            <div class="filter-container">
+                <div class="filter-dropdown">
+                    <span>Filter By Destination</span>
+                    <span>&#9662;</span>
+                </div>
+                <div class="filter-dropdown">
+                    <span>Filter By Meal</span>
+                    <span>&#9662;</span>
+                </div>
+            </div>
+
+            <!-- Meals Grid -->
+            <div class="meals-grid">
+                <!-- Item 1 -->
+                <div class="meal-card">
+                    <img src="CEBM-2.webp" alt="Char Siu Chicken" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Char Siu Chicken</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 320.00</div>
+                    <p class="meal-desc">Tender slices of chicken marinated in a barbecue sauce, served with Chinese
+                        style egg fried rice and bok choy.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Crustaceans, Eggs, Sesame, and
+                        Soy</p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="meal-card">
+                    <img src="CEBM-3.webp" alt="Beef Adobo" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Beef Adobo</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 320.00</div>
+                    <p class="meal-desc">The unofficial national dish of the Philippines - tender beef slowly cooked in
+                        an aromatic blend of vinegar, soy sauce, and spices, served with mixed grain rice.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Crustaceans, Eggs, Soy, and
+                        Sulphites.</p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="meal-card">
+                    <img src="CEBM-4.webp" alt="Spam Nori" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Spam Nori</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 320.00</div>
+                    <p class="meal-desc">Spam with scrambled eggs and nori, served with fresh green beans, cherry
+                        tomatoes, and steamed rice.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Crustaceans, Eggs, and Soy</p>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="meal-card">
+                    <img src="CEBM-5.webp" alt="Mixed Seafood In Oyster Sauce" class="meal-img">
+                    <div class="card-dietary-tags">
+                        <span>🏷️ Halal</span>
+                        <span>🌱 Vegetarian</span>
+                    </div>
+                    <div class="meal-title-row">
+                        <h4>Mixed Seafood In Oyster Sauce</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 320.00</div>
+                    <p class="meal-desc">Stir fried squid rings, fish fillet, and vegetables in a rich and flavorful
+                        oyster sauce served with white rice.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Crustaceans, Eggs, Fish,
+                        Molluscs and Soy</p>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="meal-card">
+                    <img src="CEBM-6.webp" alt="Pinoy Spaghetti" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Pinoy Spaghetti</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 280.00</div>
+                    <p class="meal-desc">A Filipino take on the classic spaghetti - spaghetti noodles in a sweet
+                        tomato-based sauce with sliced sausages, topped with mild grated cheddar cheese.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Gluten, Milk and Soy</p>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="meal-card">
+                    <img src="CEBM-7.webp" alt="Chicken And Mushroom Pasta" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Chicken And Mushroom Pasta</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 320.00</div>
+                    <p class="meal-desc">The perfect comfort food made with tender chicken, mushrooms, and penne pasta
+                        in a creamy sauce flavored with onion and garlic.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Crustaceans, Eggs, Fish, Milk,
+                        and Soy</p>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="meal-card">
+                    <img src="CEBM-8.webp" alt="Deluxe Egg Sandwich" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Deluxe Egg Sandwich</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 280.00</div>
+                    <p class="meal-desc">An egg salad sandwich filled with a creamy egg mixture in white bread.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Gluten, Eggs, Milk and Mustard</p>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="meal-card">
+                    <img src="CEBM-9.webp" alt="Grilled Chicken Wrap" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Grilled Chicken Wrap</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 300.00</div>
+                    <p class="meal-desc">A savory and filling bite of juicy marinated chicken slices, vegetables, and a
+                        drizzle of sour cream, all in a grilled tortilla wrap.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Milk, Mustard, and Soy</p>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="meal-card">
+                    <img src="CEBM-10.webp" alt="Tuna Salad Panini" class="meal-img">
+                    <div class="meal-title-row">
+                        <h4>Tuna Salad Panini</h4>
+                        <span class="info-icon">&#9432;</span>
+                    </div>
+                    <div class="meal-price">PHP 280.00</div>
+                    <p class="meal-desc">Freshly baked sandwich filled with a creamy and chunky tuna spread, cheddar
+                        cheese, chopped celery, slices of cucumber, onions, and fresh green lettuce.</p>
+                    <p class="meal-allergens"><strong>Allergens:</strong> Celery, Gluten, Eggs, Fish, Milk, and Mustard
+                    </p>
+                </div>
+            </div>
+
+            <!-- Accordion Section -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('terms-content', this)">
+                    <span>Terms & Conditions</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="terms-content">
+                    <ol>
+                        <li>Pre-ordered meals and snacks.</li>
+                        <li>CEB Meals may be availed through the Cebu Pacific website or sales offices.</li>
+                        <li>Pre-ordered meals and snacks are available for flights departing 24 hours or 12 hours from
+                            the time of booking, respectively.</li>
+                        <li>Sandwiches are served chilled. You may request this to be heated if the oven is available
+                            (except for Cebgo flights).</li>
+                        <li>A. In case of flight changes made 24 hours or more prior flight:<br>
+                            <strong>Rebooking:</strong>
+                            <ul>
+                                <li>- Pre-ordered meal will be carried over to the new flight</li>
+                            </ul>
+                            <strong>Rerouting:</strong>
+                            <ul>
+                                <li>- Guest Initiated: Pre-ordered meal will be forfeited</li>
+                                <li>- Airline Initiated: Passenger has the option to refund their payments from the
+                                    booking channel or store in a Travel Fund</li>
+                            </ul>
+                            <strong>Cancellation:</strong>
+                            <ul>
+                                <li>- Guest Initiated: Pre-ordered meal will be forfeited</li>
+                                <li>- Airline Initiated: Passenger has the option to refund their payment from the
+                                    booking channel or store in a Travel Fund</li>
+                            </ul>
+                        </li>
+                        <li>B. In case of flight changes made less than 24 hours prior flight:<br>
+                            <strong>Rebooking:</strong>
+                            <ul>
+                                <li>- Pre-ordered meal will be forfeited</li>
+                            </ul>
+                            <strong>Rerouting:</strong>
+                            <ul>
+                                <li>- Guest Initiated: Pre-ordered meal will be forfeited</li>
+                                <li>- Airline Initiated: Replacement meal of the same value can still be availed
+                                    on-board during the flight. Passenger also has the option to refund their payment
+                                    from the booking channel or store in a Travel Fund.</li>
+                            </ul>
+                            <strong>Cancellation:</strong>
+                            <ul>
+                                <li>- Guest Initiated: Pre-ordered meal will be forfeited</li>
+                                <li>- Airline Initiated: Replacement meal of the same value can still be availed
+                                    on-board during the flight. Passenger also has the option to refund their payment
+                                    from the booking channel or store in a Travel Fund.</li>
+                            </ul>
+                        </li>
+                        <li>Meal selections may be changed due to uncontrolled circumstances. In case pre-ordered meal
+                            is not available on the flight, guest shall be given an option to choose items of same value
+                            from the buy on board menu.</li>
+                        <li>Food may contain nuts, dairy and/or gluten. Refer to the menu page to see complete allergen
+                            information.</li>
+                        <li>Prices of pre-ordered meals may change from time to time. All prices quoted are correct at
+                            the time of booking.</li>
+                        <li>Change in meal selection will be allowed up to 24 hours before flight departure.</li>
+                        <li>Boarding pass must be presented to cabin crew during meal service.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Rules Box -->
+            <div class="rules-box">
+                <h3>Ceb Meals Rules</h3>
+                <ul>
+                    <li>CEB Meals are available for pre-order online up to 24 hours before your flight. You may order up
+                        to two (2) meals per flight.</li>
+                    <li>Light snacks and drinks are available for purchase from our Fun Cafe on board on all flights,
+                        but are subject to stock availability.</li>
+                    <li>Sandwiches are served chilled. You may request this to be heated if the oven is available
+                        (except for Cebu Flights).</li>
+                    <li>Allergens may vary due to the available ingredients used. The actual meal served will have the
+                        final allergen on the label.</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

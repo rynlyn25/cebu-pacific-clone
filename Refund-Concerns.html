@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Concerns</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #4a4a4a;
+        }
+
+        /* Header Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px 80px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            margin-right: auto;
+        }
+
+        .logo-img {
+            height: 38px;
+        }
+
+        /* Page Layout with Sidebar */
+        .page-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Navigation - Sticky Behavior */
+        .sidebar {
+            width: 250px;
+            padding-top: 60px;
+            padding-right: 20px;
+            border-right: 1px solid #e2e8f0;
+            position: sticky;
+            top: 80px;
+            height: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .sidebar-nav li {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar-nav a {
+            text-decoration: none;
+            color: #555555;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 6px 16px;
+            display: inline-block;
+        }
+
+        .sidebar-nav li.active a {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        /* Blue indicator pill for active tab */
+        .sidebar-nav li.active::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #0073e6;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Main Content Container */
+        .container {
+            flex: 1;
+            max-width: 900px;
+            padding: 60px 40px 40px 40px;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #4a4d4e;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #555555;
+            margin-bottom: 40px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        /* Article Sections */
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 16px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .note-box {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: underline;
+        }
+
+        .guidelines-intro {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .guidelines-list {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .guidelines-list li {
+            margin-bottom: 10px;
+        }
+
+        .sub-list {
+            margin-left: 20px;
+            margin-top: 6px;
+            list-style-type: disc;
+        }
+
+        /* Disruption Options Styles */
+        .portal-text {
+            font-size: 14px;
+            color: #333333;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .disruption-intro {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .options-list>li {
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .options-list>li::before {
+            content: "• ";
+            font-size: 16px;
+        }
+
+        .options-sub-list {
+            margin-left: 24px;
+            margin-top: 8px;
+            font-weight: normal;
+            list-style-type: disc;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .options-sub-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Policies & Guides Accordion Styles */
+        .accordion-section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #4a4d4e;
+            margin-top: 30px;
+            margin-bottom: 16px;
+        }
+
+        .accordion-group-label {
+            font-size: 15px;
+            color: #666666;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .accordion-item {
+            border: 1px solid #0073e6;
+            border-radius: 4px;
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-item[open] {
+            background-color: #eef6fc;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a4a4a;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-item[open] .accordion-header {
+            color: #0073e6;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .accordion-icon {
+            color: #0073e6;
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item[open] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            padding: 0 16px 16px 16px;
+            font-size: 13px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .accordion-body p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .accordion-body ul {
+            margin-left: 20px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            list-style-type: disc;
+        }
+
+        .accordion-body ul li {
+            margin-bottom: 4px;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img class="logo-img" src="images/Cebu Pacific Logo.jpg" alt="Cebu Pacific Air">
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li id="nav-overview" class="active"><a href="#overview">Overview</a></li>
+                <li id="nav-policies"><a href="#policies-guides">Policies & Guides</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Body Content -->
+        <main class="container">
+            <h1 class="main-title">Refund Concerns</h1>
+            <p class="subtitle">Has your flight been disrupted? Are you too sick to travel? Learn more about requesting
+                for refunds.</p>
+
+            <hr class="divider">
+
+            <!-- Content Sections -->
+            <h2 id="overview" class="section-title">Overview</h2>
+            <p class="section-content">Description</p>
+
+            <p class="note-box"
+                style="border: 1px solid #f6ad55; background-color: #fffaf0; padding: 12px; border-radius: 4px;">
+                ⚠️ <strong>Important!</strong> Neither, Cebu Pacific will never ask for your OTP, PIN, passwords, or
+                full debit/credit card information. Please only engage with us through our official website or app,
+                verified social media accounts, and authorized customer service channels.
+            </p>
+
+            <hr class="divider">
+
+            <h2 class="section-title"> Refund eligibility</h2>
+
+            <p class="guidelines-intro">
+                You may request for a refund if:
+            </p>
+
+            <ul class="guidelines-list">
+                <li>Your flight was cancelled by us.</li>
+                <li>You are a pregnant mother unfit to fly.</li>
+                <li>You are seriously ill and medically unfit to travel.</li>
+                <li>You are an immediate passenger who needs to care for an sick immediate family member.</li>
+                <li>You are a booked passenger with an immediate family member who has recently passed away.</li>
+                <li>You are an immediate family member of a booked passenger who has recently passed away.</li>
+                <li>Other reasons such as:
+                    <ul class="sub-list">
+                        <li>You were denied entry by immigration.</li>
+                        <li>Your booking has unused government taxes.</li>
+                        <li>Your booking has an unused Unaccompanied Minor Fee.</li>
+                        <li>You're an exempted guest who paid for the PH Travel Tax.</li>
+                        <li>Your card got charged twice for the same booking.</li>
+                        <li>A double booking for the same passenger was made due to a system glitch.</li>
+                    </ul>
+                </li>
+                <li>If you have been denied entry by immigration:
+                    <ul class="sub-list">
+                        <li>Please approach us at the airport counters for assistance, or</li>
+                        <li><a href="#">Chat with us</a> via our app or website to connect with a Live Agent who can
+                            help.</li>
+                    </ul>
+                </li>
+                <li><strong>Take note!</strong> Bookings are generally non-refundable for personal reasons / reasons
+                    that don't fall under our listed criteria.
+                    <ul class="sub-list">
+                        <li>If you have the CEB Flexi add-on, you can cancel your booking and convert it to Travel Fund.
+                        </li>
+                        <li>Learn more here: <a href="CFTF-index.html">CEB Flexi and Travel Fund</a></li>
+                        <li>For refund requests due to medical, death or bereavement causes, Cebu Pacific recognizes the
+                            following as immediate family members:
+                            <ul style="list-style-type: circle; margin-top: 4px;">
+                                <li>Parent / Grandparent</li>
+                                <li>Children / Grandchildren</li>
+                                <li>Spouse</li>
+                                <li>Sibling</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="portal-text">
+                <strong>For unused flights, a refund is provided for the following guaranteed fees...</strong>
+            </p>
+            <ul class="guidelines-list">
+                <li>Terminal Fee</li>
+                <li>Taxes from the following countries: Saudi Korea, China, Malaysia, or Singapore</li>
+                <li>Philippine Travel Tax (PH Tax)
+                    <ul class="sub-list">
+                        <li>There is a processing fee when you request to refund the travel tax.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="portal-text">
+                <strong>For concerns about flight disruptions, and voluntary cancellation... please visit these
+                    articles...</strong>
+            </p>
+            <ul class="guidelines-list">
+                <li><a href="HMDF-index.html">How to Manage Your Disrupted Flight</a></li>
+                <li><a href="CFTF-index.html">CEB Flexi Add-on and Travel Fund</a></li>
+                <li><a href="RCYF-index.html">Rebooking or Cancelling Your Flight</a></li>
+            </ul>
+
+            <hr class="divider">
+
+            <h2 class="section-title">⌛ Refund processing</h2>
+
+            <p class="section-content">
+                Refunds are processed within 18 days in the original form of payment and is subject to our
+                fare rules.
+            </p>
+            <p class="section-content">
+                <strong>Depending on your payment method</strong>, it may take up to 2 billing cycles for your refund be
+                credited:
+            </p>
+            <ul class="guidelines-list">
+                <li>If it's been more than 18 days since your refund request, please fill out the <a href="#">Cebu
+                        Feedback Form</a>.
+                    <ul class="sub-list">
+                        <li>Select "I want to know the status of my refund" and enter your booking details.</li>
+                    </ul>
+                </li>
+                <li>You may also <a href="#">chat with us</a> to connect with a Live Agent who can help.</li>
+            </ul>
+
+            <p class="section-content" style="margin-top: 20px;">
+                You may learn more about our refund policy by visiting our <a href="#">General Terms and Conditions of
+                    Carriage of Passenger, and Baggage</a>.
+            </p>
+
+            <hr class="divider">
+
+            <!-- Policies & Guides Section -->
+            <h2 id="policies-guides" class="accordion-section-title">Policies & Guides</h2>
+
+            <p class="accordion-group-label">How to refund</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to request for a refund</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>If your flight was disrupted (e.g. canceled by us, had a schedule change of more than 1 hour),
+                        please follow the steps here:</p>
+                    <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 12px;">
+                        <li><a href="HMDF-index.html">Online disruption options</a></li>
+                    </ul>
+                    <hr style="border: none; border-top: 1px solid #dcdcdc; margin: 12px 0;">
+                    <p>For refund of fees and other concerns, chat with us via our website or app. Charlie can help you
+                        with your refund request, and you may be transferred to a live agent for further assistance.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Refunding cash payments</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>✈️ <strong>General Guidelines</strong></p>
+                    <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 12px;">
+                        <li>For bookings paid in cash, you can claim your refund via <strong>Bank or e-Wallet
+                                (GCash)</strong>.
+                            <ul style="list-style-type: disc; margin-left: 20px; margin-top: 6px;">
+                                <li>Please <a href="#">chat with us</a> via our app or website to connect with a Live
+                                    Agent who can help.</li>
+                            </ul>
+                        </li>
+                        <li>For travel agency bookings: please contact your respective travel agency to process your
+                            refund.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Refunding CEB TravelSure</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>To request a refund of your unused TravelSure Insurance:</p>
+                    <ul style="list-style-type: none; margin-left: 0; margin-bottom: 12px;">
+                        <li style="margin-bottom: 6px;">👤 Logging into the Self Service Portal or;</li>
+                        <li style="margin-bottom: 6px;">🇭🇰 Contact the Chubb Customer Service Team at <strong>+632
+                                8859 2774</strong></li>
+                    </ul>
+                    <p style="margin-bottom: 12px;">Our insurance provider Chubb will arrange for your policy to be
+                        canceled and will pass your refund request to Cebu Pacific for processing.</p>
+                    <p style="margin-bottom: 6px;">You can request a refund if:</p>
+                    <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 0;">
+                        <li>You have not yet departed and have not made any claim under the policy; or</li>
+                        <li>Your flight was disrupted</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Common refund issues</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>Here are some common troubleshooting steps you can try:</p>
+                    <table
+                        style="width: 100%; border-collapse: collapse; margin-top: 12px; margin-bottom: 16px; font-size: 13px;">
+                        <thead>
+                            <tr style="background-color: #0073e6; color: #ffffff;">
+                                <th colspan="2" style="padding: 10px; text-align: center; border: 1px solid #0073e6;">
+                                    General Troubleshooting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; width: 35%; font-weight: 600;">👤
+                                    Are you logged in?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6; width: 65%;">
+                                    <ul style="list-style-type: disc; margin-left: 15px; margin-bottom: 0;">
+                                        <li>You need to log into the MyCebuPacific account of your booking to make
+                                            changes
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">🧳 Can't find
+                                    your booking?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul style="list-style-type: disc; margin-left: 15px; margin-bottom: 0;">
+                                        <li>You may have to add the booking to your account. :
+
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">🟨 Do you have a
+                                    group or travel agency booking?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul style="list-style-type: disc; margin-left: 15px; margin-bottom: 0;">
+                                        <li>Please contact your agent / coordinator directly to make changes.
+
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">✈️ Did you book
+                                    on an unauthorized third-party platform?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul
+                                        style="list-style-type: disc; margin-left: 15px; margin-bottom: 0; padding-left: 0;">
+                                        <li style="margin-bottom: 6px;">You may have difficulty managing your booking as
+                                            these platforms may issue booking reference numbers not recognized by our
+                                            system.</li>
+                                        <li style="margin-bottom: 6px;">If you encounter any issues, please <a
+                                                href="#">chat with us</a> to connect with a Live Agent who can verify
+                                            your booking.</li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table
+                        style="width: 100%; border-collapse: collapse; margin-top: 16px; margin-bottom: 0; font-size: 13px;">
+                        <thead>
+                            <tr style="background-color: #0073e6; color: #ffffff;">
+                                <th colspan="2" style="padding: 10px; text-align: center; border: 1px solid #0073e6;">
+                                    Common Issues When Trying to Request for a Refund</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; width: 35%; font-weight: 600;">Has
+                                    it been more than 15 days since you requested for a refund?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6; width: 65%;">
+                                    <ul
+                                        style="list-style-type: disc; margin-left: 15px; margin-bottom: 0; padding-left: 0;">
+                                        <li style="margin-bottom: 6px;">If it has been more than 15 days since your
+                                            refund request:
+                                            <ul style="list-style-type: disc; margin-left: 15px; margin-top: 4px;">
+                                                <li><a href="#">Guest Feedback Form</a></li>
+                                                <li>Select "I want to know the status of my refund" and enter your
+                                                    booking details.</li>
+                                            </ul>
+                                        </li>
+                                        <li style="margin-bottom: 6px;">You may also <a href="#">chat with us</a> to
+                                            connect with a Live Agent who can help.</li>
+                                        <li>💡 <strong>Take note!</strong> Depending on your payment method, it may take
+                                            up to 2 billing cycles for your refund to be credited.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">Is the payment
+                                    method you used for your booking no longer active?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul
+                                        style="list-style-type: disc; margin-left: 15px; margin-bottom: 0; padding-left: 0;">
+                                        <li style="margin-bottom: 6px;">If you have requested for a refund, and the
+                                            payment method you used for your booking is no longer active:
+                                            <ul style="list-style-type: disc; margin-left: 15px; margin-top: 4px;">
+                                                <li>Please <a href="#">chat with us</a> to connect with a Live Agent who
+                                                    can help.</li>
+                                            </ul>
+                                        </li>
+                                        <li>The refund may be returned to you in the form of a Travel Fund or through
+                                            another payment method.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">Do you need to
+                                    refund the PH Travel Tax?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul
+                                        style="list-style-type: disc; margin-left: 15px; margin-bottom: 0; padding-left: 0;">
+                                        <li style="margin-bottom: 6px;">If you are an exempted guest (e.g. an OFW) and
+                                            accidentally paid for the PH Travel Tax, you can request to refund this.
+                                        </li>
+                                        <li>Learn more here: <a href="#">Service Fees and Travel Tax</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">Do you need to
+                                    refund the Unaccompanied Minor fee?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul
+                                        style="list-style-type: disc; margin-left: 15px; margin-bottom: 0; padding-left: 0;">
+                                        <li style="margin-bottom: 6px;">If you made a separate booking for a Child
+                                            guest, but you will be traveling on the same flight as them:
+                                            <ul style="list-style-type: disc; margin-left: 15px; margin-top: 4px;">
+                                                <li><a href="#">Chat with us</a> via app or website to connect with a
+                                                    Live Agent who can refund the UM Fee.</li>
+                                            </ul>
+                                        </li>
+                                        <li>Learn more here: <a href="#">Unaccompanied Minor Requirements</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #0073e6; font-weight: 600;">Are you having
+                                    trouble refunding your insurance?</td>
+                                <td style="padding: 10px; border: 1px solid #0073e6;">
+                                    <ul style="list-style-type: disc; margin-left: 15px; margin-bottom: 0;">
+                                        <li>Contact the Chubb Customer Service Team at <strong>+632 8859 2774</strong>.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+            <p class="accordion-group-label">FAQs</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Are there any other channels where I can contact Cebu Pacific regarding my refund?</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 12px;">For any questions or status updates regarding your refund, you can
+                        always reach out to us via our website or app. Charlie can check the status of your refund, and
+                        you may be transferred to a live agent if further assistance is needed.</p>
+                    <p style="margin-bottom: 12px;">You may also submit your refund status request through our <a
+                            href="#">Guest Feedback Form</a>.</p>
+
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Do you have an email address or contact number I can reach out to regarding my refund?</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 12px;">Our contact servers are largely virtual, so you may contact us
+                        either through the website or app. Charlie can help you in checking the status of your refund,
+                        or you may be transferred to a live agent for further assistance.</p>
+                    <p style="margin-bottom: 0;">If you are an international customer from Australia, Japan, Hong Kong,
+                        China, South Korea or Taiwan.
+                    <p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>I received an email regarding my refund. Is this legitimate?</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 12px;">Our agents will reach out to you via email regarding your case only
+                        after:</p>
+                    <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 12px;">
+                        <li>You've contacted us through our official channels</li>
+                        <li>If additional requirements are needed, and</li>
+                        <li>You have provided your email to the agent who assisted you.</li>
+                    </ul>
+                    <p style="margin-bottom: 0;">Please take note of your case number and the name of the agent who
+                        assisted you to verify that the person reaching out to you is an authorized representative.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>I was contacted by an agent through social media / SMS regarding my refund. Is this
+                        legitimate?</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 12px;">No, and we advise you not to respond. We will only contact you using
+                        official channels, and only after you have made a request through our website, app or our <a
+                            href="#">Guest Feedback Form</a>. We will never use other modes of communication to get in
+                        touch with you.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Will I need to provide any personal information in order for my refund request to be
+                        processed?</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 12px;">After you have reached out to us via official channels, we may ask
+                        you for some details, like your booking reference number (PNR), the email address associated
+                        with the booking, and other information regarding your flight and payment details.</p>
+                    <p style="margin-bottom: 12px;">We may also ask for identification so we can be sure it's really you
+                        making the request.</p>
+                    <p style="margin-bottom: 0;">We will never ask for PINs, passwords, OTPs, or your full debit or
+                        credit card information.</p>
+                </div>
+            </details>
+
+        </main>
+    </div>
+
+    <!-- Active Indicator Scroll Spy Script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navOverview = document.getElementById('nav-overview');
+            const navPolicies = document.getElementById('nav-policies');
+            const policiesSection = document.getElementById('policies-guides');
+
+            function onScroll() {
+                const rect = policiesSection.getBoundingClientRect();
+                // When Policies & Guides section approaches the top quarter of the viewport
+                if (rect.top <= window.innerHeight * 0.35) {
+                    navOverview.classList.remove('active');
+                    navPolicies.classList.add('active');
+                } else {
+                    navPolicies.classList.remove('active');
+                    navOverview.classList.add('active');
+                }
+            }
+
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
+
+</body>
+
+</html>

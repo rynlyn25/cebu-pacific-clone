@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Add-ons</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 30px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 20%;
+            padding-right: 40px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            color: #0093d1;
+        }
+
+        .sidebar a.active {
+            color: #000000;
+            font-weight: normal;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 80%;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Top Baggage Banner Section */
+        .baggage-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 30px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .baggage-img-container {
+            width: 42%;
+            flex-shrink: 0;
+        }
+
+        .baggage-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .baggage-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .baggage-info h3 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .baggage-info p {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 45px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cards Grid Layout (3x2 format) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .card-header-bar .arrow {
+            color: #0073ba;
+            font-size: 16px;
+        }
+
+        .card-img-container {
+            width: 100%;
+            background-color: #f8fafc;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 4px solid #ffd200;
+            /* Yellow bottom accent stripe from design */
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>Add-ons</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container" style="display: block;">
+
+        <!-- Main Content Area -->
+        <main class="content" style="width: 100%;">
+
+            <!-- Top Feature: CEB Baggage Banner -->
+            <div class="baggage-banner">
+                <div class="baggage-img-container">
+                    <img src="CEBB.jpg" alt="CEB Baggage">
+                </div>
+                <div class="baggage-info">
+                    <h3>CEB Baggage</h3>
+                    <p>Save more with our enhanced baggage options</p>
+                    <a href="CEBB-index.html" class="btn-primary">Read more</a>
+                </div>
+            </div>
+
+            <!-- Cards Grid Section -->
+            <div class="cards-grid">
+
+                <!-- Card 1: CEB Seat Selector -->
+                <a href="CEBSS-index.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Seat Selector</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="CEBSS.png" alt="CEB Seat Selector">
+                    </div>
+                </a>
+
+                <!-- Card 2: CEB Flexi -->
+                <a href="CEBFlexi.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Flexi</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="CEBFlexi.png" alt="CEB Flexi">
+                    </div>
+                </a>
+
+                <!-- Card 3: CEB TravelSure -->
+                <a href="CEBTS-index.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB TravelSure</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="CEBTS.png" alt="CEB TravelSure">
+                    </div>
+                </a>
+
+                <!-- Card 4: CEB Meals -->
+                <a href="CEBM-index.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Meals</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="CEBM.png" alt="CEB Meals">
+                    </div>
+                </a>
+
+                <!-- Card 5: CEB Transfers -->
+                <a href="CEBT-index.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Transfers</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="CEBT.png" alt="CEB Transfers">
+                    </div>
+                </a>
+
+                <!-- Card 6: CEB Fun Shop -->
+                <a href="CEBFS-index.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Fun Shop</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="CEBFS.png" alt="CEB Fun Shop">
+                    </div>
+                </a>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Advisories</title>
+    <!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        /* =========================================
+           TOP ADVISORY BAR & HEADER STYLES
+           ========================================= */
+        .top-advisory-bar {
+            width: 100%; /* Forces the blue bar to stretch full width */
+            background-color: #00a4e4; 
+            padding: 8px 0;
+        }
+
+        .header-content-wrapper {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-header {
+            width: 100%; /* Forces the white navigation to stretch full width */
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #fcfcfc;
+            color: #333333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Yellow Banner matched exactly to the 100% zoom image */
+        .header-banner {
+            width: 100%;
+            background-color: #FFD400;
+            padding: 42px 0 50px 0;
+            /* Adjusted padding to match the exact height and vertical layout at 100% zoom */
+            text-align: left;
+            clip-path: ellipse(115% 100% at 50% 0%);
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-banner-content {
+            width: 100%;
+            max-width: 720px;
+            /* Compromised to match the tighter body width constraint */
+            padding: 0 24px;
+            /* Reduced from 45px to move the header text a little to the left */
+            transition: max-width 0.3s ease;
+        }
+
+        /* Large view header width adjustment - kept to the left instead of text-align: center */
+        body.in-detail-view .header-banner-content {
+            max-width: 1200px;
+            text-align: left;
+        }
+
+        .header-title {
+            color: #0056B3;
+            font-size: 38px;
+            /* Made the text even bigger as requested */
+            font-weight: 750;
+            letter-spacing: -0.2px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            display: inline-block;
+        }
+
+        /* Main layout container compromised back to a narrower layout matching the image proportions */
+        .content-container {
+            width: 100%;
+            max-width: 720px;
+            /* Reduced back from 1100px to match the tighter text wrapping of the layout image */
+            padding: 0 20px;
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: max-width 0.3s ease;
+        }
+
+        /* Adjust width of the container when viewing details to fit the wide design */
+        body.in-detail-view .content-container {
+            max-width: 1200px;
+        }
+
+        /* Year Filter Bar */
+        .year-filter {
+            margin-bottom: 25px;
+            font-size: 16px;
+            /* Slightly scaled up for 100% zoom */
+            color: #003087;
+            font-weight: bold;
+            width: 100%;
+            padding: 0 25px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .year-link {
+            color: #003087;
+            text-decoration: none;
+            border-bottom: 2px solid #003087;
+            padding-bottom: 2px;
+        }
+
+        /* Central Card Structure matching 100% zoom second image */
+        .advisory-card {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            /* Smoother corner radius */
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ededed;
+            padding: 20px 45px 35px 45px;
+            margin-bottom: 40px;
+        }
+
+        /* Detail View Card styles (No background card styling when looking at the requested picture) */
+        body.in-detail-view .advisory-card {
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+        }
+
+        /* Individual List Row */
+        .advisory-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            /* Slightly more vertical breathing room */
+            border-bottom: 1px solid #eef2f5;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .advisory-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* Aligned spacing between metadata date and title text */
+        }
+
+        /* Scaled up text sizing to match 100% zoom view */
+        .item-date {
+            font-size: 12px;
+            color: #7b8a97;
+            /* Neutral secondary gray */
+            font-weight: 500;
+        }
+
+        .item-title {
+            font-size: 24px;
+            /* Significantly increased to match the prominent title font in the second screenshot */
+            color: #1a1a1a;
+            font-weight: 400;
+            line-height: 1.35;
+        }
+
+        /* Right Arrow Icon */
+        .arrow-icon {
+            color: #0056B3;
+            /* Deep blue styling of the chevron arrow */
+            font-size: 22px;
+            /* Scaled up to match 100% zoom image */
+            font-weight: bold;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding-left: 20px;
+        }
+
+        /* Pagination Section */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 35px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .page-btn {
+            color: #003087;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .page-btn.disabled {
+            color: #cccccc;
+            cursor: default;
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 15px;
+        }
+
+        .page-num {
+            text-decoration: none;
+            color: #666666;
+        }
+
+        .page-num.active {
+            color: #003087;
+            font-weight: bold;
+        }
+
+        /* CSS for handling View States */
+        .page-content {
+            display: none;
+            width: 100%;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        /* Detailed Article Container styling */
+        .detail-article {
+            max-width: 960px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        /* Typography sizing updated to be larger based on requests */
+        .article-header h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 4px;
+        }
+
+        .article-header h2 {
+            font-size: 26px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .article-header .article-date {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        .article-body {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .article-body p {
+            margin: 0;
+        }
+
+        .article-body a {
+            color: #0056B3;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .article-body a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styled unclickable span class to represent offline text paths without links */
+        .plain-url-text {
+            color: #0056B3;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Custom styling for the data table match */
+        .advisory-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .advisory-table th,
+        .advisory-table td {
+            border: 1px solid #333333;
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        .advisory-table th {
+            font-weight: bold;
+            background-color: #ffffff;
+        }
+
+        /* Back Link custom layout position */
+        .back-link-container {
+            width: 100%;
+            max-width: 960px;
+            margin: 20px auto 30px auto;
+            text-align: left;
+        }
+
+        .back-link {
+            color: #0056B3;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+        }
+    /* =========================================
+     FOOTER STYLES (Fixed Full-Width & Spacing)
+     ========================================= */
+  .site-footer {
+      background-color: #ffffff;
+      padding: 50px 20px;
+      border-top: 1px solid #eaeaea;
+      margin-top: 50px;
+      width: 100%; /* THE FIX: Forces the footer to stretch across the whole screen */
+  }
+
+  .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+  }
+
+  .footer-links-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      flex: 2;
+  }
+
+  .footer-links-grid .col {
+      flex: 1;
+      min-width: 120px; 
+      display: flex;
+      flex-direction: column;
+  }
+
+  .footer-links-grid h4, .footer-right-sidebar h4 {
+      font-size: 13px;
+      color: #111111; 
+      margin-bottom: 15px;
+      font-weight: 800;
+  }
+
+  .footer-links-grid a {
+      color: #009cdb; 
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+  }
+
+  .footer-links-grid a:hover {
+      text-decoration: underline;
+  }
+
+  .footer-right-sidebar {
+      flex: 1;
+      min-width: 280px;
+      border-left: 1px solid #dcdcdc; 
+      padding-left: 35px;
+  }
+
+  .app-buttons img {
+      height: 38px;
+      width: auto;
+      margin-right: 10px;
+      margin-bottom: 10px;
+  }
+
+  .payment-grid img {
+      height: 30px; 
+      width: auto;
+      margin-right: 15px;
+      margin-bottom: 15px;
+      vertical-align: middle;
+  }
+
+  .accreditations img {
+      height: 60px;
+      width: auto;
+      margin-right: 15px;
+  }
+
+  .country-selector {
+      flex-basis: 100%;
+      margin-top: 15px;
+  }
+
+  .country-box {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #111;
+      font-weight: 600;
+      cursor: pointer;
+      width: fit-content; 
+  }
+  
+  .country-box i {
+      margin-right: 8px;
+      color: #111;
+  }
+
+  /* BOTTOM YELLOW BAR */
+  .footer-bottom {
+      background-color: #ffcc00; 
+      padding: 20px;
+      width: 100%; /* THE FIX: Forces the yellow bar to stretch across the whole screen */
+  }
+
+  .footer-bottom-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+  }
+
+  /* THE FIX: Spacing out the links in the yellow bar */
+  .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px; 
+  }
+
+  .footer-legal-links a {
+      color: #0054A6; 
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+  }
+  
+  .footer-legal-links a:hover {
+      text-decoration: underline;
+  }
+
+  .copyright-text {
+      font-size: 14px;
+      color: #0054A6; 
+      font-weight: 700;
+  }
+  
+    </style>
+</head>
+
+<body>
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY BAR -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper">
+            <div class="advisory-right" style="display: flex; align-items: center; margin-left: auto; justify-content: flex-end;">
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="color: rgba(255, 255, 255, 0.7); margin-right: 6px; font-size: 14px;"></i> PHP
+                </a>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center; margin-left: 25px; margin-right: 25px;">
+                    <i class="fa-solid fa-globe" style="color: rgba(255, 255, 255, 0.7); margin-right: 6px; font-size: 14px;"></i> English
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- WHITE NAVIGATION HEADER -->
+    <!-- ========================================== -->
+    <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="header-logo-link">
+                <!-- Ensure this image path matches where your logo is saved -->
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            </a>
+            <div class="header-action-right" style="display: flex; align-items: center;">
+                <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Banner stays permanently at the top -->
+    <header class="header-banner">
+        <div class="header-banner-content">
+            <h1 id="banner-title" class="header-title">Travel Advisories</h1>
+        </div>
+    </header>
+
+    <div class="content-container">
+   
+        <!-- Main Document Box -->
+        <div class="advisory-card">
+
+            <!-- Container for Page 1 content (List View) -->
+            <div id="page-1" class="page-content active">
+
+                <!-- Filter Line inside List View -->
+                <div class="year-filter" style="padding: 0; margin-bottom: 20px;">
+                    <a href="#" class="year-link">2026</a>
+                </div>
+
+                <!-- Row 1 (Triggers the airswift detail page) -->
+                <a href="#" id="airswift-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">July 13, 2026</span>
+                        <span class="item-title">Integration of AirSWIFT into Cebgo Operations</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 2 (Triggers the typhoon detail page) -->
+                <a href="#" id="typhoon-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">July 11, 2026</span>
+                        <span class="item-title">Cancelled Flights Due to Typhoon Bavi</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 3 (Triggers the Kanlaon detail page) -->
+                <a href="#" id="kanlaon-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">July 09, 2026</span>
+                        <span class="item-title">Cancelled Flights Due to Mt. Kanlaon Eruption</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 4 (Triggers the earthquake detail page) -->
+                <a href="#" id="earthquake-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">June 08, 2026</span>
+                        <span class="item-title">Cancelled Flights Due to Mindanao Earthquake</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 5 (Triggers the Dubai detail page) -->
+                <a href="#" id="dubai-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">May 11, 2026</span>
+                        <span class="item-title">Resumption of Dubai Operations</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 6 (Triggers the Jet Fuel detail page) -->
+                <a href="#" id="fuel-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">March 28, 2026</span>
+                        <span class="item-title">Jet Fuel Supply Update</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 7 (Triggers the Holy Week Reminders detail page) -->
+                <a href="#" id="holyweek-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">March 23, 2026</span>
+                        <span class="item-title">Peak Travel Reminders for Holy Week</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 8 (Triggers the Network Adjustments detail page) -->
+                <a href="#" id="network-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">March 11, 2026</span>
+                        <span class="item-title">Network Adjustments Due to Middle East Crisis</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 9 (Triggers the Middle East Security Situation detail page) -->
+                <a href="#" id="security-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">February 24, 2026</span>
+                        <span class="item-title">Cancelled Flights Due to Security Situation in the Middle East</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+
+                <!-- Row 10 (Triggers the Tropical Storm Basyang detail page) -->
+                <a href="#" id="basyang-link" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">February 12, 2026</span>
+                        <span class="item-title">Cancelled Flights Due to Tropical Storm Basyang</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+            </div>
+
+            <!-- Container for Page 2 content -->
+            <div id="page-2" class="page-content">
+
+                <!-- Filter Line inside List View Page 2 -->
+                <div class="year-filter" style="padding: 0; margin-bottom: 20px;">
+                    <a href="#" class="year-link">2026</a>
+                </div>
+
+                <!-- Row 11 -->
+                <a href="#" class="advisory-item">
+                    <div class="item-details">
+                        <span class="item-date">January 22, 2026</span>
+                        <span class="item-title">Transfer of All Turboprop Flights from NAIA T2 to Clark Int'l
+                            Airport</span>
+                    </div>
+                    <span class="arrow-icon">&rsaquo;</span>
+                </a>
+            </div>
+
+            <!-- DETAIL VIEW -->
+            <div id="detail-view" class="page-content">
+
+                <!-- Back navigation -->
+                <div class="back-link-container">
+                    <a href="#" id="back-to-list" class="back-link">
+                        &lsaquo; Back to Travel Advisories
+                    </a>
+                </div>
+
+                <!-- Article Content Container 1: AirSWIFT Detail View -->
+                <div id="article-airswift" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Integration of AirSWIFT into Cebgo Operations</h2>
+                        <span class="article-date">June 15, 2026</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Cebu Pacific (CEB) advises AirSWIFT customers that effective July 1, 2026, all AirSWIFT
+                            flights will be operated by Cebgo.</p>
+                        <p>During this transition, there will be no changes in AirSWIFT's flight schedules and services
+                            as flights to and from El Nido will continue as scheduled. Additionally, all T6 coded
+                            flights will be coded as DG flights as these will be operated by Cebgo.</p>
+                        <p>AirSWIFT currently operates flights between Clark and El Nido in northern Palawan, and
+                            between El Nido and other major tourist destinations in the country including Boracay,
+                            Bohol, Cebu, and Coron.</p>
+                        <p>CEB currently flies to 35 domestic and 26 international destinations. CEB reminds passengers
+                            to book their flights directly through CEB's official website, mobile app, and affiliated
+                            travel partners and agencies to avoid issues with booking and managing their flights.</p>
+                        <p>For more information, visit <a
+                                href="https://help.cebupacificair.com/article/air-swift-transitions-into-cebgo-operations-247334"
+                                target="_blank">https://help.cebupacificair.com/article/air-swift-transitions-into-cebgo-operations-247334</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 2: Typhoon Bavi Detail View -->
+                <div id="article-typhoon" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Cancelled Flights Due to Typhoon Bavi</h2>
+                        <span class="article-date">As of July 11, 2026; 9:00 PM</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Cebu Pacific (CEB) announces the cancellation of the following flights due to the impact of
+                            Typhoon Bavi (Local name: Inday) on flight operations:</p>
+
+                        <p>July 11, 2026:</p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 130/131: Cebu – Seoul (Incheon) – Cebu</li>
+                            <li>5J 188: Manila – Seoul (Incheon)</li>
+                            <li>5J 310: Manila – Taipei</li>
+                            <li>5J 344/345: Manila – Kaohsiung – Manila</li>
+                            <li>5J 678: Manila – Shanghai</li>
+                            <li>5J 922/923: Manila – Fukuoka – Manila</li>
+                        </ul>
+
+                        <p>July 12, 2026:</p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 187: Seoul (Incheon) – Manila</li>
+                            <li>5J 311: Taipei – Manila</li>
+                            <li>5J 679: Shanghai – Manila</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>The safety of our passengers and crew remains our utmost priority. As this is a developing
+                            situation, some flight changes may take place as the storm passes. Please monitor the status
+                            of your flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> or on the CEB
+                            mobile app and update your contact details via the Manage Booking portal <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> to receive
+                            email and SMS notifications on flight reminders.</p>
+
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            CEB website, or through CEB's official social media accounts.</p>
+                        <p>We will provide updates as necessary.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 3: Mt. Kanlaon Detail View -->
+                <div id="article-kanlaon" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory #2</h3>
+                        <h2>Additional Cancelled Flights Due to Mt. Kanlaon Eruption</h2>
+                        <span class="article-date">As of July 9, 2026; 8:00 PM</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Cebu Pacific advises passengers that some flights may be cancelled, delayed, or adjusted
+                            following the recent eruption of Mt. Kanlaon.</p>
+                        <p>As a safety precaution, Cebu Pacific is conducting aircraft engine inspections on aircraft
+                            that may have been exposed to volcanic ash. These inspections are necessary to ensure that
+                            every aircraft is fully cleared before returning to operations.</p>
+                        <p>While this may result in delays and schedule adjustments, the safety of our passengers and
+                            crew remains our highest priority. Cebu Pacific is working to complete the required
+                            inspections as quickly and safely as possible, while minimizing disruption to affected
+                            passengers.</p>
+
+                        <p>Here are the additional cancelled flights on July 10:</p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>DG 6575/6576: Cebu – Tacloban – Cebu</li>
+                            <li>DG 6579/6580: Cebu – Tacloban – Cebu</li>
+                            <li>DG 6601/6602: Cebu – Dipolog – Cebu</li>
+                            <li>DG 6639/6640: Cebu – Pagadian – Cebu</li>
+                            <li>DG 6923/6924: Cebu – Butuan – Cebu</li>
+                            <li>DG 6925/6926: Cebu – Butuan – Cebu</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the Cebu Pacific website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>CEB is also offering flexible options, which include free rebooking and travel fund, to
+                            passengers who wish to postpone their flights to and from Cebu scheduled on July 9, 2026.
+                            They may avail themselves of their preferred option online up to two (2) hours before their
+                            scheduled time of departure.</p>
+                        <p>As this is a developing situation, some flight changes may continue to take place. Passengers
+                            are advised to check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>We will provide updates as necessary.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory</h3>
+                            <h2>Cancelled Flights Due to Mt. Kanlaon Eruption</h2>
+                            <span class="article-date">As of July 9, 2026; 4:30 PM</span>
+                        </div>
+                        <p>Due to the eruption of Mt. Kanlaon and the resulting ashfall affecting Cebu, the following
+                            Cebu Pacific (CEB) flights scheduled on July 9, 2026 are cancelled:</p>
+
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>DG 6210/6211: Cebu – Legazpi – Cebu</li>
+                            <li>DG 6695/6696: Cebu – Camiguin – Cebu</li>
+                            <li>DG 6793/6794: Cebu – Ozamiz – Cebu</li>
+                            <li>DG 6853/6854: Cebu – Siargao – Cebu</li>
+                            <li>DG 6855/6856: Cebu – Siargao – Cebu</li>
+                            <li>5J 396: Cagayan de Oro – Manila</li>
+                            <li>5J 915/916: Clark – Caticlan – Clark</li>
+                            <li>5J 959/960: Manila – Davao – Manila</li>
+                            <li>5J 1015/1016: Clark – Puerto Princesa – Clark</li>
+                            <li>5J 1085/1086: Clark – Davao – Clark</li>
+                            <li>5J 4300: Cebu – Clark</li>
+                            <li>5J 4301: Clark – Cebu</li>
+                            <li>5J 4308: Cebu – Clark</li>
+                            <li>5J 4525: Cebu – Cagayan de Oro</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the Cebu Pacific website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>CEB is also offering flexible options, which include free rebooking and travel fund, to
+                            passengers who wish to postpone their flights to and from Cebu scheduled on July 9, 2026.
+                            They may avail themselves of their preferred option online up to two (2) hours before their
+                            scheduled time of departure.</p>
+                        <p>As this is a developing situation, some flight changes may continue to take place. Passengers
+                            are advised to check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            CEB website, or through CEB's official Facebook and X accounts.</p>
+                        <p>We will provide updates as necessary.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 4: Mindanao Earthquake Detail View -->
+                <div id="article-earthquake" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory #4</h3>
+                        <h2>Additional Cancelled Flights Due to Mindanao Earthquake</h2>
+                        <span class="article-date">As of June 11, 2026; 2:00 PM</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Due to the continuous impact of the Magnitude 7.8 earthquake that hit off the coast of
+                            Mindanao on flight operations, Cebu Pacific (CEB) has cancelled additional flights:</p>
+
+                        <p><strong>June 12:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 249/250: Cebu – General Santos – Cebu</li>
+                        </ul>
+
+                        <p><strong>June 13, 14:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 251/252: Cebu – General Santos – Cebu</li>
+                        </ul>
+
+                        <p><strong>June 12, 13, 14:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 991/992: Manila – General Santos – Manila</li>
+                            <li>5J 993/994: Manila – General Santos – Manila</li>
+                            <li>5J 995/996: Manila – General Santos – Manila</li>
+                            <li>5J 997/998: Manila – General Santos – Manila</li>
+                            <li>5J 4843/4844: Iloilo – General Santos – Iloilo</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the Cebu Pacific website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>As this is a developing situation, some flight changes may continue to take place. Passengers
+                            are advised to check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            official CEB website, or through CEB's official Facebook and X accounts.</p>
+                        <p>We appeal for your patience and understanding as we work towards normalizing our operations
+                            as soon as possible.</p>
+                        <p>We will provide updates as necessary.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #3</h3>
+                            <h2>Additional Cancelled Flights Due to Mindanao Earthquake</h2>
+                            <span class="article-date">As of June 10, 2026; 5:00 PM</span>
+                        </div>
+                        <p>Due to the continuous impact of the Magnitude 7.8 earthquake that hit off the coast of
+                            Mindanao on flight operations, Cebu Pacific (CEB) has cancelled additional flights scheduled
+                            for June 11, 2026:</p>
+
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 251/252: Cebu – General Santos – Cebu</li>
+                            <li>5J 991/992: Manila – General Santos – Manila</li>
+                            <li>5J 993/994: Manila – General Santos – Manila</li>
+                            <li>5J 995/996: Manila – General Santos – Manila</li>
+                            <li>5J 997/998: Manila – General Santos – Manila</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the Cebu Pacific website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>As this is a developing situation, some flight changes may continue to take place. Passengers
+                            are advised to check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            official CEB website, or through CEB's official Facebook and X accounts.</p>
+                        <p>We appeal for your patience and understanding as we work towards normalizing our operations
+                            as soon as possible.</p>
+                        <p>We will provide updates as necessary.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #2</h3>
+                            <h2>Additional Cancelled Flights Due to Mindanao Earthquake</h2>
+                            <span class="article-date">As of June 8, 2026; 7:00 PM</span>
+                        </div>
+                        <p>Due to the impact of the Magnitude 7.8 earthquake that hit off the coast of Mindanao on
+                            flight operations, Cebu Pacific (CEB) has cancelled additional flights:</p>
+
+                        <p><strong>June 9, 2026</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 251/252: Cebu – General Santos – Cebu</li>
+                            <li>5J 991/992: Manila – General Santos – Manila</li>
+                            <li>5J 993/994: Manila – General Santos – Manila</li>
+                            <li>5J 995/996: Manila – General Santos – Manila</li>
+                            <li>5J 997/998: Manila – General Santos – Manila</li>
+                        </ul>
+
+                        <p><strong>June 10, 2026</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 251/252: Cebu – General Santos – Cebu</li>
+                            <li>5J 991/992: Manila – General Santos – Manila</li>
+                            <li>5J 993/994: Manila – General Santos – Manila</li>
+                            <li>5J 995/996: Manila – General Santos – Manila</li>
+                            <li>5J 997/998: Manila – General Santos – Manila</li>
+                            <li>5J 4843/4844: Iloilo – General Santos – Iloilo</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the Cebu Pacific website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>As this is a developing situation, some flight changes may continue to take place. Passengers
+                            are advised to check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            official CEB website, or through CEB's official Facebook and X accounts.</p>
+                        <p>We appeal for your patience and understanding as we work towards normalizing our operations
+                            as soon as possible.</p>
+                        <p>We will provide updates as necessary.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory</h3>
+                            <h2>Cancelled Flights Due to Mindanao Earthquake</h2>
+                            <span class="article-date">As of June 8, 2026; 12:30 PM</span>
+                        </div>
+                        <p>Due to the impact of the Magnitude 7.8 earthquake that hit off the coast of Mindanao on
+                            flight operations, the following Cebu Pacific (CEB) flights scheduled today, June 8, 2026,
+                            are cancelled:</p>
+
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 249/250: Cebu – General Santos – Cebu</li>
+                            <li>5J 991/992: Manila – General Santos – Manila</li>
+                            <li>5J 993/994: Manila – General Santos – Manila</li>
+                            <li>5J 995/996: Manila – General Santos – Manila</li>
+                            <li>5J 998: General Santos – Manila</li>
+                            <li>5J 4843/4844: Iloilo – General Santos – Iloilo</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Cebu Pacific website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking / Rerouting</strong></p>
+                        <p>Rebook or reroute any flight bound for General Santos for free. Should the travel period
+                            extend beyond thirty (30) days from the original flight date, a fare difference may be
+                            applied.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Full refund of your ticket.</p>
+
+                        <p>As this is a developing situation, some flight changes may continue to take place. Passengers
+                            are advised to check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            official CEB website, or through CEB's official Facebook and X accounts.</p>
+                        <p>We appeal for your patience and understanding as we work towards normalizing our operations
+                            as soon as possible.</p>
+                        <p>We will provide updates as necessary.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 5: Resumption of Dubai Operations Detail View -->
+                <div id="article-dubai" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Resumption of Dubai Operations</h2>
+                        <span class="article-date">May 19, 2026</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Cebu Pacific (PSE: CEB) is pleased to inform its passengers that it will resume its Dubai
+                            operations on July 2, 2026, after safety assessments and coordination with Dubai airport
+                            authorities.</p>
+                        <p>The following flights will resume operations:</p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                        </ul>
+                        <p>CEB will operate flights between Manila and Dubai 4x weekly, scheduled on Tuesdays,
+                            Thursdays, Saturdays, and Sundays.</p>
+                        <p>Passengers with cancelled flights to and from Dubai may start rebooking their flights through
+                            the Manage Booking portal at the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>.</p>
+                        <p>Meanwhile, CEB continues to operate 4x weekly flights between Manila and Riyadh every Monday,
+                            Wednesday, Friday, and Sunday. Meanwhile, Riyadh to Manila flights are scheduled every
+                            Monday, Tuesday, Thursday, and Saturday.</p>
+                        <p>The safety and well-being of our passengers and crew remain our utmost priority. Passengers
+                            are encouraged to check their flight status at <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and ensure
+                            their contact details are updated to receive timely notifications.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            CEB official website, or through CEB's official social media accounts.</p>
+                        <p>We thank our passengers for their continued support.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 6: Jet Fuel Supply Update Detail View -->
+                <div id="article-fuel" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Jet Fuel Supply Update</h2>
+                        <span class="article-date">March 29, 2026</span>
+                    </div>
+                    <div class="article-body">
+                        <p>As developments in parts of the Middle East continue to evolve and impact global fuel supply,
+                            Cebu Pacific understands the importance of providing clarity and reassurance to its
+                            passengers.</p>
+                        <p>The airline has secured sufficient jet fuel to support all scheduled domestic and
+                            international flights until June 2026. CEB is working closely with suppliers and industry
+                            partners to ensure continued fuel availability in the months ahead and will continue to take
+                            proactive measures to maintain stable and sustainable operations.</p>
+                        <p>Passengers can continue to travel with confidence, as Cebu Pacific remains committed to
+                            providing reliable and affordable air travel.</p>
+                        <p>We appreciate our passengers' understanding and encourage them to stay updated through our
+                            official channels for the latest information.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 7: Peak Travel Reminders for Holy Week Detail View -->
+                <div id="article-holyweek" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Peak Travel Reminders for Holy Week</h2>
+                        <span class="article-date">March 26, 2026</span>
+                    </div>
+                    <div class="article-body">
+                        <p>As the peak travel season for the Holy Week approaches, Cebu Pacific (CEB) remains committed
+                            to ensuring a safe and seamless journey for its passengers. To help travelers prepare, here
+                            are some reminders to make every Juan's trip smoother and more convenient:</p>
+
+                        <p><strong>1. Check the airport terminal assignment of your flight</strong></p>
+                        <p>Before proceeding to the airport, passengers are strongly advised to check the details in
+                            their itineraries and boarding passes, especially the flight number and terminal assignment.
+                            Flight numbers begin with either 5J, DG, or T6:</p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li><strong>5J flights:</strong> Operated by Cebu Pacific using larger commercial jet
+                                aircraft. For those flying to and from Manila, these flights arrive at and depart from
+                                Ninoy Aquino International Airport (NAIA) Terminal 3.</li>
+                            <li><strong>DG flights:</strong> Operated by Cebgo using smaller turboprop aircraft.</li>
+                            <li><strong>T6 flights:</strong> Operated by AirSWIFT using smaller turboprop aircraft.</li>
+                        </ul>
+                        <p>Effective March 29, 2026, all DG and T6 flights operating to and from NAIA Terminal 2 will
+                            transfer to Clark International Airport.</p>
+
+                        <p><strong>2. Be on time at the airport</strong></p>
+                        <p>Given expected heavier road traffic during peak travel season, passengers are advised to
+                            allot more time for traffic going to the airport. We advise passengers to be at the airport
+                            at least three (3) hours before departure for domestic flights, and four (4) hours for
+                            international flights.</p>
+                        <p>Check-in counters close 45 minutes before the scheduled time of departure for domestic
+                            flights and one (1) hour for international flights to ensure there is ample time for all
+                            necessary pre-flight procedures. After checking in, we encourage passengers to immediately
+                            go through immigration and final security to avoid delays. Boarding commences 45 minutes
+                            before the scheduled departure.</p>
+
+                        <p><strong>3. Check in online</strong></p>
+                        <p>Long lines may be avoided at the airport by checking in via the official CEB mobile app or
+                            via the Manage Booking section of the CEB website. Both options are available from 48 hours
+                            up to one (1) hour before the scheduled time of departure for domestic flights, and up to
+                            two (2) hours before scheduled departure for international flights.</p>
+                        <p>Domestic passengers who checked in online and do not have check-in baggage may go straight to
+                            the boarding gates.</p>
+                        <p>CEB's check-in counters at NAIA Terminal 3 are located at Aisles A and B. Counters A1-A15 are
+                            dedicated for online check-in passengers, while Counters A17-A29 and B1-B15 are for
+                            passengers who have not checked in online.</p>
+
+                        <p><strong>4. Accomplish eTravel Forms for International Trip</strong></p>
+                        <p>For a smooth experience at the immigration counters, passengers traveling internationally are
+                            encouraged to register or update their eTravel forms within 72 hours or three (3) days
+                            before departure from and arrival to the Philippines, then save the QR code generated at the
+                            end of the form.</p>
+                        <p>For roundtrip international flights, passengers are required to complete the eTravel form
+                            twice — once for the departure flight, and again for the arrival flight.</p>
+                        <p>After generating the eTravel QR code, complete the Customs Declaration Form before arrival.
+                            Passengers are advised to keep the eTravel QR code as this will be scanned by customs
+                            officers after baggage claiming at the arrival carousel.</p>
+                        <p>eTravel forms can be accomplished by downloading the eGovPH app or accessing <span
+                                class="plain-url-text">www.etravel.gov.ph</span>.</p>
+                        <p>For specific travel requirements of our international destinations, visit <span
+                                class="plain-url-text">https://help.cebupacificair.com/articles/flying-out-soon#travel-guides</span>.
+                        </p>
+
+                        <p><strong>5. Baggage Policy</strong></p>
+                        <p>Passengers may board the flight with one (1) carry-on bag that fits in the overhead bin and
+                            one (1) personal item like a purse, small backpack, or laptop bag that fits under the seat
+                            in front of them. Both hand-carry bags are free of charge and must have a combined weight of
+                            7kg or less. Bags that are not within the allowable size or weight will be intercepted and
+                            charged at the boarding gate.</p>
+                        <p>Passengers are encouraged to purchase prepaid baggage online via the CEB website or mobile
+                            app which is up to 4x cheaper than airport charges. CEB's enhanced baggage policy allows
+                            passengers to avail up to three (3) pieces of 20kg baggage. For every piece of baggage
+                            purchased, passengers may also add an extra 4kg, 8kg, or 12kg weight allowance on top of the
+                            initial 20kg.</p>
+                        <p>Passengers may purchase additional baggage allowance online up to two (2) hours before
+                            departure.</p>
+
+                        <p><strong>6. Personal Electronic Devices and Power Banks</strong></p>
+                        <p>Portable electronic devices (PEDs) such as phones, laptops, and tablets must be placed in
+                            your carry-on baggage. For safety and security reasons, these must not be placed in your
+                            check-in baggage.</p>
+                        <p>Passengers may bring power banks with a capacity of up to 100Wh. For power banks with a
+                            capacity between 100Wh and 160Wh, passengers can request approval from the check-in counter.
+                        </p>
+                        <p>Passengers must bring their power banks as a hand-carry item and place them in their pocket
+                            or in the seat pocket in front of them. These must not be stowed in the overhead bin or
+                            under the seats.</p>
+                        <p>Using and charging power banks are strictly prohibited during the flight.</p>
+
+                        <p><strong>7. Self-tag luggage for select domestic destinations</strong></p>
+                        <p>Passengers flying out of select domestic destinations (Bacolod, Butuan, Cagayan de Oro,
+                            Caticlan, Clark, Coron, Davao, El Nido, General Santos, Iloilo, Manila, Puerto Princesa,
+                            Siargao, Tacloban, Tagbilaran, and Zamboanga) are reminded to self-tag their check-in
+                            luggage at the designated kiosks at the airport, prior to proceeding to counters for bag
+                            drops. Self-bag drop kiosks are also available at NAIA Terminal 3 and Clark International
+                            Airport.</p>
+                        <p>Passengers are encouraged to ensure that their contact details are updated to receive email
+                            notifications on flight reminders and updates. They may update their contact details via the
+                            Manage Booking portal of the CEB website.</p>
+                        <p>We sincerely appreciate every Juan for choosing to fly with us. We look forward to sharing
+                            more journeys with you, your families, and your friends.</p>
+                        <p>For more information, please visit the CEB Help Center at <span
+                                class="plain-url-text">https://help.cebupacificair.com/articles/flying-out-soon#for-first-time-flyers</span>
+                            for domestic and international travel guides.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 8: Network Adjustments Due to Middle East Crisis Detail View -->
+                <div id="article-network" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Network Adjustments Due to Middle East Crisis</h2>
+                        <span class="article-date">March 23, 2026</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Cebu Pacific (CEB) will implement temporary network adjustments, including frequency
+                            reductions and flight cancellations, in response to the Middle East crisis.</p>
+                        <p>These changes are driven by the impact of the crisis on global fuel prices, which have more
+                            than doubled compared with 2025 averages.</p>
+                        <p>As a result, the following flights will be cancelled:</p>
+
+                        <table class="advisory-table">
+                            <thead>
+                                <tr>
+                                    <th>Route</th>
+                                    <th>Flight Number</th>
+                                    <th>Effective Period</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Davao – Bangkok (Don Mueang) - Davao</td>
+                                    <td>5J 5964/5965</td>
+                                    <td>April 13 – October 23, 2026</td>
+                                    <td>Route suspension</td>
+                                </tr>
+                                <tr>
+                                    <td>Iloilo – Bangkok (Don Mueang) - Iloilo</td>
+                                    <td>5J 5970/5971</td>
+                                    <td>April 17 – October 24, 2026</td>
+                                    <td>Route suspension</td>
+                                </tr>
+                                <tr>
+                                    <td>Iloilo – Singapore</td>
+                                    <td>5J 283</td>
+                                    <td>June 15 – October 23, 2026</td>
+                                    <td>Route suspension</td>
+                                </tr>
+                                <tr>
+                                    <td>Singapore – Iloilo</td>
+                                    <td>5J 284</td>
+                                    <td>June 16 – October 24, 2026</td>
+                                    <td>Route suspension</td>
+                                </tr>
+                                <tr>
+                                    <td>Clark – Hanoi – Clark</td>
+                                    <td>5J 5872/5873</td>
+                                    <td>May 2 – October 25, 2026</td>
+                                    <td>Route suspension</td>
+                                </tr>
+                                <tr>
+                                    <td>Cebu – Singapore</td>
+                                    <td>5J 547</td>
+                                    <td>Thu, Sat</td>
+                                    <td>From 7x weekly to 5x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Singapore – Cebu</td>
+                                    <td>5J 548</td>
+                                    <td>Fri, Sun</td>
+                                    <td>From 7x weekly to 5x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Manila – Jakarta</td>
+                                    <td>5J 759</td>
+                                    <td>Tue, Thu, Sat</td>
+                                    <td>From 7x weekly to 4x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Jakarta – Manila</td>
+                                    <td>5J 760</td>
+                                    <td>Wed, Fri, Sun</td>
+                                    <td>From 7x weekly to 4x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Manila – Kuala Lumpur</td>
+                                    <td>5J 501</td>
+                                    <td>Wed, Fri</td>
+                                    <td>From 7x weekly to 5x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Kuala Lumpur – Manila</td>
+                                    <td>5J 502</td>
+                                    <td>Thu, Sat</td>
+                                    <td>From 7x weekly to 5x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Manila – Melbourne</td>
+                                    <td>5J 049</td>
+                                    <td>May 14, 28</td>
+                                    <td>From 5x weekly to 4x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Melbourne – Manila</td>
+                                    <td>5J 050</td>
+                                    <td>May 15, 29</td>
+                                    <td>From 5x weekly to 4x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Manila – Sydney</td>
+                                    <td>5J 039</td>
+                                    <td>May 4, 8, 13, 17, 22, 27, 31</td>
+                                    <td>From 7x weekly to 5x weekly</td>
+                                </tr>
+                                <tr>
+                                    <td>Sydney – Manila</td>
+                                    <td>5J 040</td>
+                                    <td>May 5, 9, 14, 18, 23, 28, June 1</td>
+                                    <td>From 7x weekly to 5x weekly</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>We understand that these changes may disrupt travel plans, and we sincerely apologize for the
+                            inconvenience. Affected passengers have been informed via email and provided with the
+                            following options through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook your flight without fare difference subject to availability up to 30 days before or
+                            after your original flight.</p>
+
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Instantly convert the value of your fare to Travel Fund, which you can use for future trips.
+                            The Travel Fund stored in the MyCebuPacific account does not expire and can be used to book
+                            for anyone.</p>
+
+                        <p><strong>3. Refund</strong></p>
+                        <p>Request a refund of your fare. Processing time depends on your form of payment.</p>
+
+                        <p>CEB is proactively taking measures to ensure stable and sustainable operations. These network
+                            adjustments have been carefully implemented to address the current impact, with the rest of
+                            our network expected to operate as scheduled.</p>
+                        <p>We encourage customers to keep their contact details updated via the CEB website or mobile
+                            app, and to check CEB's social media channels for the latest advisories.</p>
+                        <p>We thank our passengers for their continued understanding and support.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 9: Middle East Crisis Security Situation Detail View -->
+                <div id="article-security" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory #12</h3>
+                        <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                        <span class="article-date">As of April 23, 2026; 4:00 PM</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Cebu Pacific (CEB) continues to assess its flight operations to and from the Middle East amid
+                            the ongoing security situation in the region. As this remains a developing situation,
+                            further schedule adjustments may take place.</p>
+                        <p>To ensure the safety and well-being of our passengers and crew, CEB has cancelled flights to
+                            and from Dubai scheduled until May 31, 2026.</p>
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+                        <p><strong>3. Refund</strong></p>
+                        <p>A full refund of your ticket.</p>
+                        <p>Passengers are encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #11</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of April 7, 2026; 8:00 PM</span>
+                        </div>
+                        <p>Cebu Pacific (CEB) continues to assess its flight operations to and from the Middle East amid
+                            the ongoing security situation in the region. As this remains a developing situation,
+                            further schedule adjustments may take place.</p>
+                        <p>To ensure the safety and well-being of our passengers and crew, CEB has cancelled flights to
+                            and from Dubai until April 30, 2026.</p>
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+                        <p><strong>3. Refund</strong></p>
+                        <p>A full refund of your ticket.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from Dubai scheduled until May 31,
+                            2026. They may avail themselves of these options through the Manage Booking portal of the
+                            CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up to two
+                            (2) hours before their scheduled time of departure.</p>
+                        <p>Passengers are also encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #10</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 26, 2026; 1:00 PM</span>
+                        </div>
+                        <p>Cebu Pacific (CEB) continues to assess its flight operations to and from the Middle East amid
+                            the ongoing security situation in the region. As this remains a developing situation,
+                            further schedule adjustments may take place.</p>
+                        <p>To ensure the safety and well-being of our passengers and crew, CEB has cancelled flights to
+                            and from Dubai until April 20, 2026.</p>
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+                        <p><strong>3. Refund</strong></p>
+                        <p>A full refund of your ticket.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from Dubai scheduled until April 30,
+                            2026, and to and from Riyadh scheduled until March 31, 2026. They may avail themselves of
+                            these options through the Manage Booking portal of the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up to two
+                            (2) hours before their scheduled time of departure.</p>
+                        <p>Passengers are also encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #9</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 16, 2026; 3:00 PM</span>
+                        </div>
+                        <p>Cebu Pacific (CEB) continues to assess its flight operations to and from the Middle East amid
+                            the ongoing security situation in the region. As this remains a developing situation,
+                            further schedule adjustments may take place.</p>
+                        <p>To ensure the safety and well-being of our passengers and crew, CEB has cancelled flights to
+                            and from Dubai until March 28, 2026.</p>
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+                        <p><strong>3. Refund</strong></p>
+                        <p>A full refund of your ticket.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from Dubai scheduled until April 18,
+                            2026, and to and from Riyadh scheduled until March 31, 2026. They may avail themselves of
+                            these options through the Manage Booking portal of the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up to two
+                            (2) hours before their scheduled time of departure.</p>
+                        <p>Passengers are also encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #8</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 11, 2026; 8:00 PM</span>
+                        </div>
+                        <p>Cebu Pacific (CEB) continues to assess its flight operations to and from the Middle East amid
+                            the ongoing security situation in the region. As this remains a developing situation,
+                            further schedule adjustments may take place.</p>
+                        <p>To ensure the safety and well-being of our passengers and crew, CEB has cancelled additional
+                            flights to and from Dubai and Riyadh:</p>
+                        <p><strong>March 12:</strong><br>• 5J 14/15: Manila – Dubai – Manila</p>
+                        <p><strong>March 13:</strong><br>• 5J 14/15: Manila – Dubai – Manila • 5J 18/19: Manila – Dubai
+                            – Manila • 5J 740: Manila – Riyadh</p>
+                        <p><strong>March 14:</strong><br>• 5J 14/15: Manila – Dubai – Manila • 5J 741: Riyadh – Manila
+                        </p>
+                        <p><strong>March 15:</strong><br>• 5J 14/15: Manila – Dubai – Manila</p>
+                        <p><strong>March 16:</strong><br>• 5J 14/15: Manila – Dubai – Manila • 5J 18/19: Manila – Dubai
+                            – Manila</p>
+                        <p><strong>March 17:</strong><br>• 5J 14/15: Manila – Dubai – Manila</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from Dubai and Riyadh scheduled
+                            until March 31, 2026. They may avail themselves of these options through the Manage Booking
+                            portal of the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up to two
+                            (2) hours before their scheduled time of departure.</p>
+                        <p>Passengers are also encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #7</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 9, 2026; 3:00 PM</span>
+                        </div>
+                        <p>Due to the continuing and evolving security situation in parts of the Middle East, Cebu
+                            Pacific (CEB) has cancelled additional flights to and from Dubai and Riyadh:</p>
+                        <p><strong>March 9:</strong></p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 740: Manila – Riyadh</li>
+                        </ul>
+                        <p><strong>March 10:</strong></p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 741: Riyadh – Manila</li>
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                        </ul>
+                        <p><strong>March 11:</strong></p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                            <li>5J 18/19: Manila – Dubai – Manila</li>
+                            <li>5J 740: Manila – Riyadh</li>
+                        </ul>
+                        <p><strong>March 12:</strong></p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 741: Riyadh – Manila</li>
+                        </ul>
+                        <p>The safety and well-being of our passengers, crew, and ground team remain our highest
+                            priority. We continue to closely monitor developments and assess flight operations in the
+                            region.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from Dubai and Riyadh scheduled
+                            until March 18, 2026. They may avail themselves of these options through the Manage Booking
+                            portal of the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up to two
+                            (2) hours before their scheduled time of departure.</p>
+                        <p>CEB will continue to assess its flight operations to and from the Middle East. As this
+                            remains a developing situation, further schedule adjustments may be necessary. Passengers
+                            are encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #5</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 3, 2026; 4:00 PM</span>
+                        </div>
+                        <p>Due to the continuing and evolving security situation in parts of the Middle East, Cebu
+                            Pacific (CEB) has cancelled the following flights:</p>
+                        <p><strong>March 4, 2026:</strong></p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                            <li>5J 18/19: Manila – Dubai – Manila</li>
+                            <li>5J 740: Manila – Riyadh</li>
+                        </ul>
+                        <p><strong>March 5, 2026:</strong></p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                            <li>5J 741: Riyadh – Manila</li>
+                        </ul>
+                        <p>The safety and well-being of our passengers, crew, and ground team remain our highest
+                            priority. We continue to closely monitor developments and assess flight operations in the
+                            region.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from the following destinations:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Dubai: March 1-8</li>
+                            <li>Riyadh: March 1-9</li>
+                        </ul>
+                        <p>They may avail themselves of these options through the Manage Booking portal of the CEB
+                            website <span class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up
+                            to two (2) hours before their scheduled time of departure.</p>
+                        <p>CEB will continue to assess its flight operations to and from the Middle East. As this
+                            remains a developing situation, further schedule adjustments may be necessary. Passengers
+                            are encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #4</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 2, 2026; 9:00 AM</span>
+                        </div>
+                        <p>Due to the continuing and evolving security situation in parts of the Middle East, Cebu
+                            Pacific (CEB) has cancelled the following flights scheduled on March 3, 2026:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                        </ul>
+                        <p>The safety and well-being of our passengers, crew, and ground team remain our highest
+                            priority. We continue to closely monitor developments and assess flight operations in the
+                            region.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from the following destinations:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Dubai: March 1-8</li>
+                            <li>Riyadh: March 1-9</li>
+                        </ul>
+                        <p>They may avail themselves of these options through the Manage Booking portal of the CEB
+                            website <span class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up
+                            to two (2) hours before their scheduled time of departure.</p>
+                        <p>CEB will continue to assess its flight operations to and from the Middle East. As this
+                            remains a developing situation, further schedule adjustments may be necessary. Passengers
+                            are encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #3</h3>
+                            <h2>Additional Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 1, 2026; 3:00 PM</span>
+                        </div>
+                        <p>Due to the evolving security situation in parts of the Middle East, Cebu Pacific (CEB) has
+                            cancelled the following flights scheduled on March 2:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>5J 14/15: Manila – Dubai – Manila</li>
+                            <li>5J 18/19: Manila – Dubai – Manila</li>
+                        </ul>
+                        <p>The safety and well-being of our passengers, crew, and teams on ground remain our highest
+                            priority. We continue to closely monitor developments and assess flight operations in the
+                            region.</p>
+                        <p>CEB is also providing flexible options, including free rebooking and Travel Fund conversion,
+                            to and from the following destinations:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Dubai: March 1 – 4</li>
+                            <li>Riyadh: March 1 – 5</li>
+                        </ul>
+                        <p>They may avail themselves of these options through the Manage Booking portal of the CEB
+                            website <span class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up
+                            to two (2) hours before their scheduled time of departure.</p>
+                        <p>CEB will continue to assess its flight operations to and from the Middle East. As this
+                            remains a developing situation, further schedule adjustments may be necessary. Passengers
+                            are encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory #2</h3>
+                            <h2>Update on Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of March 1, 2026; 10:00 AM</span>
+                        </div>
+                        <p>Cebu Pacific (CEB) continues to closely monitor developments related to the security
+                            situation in parts of the Middle East. The safety and well-being of our passengers and crew
+                            remain our highest priority.</p>
+                        <p>CEB is extending flexible options, including free rebooking and Travel Fund conversion, to
+                            and from the following destinations:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Dubai: March 1 – 4</li>
+                            <li>Riyadh: March 1 – 5</li>
+                        </ul>
+                        <p>They may avail themselves of these options through the Manage Booking portal of the CEB
+                            website <span class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up
+                            to two (2) hours before their scheduled time of departure.</p>
+                        <p>CEB will continue to assess its flight operations to and from the Middle East. As this
+                            remains a developing situation, further schedule adjustments may be necessary. Passengers
+                            are encouraged to check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and ensure their contact
+                            details are updated to receive timely notifications, and to monitor updates through CEB's
+                            official social media accounts.</p>
+                        <p>We thank our passengers for their continued patience and understanding.</p>
+
+                        <hr style="border: 0; border-top: 1px solid #ededed; margin: 30px 0;">
+
+                        <div class="article-header">
+                            <h3>Cebu Pacific Advisory</h3>
+                            <h2>Cancelled Flights Due to Security Situation in the Middle East</h2>
+                            <span class="article-date">As of February 28, 2026; 9:00 PM</span>
+                        </div>
+                        <p>Cebu Pacific (CEB) is closely monitoring developments related to the ongoing security
+                            situation in parts of the Middle East.</p>
+                        <p>To ensure the safety and well-being of our passengers and crew, Flight 5J 14, which departed
+                            for Dubai on February 28, will return to Manila and is estimated to arrive at 10:45 PM.
+                            Consequently, its return service, Flight 5J 15, has been cancelled. Flights 5J 14/15 Manila
+                            Dubai Manila scheduled for March 1 are also cancelled.</p>
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+                        <p><strong>3. Refund</strong></p>
+                        <p>A full refund of your ticket.</p>
+                        <p>CEB is also offering flexible options, including free rebooking and Travel Fund conversion,
+                            to passengers who wish to postpone their flights to and from the following destinations:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Dubai – March 2</li>
+                            <li>Riyadh – March 1 and 2</li>
+                        </ul>
+                        <p>They may avail themselves of these options through the Manage Booking portal of the CEB
+                            website <span class="plain-url-text">https://www.cebupacificair.com/manage-booking</span> up
+                            to two (2) hours before their scheduled time of departure.</p>
+                        <p>We will continue to review flight operations to and from the Middle East in the coming days.
+                            As this is a developing situation, some flight changes may take place in the next few days.
+                            We encourage passengers to regularly check their flight status at <span
+                                class="plain-url-text">cebupacificair.com/flight-status</span> and to update their
+                            contact details via the Manage Booking portal to receive timely flight notifications.</p>
+                        <p>We thank our passengers for their patience and understanding.</p>
+                    </div>
+                </div>
+
+                <!-- Article Content Container 10: Tropical Storm Basyang Detail View (No circle images, text links converted to plain text) -->
+                <div id="article-basyang" class="detail-article" style="display: none;">
+                    <div class="article-header">
+                        <h3>Cebu Pacific Advisory</h3>
+                        <h2>Cancelled Flights Due to Tropical Storm Basyang</h2>
+                        <span class="article-date">As of February 5, 2026; 10:00 PM</span>
+                    </div>
+                    <div class="article-body">
+                        <p>Tropical Storm Basyang (international name: Penha) is currently affecting several parts of
+                            the country. Based on latest public advisories from PAGASA, the tropical storm is bringing
+                            heavy rainfall, gusty winds, and unstable weather, particularly across parts of the Visayas
+                            and Mindanao. These conditions may disrupt airport operations and ground handling.</p>
+                        <p>We are coordinating closely with airport authorities and ground handling partners to ensure
+                            the safety of our passengers and crew. As a result of these conditions, CEB has cancelled
+                            the following flights on February 6:</p>
+
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li>DG 6515/6516: Cebu - Dumaguete - Manila</li>
+                            <li>DG 6607/6608: Cebu - Dipolog - Cebu</li>
+                            <li>DG 6639/6640: Cebu - Pagadian - Cebu</li>
+                            <li>DG 6713/6714: Cebu - Cagayan de Oro - Cebu</li>
+                            <li>DG 6793/6794: Cebu - Ozamiz - Cebu</li>
+                            <li>DG 6803/6804: Cebu - Ozamiz - Cebu</li>
+                            <li>5J 3445/3446: Manila - Pagadian - Manila</li>
+                            <li>5J 381/382: Manila - Cagayan de Oro - Manila</li>
+                            <li>5J 383/384: Manila - Cagayan de Oro - Manila</li>
+                            <li>5J 623/624: Manila - Dumaguete - Manila</li>
+                            <li>5J 625/626: Manila - Dumaguete - Manila</li>
+                            <li>5J 703/704: Manila - Dipolog - Manila</li>
+                            <li>5J 705/706: Manila - Dipolog - Manila</li>
+                            <li>5J 771/772: Manila - Pagadian - Manila</li>
+                            <li>5J 781/782: Manila - Ozamiz - Manila</li>
+                        </ul>
+
+                        <p>Affected passengers have been informed via email and provided with the following options
+                            through the Manage Booking portal on the CEB website <span
+                                class="plain-url-text">https://www.cebupacificair.com/manage-booking</span>:</p>
+                        <p><strong>1. Free Rebooking</strong></p>
+                        <p>Rebook without fare difference for travel up to thirty (30) days from original flight date.
+                            The fare difference will apply if the travel period is beyond thirty (30) days from the
+                            original flight date.</p>
+                        <p><strong>2. Travel Fund</strong></p>
+                        <p>Store the amount in a virtual CEB wallet and use this to either book a new flight or pay for
+                            add-ons (example: baggage allowance, seat selection, etc.)</p>
+                        <p><strong>3. Refund</strong></p>
+                        <p>A full refund of your ticket.</p>
+
+                        <p>CEB strongly advises its passengers not to proceed to the airport unless they have confirmed
+                            bookings for flights which are currently still planned to operate. Passengers are advised to
+                            check the status of their flights via <span
+                                class="plain-url-text">https://www.cebupacificair.com/flight-status</span> and update
+                            their contact details via the Manage Booking portal to receive email notifications on flight
+                            reminders and updates.</p>
+                        <p>To help manage these disruptions, CEB is also offering flexible options, which include free
+                            rebooking and Travel Fund conversion, to passengers who wish to postpone their flights to
+                            and from the following destinations:</p>
+
+                        <p><strong>February 5 – 6:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
+                            <li>Siargao</li>
+                            <li>Surigao</li>
+                            <li>Butuan</li>
+                            <li>Camiguin</li>
+                        </ul>
+
+                        <p><strong>February 6:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
+                            <li>Cebu</li>
+                            <li>Dumaguete</li>
+                            <li>Bohol</li>
+                            <li>Masbate</li>
+                            <li>Ozamiz</li>
+                            <li>Dipolog</li>
+                            <li>Pagadian</li>
+                        </ul>
+
+                        <p><strong>February 6 – 7:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
+                            <li>Bacolod</li>
+                            <li>Iloilo</li>
+                            <li>Kalibo</li>
+                            <li>Boracay (Caticlan)</li>
+                        </ul>
+
+                        <p><strong>February 7:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
+                            <li>San Jose</li>
+                        </ul>
+
+                        <p><strong>February 7 – 8:</strong></p>
+                        <ul
+                            style="list-style-type: disc; margin-left: 20px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 15px;">
+                            <li>El Nido</li>
+                            <li>San Vicente (Port Barton)</li>
+                            <li>Puerto Princesa</li>
+                        </ul>
+
+                        <p>Passengers on these flights may avail themselves of their preferred option online up to two
+                            (2) hours before their scheduled time of departure.</p>
+                        <p>For other questions or concerns, passengers may send a message via Online Chat Support on the
+                            CEB website, or through CEB's official Facebook and Twitter accounts.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Control Footer -->
+            <div class="pagination">
+                <a id="prev-btn" class="page-btn disabled">Prev</a>
+                <div class="page-numbers">
+                    <a href="#" id="page-num-1" class="page-num active">1</a>
+                    <a href="#" id="page-num-2" class="page-num">2</a>
+                </div>
+                <a id="next-btn" class="page-btn">Next</a>
+            </div>
+
+        </div>
+    </div>
+
+  <!-- ========================================== -->
+  <!-- FOOTER SECTION -->
+  <!-- ========================================== -->
+  <footer class="site-footer">
+      <div class="footer-container">
+          
+          <div class="footer-links-grid">
+              <div class="col">
+                  <h4>BOOK</h4>
+                  <a href="#">Flights</a>
+                  <a href="#">Seat Sale</a>
+              </div>
+              <div class="col">
+                  <h4>MANAGE</h4>
+                  <a href="#">Check in</a>
+                  <a href="#">Manage Booking</a>
+                  <a href="#">Flight Status</a>
+                  <a href="#">Add-ons</a>
+                  <a href="#">Special Assistance</a>
+              </div>
+              <div class="col">
+                  <h4>TRAVEL INFO</h4>
+                  <a href="#">Baggage Information</a>
+                  <a href="#">Payment Options</a>
+                  <a href="#">Travel Advisories</a>
+                  <a href="#">Booking & Check-in</a>
+                  <a href="#">Travel Documents</a>
+                  <a href="#">Service Fees</a>
+              </div>
+              <div class="col">
+                  <h4>EXPLORE</h4>
+                  <a href="#">Explore</a>
+                  <a href="#">Philippine Destinations</a>
+                  <a href="#">International Destinations</a>
+                  <a href="#">Where We Fly</a>
+                  <a href="#">City Guides</a>
+              </div>
+              <div class="col">
+                  <h4>ABOUT</h4>
+                  <a href="#">About</a>
+                  <a href="#">Our Story</a>
+                  <a href="#">Media Center</a>
+                  <a href="#">Talk to Us</a>
+                  <a href="#">Careers</a>
+              </div>
+              
+              <div class="col country-selector">
+                  <h4>SELECT COUNTRY</h4>
+                  <div class="country-box"><i class="fa-solid fa-earth-asia"></i> Philippines</div>
+              </div>
+          </div>
+
+          <!-- RIGHT SIDEBAR -->
+          <div class="footer-right-sidebar">
+              <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+              <div class="app-buttons">
+                  <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                  <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+              </div>
+
+              <h4>PAYMENT PARTNERS</h4>
+              <div class="payment-grid">
+                  <img src="images/Visa-logo.webp" alt="Visa">
+                  <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                  <img src="images/GCash-276x96.webp" alt="GCash">
+              </div>
+
+              <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+              <div class="accreditations">
+                  <img src="images/CEB-7Star-Emblem.webp" alt="Badge 1">
+                  <img src="images/New_NPC_Logo.webp" alt="Badge 2">
+              </div>
+          </div>
+
+      </div>
+  </footer>
+  
+  <!-- ========================================== -->
+  <!-- BOTTOM YELLOW BAR -->
+  <!-- ========================================== -->
+  <div class="footer-bottom">
+      <div class="footer-bottom-container">
+          <div class="footer-legal-links">
+              <a href="#">Privacy and Cookie Policy</a>
+              <a href="#">Website Terms of Use</a>
+              <a href="#">Security</a>
+              <a href="#">Accessibility</a>
+              <a href="#">Site Map</a>
+          </div>
+          
+          <div class="copyright-text">
+              © Copyright 2026 Cebu Pacific: SE GROUP 7
+          </div>
+      </div>
+  </div>
+
+    <!-- Script to toggle pages and dynamic detail view cleanly -->
+    <script>
+        const page1 = document.getElementById('page-1');
+        const page2 = document.getElementById('page-2');
+        const pageNum1 = document.getElementById('page-num-1');
+        const pageNum2 = document.getElementById('page-num-2');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const airswiftLink = document.getElementById('airswift-link');
+        const typhoonLink = document.getElementById('typhoon-link');
+        const kanlaonLink = document.getElementById('kanlaon-link');
+        const earthquakeLink = document.getElementById('earthquake-link');
+        const dubaiLink = document.getElementById('dubai-link');
+        const fuelLink = document.getElementById('fuel-link');
+        const holyweekLink = document.getElementById('holyweek-link');
+        const networkLink = document.getElementById('network-link');
+        const securityLink = document.getElementById('security-link');
+        const basyangLink = document.getElementById('basyang-link');
+
+        const detailView = document.getElementById('detail-view');
+        const articleAirswift = document.getElementById('article-airswift');
+        const articleTyphoon = document.getElementById('article-typhoon');
+        const articleKanlaon = document.getElementById('article-kanlaon');
+        const articleEarthquake = document.getElementById('article-earthquake');
+        const articleDubai = document.getElementById('article-dubai');
+        const articleFuel = document.getElementById('article-fuel');
+        const articleHolyWeek = document.getElementById('article-holyweek');
+        const articleNetwork = document.getElementById('article-network');
+        const articleSecurity = document.getElementById('article-security');
+        const articleBasyang = document.getElementById('article-basyang');
+
+        const backToList = document.getElementById('back-to-list');
+        const pagination = document.querySelector('.pagination');
+        const bannerTitle = document.getElementById('banner-title');
+
+        function showPage1(e) {
+            if (e) e.preventDefault();
+            document.body.classList.remove('in-detail-view');
+            bannerTitle.textContent = "Travel Advisories";
+            detailView.classList.remove('active');
+            pagination.style.display = 'flex';
+            page1.classList.add('active');
+            page2.classList.remove('active');
+            pageNum1.classList.add('active');
+            pageNum2.classList.remove('active');
+            prevBtn.classList.add('disabled');
+            prevBtn.removeAttribute('href');
+            nextBtn.classList.remove('disabled');
+            nextBtn.setAttribute('href', '#');
+        }
+
+        function showPage2(e) {
+            if (e) e.preventDefault();
+            document.body.classList.remove('in-detail-view');
+            bannerTitle.textContent = "Travel Advisories";
+            detailView.classList.remove('active');
+            pagination.style.display = 'flex';
+            page1.classList.remove('active');
+            page2.classList.add('active');
+            pageNum1.classList.remove('active');
+            pageNum2.classList.add('active');
+            prevBtn.classList.remove('disabled');
+            prevBtn.setAttribute('href', '#');
+            nextBtn.classList.add('disabled');
+            nextBtn.removeAttribute('href');
+        }
+
+        pageNum1.addEventListener('click', showPage1);
+        pageNum2.addEventListener('click', showPage2);
+
+        prevBtn.addEventListener('click', function (e) {
+            if (!prevBtn.classList.contains('disabled')) {
+                showPage1(e);
+            }
+        });
+
+        nextBtn.addEventListener('click', function (e) {
+            if (!nextBtn.classList.contains('disabled')) {
+                showPage2(e);
+            }
+        });
+
+        function clearArticles() {
+            articleAirswift.style.display = 'none';
+            articleTyphoon.style.display = 'none';
+            articleKanlaon.style.display = 'none';
+            articleEarthquake.style.display = 'none';
+            articleDubai.style.display = 'none';
+            articleFuel.style.display = 'none';
+            articleHolyWeek.style.display = 'none';
+            articleNetwork.style.display = 'none';
+            articleSecurity.style.display = 'none';
+            articleBasyang.style.display = 'none';
+        }
+
+        function enterDetailMode() {
+            document.body.classList.add('in-detail-view');
+            bannerTitle.textContent = "Travel Advisory";
+            page1.classList.remove('active');
+            page2.classList.remove('active');
+            pagination.style.display = 'none';
+            detailView.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Click Action: AirSWIFT
+        airswiftLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleAirswift.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Typhoon Bavi
+        typhoonLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleTyphoon.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Mt. Kanlaon
+        kanlaonLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleKanlaon.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Mindanao Earthquake
+        earthquakeLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleEarthquake.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Dubai Operations
+        dubaiLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleDubai.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Jet Fuel Supply Update
+        fuelLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleFuel.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Peak Travel Reminders for Holy Week
+        holyweekLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleHolyWeek.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Network Adjustments Due to Middle East Crisis
+        networkLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleNetwork.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Cancelled Flights Due to Security Situation in the Middle East
+        securityLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleSecurity.style.display = 'block';
+            enterDetailMode();
+        });
+
+        // Click Action: Cancelled Flights Due to Tropical Storm Basyang
+        basyangLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            clearArticles();
+            articleBasyang.style.display = 'block';
+            enterDetailMode();
+        });
+
+        backToList.addEventListener('click', function (e) {
+            e.preventDefault();
+            showPage1();
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEB Flexi and Travel Fund</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #4a4a4a;
+        }
+
+        /* Header Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px 80px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            margin-right: auto;
+        }
+
+        .logo-img {
+            height: 38px;
+        }
+
+        /* Page Layout with Sidebar */
+        .page-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: stretch;
+            /* Ensures sidebar line extends all the way down */
+        }
+
+        /* Sidebar Navigation - Continuous Line Behavior */
+        .sidebar {
+            width: 250px;
+            padding-top: 60px;
+            padding-right: 20px;
+            border-right: 1px solid #e2e8f0;
+            /* Full height continuous line */
+        }
+
+        .sidebar-sticky-content {
+            position: sticky;
+            top: 80px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .sidebar-nav li {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar-nav a {
+            text-decoration: none;
+            color: #555555;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 6px 16px;
+            display: inline-block;
+        }
+
+        .sidebar-nav li.active a {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        /* Blue indicator pill for active tab */
+        .sidebar-nav li.active::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #0073e6;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Main Content Container */
+        .container {
+            flex: 1;
+            max-width: 900px;
+            padding: 60px 40px 40px 40px;
+        }
+
+        .main-title {
+            font-size: 38px;
+            font-weight: 700;
+            color: #333333;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        /* Social Share Icons Placeholder */
+        .social-share {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .social-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-link {
+            background-color: #0073e6;
+        }
+
+        .btn-fb {
+            background-color: #1877f2;
+        }
+
+        .btn-x {
+            background-color: #000000;
+        }
+
+        .btn-in {
+            background-color: #0077b5;
+        }
+
+        .btn-wa {
+            background-color: #25d366;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: #777777;
+            margin-bottom: 24px;
+        }
+
+        .content-box {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding: 12px 0;
+            margin-bottom: 24px;
+            font-weight: 600;
+            color: #333333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-text p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: underline;
+        }
+
+        .guidelines-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333333;
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        .guidelines-list {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+
+        .guidelines-list>li {
+            margin-bottom: 12px;
+        }
+
+        .sub-list {
+            margin-left: 20px;
+            margin-top: 6px;
+            list-style-type: disc;
+        }
+
+        .sub-list li {
+            margin-bottom: 6px;
+        }
+
+        .note-callout {
+            font-size: 13px;
+            color: #333333;
+            background-color: #f9f9f9;
+            padding: 12px;
+            border-left: 3px solid #f0a500;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* Policies & Guides Accordion Styles */
+        .accordion-section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .accordion-group-label {
+            font-size: 13px;
+            color: #666666;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .accordion-item {
+            border: 1px solid #0073e6;
+            border-radius: 4px;
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-item[open] {
+            background-color: #eef6fc;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a4a4a;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-item[open] .accordion-header {
+            color: #0073e6;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .accordion-icon {
+            color: #0073e6;
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item[open] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            padding: 0 16px 16px 16px;
+            font-size: 13px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        /* How-To Step Content Styles */
+        .step-item {
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 6px;
+        }
+
+        .step-subtext {
+            margin-bottom: 12px;
+            color: #555555;
+        }
+
+        .step-img {
+            max-width: 260px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .accordion-sub-heading {
+            font-size: 15px;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img class="logo-img" src="images/Cebu Pacific Logo.jpg" alt="Cebu Pacific Air">
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-sticky-content">
+                <ul class="sidebar-nav">
+                    <li id="nav-overview" class="active"><a href="#overview">Overview</a></li>
+                    <li id="nav-policies"><a href="#policies-guides">Policies & Guides</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Body Content -->
+        <main class="container">
+            <h1 class="main-title">CEB Flexi and Travel Fund</h1>
+            <p class="subtitle">Book your flight with CEB Flexi for more savings and flexibility in your travel plans.
+                Cancel your flight for free and convert the value of your booking to a Travel Fund!</p>
+
+            <hr class="divider">
+
+            <!-- Overview Section -->
+            <h2 id="overview" class="section-title">Overview</h2>
+            <p class="section-subtitle">Description</p>
+
+            <div class="content-box">
+                <span>🗓️</span> CEB Flexi
+            </div>
+
+            <div class="content-text">
+                <p><strong>Change of plans? No problem. With CEB Flexi, you can cancel your trip for free.</strong></p>
+                <p>It allows you to cancel your booking and convert its value to a non-expiring Travel Fund.</p>
+            </div>
+
+            <ul class="guidelines-list">
+                <li>Cancelation is available up to two (2) hours before departure</li>
+                <li>You can then use this Travel Fund to pay for your future travel plans!</li>
+            </ul>
+
+            <p style="margin-top: 16px; font-size: 14px; color: #333;">Once you convert to Travel Fund, it will appear
+                in your MyCebuPacific account within 24 hours.</p>
+
+            <p class="guidelines-title">General Guidelines:</p>
+
+            <ul class="guidelines-list">
+                <li>CEB Flexi only allows for free cancelation of your flight.</li>
+                <li>The full amount of your booking won't be converted to Travel Fund.</li>
+                <li>
+                    <strong>✅ Conversion to Travel Fund includes:</strong>
+                    <ul class="sub-list">
+                        <li>Fares and taxes;</li>
+                        <li>All unused add-ons;</li>
+                        <li>Admin and handling fees.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>❌ Conversion to Travel Fund does not include:</strong>
+                    <ul class="sub-list">
+                        <li>PH Travel Tax, as this is refunded separately;</li>
+                        <li>Cost of CEB TravelSure Insurance, as this is refunded separately;</li>
+                        <li>Cost of CEB Flexi;</li>
+                        <li>Flight fees, such as the hold fee and cancel fee (if applicable).</li>
+                    </ul>
+                </li>
+                <li>You cannot add CEB Flexi after you've finished booking your flight;</li>
+                <li>The price of CEB Flexi is based on your flight date, and on regulatory guidelines.</li>
+                <li>
+                    If you purchased CEB Flexi without a MyCebuPacific account, and you intend to cancel your flight
+                    later on:
+                    <ul class="sub-list">
+                        <li>Please sign up or log ii to your MyCebuPacific account first.</li>
+                        <li><strong>Remember!</strong> An account is required to make booking changes.</li>
+                        <li>Check out our how-to guides to know how to voluntarily cancel your flight
+                            and convert it to Travel Fund with CEB Flexi.</li>
+                    </ul>
+                </li>
+                <li>
+                    One-way and round-trip flights originating from Incheon and booked with KRW currency are eligible
+                    for voluntary refund processing even without GO Flexi or CEB Flexi.
+                    <div class="note-callout">
+                        ⚠️ <strong>Important:</strong> Beginning May 12, 2026, canceled flights departing from Incheon
+                        will be eligible for refund only, as the Travel Fund option will no longer be available.
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Travel Fund Section -->
+            <div class="content-box" style="margin-top: 30px;">
+                <span>🟡</span> Travel Fund
+            </div>
+
+            <p style="font-size: 14px; color: #333; margin-bottom: 16px; line-height: 1.6;">
+                <strong>Travel Fund is a non-expiring virtual wallet that you can use to pay for your future trips. It's
+                    available if:</strong>
+            </p>
+
+            <ul class="guidelines-list">
+                <li>You purchased CEB Flexi and used it to cancel your flight, or;</li>
+                <li>
+                    Your flight was disrupted (i.e. canceled or had a 1hr+ schedule change).
+                    <ul class="sub-list">
+                        <li><a href="HMDF-index.html">How to Manage Your Disrupted Flight</a></li>
+                    </ul>
+                </li>
+                <li>
+                    Guest/s in the booking has a serious illness or has died;
+                    <ul class="sub-list">
+                        <li>Guest's immediate family member has a serious illness or has died.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="guidelines-title">General Guidelines:</p>
+
+            <ul class="guidelines-list">
+                <li>A MyCebuPacific Account is required to make booking changes;</li>
+                <li>Once you convert to Travel Fund, it will appear in your MyCebuPacific account within 24 hours;</li>
+                <li>The currency of your Travel Fund will depend on what currency you used when booking your flight.
+                </li>
+                <li>
+                    The Travel Fund can be split among guests in the same booking.
+                    <ul class="sub-list">
+                        <li>With this, please <a href="#">chat with us</a> via our app or website to connect with a Live
+                            Agent who can help you.</li>
+                    </ul>
+                </li>
+                <li>❌ The Travel Fund cannot be exchanged or converted to cash.</li>
+            </ul>
+
+            <!-- Policies & Guides Section -->
+            <h2 id="policies-guides" class="accordion-section-title">Policies & Guides</h2>
+
+            <p class="accordion-group-label">CEB Flexi</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to use CEB Flexi</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <div class="step-item">
+                        <p class="step-title">1. Open the Cebu Pacific app and go to Manage Booking.</p>
+                        <p class="step-subtext">A MyCebuPacific account is required to make booking
+                            changes. Make sure you're logged in to your booking's account.</p>
+                        <img class="step-img" src="images/CEBFV-1.gif" alt="Manage Booking Step 1">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">2. Tap 'Manage' to access your booking.</p>
+                        <p class="step-subtext">If you can't locate your booking, you may have to add it to
+                            your account.</p>
+                        <img class="step-img" src="images/CEBFV-2.jpg" alt="Manage Booking Step 2">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">3. Click on 'Cancel Flight/s' under Modify flight.</p>
+                        <img class="step-img" src="images/CEBF-3.jpg" alt="Manage Booking Step 3">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">4. Choose which flight/s you want to cancel.</p>
+                        <p class="step-subtext">If you want to cancel both flights, make sure to tap the check box for
+                            both.</p>
+                        <img class="step-img" src="images/CEBF-4.gif" alt="Manage Booking Step 4">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">5. Confirm that you want to cancel your selected flight/s.</p>
+                        <p class="step-subtext">Your booking will then be converted to a non-expiring Travel Fund that
+                            you can use to pay for future travel plans.</p>
+                        <img class="step-img" src="images/CEBF-5.jpg" alt="Manage Booking Step 5">
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Cancelling / rebooking CEB Flexi</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <div class="accordion-sub-heading">
+                        🖐️ Voluntary cancelation
+                    </div>
+                    <p style="margin-bottom: 12px;">
+                        Please be reminded that pre-purchased add-ons are <strong>non-cancelable</strong> and
+                        <strong>non-refundable</strong>.
+                    </p>
+                    <p style="margin-bottom: 24px;">
+                        For more information, please visit this article: <a href="RCYF-index.html">Rebooking or
+                            Canceling Your
+                            Flight</a>
+                    </p>
+
+                    <div class="accordion-sub-heading">
+                        💡 Carrying over / transferring of CEB Flexi Add-on
+                    </div>
+                    <p style="margin-bottom: 8px;">CEB Flexi Add-on should carry over to your new flight if:</p>
+                    <ul class="sub-list" style="margin-left: 20px; margin-bottom: 16px;">
+                        <li>You rebooked your flight;</li>
+                        <li>Your flight was changed by more than one (1) hour;</li>
+                        <li>Your flight was canceled, and you moved to a different flight.</li>
+                    </ul>
+                    <p>
+                        CEB Flexi Add-on cannot be transferred to other bookings. Learn more about it here: <a
+                            href="#">CEB Flexi Terms & Conditions</a>
+                    </p>
+                </div>
+            </details>
+
+            <p class="accordion-group-label">Travel Fund</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to voluntarily cancel your booking and convert it to Travel Fund</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p
+                        style="font-size: 15px; font-weight: 600; color: #4a4a4a; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+                        How to use CEB Flexi to voluntarily cancel your booking
+                    </p>
+
+                    <div class="step-item">
+                        <p class="step-title">1. Open the href="#">Cebu Pacific app and go to Manage Booking.</p>
+                        <p class="step-subtext">A MyCebuPacific account is required to make booking
+                            changes. Make sure you're logged in to your booking's account.</p>
+                        <img class="step-img" src="images/CEBFV-1.gif" alt="Manage Booking Step 1">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">2. Tap 'Manage' to access your booking.</p>
+                        <p class="step-subtext">If you can't locate your booking, you may have to add it to
+                            your account.</p>
+                        <img class="step-img" src="images/CEBFV-2.jpg" alt="Manage Booking Step 2">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">3. Click on 'Cancel Flight/s' under Modify flight.</p>
+                        <img class="step-img" src="images/CEBFV-3.jpg" alt="Manage Booking Step 3">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">4. Choose which flight/s you want to cancel.</p>
+                        <p class="step-subtext">If you want to cancel both flights, make sure to tap the check box for
+                            both.</p>
+                        <img class="step-img" src="images/CEBFV-4.gif" alt="Manage Booking Step 4">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">5. Confirm that you want to cancel your selected flight/s.</p>
+                        <p class="step-subtext">Your booking will then be converted to a non-expiring Travel Fund that
+                            you can use to pay for future travel plans.</p>
+                        <img class="step-img" src="images/CEBFV-5.jpg" alt="Manage Booking Step 5">
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Insufficient Travel Fund</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 16px; color: #333; line-height: 1.6;">
+                        💳 If your Travel Fund is not enough for your flight or add-ons, don't worry!
+                    </p>
+                    <p style="color: #555; line-height: 1.6;">
+                        You can still pay for the remaining amount with a different payment method.
+                    </p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to check your Travel Fund balance</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <div class="step-item">
+                        <p class="step-title">1. Open the <a href="#">Cebu Pacific app</a> and log in to your account.
+                        </p>
+                        <img class="step-img" src="images/TFb-1.jpg" alt="Check Travel Fund Step 1">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">2. Go to 'My Account' to view your Travel Fund Balance.</p>
+                        <img class="step-img" src="images/TFb-2.jpg" alt="Check Travel Fund Step 2">
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to check your Travel Fund history</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 16px; color: #333; font-weight: 600;">To view your Travel Fund's
+                        transaction history:</p>
+                    <p style="margin-bottom: 12px; font-weight: 600; color: #4a4a4a;">On the website</p>
+
+                    <div class="step-item">
+                        <p class="step-title">1. Log into your MyCebuPacific account.</p>
+                    </div>
+
+                    <div class="step-item" style="margin-top: 16px;">
+                        <p class="step-title">2. Hover your mouse over "My Account" in the top right corner, then click
+                            "Travel Fund"</p>
+                        <img class="step-img" src="images/TFh-1.jpg" alt="Check Travel Fund History Step 2"
+                            style="max-width: 500px;">
+                    </div>
+
+                    <div class="step-item" style="margin-top: 24px;">
+                        <p class="step-title">3. Scroll down to view recent transactions.</p>
+                        <img class="step-img" src="images/TFh-2.jpg" alt="Check Travel Fund History Step 3"
+                            style="max-width: 500px;">
+                    </div>
+
+                    <p style="margin-top: 24px; margin-bottom: 12px; font-weight: 600; color: #4a4a4a;">On the app</p>
+                    <ul class="sub-list" style="margin-left: 20px;">
+                        <li>Viewing of Travel Fund transaction details is currently unavailable on our mobile app.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to pay using Travel Fund</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <div class="accordion-sub-heading" style="margin-bottom: 12px;">
+                        ✈️ General Guidelines
+                    </div>
+                    <ul class="sub-list" style="margin-left: 20px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 8px;">Make sure you're logged into your MyCebuPacific account to use
+                            your Travel Fund.</li>
+                        <li style="margin-bottom: 8px;">If you don't have a MyCebuPacific account, make sure you take
+                            note of the booking reference number that contains the Travel Fund.</li>
+                        <li style="margin-bottom: 8px;">You can use the fund to pay for flights and add-ons.</li>
+                        <li style="margin-bottom: 8px;">It can also be used to book for your friends and family!
+                            <ul class="sub-list" style="margin-top: 4px;">
+                                <li>To do this, please log into your MyCebuPacific account first.</li>
+                                <li>Make sure the person creating the booking is the one who owns the Travel Fund.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p style="margin-bottom: 16px; color: #333; line-height: 1.6;">
+                        Once you reach the payment page, make sure to select Travel Fund.
+                    </p>
+
+                    <img class="step-img" src="images/TF.jpg" alt="Payment Method - Travel Fund" style="max-width: 300px;">
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Travel Fund stored in your booking reference number</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 16px; color: #333; line-height: 1.6;">
+                        If your flight was disrupted and you chose to convert your booking to Travel Fund, it's likely
+                        the Travel Fund is currently stored in your <strong>booking reference number</strong>.
+                    </p>
+                    <p style="margin-bottom: 16px; color: #333; line-height: 1.6;">
+                        With this, you can still use it to pay for future flights or add-ons.
+                    </p>
+                    <p style="margin-bottom: 16px; color: #333; line-height: 1.6;">
+                        Once you reach the payment page, simply enter the <strong>six-digit booking reference
+                            number</strong> that contains the Travel Fund.
+                    </p>
+
+                    <img class="step-img" src="images/TFbrn.jpg" alt="Travel Fund stored in booking reference number"
+                        style="max-width: 500px; margin-bottom: 16px;">
+
+                    <p style="margin-bottom: 12px; color: #333; font-weight: 600;">
+                        💡 Remember! If your Travel Fund is insufficient, you can use another payment method to cover
+                        the remaining balance.
+                    </p>
+
+                    <p style="margin-bottom: 8px; color: #d9534f; font-weight: 600;">
+                        ❗ If you're experiencing an error:
+                    </p>
+                    <ul class="sub-list" style="margin-left: 20px; color: #555;">
+                        <li style="margin-bottom: 6px;">Please note that booking reference numbers created by travel
+                            agencies may not be used when trying to redeem the Travel Fund.</li>
+                        <li>With this, please reach out to the travel agency where your booking was originally created.
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <p class="accordion-group-label">Troubleshooting</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Common Travel Fund issues</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 16px; color: #333; line-height: 1.6;">
+                        Here are some common troubleshooting steps you can try:
+                    </p>
+
+                    <div style="border: 1px solid #0073e6; border-radius: 4px; overflow: hidden; margin-bottom: 16px;">
+                        <div
+                            style="background-color: #0073e6; color: white; padding: 10px 14px; font-weight: 700; font-size: 14px; text-align: center;">
+                            General troubleshooting
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px;">
+                                👤 Are you logged in?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <p style="margin-bottom: 6px;">You need to log into the MyCebuPacific account of your
+                                    booking to make changes</p>
+
+                            </div>
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #fdfdfd;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px;">
+                                🔍 Can't find your booking?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <p style="margin-bottom: 6px;">You may have to add the booking to your account. </p>
+
+                            </div>
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px;">
+                                🏢 Do you have a group or travel agency booking?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <p style="margin-bottom: 6px;">Please contact your agent / coordinator directly to make
+                                    changes.</p>
+
+                            </div>
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #fdfdfd;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px;">
+                                ✈️ Did you book on an unauthorized third-party platform?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <p style="margin-bottom: 6px;">You may have difficulty managing your booking as these
+                                    platforms may issue booking reference numbers not recognized by our system.</p>
+                                <p style="margin-bottom: 6px;">If you encounter any issues, please <a href="#">chat with
+                                        us</a> to connect with a Live Agent who can verify your booking.</p>
+
+                            </div>
+                        </div>
+
+                        <div style="display: flex; background: #ffffff;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px;">
+                                ⏳ Is it less than 2 hours before your flight?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <p>You cannot make any changes to flights less than 2 hours away.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #0073e6; border-radius: 4px; overflow: hidden;">
+                        <div
+                            style="background-color: #0073e6; color: white; padding: 10px 14px; font-weight: 700; font-size: 14px; text-align: center;">
+                            Issues with CEB Flexi / Travel Fund
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center;">
+                                Did you encounter issues when paying with your Travel Fund?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <ul class="sub-list" style="margin-left: 16px;">
+                                    <li style="margin-bottom: 6px;">Make sure you're logged into your MyCebuPacific
+                                        account first to use your Travel Fund.</li>
+                                    <li style="margin-bottom: 6px;">Please note that booking reference numbers created
+                                        by travel agencies may not be used when trying to redeem the Travel Fund.
+                                        <ul class="sub-list" style="margin-top: 4px;">
+                                            <li>With this, please reach out to the travel agency where your booking was
+                                                originally created.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #fdfdfd;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center;">
+                                Are you seeing this notification?<br><br>"Please enter the correct booking reference
+                                number or sign up/log in to your MyCebuPacific account to use your fund for others."
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <ul class="sub-list" style="margin-left: 16px;">
+                                    <li style="margin-bottom: 6px;">Double check if you are entering the correct booking
+                                        reference number that contains the Travel Fund.</li>
+                                    <li style="margin-bottom: 6px;">When booking a new flight, make sure the guest
+                                        details match the name of the guest who owns the Travel Fund.</li>
+                                    <li>You can log in to your MyCebuPacific account so you can use your Travel Fund to
+                                        book for any of your friends and family.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center;">
+                                Are you seeing this notification?<br><br>"Sorry, that booking reference number either
+                                doesn't exist, or requires you to log in to a MyCebuPacific account."
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <ul class="sub-list" style="margin-left: 16px;">
+                                    <li style="margin-bottom: 6px;">Double check if you are entering the correct booking
+                                        reference number that contains the Travel Fund.</li>
+                                    <li>Otherwise, please log in to your MyCebuPacific account first.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; background: #fdfdfd;">
+                            <div
+                                style="width: 35%; padding: 12px; border-right: 1px solid #e2e8f0; font-weight: 600; color: #333; display: flex; align-items: center;">
+                                Can't see your Travel Fund? / Is the Travel Fund balance not reflecting in your
+                                MyCebuPacific account?
+                            </div>
+                            <div style="width: 65%; padding: 12px; color: #555;">
+                                <ul class="sub-list" style="margin-left: 16px; margin-bottom: 8px;">
+                                    <li style="margin-bottom: 6px;">It's possible that the Travel Fund is stored in your
+                                        booking reference number.
+                                        <ul class="sub-list" style="margin-top: 4px;">
+                                            <li>This happens when you choose to convert your booking to Travel Fund
+                                                after experiencing a flight disruption.</li>
+                                        </ul>
+                                    </li>
+                                    <li style="margin-bottom: 6px;">For these cases, please do the following:
+                                        <ul class="sub-list" style="margin-top: 4px;">
+                                            <li style="margin-bottom: 4px;">Log into your MyCebuPacific account.</li>
+                                            <li>Proceed to add the bookingto your account.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p
+                                    style="font-weight: 600; color: #333; font-size: 12px; background: #f9f9f9; padding: 8px; border-left: 3px solid #f0a500;">
+                                    💡 To successfully add the Travel Fund to your MyCebuPacific account, make sure the
+                                    email or any name registered in the booking matches the account's details.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+        </main>
+    </div>
+
+    <!-- Active Indicator Scroll Spy Script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navOverview = document.getElementById('nav-overview');
+            const navPolicies = document.getElementById('nav-policies');
+            const policiesSection = document.getElementById('policies-guides');
+
+            function onScroll() {
+                const rect = policiesSection.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.35) {
+                    navOverview.classList.remove('active');
+                    navPolicies.classList.add('active');
+                } else {
+                    navPolicies.classList.remove('active');
+                    navOverview.classList.add('active');
+                }
+            }
+
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
+
+</body>
+
+</html>

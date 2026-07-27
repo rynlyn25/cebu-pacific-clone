@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Add-ons</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Flexi Banner Section */
+        .seat-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .seat-img-container {
+            width: 48%;
+            flex-shrink: 0;
+        }
+
+        .seat-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .seat-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .seat-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .seat-info p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Detailed Description Section */
+        .details-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .details-section p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Flexi Feature Circles Grid Layout matching image_9642dc.png */
+        .flexi-features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .flexi-feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .flexi-feature-img {
+            width: 100%;
+            max-width: 280px;
+            margin-bottom: 15px;
+        }
+
+        .flexi-feature-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .flexi-feature-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            margin: 0 0 5px 0;
+            line-height: 1.4;
+        }
+
+        .flexi-feature-note {
+            font-size: 13px;
+            color: #4a5568;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Accordion Section */
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .accordion-item.with-divider {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 14px;
+        }
+
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .accordion-content ol {
+            margin: 0 0 10px 0;
+            padding-left: 20px;
+        }
+
+        .accordion-content li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB Flexi</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature Banner -->
+            <div class="seat-banner">
+                <div class="seat-img-container">
+                    <img src="images/CEBFLEXI.png" alt="CEB Flexi Family">
+                </div>
+                <div class="seat-info">
+                    <h3>Cancel your flight for free!</h3>
+                    <p>Book your flight with CEB Flexi for more savings and flexibility in your travel plans. Get the
+                        option to cancel your flight up to 2 hours before departure for FREE!</p>
+                    <a href="index.html" class="btn-primary">Add to flight</a>
+                </div>
+            </div>
+
+            <!-- Flexi Highlights / Features Section matching image layout -->
+            <div class="flexi-features-grid">
+                <!-- Feature 1 -->
+                <div class="flexi-feature-item">
+                    <div class="flexi-feature-img">
+                        <img src="images/CEBFlexi-2.png" alt="No cancellation fee">
+                    </div>
+                    <div class="flexi-feature-title">No cancellation fee</div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="flexi-feature-item">
+                    <div class="flexi-feature-img">
+                        <img src="images/CEBFlexi-3.png" alt="Cancel your flight up to 2 hours before departure">
+                    </div>
+                    <div class="flexi-feature-title">Cancel your flight</div>
+                    <div class="flexi-feature-note">up to 2 hours before departure</div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="flexi-feature-item">
+                    <div class="flexi-feature-img">
+                        <img src="images/CEBFlexi-4.png" alt="Get back the value of your booking in the form of a Travel Fund">
+                    </div>
+                    <div class="flexi-feature-title">Get back the value of your booking in the form of a Travel Fund
+                    </div>
+                    <div class="flexi-feature-note">*For flights to/from Korea, get back the value of your booking in
+                        the same form of payment you used</div>
+                </div>
+            </div>
+
+            <!-- Accordion Section -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('terms-content', this)">
+                    <span>Terms and Conditions</span>
+                    <span class="arrow-down" id="arrow-2" style="transform: rotate(180deg);">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="terms-content" style="display: block;">
+                    <ol>
+                        <li>CEB Flexi is available for purchase during initial booking only.
+                        </li>
+                        <li>CEB Flexi is available for purchase on all Cebu Pacific channels such as the website, mobile
+                            app, ticket offices and as well as third-party sales offices.</li>
+                        <li>CEB Flexi fee shall be applied to all flight sectors of all passengers.</li>
+                        <li>CEB Flexi allows passengers to convert and store the value of the booking in a virtual
+                            wallet (Travel Fund).</li>
+                        <li>Only the qualified fees indicated in the approved General Terms and Conditions can be stored
+                            in the non-expiry Travel Fund</li>
+                        <li> CEB Flexi fee may be refunded if the Passenger Name Record/itinerary is refundable as
+                            indicated in the approved General Terms and Conditions.</li>
+                    </ol>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

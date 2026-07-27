@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Surcharge Accordion</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            padding: 0 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .banner {
+            background-color: #ffd200;
+            color: #0056b3;
+            font-weight: 700;
+            font-size: 36px;
+            padding: 30px 20px 45px 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            border-radius: 0 0 50% 50% / 0 0 32px 32px;
+            margin-bottom: 40px;
+        }
+
+        .banner-inner {
+            width: 100%;
+            max-width: 900px;
+            text-align: left;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        .accordion-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 10px 24px;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #eef2f5;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            cursor: pointer;
+            color: #002d62;
+            font-size: 24px;
+            font-weight: 500;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            color: #0056b3;
+        }
+
+        .chevron {
+            width: 16px;
+            height: 16px;
+            border-right: 3px solid #0056b3;
+            border-bottom: 3px solid #0056b3;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            margin-right: 6px;
+        }
+
+        .accordion-item.active .chevron {
+            transform: rotate(-135deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            color: #333;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .accordion-item.active .accordion-content {
+            padding-bottom: 24px;
+        }
+
+        .domestic-img {
+            max-width: 100%;
+            max-height: none;
+            width: auto;
+            height: auto;
+            display: block;
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="banner">
+        <div class="banner-inner">Service Fees</div>
+    </div>
+
+    <div class="container">
+        <h1>Fuel Surcharge</h1>
+        <div class="subtitle">CAB Approval Routing No. 22-2165/2164</div>
+
+        <div class="accordion-card">
+            <!-- Item 1 - Domestic -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Domestic</span>
+                    <div class="chevron"></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="Domestic Fuel.jpg" alt="Domestic Fuel Surcharge Rates Part 1" class="domestic-img">
+                    <!-- Fixed typo: changed Fule to Fuel -->
+                    <img src="Domestic Fule 2.jpg" alt="Domestic Fuel Surcharge Rates Part 2" class="domestic-img">
+                    <!-- Fixed typo: changed Dosmestic to Domestic -->
+                    <img src="Dosmestic Fuel 3.jpg" alt="Domestic Fuel Surcharge Rates Part 3" class="domestic-img">
+                </div>
+            </div>
+
+            <!-- Item 2 - International (Travel from the Philippines) -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>International (Travel from the Philippines)</span>
+                    <div class="chevron"></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="International Fule.jpg" alt="International Fuel Surcharge Rates Part 1"
+                        class="domestic-img">
+                    <img src="International Fuel 2.jpg" alt="International Fuel Surcharge Rates Part 2"
+                        class="domestic-img">
+                </div>
+            </div>
+
+            <!-- Item 3 - International (Travel to the Philippines) -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>International (Travel to the Philippines)</span>
+                    <div class="chevron"></div>
+                </div>
+                <!-- FIXED: Combined both images into a single content block -->
+                <div class="accordion-content">
+                    <img src="International Fuel 3.jpg" alt="International Fuel Surcharge Rates Part 3"
+                        class="domestic-img">
+                    <img src="International Fuel 4.jpg" alt="International Fuel Surcharge Rates Part 4"
+                        class="domestic-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = header.nextElementSibling;
+
+                item.classList.toggle('active');
+
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = "none";
+                    const fullHeight = content.scrollHeight + "px";
+                    content.style.maxHeight = "0px";
+                    setTimeout(() => {
+                        content.style.maxHeight = fullHeight;
+                    }, 10);
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

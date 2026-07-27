@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add-ons - Booking</title>
+    <style>
+        :root {
+            --yellow: #FFD200;
+            --blue-link: #0072CE;
+            --blue-dark: #12395B;
+            --text-dark: #1a1a1a;
+            --text-gray: #6b7280;
+            --border: #d1d5db;
+            --error-red: #e02020;
+            --info-blue: #e8f4fd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+            color: var(--text-dark);
+        }
+
+        /* ---------- TOP FIXED NAVBAR (FROM PICTURE 1 & 2) ---------- */
+        .top-navbar {
+            background: #ffffff;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo {
+            height: 36px;
+            object-fit: contain;
+        }
+
+        /* ---------- HEADER / STEPPER ---------- */
+        .header {
+            background: var(--yellow);
+            padding: 22px 0 16px;
+        }
+
+        .stepper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 150px;
+        }
+
+        .step .circle-badge {
+            padding: 5px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--blue-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-dark);
+            z-index: 2;
+        }
+
+        .step.done .circle,
+        .step.active .circle {
+            background: var(--blue-dark);
+            color: #fff;
+        }
+
+        .step .circle svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .step label {
+            margin-top: 6px;
+            font-size: 12.5px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+
+        .step:not(.done):not(.active) label {
+            color: var(--blue-link);
+            font-weight: normal;
+        }
+
+        .connector {
+            position: absolute;
+            top: 19px;
+            left: calc(-75px + 15px);
+            width: 150px;
+            height: 0;
+            border-top: 2px dotted var(--blue-dark);
+            z-index: 1;
+        }
+
+        .step:not(.done):not(.active) .connector {
+            border-top-color: #fff;
+        }
+
+        .step:first-child .connector {
+            display: none;
+        }
+
+        /* ---------- PAGE CONTENT ---------- */
+        .content-wrap {
+            max-width: 900px;
+            margin: 24px auto 40px;
+            padding: 0 20px;
+        }
+
+        h1.page-title {
+            font-size: 26px;
+            margin: 0 0 16px 0;
+        }
+
+        /* SECTION HEADINGS */
+        .section-header-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .section-indicator {
+            width: 3px;
+            height: 18px;
+            background: var(--yellow);
+        }
+
+        h2.section-title {
+            font-size: 18px;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        /* BANNER NOTICE */
+        .notice-banner {
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .notice-text b {
+            color: var(--text-dark);
+        }
+
+        .notice-text {
+            font-size: 13px;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        .btn-got-it {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1.5px solid var(--blue-link);
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .btn-got-it:hover {
+            background: #f0f7ff;
+        }
+
+        /* ADD-ONS GRID */
+        .addons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .addon-card {
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .addon-card.selected {
+            border-color: var(--blue-link);
+        }
+
+        .addon-image-wrap {
+            width: 100%;
+            height: 160px;
+            position: relative;
+            background: #e5e7eb;
+        }
+
+        .addon-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Pre-selected badge banner over image */
+        .pre-selected-badge {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            background: #12395B;
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: bold;
+            padding: 4px 10px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .not-available-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #333;
+            color: #fff;
+            font-size: 9.5px;
+            font-weight: bold;
+            padding: 3px 8px;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+        }
+
+        .addon-info-overlay {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .addon-body {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
+
+        .addon-title-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .addon-icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .addon-icon-box img {
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .addon-icon-box svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .addon-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .addon-price-area {
+            text-align: right;
+        }
+
+        .addon-price-label {
+            font-size: 10.5px;
+            color: var(--text-gray);
+            display: block;
+        }
+
+        .addon-price {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--blue-link);
+            margin-top: 1px;
+        }
+
+        .addon-desc {
+            padding: 0 16px 16px;
+            font-size: 12px;
+            color: var(--text-gray);
+            margin: 0;
+        }
+
+        /* ACTIONS FOOTER */
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 11px 30px;
+            border-radius: 24px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-back {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1px solid var(--blue-link);
+        }
+
+        .btn-continue {
+            background: var(--blue-link);
+            color: #fff;
+        }
+
+        .btn-continue:hover {
+            background: #005ba3;
+        }
+
+        /* ================= OVERALL CART (inserted) ================= */
+        .cart-widget {
+            position: relative;
+        }
+
+        .cart-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--blue-link);
+            padding: 6px 8px;
+        }
+
+        .cart-total-label {
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: normal;
+            opacity: 1;
+            font-weight: bold;
+            color: var(--blue-link);
+            display: none;
+        }
+
+        .cart-total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .cart-caret {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+            color: var(--blue-link);
+        }
+
+        .cart-widget.open .cart-caret {
+            transform: rotate(180deg);
+        }
+
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 320px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            z-index: 3000;
+            text-align: left;
+        }
+
+        .cart-widget.open .cart-dropdown {
+            display: block;
+        }
+
+        .cart-dropdown-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .cart-flight-leg {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-flight-route {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--blue-link);
+            margin-bottom: 2px;
+        }
+
+        .cart-flight-date {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .cart-flight-row,
+        .cart-addon-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: #444;
+            margin-top: 2px;
+        }
+
+        .cart-section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-gray);
+            margin: 10px 0 6px;
+            font-weight: bold;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: var(--text-dark);
+        }
+
+        /* ================= EMPTY ADD-ONS MODAL ================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 4000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 440px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #555;
+            margin: 0 0 10px 0;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin: 0 0 20px 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-modal-back {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1px solid var(--blue-link);
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-modal-proceed {
+            background: #0088CE;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-modal-proceed:hover {
+            background: #006da5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP STICKY NAVBAR FROM PICTURE 1 -->
+    <div class="top-navbar">
+        <div class="brand-container">
+            <img src="AO-1.webp" alt="Cebu Pacific Logo" class="brand-logo">
+        </div>
+
+        <!-- OVERALL CART (inserted) -->
+        <div class="cart-widget" id="cartWidget">
+            <button class="cart-toggle" id="cartToggle" type="button">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotalAmount">PHP 0.00</span>
+                <svg class="cart-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </button>
+            <div class="cart-dropdown" id="cartDropdown">
+                <div class="cart-dropdown-title">Booking Summary</div>
+                <div id="cartFlightBlocks"></div>
+                <div class="cart-addons-block" id="cartAddonsBlock" style="display:none;">
+                    <div class="cart-section-label">Add-ons</div>
+                    <div id="cartAddonsList"></div>
+                </div>
+                <div class="cart-total-row">
+                    <span>Total</span>
+                    <span id="cartDropdownTotal">PHP 0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER STEPPER -->
+    <div class="header">
+        <div class="stepper">
+            <div class="step done">
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Select Flight</label>
+            </div>
+            <div class="step done">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M7 20c0-3 2-5 5-5s5 2 5 5" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Guest Details</label>
+            </div>
+            <div class="step active">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                            <path d="M3 6h18" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Add-ons</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Payment</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Confirmation</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrap">
+        <h1 class="page-title">Customize your flight with our add-ons!</h1>
+
+
+        <div class="notice-banner">
+            <div class="notice-text">
+                <b>Add-ons selected for you</b> We've pre-selected items for you for an enjoyable flight. You can still
+                edit them to your preference or remove them.
+            </div>
+            <button class="btn-got-it" onclick="this.closest('.notice-banner').style.display='none'">Got It</button>
+        </div>
+
+        <div class="addons-grid">
+            <!-- Seat Selector -->
+            <div class="addon-card" onclick="window.location.href='SSAO-index.html'">
+                <div class="addon-image-wrap">
+                    <img src="SSAO-1.webp" alt="Seat Selector Cabin">
+                </div>
+                <div class="addon-body">
+                    <div class="addon-title-area">
+                        <div class="addon-icon-box">
+                            <img src="SSAO-2.webp" alt="Seat Selector Logo">
+                        </div>
+                    </div>
+                    <div class="addon-price-area">
+                        <span class="addon-price-label">Upgrade for as low as</span>
+                        <span class="addon-price">PHP 130.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CEB TravelSure -->
+            <div class="addon-card selected" onclick="window.location.href='TSAO-index.html'">
+                <div class="addon-image-wrap">
+                    <div class="pre-selected-badge">PRE-SELECTED FOR YOU</div>
+                    <div class="addon-info-overlay">i</div>
+                    <img src="TSAO-1.webp" alt="CEB TravelSure Travel">
+                </div>
+                <div class="addon-body">
+                    <div class="addon-title-area">
+                        <div class="addon-icon-box">
+                            <img src="TSAO-2.webp" alt="CEB TravelSure Logo">
+                        </div>
+                    </div>
+                    <div class="addon-price-area">
+                        <span class="addon-price-label">Upgrade for as low as</span>
+                        <span class="addon-price">PH 600.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="addons-grid">
+            <!-- CEB Baggage -->
+            <div class="addon-card" onclick="window.location.href='BAO-index.html'">
+                <div class="addon-image-wrap">
+                    <img src="BAO-1.webp" alt="CEB Baggage Luggage">
+                </div>
+                <div class="addon-body">
+                    <div class="addon-title-area">
+                        <div class="addon-icon-box">
+                            <img src="BAO-2.webp" alt="CEB Baggage Logo">
+                        </div>
+                    </div>
+                    <div class="addon-price-area">
+                        <span class="addon-price-label">for as low as</span>
+                        <span class="addon-price">PHP 770.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CEB Meals -->
+            <div class="addon-card" onclick="window.location.href='MAO-index.html'">
+                <div class="addon-image-wrap">
+                    <img src="CMAO-1.webp" alt="CEB Meals Food">
+                </div>
+                <div class="addon-body">
+                    <div class="addon-title-area">
+                        <div class="addon-icon-box">
+                            <img src="CMAO-2.webp" alt="CEB Meals Logo">
+                        </div>
+                    </div>
+                    <div class="addon-price-area">
+                        <span class="addon-price-label">for as low as</span>
+                        <span class="addon-price">PHP 224.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION ACTIONS -->
+        <div class="actions">
+            <button class="btn-back" onclick="alert('Going back to Guest Details...')">Back</button>
+            <button class="btn-continue" onclick="handleContinue()">Continue</button>
+        </div>
+    </div>
+
+    <!-- EMPTY ADD-ONS MODAL -->
+    <div class="modal-overlay" id="emptyAddonsModal">
+        <div class="modal-content">
+            <h3 class="modal-title">You don't have any add-ons for your trip!</h3>
+            <p class="modal-subtitle">Are you sure you want to continue?</p>
+            <div class="modal-actions">
+                <button class="btn-modal-back" onclick="closeModal()">Back to Add-ons</button>
+                <button class="btn-modal-proceed" onclick="proceedToPayment()">Proceed anyway</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ================= OVERALL CART (inserted) =================
+           Reads the flight selection saved by selectflight.html plus
+           this page's own add-on total, and renders the running
+           Booking Summary cart shown in the yellow header. */
+        function cebuGetBooking() {
+            try {
+                const raw = localStorage.getItem('cebuBooking');
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function cebuGetAddons() {
+            try {
+                const raw = localStorage.getItem('cebuAddons');
+                return raw ? JSON.parse(raw) : { baggage: 0, seat: 0, travelsure: 0, meals: 0 };
+            } catch (e) {
+                return { baggage: 0, seat: 0, travelsure: 0, meals: 0 };
+            }
+        }
+
+        function cebuUpdateCartAddon(key, amount) {
+            const addons = cebuGetAddons();
+            addons[key] = amount || 0;
+            localStorage.setItem('cebuAddons', JSON.stringify(addons));
+            cebuRenderCart();
+        }
+
+        function cebuFormatPHP(n) {
+            return 'PHP ' + (n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function cebuRenderCart() {
+            const booking = cebuGetBooking();
+            const addons = cebuGetAddons();
+            const cartFlightBlocks = document.getElementById('cartFlightBlocks');
+            const cartAddonsBlock = document.getElementById('cartAddonsBlock');
+            const cartAddonsList = document.getElementById('cartAddonsList');
+            const cartTotalAmount = document.getElementById('cartTotalAmount');
+            const cartDropdownTotal = document.getElementById('cartDropdownTotal');
+
+            let flightTotal = 0;
+            if (cartFlightBlocks) {
+                cartFlightBlocks.innerHTML = '';
+                if (booking && booking.depart) {
+                    flightTotal += booking.depart.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.depart.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.depart.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (booking && booking.return) {
+                    flightTotal += booking.return.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.return.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.return.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (!booking || (!booking.depart && !booking.return)) {
+                    cartFlightBlocks.innerHTML = '<div class="cart-flight-date">No flight selected yet.</div>';
+                }
+            }
+
+            const addonLabels = { baggage: 'CEB Baggage', seat: 'Seat Selector', travelsure: 'CEB TravelSure', meals: 'CEB Meals' };
+            let addonsTotal = 0;
+            let addonsHtml = '';
+            Object.keys(addonLabels).forEach(function (key) {
+                const amt = addons[key] || 0;
+                if (amt > 0) {
+                    addonsTotal += amt;
+                    addonsHtml += `<div class="cart-addon-row"><span>${addonLabels[key]}</span><span>${cebuFormatPHP(amt)}</span></div>`;
+                }
+            });
+            if (cartAddonsBlock && cartAddonsList) {
+                if (addonsTotal > 0) {
+                    cartAddonsBlock.style.display = '';
+                    cartAddonsList.innerHTML = addonsHtml;
+                } else {
+                    cartAddonsBlock.style.display = 'none';
+                }
+            }
+
+            const grandTotal = flightTotal + addonsTotal;
+            if (cartTotalAmount) cartTotalAmount.textContent = cebuFormatPHP(grandTotal);
+            if (cartDropdownTotal) cartDropdownTotal.textContent = cebuFormatPHP(grandTotal);
+
+            return booking;
+        }
+
+        (function cebuInitCartToggle() {
+            const cartWidget = document.getElementById('cartWidget');
+            const cartToggle = document.getElementById('cartToggle');
+            if (!cartWidget || !cartToggle) return;
+            cartToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                cartWidget.classList.toggle('open');
+            });
+            document.addEventListener('click', function () {
+                cartWidget.classList.remove('open');
+            });
+            cartWidget.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        })();
+
+        /* ================= MODAL LOGIC ================= */
+        function handleContinue() {
+            const addons = cebuGetAddons();
+            let totalAddonsCost = (addons.baggage || 0) + (addons.seat || 0) + (addons.travelsure || 0) + (addons.meals || 0);
+
+            if (totalAddonsCost === 0) {
+                // Show modal if no add-ons are in cart
+                document.getElementById('emptyAddonsModal').classList.add('active');
+            } else {
+                // Proceed normally if they have add-ons
+                proceedToPayment();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('emptyAddonsModal').classList.remove('active');
+        }
+
+        function proceedToPayment() {
+            window.location.href = 'BS-index.html';
+        }
+
+        cebuRenderCart();
+    </script>
+
+</body>
+
+</html>

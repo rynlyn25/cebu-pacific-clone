@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Cebu Pacific</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           GLOBAL RESET
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* =========================================
+           FULL-HEIGHT COLUMN SIGN UP PAGE
+           ========================================= */
+        .login-page-body {
+            background-image: url('images/siargao.webp'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-color: #e5e5e5; 
+            
+            display: flex;
+            justify-content: center; 
+            align-items: stretch; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 0; 
+        }
+
+        .login-center-column {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px; 
+            border-radius: 0; 
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .login-column-header {
+            text-align: center;
+            padding: 30px 20px 25px 20px;
+            border-bottom: 1px solid #ebebeb;
+            margin-bottom: 30px;
+        }
+
+        .login-column-header a {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-logo {
+            width: 160px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .login-column-body {
+            padding: 0 40px 40px 40px;
+            flex-grow: 1; 
+        }
+
+        .signup-title {
+            text-align: center;
+            font-size: 15px;
+            margin-bottom: 25px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* =========================================
+           ERROR STATES & BANNERS
+           ========================================= */
+        .top-error-banner {
+            display: none; 
+            border: 1px solid #ebebeb;
+            margin-bottom: 25px;
+            background: #fff;
+        }
+        
+        .top-error-icon {
+            background-color: #e53935; 
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .top-error-text {
+            padding: 15px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .error-message {
+            color: #e53935;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none; 
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* =========================================
+           INPUTS & FORMS
+           ========================================= */
+        .login-input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .login-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .login-input-group input[type="text"],
+        .login-input-group input[type="email"],
+        .login-input-group input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-input-group input.error-active {
+            border-color: #e53935;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+            gap: 8px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-label {
+            font-size: 12px !important;
+            color: #555 !important;
+            font-weight: normal !important;
+            margin-bottom: 0 !important;
+            cursor: pointer;
+        }
+
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-wrapper input {
+            width: 100%;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            color: #999;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* REAL-TIME PASSWORD VALIDATION STYLES */
+        .password-requirements {
+            margin-top: -5px; 
+            margin-bottom: 25px;
+        }
+        
+        .password-requirements p {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .password-requirements ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 0;
+        }
+        
+        .password-requirements li {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 5px;
+            transition: color 0.2s, list-style-type 0.2s;
+        }
+
+        /* Green for Pass, Red for Fail */
+        .password-requirements li.rule-pass {
+            color: #2e7d32;
+            list-style-type: '✓  ';
+        }
+        .password-requirements li.rule-fail {
+            color: #e53935;
+            list-style-type: '✕  ';
+        }
+
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+        
+        .terms-group input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+        
+        .terms-group label {
+            font-size: 12px !important;
+            color: #555 !important;
+            line-height: 1.5;
+            font-weight: normal !important;
+            margin-bottom: 0 !important;
+        }
+        
+        .terms-group label a {
+            color: #0088CE;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .next-btn {
+            width: 100%;
+            background: #007bc7;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .next-btn:hover {
+            background: #006eb3;
+        }
+
+        .signup-footer-link {
+            text-align: left;
+            margin-top: 25px;
+        }
+        
+        .signup-footer-link a {
+            font-size: 13px;
+            color: #666;
+            text-decoration: underline;
+        }
+        
+        .signup-footer-link a:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body class="login-page-body">
+
+    <div class="login-center-column scrollable-column">
+        
+        <div class="login-column-header">
+            <a href="index.html">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" class="login-logo">
+            </a>
+        </div>
+        
+        <div class="login-column-body signup-body">
+            <h3 class="signup-title">Sign up</h3>
+            
+            <div class="top-error-banner" id="topErrorBanner">
+                <div class="top-error-icon">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+                <div class="top-error-text">
+                    We found some errors. Please review the form and make corrections.
+                </div>
+            </div>
+            
+            <form id="newSignupForm" novalidate>
+                <!-- Email -->
+                <div class="login-input-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail">
+                    <div class="error-message">
+                        <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                    </div>
+                </div>
+                
+                <!-- Last Name -->
+                <div class="login-input-group">
+                    <label for="signupLastName">Last name</label>
+                    <input type="text" id="signupLastName">
+                    <div class="error-message">
+                        <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                    </div>
+                </div>
+
+                <!-- First Name -->
+                <div class="login-input-group">
+                    <label for="signupFirstName">First name</label>
+                    <input type="text" id="signupFirstName">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="noFirstName">
+                        <label for="noFirstName" class="checkbox-label">I have no first name</label>
+                    </div>
+                    <div class="error-message">
+                        <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="login-input-group password-group">
+                    <label for="signupPassword">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="signupPassword">
+                        <i class="fa-solid fa-eye toggle-password" id="toggleSignupPasswordBtn"></i>
+                    </div>
+                    <div class="error-message" id="passwordErrorMsg">
+                        <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                    </div>
+                </div>
+
+                <!-- Password Requirements List with IDs -->
+                <div class="password-requirements">
+                    <p>Password requirements:</p>
+                    <ul id="password-rules">
+                        <li id="req-length">At least 8 characters</li>
+                        <li id="req-lower">A lowercase letter</li>
+                        <li id="req-upper">An uppercase letter</li>
+                        <li id="req-number">A number</li>
+                        <li id="req-symbol">A symbol</li>
+                        <li id="req-username">No parts of your username</li>
+                        <li id="req-firstname">Does not include your first name</li>
+                        <li id="req-lastname">Does not include your last name</li>
+                    </ul>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="terms-group">
+                    <input type="checkbox" id="termsCheck">
+                    <label for="termsCheck">
+                        I confirm that I have read, understood, and agree to the <a href="#">Terms and Conditions</a> and the updated Cebu Pacific <a href="#">Privacy Policy</a>. I consent to the collection, use, processing and sharing of my personal information in accordance therewith.
+                    </label>
+                </div>
+                
+                <button type="submit" class="next-btn">Sign Up</button>
+            </form>
+            
+            <div class="signup-footer-link">
+                <a href="login.html">Already have an account?</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const togglePasswordBtn = document.getElementById('toggleSignupPasswordBtn');
+            const passwordInput = document.getElementById('signupPassword');
+            const emailInput = document.getElementById('signupEmail');
+            const lastNameInput = document.getElementById('signupLastName');
+            const firstNameInput = document.getElementById('signupFirstName');
+            const noFirstNameCheckbox = document.getElementById('noFirstName');
+            
+            // --- Toggle Password Visibility ---
+            if(togglePasswordBtn && passwordInput) {
+                togglePasswordBtn.addEventListener('click', () => {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    togglePasswordBtn.classList.toggle('fa-eye');
+                    togglePasswordBtn.classList.toggle('fa-eye-slash');
+                });
+            }
+
+            // --- Real-time Password Logic ---
+            function checkPasswordRules() {
+                const pass = passwordInput.value;
+                const email = emailInput.value.trim();
+                const lname = lastNameInput.value.trim();
+                const fname = noFirstNameCheckbox.checked ? "" : firstNameInput.value.trim();
+                
+                let isPasswordValid = true;
+
+                // Helper to update CSS class
+                const updateRule = (id, condition) => {
+                    const el = document.getElementById(id);
+                    if (pass.length === 0) {
+                        el.classList.remove('rule-pass', 'rule-fail'); // Reset to default grey bullets
+                        isPasswordValid = false;
+                    } else if (condition) {
+                        el.classList.remove('rule-fail');
+                        el.classList.add('rule-pass'); // Green Check
+                    } else {
+                        el.classList.remove('rule-pass');
+                        el.classList.add('rule-fail'); // Red X
+                        isPasswordValid = false;
+                    }
+                };
+
+                // Apply Regex & Length Rules
+                updateRule('req-length', pass.length >= 8);
+                updateRule('req-lower', /[a-z]/.test(pass));
+                updateRule('req-upper', /[A-Z]/.test(pass));
+                updateRule('req-number', /[0-9]/.test(pass));
+                updateRule('req-symbol', /[^a-zA-Z0-9]/.test(pass));
+                
+                // Username Rule (Gets string before the '@' in email)
+                const username = email.split('@')[0];
+                const hasUsername = username.length >= 3 && pass.toLowerCase().includes(username.toLowerCase());
+                updateRule('req-username', !hasUsername);
+                
+                // First Name Rule
+                const hasFirst = fname.length >= 2 && pass.toLowerCase().includes(fname.toLowerCase());
+                updateRule('req-firstname', !hasFirst);
+                
+                // Last Name Rule
+                const hasLast = lname.length >= 2 && pass.toLowerCase().includes(lname.toLowerCase());
+                updateRule('req-lastname', !hasLast);
+
+                return isPasswordValid;
+            }
+
+            // Listeners for typing in fields (triggers the logic instantly)
+            passwordInput.addEventListener('input', checkPasswordRules);
+            emailInput.addEventListener('input', checkPasswordRules);
+            firstNameInput.addEventListener('input', checkPasswordRules);
+            lastNameInput.addEventListener('input', checkPasswordRules);
+            noFirstNameCheckbox.addEventListener('change', checkPasswordRules);
+
+
+            // --- Form Submission Validation Logic ---
+            const signupForm = document.getElementById('newSignupForm');
+            const topErrorBanner = document.getElementById('topErrorBanner');
+
+            // Disable first name input if checkbox is checked
+            noFirstNameCheckbox.addEventListener('change', function() {
+                if(this.checked) {
+                    firstNameInput.value = '';
+                    firstNameInput.disabled = true;
+                    firstNameInput.classList.remove('error-active');
+                    const errorMsg = firstNameInput.closest('.login-input-group').querySelector('.error-message');
+                    if(errorMsg) errorMsg.style.display = 'none';
+                } else {
+                    firstNameInput.disabled = false;
+                }
+            });
+
+            // Handle Form Submission
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                let hasErrors = false;
+
+                // Check text inputs for blanks
+                const inputsToCheck = [ emailInput, lastNameInput, firstNameInput ];
+                inputsToCheck.forEach(input => {
+                    const errorMsg = input.closest('.login-input-group').querySelector('.error-message');
+                    
+                    if (input.id === 'signupFirstName' && noFirstNameCheckbox.checked) { return; } // Skip First Name check if Box ticked
+
+                    if (input.value.trim() === '') {
+                        input.classList.add('error-active');
+                        if (errorMsg) errorMsg.style.display = 'flex';
+                        hasErrors = true;
+                    } else {
+                        input.classList.remove('error-active');
+                        if (errorMsg) errorMsg.style.display = 'none';
+                    }
+                });
+
+                // Specifically Check Password
+                const passErrorMsg = document.getElementById('passwordErrorMsg');
+                if (passwordInput.value.trim() === '') {
+                    passwordInput.classList.add('error-active');
+                    passErrorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank';
+                    passErrorMsg.style.display = 'flex';
+                    hasErrors = true;
+                } else if (!checkPasswordRules()) {
+                    passwordInput.classList.add('error-active');
+                    passErrorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please meet all password requirements';
+                    passErrorMsg.style.display = 'flex';
+                    hasErrors = true;
+                } else {
+                    passwordInput.classList.remove('error-active');
+                    passErrorMsg.style.display = 'none';
+                }
+
+                // Require Terms
+                if (!document.getElementById('termsCheck').checked) {
+                    hasErrors = true;
+                }
+
+                // Show or hide the top banner based on errors
+                if (hasErrors) {
+                    topErrorBanner.style.display = 'flex';
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scrolls user to top to see error
+                } else {
+                    topErrorBanner.style.display = 'none';
+                    alert("Account created successfully!");
+                    window.location.href = "login.html"; 
+                }
+            });
+
+            // Remove red error boxes instantly when the user starts typing
+            const allInputs = document.querySelectorAll('.login-input-group input');
+            allInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.classList.remove('error-active');
+                    const errorMsg = this.closest('.login-input-group').querySelector('.error-message');
+                    if(errorMsg) errorMsg.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

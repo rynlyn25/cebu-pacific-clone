@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CEB TravelSure - Booking</title>
+    <style>
+        :root {
+            --yellow: #FFD200;
+            --blue-link: #0072CE;
+            --blue-dark: #12395B;
+            --text-dark: #1a1a1a;
+            --text-gray: #6b7280;
+            --border: #d1d5db;
+            --error-red: #e02020;
+            --info-blue: #e8f4fd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+            color: var(--text-dark);
+            padding-bottom: 80px;
+        }
+
+        /* ================= STICKY TOP HEADER (Picture 1 format) ================= */
+        .sticky-top-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .sticky-logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .sticky-price-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--blue-link);
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .sticky-price-dropdown svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        /* ================= HEADER / STEPPER (kept as-is) ================= */
+        .header {
+            background: var(--yellow);
+            padding: 22px 0 16px;
+        }
+
+        .stepper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 150px;
+        }
+
+        .step .circle-badge {
+            padding: 5px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--blue-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-dark);
+            z-index: 2;
+        }
+
+        .step.done .circle,
+        .step.active .circle {
+            background: var(--blue-dark);
+            color: #fff;
+        }
+
+        .step .circle svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .step label {
+            margin-top: 6px;
+            font-size: 12.5px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+
+        .step:not(.done):not(.active) label {
+            color: var(--blue-link);
+            font-weight: normal;
+        }
+
+        .connector {
+            position: absolute;
+            top: 19px;
+            left: calc(-75px + 15px);
+            width: 150px;
+            height: 0;
+            border-top: 2px dotted var(--blue-dark);
+            z-index: 1;
+        }
+
+        .step:not(.done):not(.active) .connector {
+            border-top-color: #fff;
+        }
+
+        .step:first-child .connector {
+            display: none;
+        }
+
+        /* ================= PAGE CONTENT ================= */
+        .top-bar {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .back-link {
+            color: var(--blue-link);
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .travelsure-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .top-divider {
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue-link), var(--blue-link) 60%, #d7e9fb);
+            border-radius: 2px;
+        }
+
+        .flight-header-banner {
+            max-width: 1000px;
+            margin: 14px auto 0;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .flight-header-banner .dep-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .flight-header-banner .route-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+
+        .flight-header-banner .route-info svg {
+            width: 16px;
+            height: 16px;
+            color: var(--blue-link);
+        }
+
+        .selecting-row {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .selecting-box {
+            background: #ffffff;
+            border: 1px solid var(--blue-link);
+            border-radius: 4px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--blue-link);
+            font-weight: bold;
+            box-shadow: 0 1px 2px rgba(0, 114, 206, 0.1);
+        }
+
+        .selecting-box svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .info-notice-banner {
+            max-width: 1000px;
+            margin: 12px auto 0;
+            padding: 0 20px;
+        }
+
+        .info-notice-box {
+            background: #eaf3fd;
+            border: 1px solid #cce3fd;
+            border-radius: 4px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: var(--blue-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-notice-box svg {
+            width: 16px;
+            height: 16px;
+            color: var(--blue-link);
+            flex-shrink: 0;
+        }
+
+        .hero-banner {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+        }
+
+        .hero-banner-inner {
+            background: linear-gradient(135deg, #0072ce 0%, #004b8d 100%);
+            border-radius: 8px;
+            padding: 0;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 114, 206, 0.2);
+            height: 150px;
+        }
+
+        .hero-text {
+            position: absolute;
+            left: 30px;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: url('TSAO-5.webp') no-repeat right center;
+            background-size: cover;
+        }
+
+        .main-content-card {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .card-box {
+            background: #fff;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .product-title-row h2 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--text-dark);
+        }
+
+        .badge-tag {
+            background: #fff3cd;
+            color: #856404;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid #ffeeba;
+        }
+
+        .price-subtitle {
+            font-size: 13.5px;
+            color: var(--blue-link);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .benefits-section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 30px;
+            margin-bottom: 10px;
+            align-items: start;
+        }
+
+        .benefit-item-container {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .benefit-dropdown-item {
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--blue-link);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .benefit-dropdown-item.black-text {
+            color: var(--text-dark);
+        }
+
+        .benefit-dropdown-item svg {
+            width: 14px;
+            height: 14px;
+            color: var(--blue-link);
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .benefit-dropdown-item.black-text svg {
+            color: var(--text-dark);
+        }
+
+        .benefit-dropdown-item.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        .benefit-details-content {
+            display: none;
+            padding: 0 0 14px 0;
+            font-size: 12.5px;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .benefit-details-content.active {
+            display: block;
+        }
+
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 16px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .full-list-link {
+            font-size: 13px;
+            color: var(--blue-link);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .full-list-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .full-list-sub {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-top: 2px;
+        }
+
+        .price-action-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .display-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .btn-add-insurance {
+            background: var(--blue-link);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 13.5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 114, 206, 0.2);
+        }
+
+        .btn-add-insurance:hover {
+            background: #005ba3;
+        }
+
+        .btn-add-insurance.added {
+            background: #10b981;
+        }
+
+        .legal-notice-box {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .legal-box-content {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px 20px;
+            font-size: 12px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .legal-box-content p {
+            margin: 0 0 8px 0;
+        }
+
+        .legal-box-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .legal-box-content a {
+            color: var(--blue-link);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .underwritten-text {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        /* -------- Sticky footer -------- */
+        .footer-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 50;
+        }
+
+        .footer-left-summary {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            color: var(--text-dark);
+        }
+
+        .footer-left-summary .title {
+            font-weight: bold;
+        }
+
+        .footer-left-summary .amount {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .footer-left-summary .amount svg {
+            width: 12px;
+            height: 12px;
+            color: var(--text-gray);
+            transition: transform 0.2s ease;
+        }
+
+        .footer-right-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px 22px;
+            border-radius: 22px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-outline {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1px solid var(--blue-link);
+        }
+
+        .btn-solid {
+            background: var(--blue-link);
+            color: #fff;
+        }
+
+        .btn-solid:hover {
+            background: #005ba3;
+        }
+
+        /* ================= OVERALL CART (added for dropdown widget compatibility) ================= */
+        .cart-widget {
+            position: relative;
+        }
+
+        .cart-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--blue-link);
+            padding: 6px 8px;
+        }
+
+        .cart-total-label {
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: normal;
+            opacity: 1;
+            font-weight: bold;
+            color: var(--blue-link);
+            display: none;
+        }
+
+        .cart-total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .cart-caret {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+            color: var(--blue-link);
+        }
+
+        .cart-widget.open .cart-caret {
+            transform: rotate(180deg);
+        }
+
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 320px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            z-index: 3000;
+            text-align: left;
+        }
+
+        .cart-widget.open .cart-dropdown {
+            display: block;
+        }
+
+        .cart-dropdown-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .cart-flight-leg {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-flight-route {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--blue-link);
+            margin-bottom: 2px;
+        }
+
+        .cart-flight-date {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .cart-flight-row,
+        .cart-addon-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: #444;
+            margin-top: 2px;
+        }
+
+        .cart-section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-gray);
+            margin: 10px 0 6px;
+            font-weight: bold;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- STICKY TOP HEADER -->
+    <div class="sticky-top-header">
+        <div class="sticky-logo-container">
+            <img src="AO-1.webp" alt="Cebu Pacific" width="140" style="display: block;">
+        </div>
+        <!-- OVERALL CART -->
+        <div class="cart-widget" id="cartWidget">
+            <button class="cart-toggle" id="cartToggle" type="button">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotalAmount">PHP 0.00</span>
+                <svg class="cart-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </button>
+            <div class="cart-dropdown" id="cartDropdown">
+                <div class="cart-dropdown-title">Booking Summary</div>
+                <div id="cartFlightBlocks"></div>
+                <div class="cart-addons-block" id="cartAddonsBlock" style="display:none;">
+                    <div class="cart-section-label">Add-ons</div>
+                    <div id="cartAddonsList"></div>
+                </div>
+                <div class="cart-total-row">
+                    <span>Total</span>
+                    <span id="cartDropdownTotal">PHP 0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER STEPPER -->
+    <div class="header">
+        <div class="stepper">
+            <div class="step done">
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Select Flight</label>
+            </div>
+            <div class="step done">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M7 20c0-3 2-5 5-5s5 2 5 5" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Guest Details</label>
+            </div>
+            <div class="step active">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                            <path d="M3 6h18" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Add-ons</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Payment</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Confirmation</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ BODY ============ -->
+
+    <div class="top-bar">
+        <a class="back-link" href="AOMain-index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+            Select more add-ons
+        </a>
+        <div class="travelsure-logo-container">
+            <svg width="150" height="42" viewBox="0 0 210 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="30" fill="#FFD200" />
+                <path
+                    d="M30 14C21.1634 14 14 21.1634 14 30C14 38.8366 21.1634 46 30 46C38.8366 46 46 38.8366 46 30C46 21.1634 38.8366 14 30 14ZM30 18C33.3137 18 36 20.6863 36 24V32C36 35.3137 33.3137 38 30 38C26.6863 38 24 35.3137 24 32V24C24 20.6863 26.6863 18 30 18Z"
+                    fill="#1B9A63" />
+                <path d="M30 19.5L19 24.5V31.5C19 38.5 24 44.5 30 46C36 44.5 41 38.5 41 31.5V24.5L30 19.5Z"
+                    fill="#1B9A63" />
+                <path d="M30 22L38 25.5V31.5C38 36.5 34.5 41 30 42C25.5 41 22 36.5 22 31.5V25.5L30 22Z"
+                    fill="#15804D" />
+                <path d="M30 20L40 24V31C40 37.5 35.5 43.5 30 45C24.5 43.5 20 37.5 20 31V24L30 20Z" fill="#1B9A63" />
+                <path d="M30 22L37 25V31C37 36.5 33.5 41.5 30 43C26.5 41.5 23 36.5 23 31V25L30 22Z" fill="#169056" />
+                <path d="M30 22L36 24.5V30.5C36 35.5 32.5 40 30 41.5C27.5 40 24 35.5 24 30.5V24.5L30 22Z"
+                    fill="#1B9A63" />
+                <path d="M30 21V43.5C34.5 42 38 36.5 38 31V25L30 21Z" fill="#127344" opacity="0.3" />
+                <path d="M30 23V41.5C33.5 40 36 35.5 36 31V26L30 23Z" fill="#127344" opacity="0.15" />
+                <path d="M30 25.5L20 29.5V31.5L30 27.5L40 31.5V29.5L30 25.5Z" fill="white" />
+                <path d="M30 29L24 31.5V33.5L30 31L36 33.5V31.5L30 29Z" fill="white" />
+                <path d="M28 24H32V38H28V24Z" fill="white" />
+                <path d="M23 28H37V31H23V28Z" fill="white" />
+                <path d="M26 35H34V37H26V35Z" fill="white" />
+                <text x="68" y="27" fill="#0072CE" font-family="Arial, sans-serif" font-weight="bold"
+                    font-size="22">ceb</text>
+                <text x="68" y="50" fill="#0072CE" font-family="Arial, sans-serif" font-weight="bold"
+                    font-size="24">travelsure</text>
+            </svg>
+            <svg width="45" height="48" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C25 5 10 15 10 15V45C10 75 30 95 50 110C70 95 90 75 90 45V15C90 15 75 5 50 0Z"
+                    fill="#0072CE" />
+                <path d="M50 5C28 9 15 17 15 17V45C15 72 32 90 50 104C68 90 85 72 85 45V17C85 17 72 9 50 5Z"
+                    fill="#0085EE" />
+                <text x="32" y="30" fill="white" font-family="Arial, sans-serif" font-weight="bold"
+                    font-size="13">Includes</text>
+                <text x="18" y="55" fill="white" font-family="Arial, sans-serif" font-weight="bold"
+                    font-size="14">COVID-19</text>
+                <text x="21" y="78" fill="white" font-family="Arial, sans-serif" font-weight="bold"
+                    font-size="14">Coverage</text>
+                <path d="M38 88L48 98L68 76" stroke="#FFD200" stroke-width="8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span style="font-size: 13px; color: var(--text-dark); font-weight: 500;">Why take the risk? Cover your Trip
+                with Travel Insurance!</span>
+        </div>
+    </div>
+    <div class="top-divider"></div>
+
+    <div class="flight-header-banner">
+        <div class="dep-label">ROUND TRIP</div>
+        <div class="route-info">
+            <span>MNL</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path
+                    d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.5 1.2c-.2.4 0 .9.4 1.1l5.5 3.2-3 3-2.2-.5c-.4-.1-.8.1-1 .4l-.6.8c-.2.3-.1.8.2 1l3.3 2.2c.3.2.8.3 1.1.1l.8-.6c.3-.2.5-.6.4-1l-.5-2.2 3-3 3.2 5.5c.2.4.7.6 1.1.4l1.2-.5c.4-.2.6-.6.5-1.1Z" />
+            </svg>
+            <span>BWN</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path
+                    d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.5 1.2c-.2.4 0 .9.4 1.1l5.5 3.2-3 3-2.2-.5c-.4-.1-.8.1-1 .4l-.6.8c-.2.3-.1.8.2 1l3.3 2.2c.3.2.8.3 1.1.1l.8-.6c.3-.2.5-.6.4-1l-.5-2.2 3-3 3.2 5.5c.2.4.7.6 1.1.4l1.2-.5c.4-.2.6-.6.5-1.1Z" />
+            </svg>
+            <span>MNL</span>
+        </div>
+    </div>
+
+    <div class="selecting-row">
+        <span>Selecting for</span>
+        <div class="selecting-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+            Louie Laguidao
+        </div>
+    </div>
+
+    <div class="info-notice-banner">
+        <div class="info-notice-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            Adding TravelSure will apply for all guests and on all flights (except for infants less than 2 weeks old and
+            guests 71 years old and up).
+        </div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="hero-banner-inner">
+            <div class="hero-text">
+                <h1>CEB TravelSure</h1>
+            </div>
+            <div class="hero-image-placeholder"></div>
+        </div>
+    </div>
+
+    <div class="main-content-card">
+        <div class="card-box">
+            <div class="product-title-row">
+                <h2>CEB TravelSure</h2>
+                <span class="badge-tag">Includes COVID-19 Coverage</span>
+            </div>
+            <div class="price-subtitle">For as low as PHP 600.00 per guest</div>
+
+            <div class="benefits-section-title">Secure your trip with:</div>
+            <div class="benefits-grid">
+
+                <!-- Benefit Item 1 -->
+                <div class="benefit-item-container">
+                    <div class="benefit-dropdown-item black-text" id="benefitToggle1">
+                        <span>Medical Expenses (incl. COVID-19 Coverage) up to PHP 1,000,000</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="benefit-details-content" id="benefitContent1">
+                        Covers medical expenses such as medical bills, treatments, or hospitalization costs due to
+                        accident or sickness (incuding due to COVID-19 related sickness)
+                    </div>
+                </div>
+
+                <!-- Benefit Item 2 -->
+                <div class="benefit-item-container">
+                    <div class="benefit-dropdown-item black-text" id="benefitToggle2">
+                        <span>Trip Cancellation (incl. COVID-19 Coverage) up to PHP 50,000</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="benefit-details-content" id="benefitContent2">
+                        Covers flight ticket costs, accommodation expenses, and other non-refundable travel costs
+                        incurred due to unforeseen and unavoidable specified events, e.g. you/your travel companion/your
+                        immediate relative suffering from a medical emergency (including unfit to travel due to COVID-19
+                        sickness)
+                    </div>
+                </div>
+
+                <!-- Benefit Item 3 -->
+                <div class="benefit-item-container">
+                    <div class="benefit-dropdown-item black-text" id="benefitToggle3">
+                        <span>Personal Accident up to PHP 2,500,000</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="benefit-details-content" id="benefitContent3">
+                        Covers accidental death or permanent disablement
+                    </div>
+                </div>
+
+                <!-- Benefit Item 4 -->
+                <div class="benefit-item-container">
+                    <div class="benefit-dropdown-item black-text" id="benefitToggle4">
+                        <span>Loss / Damage of Luggage &amp; other personal items up to PHP 50,000</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="benefit-details-content" id="benefitContent4">
+                        Covers lost, stolen, or damaged luggage and other personal items<br>
+                        <em>Limit (loss): PHP 50,000</em><br>
+                        <em>Limit (damage): PHP 10,000</em>
+                    </div>
+                </div>
+
+                <!-- Benefit Item 5 -->
+                <div class="benefit-item-container">
+                    <div class="benefit-dropdown-item black-text" id="benefitToggle5">
+                        <span>Travel Delay up to PHP 20,000</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="benefit-details-content" id="benefitContent5">
+                        Covers flight delay, e.g. due to bad weather, strike, or mechanical breakdown
+                    </div>
+                </div>
+
+                <!-- Benefit Item 6 -->
+                <div class="benefit-item-container">
+                    <div class="benefit-dropdown-item black-text" id="benefitToggle6">
+                        <span>For 24/7 Worldwide Travel &amp; Medical Emergency Assistance &amp; Evacuation</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="benefit-details-content" id="benefitContent6">
+                        24/7 hotline for assistance on travel and medical emergencies, including medical evaluation in
+                        case of serious illness or injury
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-footer-row">
+                <div>
+                    <a href="#" class="full-list-link">
+                        See full list of benefits
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                    <div class="full-list-sub">*Subject to the full terms &amp; conditions of the Group Policy</div>
+                </div>
+                <div class="price-action-group">
+                    <div class="display-price" id="displayPrice">PHP 600.00</div>
+                    <button class="btn-add-insurance" id="addInsuranceBtn">Add TravelSure</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="legal-notice-box">
+        <div class="legal-box-content">
+            <p>By adding travel insurance, I confirm that I have read, understood, and accepted the terms and conditions
+                of the <strong>Group Policy</strong>.</p>
+            <p>I understand that this insurance cover is valid for a maximum period of 80 consecutive days and is
+                applicable to passengers 70 years old and below.</p>
+            <p><span class="underwritten-text">Underwritten by CHUBB</span><br>
+                TravelSure is underwritten by Insurance Company of North America (a Chubb Company), a registered
+                non-life insurance company with Certificate of Authority No. 2019 / 39-R issued by the Insurance
+                Commission.</p>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <div class="footer-left-summary">
+            <span class="title">CEB TravelSure GLB0424</span>
+            <span class="amount" id="footerTotalAmount">PHP 0.00 <svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg></span>
+        </div>
+        <div class="footer-right-buttons">
+            <button class="btn btn-outline" onclick="window.location.href='AOMain-index.html'">Select more
+                add-ons</button>
+            <!-- UPDATED BUTTON LINK TO BS-index.html -->
+            <button class="btn btn-solid" onclick="window.location.href='BS-index.html'">Proceed to payment</button>
+        </div>
+    </div>
+
+    <script>
+        const addInsuranceBtn = document.getElementById('addInsuranceBtn');
+        const footerTotalAmount = document.getElementById('footerTotalAmount');
+        const cartTotalAmount = document.getElementById('cartTotalAmount');
+
+        let insurancePrice = 600.00;
+
+        function cebuGetBooking() {
+            try {
+                const raw = localStorage.getItem('cebuBooking');
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function cebuGetAddons() {
+            try {
+                const raw = localStorage.getItem('cebuAddons');
+                return raw ? JSON.parse(raw) : { baggage: 0, seat: 0, travelsure: insurancePrice, meals: 0 };
+            } catch (e) {
+                return { baggage: 0, seat: 0, travelsure: insurancePrice, meals: 0 };
+            }
+        }
+
+        function cebuUpdateCartAddon(key, amount) {
+            const addons = cebuGetAddons();
+            addons[key] = amount || 0;
+            localStorage.setItem('cebuAddons', JSON.stringify(addons));
+            cebuRenderCart();
+        }
+
+        function cebuFormatPHP(n) {
+            return 'PHP ' + (n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function cebuRenderCart() {
+            const booking = cebuGetBooking();
+            const addons = cebuGetAddons();
+            const cartFlightBlocks = document.getElementById('cartFlightBlocks');
+            const cartAddonsBlock = document.getElementById('cartAddonsBlock');
+            const cartAddonsList = document.getElementById('cartAddonsList');
+            const cartDropdownTotal = document.getElementById('cartDropdownTotal');
+
+            let flightTotal = 0;
+            if (cartFlightBlocks) {
+                cartFlightBlocks.innerHTML = '';
+                if (booking && booking.depart) {
+                    flightTotal += booking.depart.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.depart.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.depart.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (booking && booking.return) {
+                    flightTotal += booking.return.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.return.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.return.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (!booking || (!booking.depart && !booking.return)) {
+                    flightTotal = 0;
+                    cartFlightBlocks.innerHTML = '<div class="cart-flight-date">No flights in cart</div>';
+                }
+            }
+
+            const addonLabels = { baggage: 'CEB Baggage', seat: 'Seat Selector', travelsure: 'CEB TravelSure', meals: 'CEB Meals' };
+            let addonsTotal = 0;
+            let addonsHtml = '';
+            Object.keys(addonLabels).forEach(function (key) {
+                const amt = addons[key] || 0;
+                if (amt > 0) {
+                    addonsTotal += amt;
+                    addonsHtml += `<div class="cart-addon-row"><span>${addonLabels[key]}</span><span>${cebuFormatPHP(amt)}</span></div>`;
+                }
+            });
+            if (cartAddonsBlock && cartAddonsList) {
+                if (addonsTotal > 0) {
+                    cartAddonsBlock.style.display = '';
+                    cartAddonsList.innerHTML = addonsHtml;
+                } else {
+                    cartAddonsBlock.style.display = 'none';
+                }
+            }
+
+            const grandTotal = flightTotal + addonsTotal;
+            const formattedTotal = cebuFormatPHP(grandTotal);
+
+            if (cartTotalAmount) cartTotalAmount.textContent = formattedTotal;
+            if (footerTotalAmount) {
+                footerTotalAmount.innerHTML = formattedTotal + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+            }
+            if (cartDropdownTotal) cartDropdownTotal.textContent = formattedTotal;
+
+            const isAdded = (addons['travelsure'] > 0);
+            if (isAdded) {
+                addInsuranceBtn.textContent = 'Added';
+                addInsuranceBtn.classList.add('added');
+            } else {
+                addInsuranceBtn.textContent = 'Add TravelSure';
+                addInsuranceBtn.classList.remove('added');
+            }
+
+            return booking;
+        }
+
+        addInsuranceBtn.addEventListener('click', () => {
+            const addons = cebuGetAddons();
+            if (addons['travelsure'] > 0) {
+                cebuUpdateCartAddon('travelsure', 0);
+            } else {
+                cebuUpdateCartAddon('travelsure', insurancePrice);
+            }
+        });
+
+        (function cebuInitCartToggle() {
+            const cartWidget = document.getElementById('cartWidget');
+            const cartToggle = document.getElementById('cartToggle');
+            if (!cartWidget || !cartToggle) return;
+            cartToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                cartWidget.classList.toggle('open');
+            });
+            document.addEventListener('click', function () {
+                cartWidget.classList.remove('open');
+            });
+            cartWidget.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        })();
+
+        // Initialize default travelsure in localStorage if not set
+        if (!localStorage.getItem('cebuAddons')) {
+            cebuUpdateCartAddon('travelsure', insurancePrice);
+        }
+
+        cebuRenderCart();
+
+        // Toggle functionality for benefit dropdowns
+        const benefitToggles = document.querySelectorAll('.benefit-dropdown-item');
+        benefitToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                toggle.classList.toggle('expanded');
+                content.classList.toggle('active');
+            });
+        });
+
+        // Make the picture/logo link in top-bar navigate to AOMain-index.html while preserving cart items in localStorage
+        const selectMoreLink = document.querySelector('.back-link');
+        if (selectMoreLink) {
+            selectMoreLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = 'AOMain-index.html';
+            });
+        }
+    </script>
+
+</body>
+
+</html>

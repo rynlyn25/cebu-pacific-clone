@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Add-ons</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 24px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Feature: CEB TravelSure Banner matching reference image */
+        .travelsure-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .travelsure-img-container {
+            width: 48%;
+            flex-shrink: 0;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .travelsure-img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .travelsure-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.7) 85%, rgba(255, 255, 255, 0));
+            padding: 25px 20px 15px 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .travelsure-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .travelsure-logo-shield {
+            width: 36px;
+            height: 42px;
+            background: #ffcc00;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .travelsure-logo-shield::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00a651 0%, #0072bc 100%);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+        }
+
+        .travelsure-logo-shield span {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .travelsure-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .travelsure-logo-text .ceb-text {
+            font-size: 12px;
+            font-weight: bold;
+            color: #0054a6;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        .travelsure-logo-text .travelsure-text {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0093d1;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .travelsure-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-grow: 1;
+        }
+
+        .travelsure-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .travelsure-info p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Title Header */
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        /* Accordion Cards */
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #000000;
+            cursor: pointer;
+            background-color: #ffffff;
+        }
+
+        .accordion-item.with-divider {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Accordion Content Styles */
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 13px;
+            color: #333333;
+            line-height: 1.6;
+            background-color: #fcfcfc;
+            border-top: none;
+        }
+
+        /* Specific styles matching attached Philippines content image */
+        .ph-details-container {
+            padding-top: 10px;
+        }
+
+        .ph-shield-icon {
+            width: 90px;
+            height: 105px;
+            background: #ffcc00;
+            border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ph-shield-icon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00a651 0%, #0072bc 100%);
+            border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+        }
+
+        .ph-shield-icon span {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: -5px;
+        }
+
+        .ph-details-container h3 {
+            font-size: 22px;
+            color: #000000;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+
+        .ph-details-container>p {
+            color: #333333;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .ph-check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+
+        .ph-check-list li {
+            font-size: 14px;
+            color: #222222;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .ph-divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+
+        .ph-footer-text {
+            font-size: 13px;
+            color: #4a5568;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .ph-footer-text a {
+            color: #0073ba;
+            text-decoration: none;
+        }
+
+        /* Specific styles matching attached Australia content image */
+        .au-details-container {
+            padding-top: 10px;
+        }
+
+        .au-shield-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .au-details-container h3 {
+            font-size: 22px;
+            color: #000000;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+
+        .au-details-container h4 {
+            font-size: 15px;
+            color: #000000;
+            font-weight: bold;
+            margin: 20px 0 8px 0;
+        }
+
+        .au-details-container>p {
+            color: #333333;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .au-check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+
+        .au-check-list li {
+            font-size: 13px;
+            color: #222222;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .au-x-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+
+        .au-x-list li {
+            font-size: 13px;
+            color: #222222;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .au-divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+
+        .au-footer-text {
+            font-size: 12px;
+            color: #4a5568;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .au-footer-text a {
+            color: #0073ba;
+            text-decoration: none;
+        }
+
+        /* Specific styles matching attached Singapore content image */
+        .sg-details-container {
+            padding-top: 10px;
+        }
+
+        .sg-shield-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sg-details-container h3 {
+            font-size: 22px;
+            color: #000000;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+
+        .sg-details-container>p {
+            color: #333333;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .sg-check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+
+        .sg-check-list li {
+            font-size: 14px;
+            color: #222222;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .sg-divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+
+        .sg-footer-text {
+            font-size: 13px;
+            color: #4a5568;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .sg-footer-text a {
+            color: #0073ba;
+            text-decoration: none;
+        }
+
+        /* Specific styles matching attached Thailand content image */
+        .th-details-container {
+            padding-top: 10px;
+        }
+
+        .th-shield-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .th-details-container h3 {
+            font-size: 22px;
+            color: #000000;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+
+        .th-details-container>p {
+            color: #333333;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .th-check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+
+        .th-check-list li {
+            font-size: 14px;
+            color: #222222;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .th-divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+
+        .th-footer-text {
+            font-size: 13px;
+            color: #4a5568;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .th-footer-text a {
+            color: #0073ba;
+            text-decoration: none;
+        }
+
+        /* Specific styles matching attached Vietnam content image */
+        .vn-details-container {
+            padding-top: 10px;
+        }
+
+        .vn-shield-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .vn-details-container h3 {
+            font-size: 22px;
+            color: #000000;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+
+        .vn-details-container h4 {
+            font-size: 15px;
+            color: #000000;
+            font-weight: bold;
+            margin: 20px 0 8px 0;
+        }
+
+        .vn-details-container>p {
+            color: #333333;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .vn-check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+
+        .vn-check-list li {
+            font-size: 14px;
+            color: #222222;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .vn-divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+
+        .vn-footer-text {
+            font-size: 13px;
+            color: #4a5568;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .vn-footer-text a {
+            color: #0073ba;
+            text-decoration: none;
+        }
+
+        /* Specific styles matching attached Contact Chubb Insurance content image */
+        .chubb-details-container {
+            padding-top: 10px;
+        }
+
+        .chubb-details-container>p.intro-text {
+            font-size: 13px;
+            color: #333333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .chubb-country-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000000;
+            margin: 15px 0 6px 0;
+        }
+
+        .chubb-sub-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #000000;
+            margin: 10px 0 6px 0;
+        }
+
+        .chubb-contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+
+        .chubb-contact-list li {
+            font-size: 13px;
+            color: #333333;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .chubb-contact-list li a {
+            color: #0073ba;
+            text-decoration: none;
+        }
+
+        .rules-box {
+            background-color: #f0f7fc;
+            border: 1px solid #d0e3f1;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+
+        .rules-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #0054a6;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .rules-badge {
+            background-color: #0073ba;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        .rules-box p {
+            margin: 0;
+            color: #4a5568;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB TravelSure</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature: CEB TravelSure Banner matching reference image -->
+            <div class="travelsure-banner">
+                <div class="travelsure-img-container">
+                    <img src="images/CEBTS.png" alt="TravelSure Banner">
+                </div>
+                <div class="travelsure-info">
+                    <h3>Insurance for when you need it most</h3>
+                    <p>CEB TravelSure provides extensive cover for your trip such as lost, stolen or damaged personal
+                        belongings, trip cancellation and travel inconvenience.</p>
+                    <a href="index.html" class="btn-primary">Add to flight</a>
+                </div>
+            </div>
+
+            <!-- Selection Header -->
+            <div class="section-title">Select a country of origin</div>
+
+            <!-- Country Accordions -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('ph-content', this)">
+                    <span>Philippines</span>
+                    <span class="arrow-down" id="arrow-ph">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="ph-content">
+                    <div class="ph-details-container">
+                        <img src="images/CEBTS-2.jpg" alt="TravelSure Icon" class="au-shield-img">
+                        <h3>Basic Protection</h3>
+                        <p>Get rid of the anxiety over what might go wrong during your travels. Secure your trip with
+                            CEB TravelSure's Basic Protection for a minimal fee.</p>
+
+                        <ul class="ph-check-list">
+                            <li>✓ Emergency medical treatment in case of an incident or sickness during travel</li>
+                            <li>✓ Personal accident insurance up to PHP 2,500,000</li>
+                            <li>✓ Compensation for loss of baggage up to PHP 100,000 and/or damaged baggage during
+                                transit up to PHP 20,000</li>
+                        </ul>
+
+                        <hr class="ph-divider">
+
+                        <p class="ph-footer-text">Chubb Insurance is Cebu Pacific's insurance partner for flights from
+                            and within the Philippines.</p>
+                        <p class="ph-footer-text">Coverage and premiums may vary depending on origin. For full details,
+                            please refer to our <a href="images/CEBTS.pdf">Terms & Conditions</a> or contact Chubb Insurance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item with-divider" onclick="toggleAccordion('au-content', this)">
+                    <span>Australia</span>
+                    <span class="arrow-down" id="arrow-au">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="au-content">
+                    <div class="au-details-container">
+                        <img src="images/CEBTS-2.jpg" alt="TravelSure Icon" class="au-shield-img">
+                        <h3>Basic Protection</h3>
+                        <p>Help alleviate the worry over what might go wrong during your travels and help secure your
+                            trip with CEB TravelSure policy.</p>
+
+                        <h4>Overseas Return Trip</h4>
+                        <p>Some of the features of the CEB TravelSure policy include*:</p>
+                        <ul class="au-check-list">
+                            <li>✓ Compensation for loss, stolen, or damaged luggage and travel documents up to AUD3,000
+                            </li>
+                            <li>✓ Reimbursement for additional hotel accommodation (room only) due to flight delay of
+                                more than 6 hours up to AUD200 and then up to AUD200 per 24-hour period (first payable
+                                after 30 hours) to a maximum of AUD1,000</li>
+                            <li>✓ Overseas medical emergency expenses up to AUD500,000</li>
+                            <li>✓ 24-hour emergency referral assistance</li>
+                        </ul>
+                        <p style="font-size: 11px; color: #666; margin-bottom: 20px;">*This is a short summary only.
+                            Terms, conditions, limits and exclusions apply. Please read the CEB TravelSure Combined
+                            Product Financial Services Guide and Product Disclosure Statement and the Chubb Target
+                            Market Determination – CEB TravelSure for full details of cover and to ensure this product
+                            is right for you.</p>
+
+                        <h4>Overseas One Way Trip</h4>
+                        <p>Some of the features of the CEB TravelSure policy include*:</p>
+                        <ul class="au-check-list">
+                            <li>✓ Compensation for loss, stolen, or damaged luggage and travel documents up to AUD3,000
+                            </li>
+                            <li>✓ Reimbursement for additional hotel accommodation (room only) due to flight delay of
+                                more than 6 hours up to AUD200 and then up to AUD200 per 24-hour period (first payable
+                                after 30 hours) to a maximum of AUD1,000</li>
+                            <li>✓ 24-hour emergency referral assistance</li>
+                        </ul>
+                        <p style="font-size: 11px; color: #666; margin-bottom: 20px;">*This is a short summary only.
+                            Terms, conditions, limits and exclusions apply. Please read the CEB TravelSure Combined
+                            Product Financial Services Guide and Product Disclosure Statement and the Chubb Target
+                            Market Determination – CEB TravelSure for full details of cover and to ensure this product
+                            is right for you.</p>
+
+                        <h4>Exclusions and Limitations</h4>
+                        <p>Please refer to the <a href="images/CEBTS-2.pdf">CEB TravelSure Combined Financial Services Guide
+                                and Product Disclosure</a>
+                            Statement for full exclusions and limitations, noting the below are some examples of key
+                            exclusions and limitations only:</p>
+                        <ul class="au-x-list">
+                            <li>✗ personal baggage or extended personal baggage delay on the leg of the scheduled flight
+                                that returns you home;</li>
+                            <li>✗ costs if you fail to notify the transport provider or carrier about delayed or missing
+                                luggage or you do not obtain a luggage incident report from them or show you have taken
+                                reasonable steps to obtain one</li>
+                            <li>✗ unattended valuables and/or money that are left unattended in a motor vehicle</li>
+                            <li>✗ valuables or money within your personal baggage checked-in or stowed in the luggage
+                                hold of an airplane, ship, bus or train</li>
+                        </ul>
+
+                        <hr class="au-divider">
+
+                        <p class="au-footer-text">CEB TravelSure is issued and underwritten by Chubb Insurance Australia
+                            Limited (Chubb) (ABN 23 001 642 020, AFSL 239687) and distributed by Cebu Air Inc., (Cebu)
+                            (AR No. 1283512) an Authorised Representative of Chubb. Any advice provided is general only
+                            and does not consider your objectives, financial situation or needs. To decide if this
+                            product is right for you, please read the <a href="images/CEBTS-2.pdf">CEB TravelSure Combined
+                                Financial Services Guide and Product Disclosure</a> and Chubb Target Market
+                            Determination – CEB TravelSure
+                            available <a href="images/CEBTS-3.pdf">here</a>. Terms, conditions, exclusions and limits apply.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item with-divider" onclick="toggleAccordion('sg-content', this)">
+                    <span>Singapore</span>
+                    <span class="arrow-down" id="arrow-sg">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="sg-content">
+                    <div class="sg-details-container">
+                        <img src="images/CEBTS-2.jpg" alt="TravelSure Icon" class="sg-shield-img">
+                        <h3>Basic Protection</h3>
+                        <p>Get rid of the anxiety over what might go wrong during your travels. Secure your trip with
+                            CEB TravelSure's Basic Protection for a minimal fee.</p>
+
+                        <ul class="sg-check-list">
+                            <li>✓ Personal accident up to SGD 100,000</li>
+                            <li>✓ Medical expenses up to SGD 50,000</li>
+                            <li>✓ Flight cancellation up to the flight cost</li>
+                            <li>✓ 24-hour emergency assistance</li>
+                        </ul>
+
+                        <hr class="sg-divider">
+
+                        <p class="sg-footer-text">Chubb Insurance is Cebu Pacific's insurance partner for flights to the
+                            Philippines.</p>
+                        <p class="sg-footer-text">Coverage and premiums may vary depending on origin. For full details,
+                            please refer to our <a href="images/CEBTS-4.pdf">Terms & Conditions</a> or contact Chubb Insurance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item with-divider" onclick="toggleAccordion('th-content', this)">
+                    <span>Thailand</span>
+                    <span class="arrow-down" id="arrow-th">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="th-content">
+                    <div class="th-details-container">
+                        <img src="images/CEBTS-2.jpg" alt="TravelSure Icon" class="th-shield-img">
+                        <h3>Basic Protection</h3>
+                        <p>Get rid of the anxiety over what might go wrong during your travels. Secure your trip with
+                            CEB TravelSure's Basic Protection for a minimal fee.</p>
+
+                        <ul class="th-check-list">
+                            <li>✓ Personal accident up to 1,500,000 THB</li>
+                            <li>✓ Medical expenses up to 200,000 THB</li>
+                            <li>✓ Flight cancellation up to the flight cost</li>
+                            <li>✓ 24 hour emergency assistance</li>
+                        </ul>
+
+                        <hr class="th-divider">
+
+                        <p class="th-footer-text">Chubb Protect Travel Insurance is underwritten by Chubb Samaggi
+                            Insurance Public Company Limited for flights to the Philippines.</p>
+                        <p class="th-footer-text">Coverage and premiums may vary depending on origin. For full details,
+                            please refer to the <a href="images/CEBTS-5.pdf">Terms & Conditions</a> or Contact Chubb Samaggi
+                            Insurance
+                            Company Limited, tel: +66 2 611 4242 or email: travel.th@chubb.com.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item with-divider" onclick="toggleAccordion('vn-content', this)">
+                    <span>Vietnam</span>
+                    <span class="arrow-down" id="arrow-vn">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="vn-content">
+                    <div class="vn-details-container">
+                        <img src="images/CEBTS-2.jpg" alt="TravelSure Icon" class="vn-shield-img">
+                        <h3>Basic Protection</h3>
+                        <p>Get rid of the anxiety over what might go wrong during your travels. Secure your trip with
+                            CEB TravelSure's Basic Protection for a minimal fee.</p>
+
+                        <ul class="vn-check-list">
+                            <li>✓ Personal Accident: up to VND210 million</li>
+                            <li>✓ Flight Cancellations: up to Flight cost (max VND10 million)</li>
+                            <li>✓ Flight Delays: up to VND1.2 million</li>
+                            <li>✓ 24 hour Worldwide Travel & Medical Emergency Assistance Services</li>
+                        </ul>
+
+                        <hr class="vn-divider">
+
+                        <p class="vn-footer-text" style="font-weight: bold;">Underwritten by CHUBB</p>
+                        <p class="vn-footer-text">By selecting CEB Travelsure, I understood and agreed with Summary of
+                            Benefits, Policy Wordings and Declaration & Authorization stipulated by Chubb Vietnam.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Chubb Insurance Section -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('chubb-content', this)">
+                    <span>Contact Chubb Insurance</span>
+                    <span class="arrow-down" id="arrow-chubb">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="chubb-content">
+                    <div class="chubb-details-container">
+                        <p class="intro-text">Passengers who purchased CEB TravelSure may contact any of the following
+                            Chubb hotlines for any inquiries or concerns. The schedule shown below is in each country's
+                            local time.</p>
+
+                        <div class="chubb-country-title">Philippines</div>
+                        <div class="chubb-sub-title">Customer Service Hotline</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +632 8859 2774</li>
+                            <li>🕒 Mon to Fri 8:30 am - 5:30 pm</li>
+                            <li>✉ <a href="mailto:cebtravelsure.ph@chubb.com">cebtravelsure.ph@chubb.com</a></li>
+                        </ul>
+                        <div class="chubb-sub-title">24-HR Medical Assistance</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +632 8864 0865</li>
+                        </ul>
+
+                        <div class="chubb-country-title">Australia</div>
+                        <div class="chubb-sub-title">Customer Service Hotline</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 1800 803 548</li>
+                            <li>🕒 Mon to Fri 8:30 am - 5:00 pm</li>
+                            <li>✉ <a href="mailto:travel.au@chubb.com">travel.au@chubb.com</a></li>
+                        </ul>
+                        <div class="chubb-sub-title">24-HR Medical Assistance</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +61 2 8907 5666</li>
+                        </ul>
+
+                        <div class="chubb-country-title">Singapore</div>
+                        <div class="chubb-sub-title">Customer Service Hotline</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +65 6398 8776</li>
+                            <li>🕒 Mon to Fri 9:00 am - 5:00 pm</li>
+                            <li>✉ <a href="mailto:travel.sg@chubb.com">travel.sg@chubb.com</a></li>
+                        </ul>
+                        <div class="chubb-sub-title">24-HR Medical Assistance</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +65 6836 2922</li>
+                        </ul>
+
+                        <div class="chubb-country-title">Thailand</div>
+                        <div class="chubb-sub-title">Customer Service Hotline</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +66 2611 4242</li>
+                            <li>🕒 Mon to Fri 8:30 am - 5:30 pm</li>
+                            <li>✉ <a href="mailto:travel.au@chubb.com">travel.au@chubb.com</a></li>
+                        </ul>
+                        <div class="chubb-sub-title">24-HR Medical Assistance</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +66 2039 5770</li>
+                        </ul>
+
+                        <div class="chubb-country-title">Vietnam</div>
+                        <div class="chubb-sub-title">Customer Service Hotline</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +84 28 3910 7300</li>
+                            <li>🕒 Mon to Fri 8:30 am - 5:30 pm</li>
+                            <li>✉ <a href="mailto:Travel.VN@chubb.com">Travel.VN@chubb.com</a></li>
+                        </ul>
+                        <div class="chubb-sub-title">24-HR Medical Assistance</div>
+                        <ul class="chubb-contact-list">
+                            <li>📞 +84 28 3822 8779</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CEB TravelSure Rules Section -->
+            <div class="accordion-card">
+                <div class="accordion-content" id="rules-content"
+                    style="display: block; border-top: none; padding-top: 20px;">
+                    <div class="rules-box">
+                        <div class="rules-header">
+                            <span class="rules-badge">i</span>
+                            <span>CEB TravelSure Rules</span>
+                        </div>
+                        <p>You may purchase CEB TravelSure up to two hours before your flight through our website or
+                            sales offices.</p>
+                        <p style="margin-top: 8px;">CEB TravelSure may be carried over to rebooked flights provided they
+                            are of the same route. Otherwise, insurance will be forfeited. For more information, please
+                            contact the insurance provider.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                if (arrow) arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                if (arrow) arrow.style.transform = "rotate(0deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

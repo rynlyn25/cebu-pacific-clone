@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Needing Special Assistance</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            padding: 40px 20px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Fixed Banner Design: Extended on sides, text left-aligned with indent */
+        .special-assistance-banner {
+            background-color: #ffd200;
+            color: #0073e6;
+            text-align: left;
+            font-size: 38px;
+            font-weight: 700;
+            padding: 35px max(20px, calc((100vw - 1200px) / 2 + 20px));
+            margin: -40px -20px 30px -20px;
+            border-bottom-left-radius: 50% 15px;
+            border-bottom-right-radius: 50% 15px;
+        }
+
+        /* Header Styles */
+        h1 {
+            color: #0c2340;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .intro-text a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .intro-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Accordion Container */
+        .accordion-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+            padding: 10px 24px;
+        }
+
+        /* Accordion Item */
+        .accordion-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Accordion Header Button */
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #0c2340;
+            font-size: 20px;
+            font-weight: 700;
+            transition: color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            color: #0073e6;
+        }
+
+        /* Chevron Icon */
+        .icon {
+            width: 14px;
+            height: 14px;
+            border-right: 2px solid #0073e6;
+            border-bottom: 2px solid #0073e6;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            margin-right: 5px;
+        }
+
+        /* Active state for chevron */
+        .accordion-item.active .icon {
+            transform: rotate(-135deg);
+        }
+
+        /* Accordion Content Panel */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content p {
+            padding: 0 0 24px 0;
+            color: #555;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Recreated Banner Design (Moved outside container for full-width layout) -->
+    <div class="special-assistance-banner">
+        Special Assistance
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <h1>Guest Needing Special Assistance</h1>
+        <p class="intro-text">Guests requiring special assistance are accepted for carriage, subject to coordination
+            with Cebu Pacific at least (2) hours before the flight. Please refer to the guidelines below for details.
+        </p>
+        <p class="intro-text">In certain airports such as Macau, there is a minimal handling fee for the use of lifts
+            for wheelchairs. Please inform us at least three (3) days prior the scheduled flight.</p>
+        <p class="intro-text">For more information, feel free to <a href="#">contact us</a>.</p>
+
+        <!-- Accordion List -->
+        <div class="accordion-container">
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Expectant Mothers</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>On all flights, expectant mothers with age of gestation thirty-four (34) weeks and beyond, are
+                        required to present a medical certificate stating that the guest is "fit to travel" and signed
+                        by personal physician with his/her PRC number, and written or typed on the signing physician's
+                        prescription pad or the hospital's official document with letterhead. The expectant mother must
+                        complete her travel within the validity period of the medical certificate, which should be ten
+                        (10) days from date of issuance.</p>
+                    <p>Please inform us by declaring this when you book a flight.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Unaccompanied Minors</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Children below 7 years old by the date of travel will not be accepted for carriage without an
+                        accompanying adult.</p>
+                    <p>For flights within the Philippines, children aged 7 to below 12 years old travelling alone are
+                        considered Unaccompanied Minors. They may be accepted for carriage, only after the Passenger
+                        Handling Form is accomplished and submitted at least 24 hours before the flight, and the
+                        prescribed Unaccompanied Minor Handling Fee is paid. We do not accept unaccompanied minors on
+                        flights outside the Philippines. Unaccompanied Minors who require Portable Oxygen Concentrators
+                        (POC) will not be accepted for flight.</p>
+                    <p>Filipino minors (below 18 years old) traveling with companions who are not their parents/legal
+                        guardians are considered Accompanied Minors and must take note of additional requirements from
+                        the Department of Social Welfare and Development (DSWD). Please check the rules governing minor
+                        travel, as issued by DSWD. For minors with foreign nationalities, please check the rules
+                        governing minor travel as issued by your respective governments.</p>
+                    <p>Please inform us by declaring this when you book a flight.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Young Passengers</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Young Passengers are minors aged between 12 years old to 17 years old. For <strong>Domestic
+                            Flights</strong>, these young passengers are allowed to travel unaccompanied; however, all
+                        passengers below 18 years old traveling to and from Davao and traveling unaccompanied or with
+                        companions who are not their parents/legal guardians must secure a permit to travel from the
+                        City Social Welfare and Development Office (CSWDO) prior to the flight. This is in compliance
+                        with the Davao City Children's Welfare Code.</p>
+                    <p>For <strong>International Flights</strong>, a young passenger traveling unaccompanied and holding
+                        a Philippine Passport must also present a travel clearance from the Department of Social Welfare
+                        and Development (DSWD) upon check-in. On the other hand, young passengers aged between 12 to 14
+                        years old, who are not Philippine residents and do not hold a Philippine Passport must present
+                        an Affidavit of Consent (notarized or with attached copies of the parent/s passport) for Waiver
+                        of Exclusion Ground (WEG) in addition to the required travel documents. This is applicable to
+                        flights going to the Philippines.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Infants</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Infants that may be accepted for carriage are those between 8 days old and below 2 years of age,
+                        accompanied by an
+                        adult passenger. Infants below 8 days old will not be accepted for carriage. Guests travelling
+                        with infants between 8
+                        days old and below 2 years of age must also present the infant’s birth certificate, baby book,
+                        or valid ID upon check-in
+                        and boarding.</p>
+                    <p>Infants shall sit on the adult passenger’s lap. The passenger may also purchase a seat for the
+                        infant and provide a
+                        Child Restraint System approved by the Federal Aviation Administration (FAA) or one that
+                        conforms to all applicable
+                        Federal Motor Vehicle Safety Standards (FMVSS) or any SRS certified by any Civil Aviation
+                        Authority (CAA). CARES, a
+                        harness-type safety device is also an approved alternative. It is designed specifically for
+                        aviation use, for children who
+                        are at least one (1) year old, weighing between 22-44 pounds.</p>
+                    <p>Mothers who are traveling with infants must present a medical certificate, if the birth was
+                        recent. Note that the
+                        medical certificate should state that the guest is “fit to travel” and signed by personal
+                        physician with his/her PRC number,
+                        and written or typed on the signing physician’s prescription pad or the hospital’s official
+                        document with letterhead.</p>
+                    <p>Please inform us by declaring this when you book a flight. For more information, feel free to
+                        contact us.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Guests Requiring Extra Seat</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Our seats range from 16.7 inches to 17.3 inches. Guests of size or guests needing space for their
+                        standard-sized carry-on baggage are requested to book two seats for a more comfortable flight.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Prisoners</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>A maximum of two (2) prisoners may be accepted per domestic flight for A320 and A330 aircraft and
+                        only one (1)
+                        prisoner per domestic flight on ATRs. It is mandatory that for every prisoner, at least one (1)
+                        security officer from the
+                        PNP or NBI is present.</p>
+                    <p>The special handling must be arranged with Cebu Pacific at least 24 hours before the flight.</p>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Senior Citizen and Person with Disability (PWD) and Person with Reduced Mobility (PRM)</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Filipino nationals at least sixty (60) years old & above, Person with Disability, and Person with
+                        Reduced Mobility are entitled to 20% discount on the base fare and VAT exemption on flights
+                        within the Philippines.</p>
+                    <p>Senior Citizens and PRMs/PWDs are encouraged to book their flight online.</p>
+                    <p style="padding-bottom: 8px;">The Senior Citizen and PWD discount does not apply to:</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• Promotional fares with discount higher than
+                        20% of the lowest Go fare</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• Add-ons such as baggage allowance or inflight
+                        meals</p>
+                    <p style="padding-bottom: 24px; padding-left: 20px;">• International flights or connecting flights
+                        with international sector (Domestic to International and/or International to Domestic)</p>
+                    <p>For Senior Citizens, presentation of a Senior Citizen ID (OSCA ID) or a valid government-issued
+                        ID bearing the name, picture, date of birth, nationality of the Senior Citizen is required upon
+                        check-in or boarding.</p>
+                    <p>For PWDs or PRMs, presentation of a valid ID issued by the National Council on Disability Affairs
+                        (NCDA) or a local government unit is required upon check-in or boarding. Please visit the
+                        National Council on Disability Affairs for more information.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Service / Emotional Support Animals</span>
+                    <div class="icon"></div>
+                </button>
+                <div class="accordion-content">
+                    <p>Service / Emotional Support Animals may be accepted for carriage in the cabin provided:</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• There should be only one (1) Service /
+                        Emotional Support Animal per passenger, per flight. Please make sure to declare this upon
+                        booking your flight to ensure that they can be accepted for carriage.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The Service Animal / Emotional Support Animal
+                        must be a dog.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For Service Animals:</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Make sure they are securely leashed at all
+                        times.</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• They are not required to wear a
+                        mouth-restraint device (i.e., muzzle, mouthguard, mouth cover, collar).</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For Emotional Support Animals:</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Make sure the soft carrier is compact enough
+                        to fit under the seat (approx. 8in x 8in x 14in).</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• If inside a soft carrier, a leash and
+                        mouth-restraint device are not required.</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• If outside a soft carrier, both a leash and
+                        mouth-restraint device are required.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The owner must make sure the dog is equipped
+                        with pet diapers.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For all flights, the owner must bring
+                        moisture-absorbent material (e.g. absorbent plastic-backed pads) and is responsible for cleaning
+                        up after their Service / Emotional Support Animal. Otherwise, a document showing that the animal
+                        does not need to relieve itself for the duration of the flight will suffice.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The owner assumes full responsibility for any
+                        required clearances from the appropriate government authorities.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The following documents confirming that the
+                        Service / Emotional Support Animal has been trained to an acceptable level must be presented
+                        upon check-in:</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Complete and updated vaccination papers</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Document confirming the Service Animal has
+                        been trained.</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Document confirming the Emotional Support
+                        Animal has been trained and/or document with letterhead from a mental health professional
+                        stating that the guest has a mental disability</p>
+                    <p style="padding-bottom: 8px; padding-left: 40px;">• Shipping permit issued by the Bureau of Animal
+                        Industry - Department of Agriculture</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• Upon check-in, the owner must also present
+                        documentation that stipulates their need for the Service / Emotional Support Animal from their
+                        medical doctor.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• The Service / Emotional Support Animal will
+                        not occupy a seat.</p>
+                    <p style="font-weight: bold; padding-top: 10px; padding-bottom: 10px;">Government Clearances</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• For guests coming to / from Australia, please
+                        visit http://www.agriculture.gov.au/cats-dogs/assistance-dogs for more information on traveling
+                        with your Service / Emotional Support Animal.</p>
+                    <p style="padding-bottom: 8px; padding-left: 20px;">• All animals imported, transshipped, or
+                        exported to/from Singapore require a valid Animal & Veterinary Service (AVS) license.</p>
+                    <p style="padding-top: 10px;">To learn more, please visit special assistance guidelines on the Help
+                        Center.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+
+                // Toggle active class on item
+                item.classList.toggle('active');
+
+                // Toggle content visibility smoothly using scrollHeight
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = "0px";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

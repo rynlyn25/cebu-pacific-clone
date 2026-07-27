@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment - Booking Summary</title>
+    <style>
+        :root {
+            --yellow: #FFD200;
+            --blue-link: #0072CE;
+            --blue-dark: #12395B;
+            --text-dark: #1a1a1a;
+            --text-gray: #6b7280;
+            --border: #d1d5db;
+            --error-red: #e02020;
+            --info-blue: #e8f4fd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+            color: var(--text-dark);
+        }
+
+        /* ---------- TOP FIXED NAVBAR (FROM PICTURE 1 & 2) ---------- */
+        .top-navbar {
+            background: #ffffff;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo {
+            height: 36px;
+            object-fit: contain;
+        }
+
+        /* ---------- HEADER / STEPPER ---------- */
+        .header {
+            background: var(--yellow);
+            padding: 22px 0 16px;
+        }
+
+        .stepper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 150px;
+        }
+
+        .step .circle-badge {
+            padding: 5px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--blue-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-dark);
+            z-index: 2;
+        }
+
+        .step.done .circle,
+        .step.active .circle {
+            background: var(--blue-dark);
+            color: #fff;
+        }
+
+        .step .circle svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .step label {
+            margin-top: 6px;
+            font-size: 12.5px;
+            font-weight: bold;
+            color: var(--blue-dark);
+        }
+
+        .step:not(.done):not(.active) label {
+            color: var(--blue-link);
+            font-weight: normal;
+        }
+
+        .connector {
+            position: absolute;
+            top: 19px;
+            left: calc(-75px + 15px);
+            width: 150px;
+            height: 0;
+            border-top: 2px dotted var(--blue-dark);
+            z-index: 1;
+        }
+
+        .step:not(.done):not(.active) .connector {
+            border-top-color: #fff;
+        }
+
+        .step:first-child .connector {
+            display: none;
+        }
+
+        /* ACTIONS FOOTER */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 11px 30px;
+            border-radius: 24px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-back {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1px solid var(--blue-link);
+            width: 160px;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+        }
+
+        .btn-continue {
+            background: var(--blue-link);
+            color: #fff;
+            width: 160px;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+        }
+
+        .btn-continue:hover {
+            background: #005ba3;
+        }
+
+        .btn-continue:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .btn-continue:disabled:hover {
+            background: #a0aec0;
+        }
+
+        /* ================= OVERALL CART (inserted) ================= */
+        .cart-widget {
+            position: relative;
+        }
+
+        .cart-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--blue-link);
+            padding: 6px 8px;
+        }
+
+        .cart-total-label {
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: normal;
+            opacity: 1;
+            font-weight: bold;
+            color: var(--blue-link);
+            display: none;
+        }
+
+        .cart-total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .cart-caret {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+            color: var(--blue-link);
+        }
+
+        .cart-widget.open .cart-caret {
+            transform: rotate(180deg);
+        }
+
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 320px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            z-index: 3000;
+            text-align: left;
+        }
+
+        .cart-widget.open .cart-dropdown {
+            display: block;
+        }
+
+        .cart-dropdown-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .cart-flight-leg {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-flight-route {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--blue-link);
+            margin-bottom: 2px;
+        }
+
+        .cart-flight-date {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .cart-flight-row,
+        .cart-addon-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: #444;
+            margin-top: 2px;
+        }
+
+        .cart-section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-gray);
+            margin: 10px 0 6px;
+            font-weight: bold;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: var(--text-dark);
+        }
+
+        /* ================= EMPTY ADD-ONS MODAL ================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 4000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 440px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #555;
+            margin: 0 0 10px 0;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin: 0 0 20px 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-modal-back {
+            background: #fff;
+            color: var(--blue-link);
+            border: 1px solid var(--blue-link);
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            width: auto;
+        }
+
+        .btn-modal-proceed {
+            background: #0088CE;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            width: auto;
+        }
+
+        .btn-modal-proceed:hover {
+            background: #006da5;
+        }
+
+        /* ================= BOOKING SUMMARY (PAYMENT) CSS ================= */
+        .payment-content {
+            max-width: 680px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1.payment-title {
+            font-size: 28px;
+            color: var(--blue-dark);
+            margin: 0 0 8px 0;
+        }
+
+        p.payment-subtitle {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin: 0 0 24px 0;
+        }
+
+        .summary-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-body {
+            padding: 24px 30px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .flight-route {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .flight-route .highlight {
+            color: var(--blue-link);
+        }
+
+        .flight-route .via {
+            color: var(--text-gray);
+            font-weight: normal;
+            font-size: 15px;
+        }
+
+        .flight-date {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 6px;
+        }
+
+        .action-link {
+            color: var(--blue-link);
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .action-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .item-row {
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .item-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .item-value {
+            color: var(--blue-link);
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .item-value svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .total-bar {
+            background: var(--yellow);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--blue-link);
+        }
+
+        .terms-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .terms-card input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--blue-link);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .terms-card input[type="checkbox"]:checked::after {
+            content: '\2714';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: var(--blue-link);
+            font-size: 14px;
+        }
+
+        .terms-text {
+            font-size: 13.5px;
+            color: #4b5563;
+        }
+
+        .terms-text a {
+            color: var(--blue-link);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Taxes and Fees expanded styles */
+        .taxes-dropdown {
+            margin-top: 10px;
+            margin-bottom: 18px;
+            padding-left: 0;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 12px;
+        }
+
+        .tax-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #4b5563;
+            margin-bottom: 8px;
+        }
+
+        /* Nested user add-on sub-items styling - text changed to black */
+        .user-addon-subrow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13.5px;
+            color: var(--text-dark);
+            margin: 8px 0 8px 16px;
+        }
+
+        .user-addon-subrow span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dark);
+        }
+
+        .user-addon-subrow span:last-child {
+            color: var(--text-dark);
+        }
+
+        .user-addon-subrow svg {
+            width: 14px;
+            height: 14px;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP STICKY NAVBAR FROM PICTURE 1 -->
+    <div class="top-navbar">
+        <div class="brand-container">
+            <img src="AO-1.webp" alt="Cebu Pacific Logo" class="brand-logo">
+        </div>
+
+        <!-- OVERALL CART (inserted) -->
+        <div class="cart-widget" id="cartWidget">
+            <button class="cart-toggle" id="cartToggle" type="button">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotalAmount">PHP 0.00</span>
+                <svg class="cart-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </button>
+            <div class="cart-dropdown" id="cartDropdown">
+                <div class="cart-dropdown-title">Booking Summary</div>
+                <div id="cartFlightBlocks"></div>
+                <div class="cart-addons-block" id="cartAddonsBlock" style="display:none;">
+                    <div class="cart-section-label">Add-ons</div>
+                    <div id="cartAddonsList"></div>
+                </div>
+                <div class="cart-total-row">
+                    <span>Total</span>
+                    <span id="cartDropdownTotal">PHP 0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER STEPPER -->
+    <div class="header">
+        <div class="stepper">
+            <div class="step done">
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Select Flight</label>
+            </div>
+            <div class="step done">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M7 20c0-3 2-5 5-5s5 2 5 5" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Guest Details</label>
+            </div>
+            <div class="step done">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                            <path d="M3 6h18" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Add-ons</label>
+            </div>
+            <div class="step active">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Payment</label>
+            </div>
+            <div class="step">
+                <div class="connector"></div>
+                <div class="circle-badge">
+                    <div class="circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                </div>
+                <label>Confirmation</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING SUMMARY CONTENT -->
+    <div class="payment-content">
+        <h1 class="payment-title">Booking Summary</h1>
+        <p class="payment-subtitle">Review your booking before proceeding to payment</p>
+
+        <div class="summary-card">
+            <div class="card-body" id="summaryCardBody">
+                <!-- Dynamically populated from cart / localStorage -->
+            </div>
+
+            <div class="total-bar">
+                <div>Total</div>
+                <div id="summaryCardTotal">PHP 0.00</div>
+            </div>
+        </div>
+
+        <div class="terms-card">
+            <input type="checkbox" id="terms-checkbox">
+            <div class="terms-text">
+                By clicking 'Continue' I confirm that I have read, understood, and accept the <a href="#">Conditions of
+                    Carriage</a>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn-back" onclick="window.location.href='AOMain-index.html'">Back</button>
+            <button class="btn-continue" id="continueBtn" onclick="handleContinue()" disabled>Continue</button>
+        </div>
+    </div>
+
+    <!-- EMPTY ADD-ONS MODAL (Kept to maintain file integrity as prompted) -->
+    <div class="modal-overlay" id="emptyAddonsModal">
+        <div class="modal-content">
+            <h3 class="modal-title">You don't have any add-ons for your trip!</h3>
+            <p class="modal-subtitle">Are you sure you want to continue?</p>
+            <div class="modal-actions">
+                <button class="btn-modal-back" onclick="closeModal()">Back to Add-ons</button>
+                <button class="btn-modal-proceed" onclick="proceedToPayment()">Proceed to payment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let taxesExpanded = false;
+        let userAddonsExpanded = false;
+        let travelInsuranceExpanded = false;
+
+        function toggleTaxesDetails() {
+            taxesExpanded = !taxesExpanded;
+            cebuRenderCart();
+        }
+
+        function toggleUserAddonsDetails() {
+            userAddonsExpanded = !userAddonsExpanded;
+            cebuRenderCart();
+        }
+
+        function toggleTravelInsuranceDetails() {
+            travelInsuranceExpanded = !travelInsuranceExpanded;
+            cebuRenderCart();
+        }
+
+        /* ================= TERMS CHECKBOX LOGIC ================= */
+        const termsCheckbox = document.getElementById('terms-checkbox');
+        const continueBtn = document.getElementById('continueBtn');
+
+        if (termsCheckbox && continueBtn) {
+            termsCheckbox.addEventListener('change', function () {
+                continueBtn.disabled = !this.checked;
+            });
+        }
+
+        /* ================= OVERALL CART (inserted) =================
+           Reads the flight selection saved by selectflight.html plus
+           this page's own add-on total, and renders the running
+           Booking Summary cart shown in the yellow header. */
+        function cebuGetBooking() {
+            try {
+                const raw = localStorage.getItem('cebuBooking');
+                return raw ? JSON.parse(raw) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function cebuGetAddons() {
+            try {
+                const raw = localStorage.getItem('cebuAddons');
+                return raw ? JSON.parse(raw) : { baggage: 0, seat: 0, travelsure: 603, meals: 0, baggageName: '', seatName: '', travelsureName: 'CEB TravelSure', mealsName: '' };
+            } catch (e) {
+                return { baggage: 0, seat: 0, travelsure: 603, meals: 0, baggageName: '', seatName: '', travelsureName: 'CEB TravelSure', mealsName: '' };
+            }
+        }
+
+        function cebuUpdateCartAddon(key, amount) {
+            const addons = cebuGetAddons();
+            addons[key] = amount || 0;
+            localStorage.setItem('cebuAddons', JSON.stringify(addons));
+            cebuRenderCart();
+        }
+
+        function cebuFormatPHP(n) {
+            return 'PHP ' + (n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function cebuRenderCart() {
+            const booking = cebuGetBooking();
+            const addons = cebuGetAddons();
+            const cartFlightBlocks = document.getElementById('cartFlightBlocks');
+            const cartAddonsBlock = document.getElementById('cartAddonsBlock');
+            const cartAddonsList = document.getElementById('cartAddonsList');
+            const cartTotalAmount = document.getElementById('cartTotalAmount');
+            const cartDropdownTotal = document.getElementById('cartDropdownTotal');
+
+            const summaryCardBody = document.getElementById('summaryCardBody');
+            const summaryCardTotal = document.getElementById('summaryCardTotal');
+
+            let flightTotal = 0;
+            let flightRouteText = 'MNL &ndash; ILO via CGY';
+            let flightDateText = '05 Aug 2026 &middot; 11:15 AM - 06:55 PM';
+
+            if (cartFlightBlocks) {
+                cartFlightBlocks.innerHTML = '';
+                if (booking && booking.depart) {
+                    flightTotal += booking.depart.subtotal || 0;
+                    flightRouteText = booking.depart.routeLabel || flightRouteText;
+                    flightDateText = booking.depart.dateLabel || flightDateText;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.depart.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.depart.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (booking && booking.return) {
+                    flightTotal += booking.return.subtotal || 0;
+                    cartFlightBlocks.innerHTML += `
+                        <div class="cart-flight-leg">
+                            <div class="cart-flight-route">${booking.return.routeLabel}</div>
+                            <div class="cart-flight-date">${booking.return.dateLabel}</div>
+                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
+                        </div>`;
+                }
+                if (!booking || (!booking.depart && !booking.return)) {
+                    flightTotal = 6400.88; // fallback base
+                    cartFlightBlocks.innerHTML = '<div class="cart-flight-date">No flight selected yet.</div>';
+                }
+            }
+
+            const addonLabels = { baggage: 'CEB Baggage', seat: 'Seat Selector', travelsure: 'Travel Insurance', meals: 'CEB Meals' };
+            let addonsTotal = 0;
+            let addonsHtml = '';
+
+            Object.keys(addonLabels).forEach(function (key) {
+                const amt = addons[key] || 0;
+                if (amt > 0) {
+                    addonsTotal += amt;
+                    addonsHtml += `<div class="cart-addon-row"><span>${addonLabels[key]}</span><span>${cebuFormatPHP(amt)}</span></div>`;
+                }
+            });
+
+            if (cartAddonsBlock && cartAddonsList) {
+                if (addonsTotal > 0) {
+                    cartAddonsBlock.style.display = '';
+                    cartAddonsList.innerHTML = addonsHtml;
+                } else {
+                    cartAddonsBlock.style.display = 'none';
+                }
+            }
+
+            // Render main payment summary card body dynamically based on cart
+            if (summaryCardBody) {
+                let baseFlightCost = (booking && booking.depart) ? booking.depart.subtotal : 6400.88;
+                let travelInsuranceCost = (addons.travelsure !== undefined) ? addons.travelsure : 603.00;
+                if (travelInsuranceCost === undefined) travelInsuranceCost = 603.00;
+
+                let baggageCost = addons.baggage || 0;
+                let seatCost = addons.seat || 0;
+                let mealsCost = addons.meals || 0;
+
+                let baggageText = addons.baggageName || '1pc checked bag (20kg)';
+                let seatText = addons.seatName || 'Seat: 24D, Unassigned';
+                let travelsureText = addons.travelsureName || 'CEB TravelSure';
+                let mealsText = addons.mealsName || 'Meal: Tuna Salad Panini';
+
+                let taxesSubtotal = 2869.52;
+
+                let taxesDetailsHtml = '';
+                if (taxesExpanded) {
+                    taxesDetailsHtml = `
+                        <div class="taxes-dropdown">
+                            <div class="tax-item"><span>Administrative Fee</span><span>PHP 450.00</span></div>
+                            <div class="tax-item"><span>Fuel Surcharge</span><span>PHP 1,001.00</span></div>
+                            <div class="tax-item"><span>VAT for Admin Fees</span><span>PHP 54.00</span></div>
+                            <div class="tax-item"><span>Domestic Passenger Service Charge - ASF</span><span>PHP 15.00</span></div>
+                            <div class="tax-item"><span>MNL Domestic Passenger Service Charge</span><span>PHP 675.00</span></div>
+                            <div class="tax-item"><span>PH Value Added Tax</span><span>PHP 533.88</span></div>
+                            <div class="tax-item"><span>VAT for Add-ons</span><span>PHP 140.64</span></div>
+                        </div>
+                    `;
+                }
+
+                // Build user add-on sub-rows only if the user actually added them
+                let userAddonsHtml = '';
+                if (userAddonsExpanded) {
+                    if (baggageCost > 0) {
+                        userAddonsHtml += `
+                            <div class="user-addon-subrow">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20h12a2 2 0 0 0 2-2V8H4v10a2 2 0 0 0 2 2z"></path><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    ${baggageText}
+                                </span>
+                                <span>${cebuFormatPHP(baggageCost)}</span>
+                            </div>`;
+                    }
+                    if (seatCost > 0) {
+                        userAddonsHtml += `
+                            <div class="user-addon-subrow">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"></path><path d="M4 14h16"></path><path d="M6 10V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"></path></svg>
+                                    ${seatText}
+                                </span>
+                                <span>${cebuFormatPHP(seatCost)}</span>
+                            </div>`;
+                    }
+                    if (mealsCost > 0) {
+                        userAddonsHtml += `
+                            <div class="user-addon-subrow">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                    ${mealsText}
+                                </span>
+                                <span>${cebuFormatPHP(mealsCost)}</span>
+                            </div>`;
+                    }
+                }
+
+                let travelInsuranceHtml = '';
+                if (travelInsuranceExpanded && travelInsuranceCost > 0) {
+                    travelInsuranceHtml = `
+                        <div class="taxes-dropdown" style="margin-top: 6px; margin-bottom: 18px;">
+                            <div class="tax-item"><span>${travelsureText}</span><span>${cebuFormatPHP(travelInsuranceCost)}</span></div>
+                        </div>
+                    `;
+                }
+
+                summaryCardBody.innerHTML = `
+                    <div class="row">
+                        <div>
+                            <div class="flight-route">
+                                <span class="highlight">${flightRouteText.includes('via') ? flightRouteText.split('via')[0] : flightRouteText}</span> <span class="via">${flightRouteText.includes('via') ? 'via ' + flightRouteText.split('via')[1] : ''}</span>
+                            </div>
+                            <div class="flight-date">${flightDateText}</div>
+                        </div>
+                    </div>
+
+                    <div class="row item-row" style="margin-bottom: ${userAddonsExpanded ? '12px' : '18px'};">
+                        <div class="item-name">louie laguidao</div>
+                        <div class="item-value" onclick="toggleUserAddonsDetails()" style="cursor: pointer;">
+                            ${cebuFormatPHP(baseFlightCost + baggageCost + seatCost + mealsCost)} 
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: ${userAddonsExpanded ? 'rotate(180deg)' : 'rotate(0deg)'}; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+
+                    ${userAddonsExpanded ? `<div style="margin-bottom: 18px;">${userAddonsHtml}</div>` : ''}
+
+                    ${travelInsuranceCost > 0 ? `
+                    <div class="row item-row" style="margin-bottom: ${travelInsuranceExpanded ? '0' : '18px'};">
+                        <div class="item-name">Travel Insurance</div>
+                        <div class="item-value" onclick="toggleTravelInsuranceDetails()" style="cursor: pointer;">
+                            ${cebuFormatPHP(travelInsuranceCost)}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: ${travelInsuranceExpanded ? 'rotate(180deg)' : 'rotate(0deg)'}; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    ${travelInsuranceHtml}` : ''}
+
+                    <div class="row item-row" style="margin-bottom: ${taxesExpanded ? '0' : '18px'};">
+                        <div class="item-name">Taxes and Fees</div>
+                        <div class="item-value" onclick="toggleTaxesDetails()" style="cursor: pointer;">
+                            ${taxesExpanded ? 'Hide details' : 'Show details'}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: ${taxesExpanded ? 'rotate(180deg)' : 'rotate(0deg)'}; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    ${taxesDetailsHtml}
+                `;
+
+                let totalSum = baseFlightCost + travelInsuranceCost + baggageCost + seatCost + mealsCost + taxesSubtotal;
+
+                if (cartTotalAmount) cartTotalAmount.textContent = cebuFormatPHP(totalSum);
+                if (cartDropdownTotal) cartDropdownTotal.textContent = cebuFormatPHP(totalSum);
+                if (summaryCardTotal) summaryCardTotal.textContent = cebuFormatPHP(totalSum);
+            }
+
+            return booking;
+        }
+
+        (function cebuInitCartToggle() {
+            const cartWidget = document.getElementById('cartWidget');
+            const cartToggle = document.getElementById('cartToggle');
+            if (!cartWidget || !cartToggle) return;
+            cartToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                cartWidget.classList.toggle('open');
+            });
+            document.addEventListener('click', function () {
+                cartWidget.classList.remove('open');
+            });
+            cartWidget.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        })();
+
+        /* ================= MODAL LOGIC ================= */
+        function handleContinue() {
+            const termsCheckbox = document.getElementById('terms-checkbox');
+            if (!termsCheckbox.checked) return;
+
+            const addons = cebuGetAddons();
+            let totalAddonsCost = (addons.baggage || 0) + (addons.seat || 0) + (addons.travelsure || 0) + (addons.meals || 0);
+
+            if (totalAddonsCost === 0) {
+                document.getElementById('emptyAddonsModal').classList.add('active');
+            } else {
+                proceedToPayment();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('emptyAddonsModal').classList.remove('active');
+        }
+
+        function proceedToPayment() {
+            window.location.href = 'PM-index.html';
+        }
+
+        cebuRenderCart();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Add-ons</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Baggage Banner Section */
+        .baggage-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .baggage-img-container {
+            width: 48%;
+            flex-shrink: 0;
+        }
+
+        .baggage-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .baggage-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .baggage-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .baggage-info p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Detailed Description Section */
+        .details-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .details-section p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* New Baggage Item & Accordion Section updated to be bigger and centered */
+        .baggage-single-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 40px 0 60px 0;
+            gap: 50px;
+        }
+
+        .baggage-single-img {
+            width: 280px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .baggage-single-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .baggage-single-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .baggage-single-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .baggage-single-info p {
+            margin: 0 0 20px 0;
+            font-size: 18px;
+            color: #4a5568;
+        }
+
+        .baggage-single-info .btn-primary {
+            font-size: 16px;
+            padding: 14px 40px;
+        }
+
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .accordion-item.with-divider {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 14px;
+        }
+
+        /* Accordion Content Styles */
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            border-bottom: none;
+        }
+
+        .accordion-content h3 {
+            font-size: 20px;
+            color: #0054a6;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .accordion-content p {
+            margin: 0 0 10px 0;
+        }
+
+        .accordion-content ol {
+            margin: 0 0 10px 0;
+            padding-left: 20px;
+        }
+
+        .accordion-content li {
+            margin-bottom: 8px;
+        }
+
+        .accordion-content ul {
+            margin: 5px 0 10px 20px;
+            list-style-type: disc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB Baggage</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature: CEB Baggage Banner matching reference image -->
+            <div class="baggage-banner">
+                <div class="baggage-img-container">
+                    <img src="images/CEBB.jpg" alt="CEB Baggage Family">
+                </div>
+                <div class="baggage-info">
+                    <h3>Save up to 73% when you purchase CEB Baggage online</h3>
+                    <p>Get the flexibility and space that you need for your essentials and more with these baggage
+                        options</p>
+                    <a href="index.html" class="btn-primary">Add to flight</a>
+                </div>
+            </div>
+
+            <!-- Detailed Description Section matching reference image -->
+            <div class="details-section">
+                <h2>CEB Baggage</h2>
+                <p>Passengers can buy up to 3 pieces of 20kg baggage as soon as they book their flight or via the Manage
+                    Booking portal up to 2 hours before their scheduled time of departure.</p>
+                <p>Need more weight allowance? You can also upgrade each piece by 4kg, 8kg, or 12kg, letting you bring
+                    up to 32kg per piece.</p>
+                <p>Remember: Airport baggage fees are more expensive, so it's best to purchase your CEB Prepaid Baggage
+                    ahead of time.</p>
+            </div>
+
+            <!-- New Section updated to be bigger and centered -->
+            <div class="baggage-single-banner">
+                <div class="baggage-single-img">
+                    <img src="images/CEBB-2.png" alt="Yellow Luggage">
+                </div>
+                <div class="baggage-single-info">
+                    <h3>20kg - 1 piece only</h3>
+                    <p>Upgradeable by 4kg, 8kg, 12kg</p>
+                    <a href="index.html" class="btn-primary">Add to flight</a>
+                </div>
+            </div>
+
+            <!-- Accordion Section from the attached image -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('booking-content', this)">
+                    <span>Adding and Upgrading CEB Baggage To Booking</span>
+                    <span class="arrow-down" id="arrow-1" style="transform: rotate(180deg);">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="booking-content" style="display: block;">
+                    <p>Follow these steps to add/upgrade your prepaid baggage:</p>
+                    <ol>
+                        <li>Log in to your MyCebuPacific account. If you don't have an account, please sign up and add
+                            your bookings to your account.</li>
+                        <li>Go to "Bookings and Boarding Pass" and select the booking you want to add / upgrade baggage
+                            for by clicking "Manage".</li>
+                        <li>In "My Booking," click "Add or upgrade bags" under "Customize Your Trip."</li>
+                        <li>Choose if you're adding baggage allowance per flight or for all flights.
+                            <ul>
+                                <li>If you have a round trip ticket, click "Select for both flights" toggle to ensure
+                                    your baggage applies to your entire booking.</li>
+                                <li>You may also add or upgrade the baggage allowance per person only.</li>
+                            </ul>
+                        </li>
+                        <li>Select the baggage options you need. You may purchase up to three (3) pieces of 20kg baggage
+                            and add up to 12kg per piece.
+                            <ul>
+                                <li>Click "Add baggage" to add one (1) piece of 20kg baggage to your booking. You can
+                                    add up to three (3) pieces of baggage per person.</li>
+                                <li>Upgrade your weight allowance per bag, if needed.</li>
+                                <li>If you need to bring more things, you can add +4kg, +8kg, or +12kg to each piece of
+                                    baggage.</li>
+                                <li>Just click "No" if the 20kg baggage allowance is enough.</li>
+                            </ul>
+                        </li>
+                        <li>If you need to remove baggage from your selection, swipe on the baggage piece and click
+                            "Delete" or click the trash bin icon. Previously purchased baggage cannot be removed from
+                            your booking.</li>
+                        <li>Proceed to payment and review your transaction on the Booking Summary page. Click "Continue"
+                            to complete the payment process and confirm your booking. Note: You can also use your Travel
+                            Fund to pay for your CEB Baggage. baggage allowance per flight or for all flights.
+                            <ul>
+                                <li>If you have a round trip ticket, click "Select for both flights" toggle to ensure
+                                    your baggage applies to your entire booking.</li>
+                                <li>You may also add or upgrade the baggage allowance per person only.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="accordion-item with-divider" onclick="toggleAccordion('terms-content', this)">
+                    <span>Terms and Conditions</span>
+                    <span class="arrow-down" id="arrow-2" style="transform: rotate(180deg);">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="terms-content" style="display: block;">
+                    <ol>
+                        <li>CEB Baggage is available for one (1) piece 20kg baggage allowance.</li>
+                        <li>Passengers may purchase up to three (3) pieces of 20kg baggage allowance.</li>
+                        <li>Passengers may also upgrade or add weight to each of the purchased 20kg baggage allowance in
+                            tiers of 4kg, 8kg or 12kg.</li>
+                        <li>CEB Baggage allowance may be availed through the Cebu Pacific website, mobile app, ticket
+                            offices and third-party sales offices.</li>
+                        <li>CEB Baggage allowance is available at the time of booking and during Manage Booking up to 2
+                            hours before scheduled time of departure. Passengers who don't have baggage allowance can
+                            avail one (1) piece Airport Baggage up to 1 hour before departure.</li>
+                        <li>CEB Baggage allowance may be rebooked up to 2 hours before scheduled time of departure,
+                            subject to space availability. If a change in route is required, CEB Baggage allowance will
+                            not be carried over to the new flight.</li>
+                        <li>At the time of bag drop, actual baggage for check-in will be assessed against the allowance
+                            purchased (in pieces, weight and size).</li>
+                        <li>Maximum weight of each checked baggage piece is 32kg (as per accepted international
+                            standard).</li>
+                        <li>Pooling of CEB Baggage allowances is allowed provided that passengers are in the same
+                            Booking Reference and present themselves at the bag drop counters at the same time.</li>
+                        <li>Any excess in piece, weight and size are subject to the respective airport fees.</li>
+                        <li>CEB Baggage allowance may not be transferred to another person. It can only be used by the
+                            passenger for the specific flight and sector for which it is paid.</li>
+                        <li>CEB Baggage may not be refunded, and it cannot be stored in a Travel Fund.</li>
+                    </ol>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

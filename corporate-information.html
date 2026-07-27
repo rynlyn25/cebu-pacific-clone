@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Information - Cebu Pacific</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           GLOBAL RESET & TYPOGRAPHY
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+        }
+
+        /* =========================================
+           TOP ADVISORY BAR & HEADER STYLES
+           ========================================= */
+        .top-advisory-bar {
+            width: 100%;
+            background-color: #00a4e4; 
+            padding: 8px 0;
+        }
+
+        .header-content-wrapper {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-header {
+            width: 100%; 
+            background: white; 
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #005eb8;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* =========================================
+           BREADCRUMBS
+           ========================================= */
+        .breadcrumbs-container {
+            max-width: 1150px;
+            margin: 15px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .breadcrumbs a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            color: #005eb8;
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           YELLOW HERO BANNER
+           ========================================= */
+        .top-header {
+            background-color: #FFD400;
+            padding: 45px 0 55px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 40px; 
+            border-bottom-right-radius: 50% 40px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .header-banner-content {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 38px;
+            margin: 0;
+        }
+
+        /* =========================================
+           DESTINATION CIRCLES
+           ========================================= */
+        .destination-circles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 0 auto 50px auto;
+            max-width: 1000px;
+        }
+
+        .circle-item {
+            text-align: center;
+            width: 110px;
+        }
+
+        .circle-img-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #00a4e4;
+            padding: 3px; 
+            margin: 0 auto 15px auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .circle-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .circle-item span {
+            color: #005eb8;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           PAGE CONTENT SPECIFICS
+           ========================================= */
+        .page-container {
+            max-width: 1150px;
+            margin: 0 auto 80px auto;
+            padding: 0 20px;
+        }
+
+        /* Investor Relations Section */
+        .investor-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .investor-img {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .investor-img img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .investor-text {
+            flex: 1;
+        }
+
+        .investor-text h2 {
+            font-size: 24px;
+            color: #333;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .investor-text p {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: #0088ce;
+            color: white;
+            text-align: center;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-primary:hover {
+            background-color: #006eb3;
+        }
+
+        /* 2 Corporate Cards Centered */
+        .corp-cards-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .corp-card {
+            width: 350px; /* Fixed width prevents them from becoming huge */
+            max-width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .corp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .corp-card-header {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 800;
+            color: #005eb8;
+            font-size: 18px;
+            background: #fff;
+        }
+
+        .corp-card-body {
+            background-color: #FFD400;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+        }
+
+        .corp-card-body i {
+            font-size: 80px;
+            color: #0088ce;
+        }
+
+        /* Accordions */
+        .accordion-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 10px 40px;
+            margin-bottom: 20px;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .pr-title {
+            font-size: 24px;
+            color: #111;
+            font-weight: 800;
+        }
+        
+        .cg-title {
+            font-size: 22px;
+            color: #111;
+            font-weight: 400;
+        }
+
+        .accordion-header i {
+            color: #005eb8;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Support both up and down default chevrons */
+        .accordion-card.active .accordion-header .fa-chevron-up { transform: rotate(180deg); }
+        .accordion-item.active .accordion-header .fa-chevron-down { transform: rotate(180deg); }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .accordion-inner {
+            padding-bottom: 40px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .accordion-inner p {
+            margin-bottom: 20px;
+        }
+        
+        .accordion-inner h3 {
+            font-size: 18px;
+            color: #111;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+        }
+        
+        .accordion-inner h4 {
+            font-size: 16px;
+            color: #222;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+        }
+        
+        .accordion-inner ul {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .accordion-inner li {
+            margin-bottom: 10px;
+        }
+
+        .accordion-inner p.updated-date {
+            font-style: italic;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        /* INNER PAGES CONTENT (Dynamic Views) */
+        .main-content {
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .main-content h2 {
+            font-size: 32px;
+            color: #222;
+            font-weight: 800;
+            margin: 0 0 25px 0;
+            line-height: 1.3;
+        }
+
+        .main-content h3 {
+            font-size: 24px;
+            color: #222;
+            font-weight: 800;
+            margin: 20px 0 20px 0;
+        }
+
+        .person-list {
+            margin-bottom: 30px;
+        }
+
+        .person-list p {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .person-list strong {
+            color: #111;
+            font-weight: 700;
+        }
+
+        a.bold-link {
+            display: inline-block;
+            color: #005eb8;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        a.bold-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           FOOTER STYLES
+           ========================================= */
+        .site-footer {
+            background-color: #ffffff;
+            padding: 50px 20px 40px 20px;
+            border-top: 1px solid #eaeaea;
+            width: 100%;
+        }
+
+        .footer-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .footer-grid-left {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            flex: 2.2;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-group h4, 
+        .footer-right-sidebar h4 {
+            font-size: 13px;
+            color: #000000;
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .footer-group a {
+            color: #009cdb;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-group a:hover {
+            text-decoration: underline;
+        }
+
+        .country-box {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+            cursor: pointer;
+            width: fit-content;
+            background: #fff;
+        }
+
+        .country-box i {
+            margin-right: 8px;
+            color: #111;
+        }
+
+        .footer-right-sidebar {
+            flex: 1;
+            min-width: 280px;
+            border-left: 1px solid #e0e0e0;
+            padding-left: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .app-buttons img {
+            height: 38px;
+            width: auto;
+        }
+
+        .payment-grid {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-grid img {
+            height: 28px;
+            width: auto;
+        }
+
+        .accreditations {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .accreditations img {
+            height: 55px;
+            width: auto;
+        }
+
+        .footer-bottom {
+            background-color: #ffd400;
+            padding: 16px 20px;
+            width: 100%;
+        }
+
+        .footer-bottom-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .footer-legal-links a {
+            color: #0054A6;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 700;
+        }
+
+        .footer-legal-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright-text {
+            font-size: 13.5px;
+            color: #0054A6;
+            font-weight: 700;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .footer-container {
+                flex-direction: column;
+            }
+            .footer-grid-left {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-right-sidebar {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid #e0e0e0;
+                padding-top: 30px;
+            }
+        }
+        @media (max-width: 768px) {
+            .investor-card {
+                flex-direction: column;
+            }
+            .destination-circles {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY & NAVIGATION -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar force-blue-bar">
+        <div class="header-content-wrapper right-align-wrapper" style="display: flex; justify-content: space-between;">
+            <div class="advisory-left" style="display: flex; align-items: center; color: white; font-size: 13px;">
+            </div>
+            <div class="advisory-right" style="display: flex; align-items: center;">
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center;">
+                </a>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center; margin-left: 25px;">
+                    <i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP
+                </a>
+                <a href="#" style="color: rgba(255, 255, 255, 0.7); font-weight: 700; text-decoration: none; font-size: 13px; display: flex; align-items: center; margin-left: 25px; margin-right: 25px;">
+                    <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero-header">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="header-logo-link">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
+            </a>
+            <div class="header-action-right" style="display: flex; align-items: center;">
+                <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
+                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs-container">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a> &rsaquo; 
+            <a href="#">About</a> &rsaquo; 
+            <span id="dynamic-breadcrumb"><span>Company Information</span></span>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- YELLOW HERO BANNER -->
+    <!-- ========================================== -->
+    <header class="top-header">
+        <div class="header-banner-content">
+            <h1 id="heroTitle">Company Information</h1>
+        </div>
+    </header>
+
+    <!-- Destination Circles -->
+    <div class="destination-circles">
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/clark.jpg" alt="Clark"></div>
+            <span>Clark</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/cebu.jpg" alt="Cebu"></div>
+            <span>Cebu</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/iloilo.jpg" alt="Iloilo"></div>
+            <span>Iloilo</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/davao.jpg" alt="Davao"></div>
+            <span>Davao</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-img-wrapper"><img src="images/InStory Cover-1772421524.webp" alt="Fly Here Next"></div>
+            <span>Fly Here Next</span>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT ROUTER -->
+    <!-- ========================================== -->
+    <div id="page-router">
+
+        <!-- VIEW 1: MAIN COMPANY INFO -->
+        <div id="view-company-info" class="page-container" style="display: block;">
+            
+            <!-- Investor Relations -->
+            <div class="investor-card">
+                <div class="investor-img">
+                    <img src="images/A321CEO-arrival-air-3204x2236.jpg" alt="Cebu Pacific Plane">
+                </div>
+                <div class="investor-text">
+                    <h2>Investor Relations</h2>
+                    <p>Cebu Pacific for shareholders, potential investors, and financial analysts</p>
+                </div>
+            </div>
+
+            <!-- Corporate Cards Grid (Centered, Disclosures removed) -->
+            <div class="corp-cards-grid">
+                <div class="corp-card" onclick="showPage('view-corporate-profile', 'Corporate Profile')">
+                    <div class="corp-card-header">
+                        <span>Corporate Profile</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="corp-card-body">
+                        <i class="fa-solid fa-address-book"></i>
+                    </div>
+                </div>
+
+                <div class="corp-card" onclick="showPage('view-corporate-governance', 'Corporate Governance')">
+                    <div class="corp-card-header">
+                        <span>Corporate Governance</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="corp-card-body">
+                        <i class="fa-solid fa-users-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Cebu Pacific Accordion -->
+            <div class="accordion-card active">
+                <div class="accordion-header single-accordion-header">
+                    <span class="pr-title">About Cebu Pacific</span>
+                    <i class="fa-solid fa-chevron-up"></i>
+                </div>
+                <div class="accordion-content" style="max-height: 2000px;">
+                    <div class="accordion-inner">
+                        <p>The Philippines’ leading airline, Cebu Pacific (CEB) entered the aviation industry on March 1996 and pioneered the “low fare, great value” strategy and has flown over 200 million passengers since inception.</p>
+                        <p>CEB offers the widest domestic network in the Philippines with 35 domestic destinations. It also currently operates flights to 23 international destinations, spanning across Asia, Australia, and the Middle East.</p>
+                        <p>The airline flies from three strategically placed hubs: Manila, Cebu and Clark.</p>
+                        <p>CEB currently operates the youngest jet fleet in the country and one of the youngest in the world with its 73-strong fleet of 57 Airbus - 10 A321neo, 20 Airbus A320ceo, seven (7) Airbus A321ceo, 14 Airbus A320neo, one (1) Airbus A330ceo, and five (5) A330neo - 14 ATR 72-600, and two (2) ATR freighters.</p>
+                        <p>The airline continues to develop creative pricing strategies so it may constantly offer low year-round fares for all its flights.</p>
+                        <p>CEB has been awarded with a 7/7-star rating by global airline quality rating company AirlineRatings.com given its multi-layered approach to safety amidst the pandemic.</p>
+                        <p>As it goes all out in its customer-first initiatives, CEB is among the first airlines in Asia to invest in an integrated facility and technology for social intelligence and customer engagement with its Customer Command Center. The 24/7 command center is equipped with social monitoring, publishing and engagement tools—all tasked to assist travelers on their concerns and inquiries.</p>
+                        <p>CEB is also the preferred air cargo carrier in the Philippines, linking islands together through exchange of goods. It provides competitive, fast, flexible and straightforward air cargo service to an extensive network, including individual shippers and cargo agents within the country and overseas. Moreover, CEB is the only passenger airline in the Philippines with dedicated cargo aircraft.</p>
+                        <p>CEB has achieved full compliance with the International Air Transport Association (IATA) Operational Safety Audit (IOSA)—considered as the accreditation with the highest standards for safety in the airline industry, joining a roster of 429 airlines worldwide that have strictly complied with the most stringent of international standards governing aviation safety.</p>
+                        <p>The airline also recently received the Asia Environmental Sustainability Airline / Airline Group of the Year from the Centre for Asia Pacific Aviation (CAPA) for its leadership in sustainability performance in the regional aviation industry.</p>
+                        <p>CEB currently operates the greenest aircraft in the aviation industry, the A330neo, aligning its sustainability goals with the global aviation’s commitment to achieve net zero carbon emissions by 2050.</p>
+                        <p class="updated-date">Updated July 13, 2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: CORPORATE PROFILE -->
+        <div id="view-corporate-profile" class="page-container" style="display: none;">
+            <main class="main-content">
+                <h2>Board of Directors, Management Team, and Executive Officers</h2>
+                
+                <h3>Board of Directors</h3>
+                <div class="person-list">
+                    <p><strong>Director, Chairman:</strong> LANCE Y. GOKONGWEI</p>
+                    <p><strong>Director, President and Chief Commercial Officer:</strong> ALEXANDER G. LAO</p>
+                    <p><strong>Director:</strong> ROBINA GOKONGWEI PE</p>
+                    <p><strong>Director:</strong> DAVID GULLIVER G. GO</p>
+                    <p><strong>Director:</strong> JOSE F. BUENAVENTURA</p>
+                    <p><strong>Director:</strong> BRIAN H. FRANKE</p>
+                    <p><strong>Independent Director:</strong> BERNADINE T. SIY</p>
+                    <p><strong>Independent Director:</strong> BRIAN MATHEW P. CU</p>
+                    <p><strong>Independent Director:</strong> RICHARD RAYMOND B. TANTOCO</p>
+                </div>
+
+                <a href="#" class="bold-link">Profile of the Members of the Board</a>
+
+                <h2>Senior Management and Corporate Officers</h2>
+                <div class="person-list">
+                    <p><strong>Chief Executive Officer:</strong> MICHAEL B. SZUCS</p>
+                    <p><strong>President and Chief Commercial Officer:</strong> ALEXANDER G. LAO</p>
+                    <p><strong>Chief Financial Officer:</strong> MARK JULIUS V. CEZAR</p>
+                    <p><strong>Chief Operations Officer:</strong> JAVIER LUIS MASSOT RAMIS DE AYREFLOR</p>
+                    <p><strong>Chief Marketing and Customer Experience Officer:</strong> CANDICE JENNIFER A. IYOG</p>
+                    <p><strong>Chief Human Resources Officer:</strong> FELIX DAN S. LOPEZ</p>
+                    <p><strong>Chief Digital and Technology Officer:</strong> FABRICIO IBANEZ</p>
+                    <p><strong>Vice President for Flight Operations:</strong> SAMUEL S. AVILA, II</p>
+                    <p><strong>Vice President for Customer Service Operations:</strong> MARIA LEONORA A. APOSTOL</p>
+                    <p><strong>Vice-President for Safety, Quality and Security:</strong> MATERNO C. ILAGAN</p>
+                    <p><strong>Vice-President for Engineering and Fleet Management:</strong> SHEVANTHA WEERASEKERA</p>
+                    <p><strong>Vice-President for Corporate Strategy and Risk Officer:</strong> AILEEN M. ISIDRO</p>
+                    <p><strong>Vice-President for Controllership & Investor Relations:</strong> TRINA E. ASUNCION</p>
+                    <p><strong>Vice-President for Corporate Affairs:</strong> MARIA CECILIA G. NATIVIDAD</p>
+                    <p><strong>General Counsel and Compliance Officer:</strong> ANNE ROMADINE P. TIENG</p>
+                    <p><strong>Corporate Secretary:</strong> JOSINE MA. PROTASIO-MENDOZA</p>
+                    <p><strong>Assistant Corporate Secretary:</strong> EDERLYN S. AGUSTIN</p>
+                    <p><strong>Treasurer:</strong> PAMELA RAE A. CHUA</p>
+                </div>
+            </main>
+        </div>
+
+        <!-- VIEW 3: CORPORATE GOVERNANCE PAGE WITH ACCORDION-->
+        <div id="view-corporate-governance" class="page-container" style="display: none;">
+            <main class="main-content">
+                <h2>Corporate Governance Manual</h2>
+
+                <div class="accordion-card">
+                    
+                    <!-- Item 1: Introduction -->
+                    <div class="accordion-item">
+                        <div class="accordion-header multi-accordion-header">
+                            <span class="cg-title">Introduction</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <p>Cebu Air, Inc. (“Cebu Pacific”, “Company” or the “Corporation”) is committed to the principles of Corporate Governance contained in this Corporate Governance Manual. We recognize that Corporate Governance is a necessary component of sound business management that will contribute to the improvement of the value of the Company for the benefit of its Stakeholders.</p>
+                                <p>This Corporate Governance Manual aims to assist the members of the Company’s Board, its various committees and Management in the exercise of their respective responsibilities to serve the best interests of the Company.</p>
+                                
+                                <h3>Vision, Purpose and Core Values</h3>
+                                <p>We envision stronger nations where cultures and communities are connected, meaningful relationships are built, and lives are enriched by opportunities and experiences we make possible.</p>
+                                <p>Our purpose for existence is to COMMIT as a sustainable low-cost carrier, to CONNECT people and communities, and to CREATE value for all stakeholders.</p>
+                                <p>At the core of our beliefs are our values which the Company’s Board, Management and staff hold in common and endeavor to put into action. These are:</p>
+                                <ul>
+                                    <li><strong>Service.</strong> We put people at the heart of service.</li>
+                                    <li><strong>Integrity.</strong> We do what is right.</li>
+                                    <li><strong>Trust.</strong> We cultivate trust and commit to collaboration.</li>
+                                    <li><strong>Courage.</strong> We relentlessly pursue new ideas and better solutions.</li>
+                                    <li><strong>Best of Filipino Spirit.</strong> We live the best of Filipino Spirit at all times.</li>
+                                </ul>
+
+                                <h3>Governance Principles</h3>
+                                <p>In line with the Company’s vision, purpose and core values, our Corporate Governance framework is built on the following principles:</p>
+                                <ul>
+                                    <li><strong>Fairness.</strong> We aim to protect shareholder rights and ensure the equitable treatment of all shareholders, including minority and foreign shareholders. All shareholders should have the opportunity to obtain effective redress for violations of their rights.</li>
+                                    <li><strong>Accountability.</strong> We strive to ensure the strategic guidance of the Company and the effective monitoring of management by the Board, and its accountability to the Company and all of its Stakeholders.</li>
+                                    <li><strong>Transparency.</strong> We endeavor to assure timely and accurate disclosure is made of all material matters regarding the Company, including financial status, governance structure, performance, and ownership.</li>
+                                    <li><strong>Independence.</strong> We recognize the value of independence in the management of the Company and seek to ensure that procedures and structures are in place to prevent conflicts of interest, as well as ensuring independent directors and advisers are free from internal influence.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Company's Governance Structure -->
+                    <div class="accordion-item">
+                        <div class="accordion-header multi-accordion-header">
+                            <span class="cg-title">Company's Governance Structure</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <h3>A. Company's Board of Directors</h3>
+                                <p>The Company’s Board of Directors is primarily responsible for the governance of the Corporation and provides an independent check on management.</p>
+                                
+                                <h4>1. Composition of the Board of Directors</h4>
+                                <p>The Board shall be composed of at least five (5), but not more than nine (9), members who are elected by the shareholders and shall have at least two (2) Independent Directors or such number of Independent Directors that constitutes twenty percent (20%) of the members of the Board, whichever is lesser, but in no case less than two (2).</p>
+                                <p>The Board shall adopt a policy on diversity which will aim to achieve a board composition that is diverse in knowledge, experience, competence, and expertise.</p>
+                                <p>The Board shall be composed of Executive and Non-Executive Directors, which include Independent Directors, majority of whom shall be Non-Executive Directors who possess the necessary qualifications to effectively participate and help secure objective, independent judgment on corporate affairs and to substantiate proper check and balance.</p>
+
+                                <h4>2. Responsibilities, Duties and Functions of the Board</h4>
+                                <p><strong>2.1 General Responsibility of the Board</strong><br>
+                                It is the Board’s responsibility to foster the long-term success of the Corporation, and to sustain its competitiveness and profitability in a manner consistent with its corporate objectives and the best interests of the Corporation, its shareholders, and stakeholders, as a whole.</p>
+                                <p>The Board shall formulate and annually review the Corporation’s vision, mission, strategic objectives, policies, and procedures that shall guide its activities, including the means to effectively monitor Management’s performance.</p>
+                                <p>The Board shall exercise care, skill and judgment and observe good faith and loyalty in the conduct and management of the business and affairs of the Corporation. The Board shall ensure that all its actions are within the scope of power and authority as prescribed in the Articles of Incorporation, By-Laws, and in existing laws, rules, and regulations.</p>
+
+                                <p><strong>2.2 Duties and Functions of the Board</strong><br>
+                                To ensure high standards of management for the Corporation and its Stakeholders, the Board shall conduct itself with honesty and integrity in the performance of, among others, the following duties and responsibilities:</p>
+                                <ul>
+                                    <li><strong>2.2.1</strong> Act on a fully informed basis, in good faith, with due diligence and care, and in the best interest of the Company and all Stakeholders;</li>
+                                    <li><strong>2.2.2</strong> Oversee the development of and approve the Company’s business objectives and strategy, and monitor their implementation, in order to sustain the Company’s long-term viability and strength. The Board shall review and guide corporate strategy, major plans of action, risk management policies and procedures, annual budgets and business plans; set performance objectives; monitor implementation and corporate performance; and oversee major capital expenditures, acquisitions and divestitures;</li>
+                                    <li><strong>2.2.3</strong> Oversee the adoption of an effective succession planning program and remuneration policies;</li>
+                                    <li><strong>2.2.4</strong> Adopt policies on board nomination and election that will ensure diversity in board composition in terms of knowledge, expertise and experience;</li>
+                                    <li><strong>2.2.5</strong> Oversee the implementation of a policy and system on RPTs which shall include the review and approval of material RPTs and ensure fairness and transparency of the transactions;</li>
+                                    <li><strong>2.2.6</strong> Oversee the adoption of policies on the selection of Management and the assessment of their performance;</li>
+                                    <li><strong>2.2.7</strong> Oversee the establishment of an internal control system to monitor and manage potential conflicts of interest and an ERM framework to identify, monitor, assess and manage key business risks;</li>
+                                    <li><strong>2.2.8</strong> Annually review, together with Management, the Company’s vision and mission;</li>
+                                    <li><strong>2.2.9</strong> Ensure the Corporation’s faithful compliance with all applicable laws and regulations, and best business practices;</li>
+                                    <li><strong>2.2.10</strong> Establish and maintain an Investor Relations Program that will keep the shareholders informed of important developments in the Corporation. The Corporation’s CEO shall exercise oversight responsibility over this program;</li>
+                                    <li><strong>2.2.11</strong> Identify the Corporation’s Stakeholders in the community in which it operates or are directly affected by its operations and formulate a clear policy of accurate, timely, and effective communication with them;</li>
+                                    <li><strong>2.2.12</strong> Adopt a system of checks and balance within the Board. A regular review of the effectiveness of such system should be conducted to ensure the integrity of the decision-making and reporting processes at all times;</li>
+                                    <li><strong>2.2.13</strong> Ensure that the Corporation has an independent audit mechanism for the proper audit and review of the Corporation’s financial statements by independent auditors;</li>
+                                    <li><strong>2.2.14</strong> Ensure that the Corporation establishes appropriate Corporate Governance policies and procedures pursuant to this Manual, including but not limited to, policies on conflict of interest, and oversee the effective implementation thereof; and</li>
+                                    <li><strong>2.2.15</strong> Consider the implementation of an alternative dispute resolution system for the amicable settlement of conflicts or differences between the Corporation and its shareholders, if applicable.</li>
+                                </ul>
+
+                                <h4>3. Internal Control Responsibilities of the Board</h4>
+                                <p>The control environment of the Corporation consists of: (a) the Board which ensures that the Corporation is properly and effectively managed and supervised; (b) Management that actively manages and operates the Corporation in a sound and prudent manner; (c) the organizational and procedural controls supported by effective management of information and risk management reporting systems; and (d) an independent audit mechanism to monitor the adequacy and effectiveness of the Corporation’s governance, operations, and information systems, including the reliability and integrity of financial and operational information, the safeguarding of assets, and compliance with laws, rules, regulations and contracts.</p>
+                                
+                                <p><strong>3.1 The internal control mechanisms for the performance of the Board’s oversight responsibility may include:</strong></p>
+                                <ul>
+                                    <li>3.1.1 Definition of the duties and responsibilities of the CEO;</li>
+                                    <li>3.1.2 Selection of the person who possesses the ability, integrity and expertise essential for the position of CEO;</li>
+                                    <li>3.1.3 Evaluation of proposed Management appointments;</li>
+                                    <li>3.1.4 Evaluation of appointments of Management officers; and</li>
+                                    <li>3.1.5 Review of the Corporation’s human resource policies, conflict of interest situations, compensation program for employees and Management succession plan.</li>
+                                </ul>
+
+                                <p><strong>3.2</strong> The Corporation’s systems of effective organizational and operational controls shall be continuously developed and updated based on, among others, the following factors: nature and complexity of the business and the business culture; volume, size and complexity of transactions; degree of risks involved; degree of centralization and delegation of authority; extent and effectiveness of information technology; and extent of regulatory compliance.</p>
+                                <p><strong>3.3</strong> The Corporation shall establish an Internal Audit system that can provide assurance service to the Board, Management and shareholders and ensure that key organizational and operational controls are in place. The Board shall appoint an Internal Audit Head to perform the Internal Audit function. The Internal Audit Head shall be guided by the Local and International Standards on Professional Practice of Internal Auditing.</p>
+
+                                <h4>4. Board Meetings and Quorum Requirement</h4>
+                                <ul>
+                                    <li><strong>4.1</strong> The Board shall schedule meetings at the beginning of the year, and hold regular meetings in accordance with its By-Laws and convene special meetings when required by business exigencies.</li>
+                                    <li><strong>4.2</strong> The notice and agenda of the meeting and other relevant meeting materials shall be furnished to the Directors at least five (5) business days prior to each meeting, which meeting must be duly minuted.</li>
+                                    <li><strong>4.3</strong> The members of the Board shall attend regular and special meetings in person or through video/teleconferencing conducted in accordance with the rules and regulations of the SEC except for justifiable reasons that prevent them from doing so.</li>
+                                    <li><strong>4.4</strong> Independent Directors shall always attend Board meetings. Unless otherwise provided in the By-Laws, their absence shall not affect the quorum requirement. However, the Board may, to promote transparency, require the presence of at least one (1) Independent Director in all its meetings.</li>
+                                    <li><strong>4.5</strong> The Non-Executive Directors (NEDs) shall have separate periodic meetings without the presence of Executive Directors or management and may call on the external auditor or head of the internal audit, compliance and risk functions.</li>
+                                </ul>
+
+                                <h3>B. Company's Individual Directors</h3>
+                                <h4>1. Specific Duties and Responsibilities of a Director</h4>
+                                <p>A Director shall endeavor to act in the best interest of the Corporation its shareholders and stakeholders in a manner characterized by fairness, accountability, and transparency.</p>
+                                <p>A Director shall observe the following norms of conduct:</p>
+                                <ul>
+                                    <li><strong>1.1</strong> Conduct fair and impartial business transactions with the Corporation, and ensure that personal interest of the Director does not conflict with the interests of the Corporation;</li>
+                                    <li><strong>1.2</strong> Devote the time and attention necessary to properly and effectively perform the duties and responsibilities of such Director;</li>
+                                    <li><strong>1.3</strong> Act judiciously. Before deciding on any matter brought before the Board, a Director should carefully evaluate the issues and, if necessary, make inquiries and request clarification;</li>
+                                    <li><strong>1.4</strong> Exercise independent judgment. A Director should view each problem or situation objectively;</li>
+                                    <li><strong>1.5</strong> Have a working knowledge of the statutory and regulatory requirements that affect the Corporation, including its Articles of Incorporation and By-Laws, the rules and regulations of the SEC and, where applicable, the requirements of relevant regulatory agencies;</li>
+                                    <li><strong>1.6</strong> Observe confidentiality. A Director should keep secure and confidential all non-public information that may be acquired or learned by reason of the position as Director;</li>
+                                    <li><strong>1.7</strong> Have a working knowledge of the Corporation’s control systems. A Director shall ensure the continuing soundness, effectiveness and adequacy of the Corporation’s control environment; and</li>
+                                    <li><strong>1.8</strong> Disclose to the Philippine Stock Exchange and the SEC the trading of the Corporation’s shares by Directors, officers (or persons performing similar functions) and controlling shareholders. This shall also include the disclosure of the Corporation’s purchase of its shares from the market (e.g. share buy-back program).</li>
+                                </ul>
+
+                                <h4>2. Qualifications for or Disqualifications from Directorship</h4>
+                                <p><strong>2.1 Qualifications of a Director</strong><br>
+                                In addition to the applicable provisions of the Revised Corporation Code, Securities Regulation Code, and other relevant laws the Articles of Incorporation and By-Laws of the Corporation, the following general guidelines shall be observed in the initial evaluation of Director-nominees to the Board:</p>
+                                <ul>
+                                    <li>2.1.1 He/She should own at least one (1) share of stock of the Corporation;</li>
+                                    <li>2.1.2 He/She must have a practical understanding of the business of the Corporation;</li>
+                                    <li>2.1.3 He/She shall have been proven to possess integrity and probity.</li>
+                                </ul>
+                                <p>The Corporate Governance Committee, as defined hereunder, may consider and recommend to the Board other qualifications which are now or may hereafter be provided in the relevant existing laws or any amendments thereto or new law applicable to the Corporation.</p>
+                                
+                                <p><strong>2.2 Permanent Disqualification of a Director</strong><br>
+                                Any of the following shall be a ground for the permanent disqualification of a Director:</p>
+                                <ul>
+                                    <li><strong>2.2.1</strong> Any person convicted by final judgment or order by a competent judicial or administrative body of any of the following:
+                                        <ul>
+                                            <li>(i) Any crime that (a) involves the purchase or sale of securities as defined in the Securities Regulation Code; (b) arises out of the person’s conduct as an underwriter, broker, dealer, investment adviser, principal, distributor, mutual fund dealer, futures commission merchant, commodity trading advisor, or floor broker; or (c) arises out of such Director’s fiduciary relationship with a bank, quasi-bank, trust Company, investment house or as an affiliated person of any of them;</li>
+                                            <li>(ii) An offense involving moral turpitude, fraud, embezzlement, theft, estafa, counterfeiting, misappropriation, forgery, bribery, false affirmation, perjury or other fraudulent acts;</li>
+                                            <li>(iii) Any person who has been adjudged by final judgment or order of the Philippine Securities and Exchange Commission (“SEC”), Bangko Sentral ng Pilipinas (“BSP”), court, or competent administrative body to have willfully violated, or willfully aided, abetted, counseled, induced or procured the violation of any provision of the Securities Regulation Code, the Revised Corporation Code, or any other law, rule, regulation or order administered by the SEC or BSP.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>2.2.2</strong> A person who, by reason of misconduct, after hearing, is permanently enjoined by a final judgment or order of the SEC, BSP or any court or administrative body of competent jurisdiction from (a) acting as underwriter, broker, dealer, investment adviser, principal, distributor, mutual fund dealer, futures commission merchant, commodity trading advisor, or floor broker; (b) acting as a director or officer of a bank, quasi-bank, trust company, investment house or as investment company; or (c) engaging in or continuing any conduct or practice in any of the capacities mentioned above or willfully violating the laws that govern securities and banking activities;
+                                    <br><br>The disqualification shall also apply if such person is currently the subject of an order of the SEC, BSP or any court or administrative body denying, revoking or suspending any registration, license or permit issued to him under the Revised Corporation Code, Securities Regulation Code or any other law administered by the SEC or BSP, or under any rule or regulation issued by the SEC or BSP, or has otherwise been restrained to engage in any activity involving securities and banking; or such person is the subject of an effective order of a self-regulatory organization suspending or expelling him from membership, participation or association with a member or participant of the organization;</li>
+                                    <li><strong>2.2.3</strong> Any person judicially declared to be insolvent;</li>
+                                    <li><strong>2.2.4</strong> Any person found guilty by final judgment or order of a foreign court or equivalent financial regulatory authority of acts, violations or misconduct similar to any of the acts, violations or misconduct listed in the foregoing paragraphs; and</li>
+                                    <li><strong>2.2.5</strong> Any person convicted by final judgment of an offense punishable by imprisonment for a period exceeding six (6) years, or a violation of the Revised Corporation Code committed within five (5) years prior to the date of such Director’s election or appointment.</li>
+                                </ul>
+
+                                <p><strong>2.3 Temporary Disqualification of a Director</strong><br>
+                                The Corporate Governance Committee may consider and recommend to the Board the temporary disqualification of a Director for any of the following reasons:</p>
+                                <ul>
+                                    <li>2.3.1 Refusal to comply with the disclosure requirements of the Securities Regulation Code and its Implementing Rules and Regulations;</li>
+                                    <li>2.3.2 Absence in more than fifty percent (50%) of all regular and special meetings of the Board during such Director’s incumbency, or any twelve (12) month period during said incumbency, unless the absence is due to illness, death in the immediate family, or serious accident. This disqualification applies for purposes of the succeeding election;</li>
+                                    <li>2.3.3 Dismissal/termination for cause as Director of any publicly-listed company, public company, registered issuer of securities and holder of a secondary license from the SEC. The disqualification shall be in effect until such Director has cleared himself/herself of any involvement in the cause that gave rise to his/her dismissal or termination.</li>
+                                </ul>
+                                <p>In the case of Par. 2.3.3, the temporarily disqualified Director shall, within sixty (60) business days from such disqualification, take the appropriate action to remedy or correct the disqualification. If he fails or refuses to do so for unjustified reasons, the disqualification shall become permanent.</p>
+
+                                <h4>3. Remuneration of Directors and Officers</h4>
+                                <p>Formal procedures for the development of a policy on the levels of remuneration for Directors and Officers shall be established by the Corporation.</p>
+                                <p>The levels of remuneration shall be sufficient to be able to attract and retain the services of qualified and competent Directors and officers.</p>
+                                <p>No Director shall participate in deciding on his/her remuneration.</p>
+
+                                <h4>4. Directorships and Appointment as Officers in Other Corporations</h4>
+                                <p>In line with the responsibilities of the Board, and to ensure that adequate time and attention is given, Independent Directors and Non-Executive Directors are encouraged to hold no more than five (5) board seats in publicly listed companies and Executive Directors to hold no more than two (2) board seats in listed companies outside of the Corporation’s group..</p>
+                                <ul>
+                                    <li><strong>4.1</strong> The above notwithstanding, the Board should ensure that the shareholders’ legal right to vote and be voted as directors remains inviolable;</li>
+                                    <li><strong>4.2</strong> A Director shall notify the Board before accepting Directorship in another Company.</li>
+                                </ul>
+
+                                <h3>C. Company's Board Committees</h3>
+                                <p>To aid in the optimal performance of its roles and responsibilities and ensure compliance with the principles of Corporate Governance, the Board shall form the following Board Committees: (a) Audit Committee; (b) Corporate Governance Committee; (c) Board Risk Oversight Committee (BROC); and (d) Related Party Transaction Committee.</p>
+                                <p>The Board shall appoint the members and chairman (from among the members) of each Board Committee annually.</p>
+                                <p>Each Board Committee shall have a Charter which shall define and govern, among other matters, its purposes, composition, membership and duties and responsibilities, conduct of meetings, and reporting processes. The respective Charters of the Board Committee shall be approved by the Board and shall not be amended, altered, or varied unless the Board shall have approved such amendment, alteration or variation.</p>
+
+                                <h4>1. Audit Committee</h4>
+                                <p>The Company’s Audit Committee provides oversight over the Company’s financial reporting, Internal Control System, Internal and External Audit processes, and monitor compliance with applicable laws and regulations. It shall ensure that systems and processes are put in place to provide assurance in areas including reporting, monitoring compliance with laws, regulations and internal policies, efficiency and effectiveness of business operations, and proper safeguarding and use of the Corporation’s resources and assets.</p>
+
+                                <h4>2. Corporate Governance Committee</h4>
+                                <p>The Company’s Corporate Governance Committee oversees the development and implementation of Corporate Governance principles and policies. The Corporate Governance Committee shall recommend a formal framework on the nomination, remuneration and evaluation of the performance of the Directors and key Management officers to ensure that this framework is consistent with the Corporation’s culture, strategies and the business environment.</p>
+
+                                <h4>3. Board Risk Oversight Committee</h4>
+                                <p>The Company’s Board Risk Oversight Committee oversees the establishment of the ERM framework that will effectively identify, monitor, assess and manage key business risks. The risk management framework shall guide the Board in identifying units/business lines and enterprise-level risk exposures, as well as the effectiveness of risk management strategies. The BROC shall be responsible for defining the Company’s level of risk tolerance and providing oversight over its risk management policies and procedures to anticipate, minimize, control or manage risks or possible threats to its operational and financial viability.</p>
+
+                                <h4>4. Related Party Transaction Committee</h4>
+                                <p>The Company’s Related Party Transaction Committee ensures that there is group-wide policy and system governing Material Related Party Transactions (MRPTs), particularly those that breach the materiality threshold. The policy shall include the appropriate review and approval of MRPTs, which guarantee fairness and transparency of the transactions.</p>
+
+                                <h3>D. Company's Officers and Management Team</h3>
+                                <h4>1. Chairman</h4>
+                                <p>The Chairman of the Board of Directors shall preside at all meetings of the Board of Directors and Shareholders. The Chairman shall also assist in ensuring compliance with and performance of the Corporate Governance policies and practices.</p>
+                                <p>As needed or in accordance with applicable regulations such as the Revised Code of Corporate Governance, the roles of Chairman and the CEO may be separated in order to foster an appropriate balance of power, increased accountability, and better capacity for independent decision-making by the Board. A clear delineation of functions shall be made between the roles of the Chairman and CEO.</p>
+                                <p>The Board may consider designating a Lead Director among the Independent Directors if the Chairman of the Board is not an Independent Director and if the positions of the Chairman of the Board and CEO are held by one person. The Lead Director shall be the intermediary between the Chairman and the other Directors when necessary; convene and chair meetings of the Non-Executive Directors; and contribute to the performance evaluation of the Chairman, as required.</p>
+                                <p>The duties and responsibilities of the Chairman in relation to the Board may include, among others, the following:</p>
+                                <ul>
+                                    <li>1. The Chairman shall supervise the preparation of the agenda of the meeting in coordination with the Corporate Secretary and Management and make certain that such agenda focuses on strategic matters, including the overall risk appetite of the Corporation, considering the developments in the business and regulatory environments, key governance concerns, and contentious issues that will significantly affect operations;</li>
+                                    <li>2. Guarantee that the Board receives accurate, timely, relevant, insightful, concise, and clear information to enable it to make sound decisions;</li>
+                                    <li>3. Facilitate discussions on key issues by fostering an environment conducive for constructive debate and leveraging on the skills and expertise of individual Directors;</li>
+                                    <li>4. Ensure that the Board sufficiently challenges and inquires on reports submitted and representations made by Management;</li>
+                                    <li>5. Assure the availability of proper orientation for first-time Directors and continuing training opportunities and requirements for all Directors; and</li>
+                                    <li>6. Make sure that performance of the Board is evaluated at least once a year and discussed/ followed up on.</li>
+                                </ul>
+
+                                <h4>2. Chief Executive Officer</h4>
+                                <p>The duties and responsibilities of the Chief Executive Officer in relation to the Board may include, among others, the following:</p>
+                                <ul>
+                                    <li>1. Communicate and implement the Corporation’s vision, mission, values and overall strategy and promote any Corporation or Stakeholder change in relation to the same;</li>
+                                    <li>2. Build the corporate culture and motivate the employees of the Corporation. Direct, evaluate and guide the work of key Officers of the Corporation;</li>
+                                    <li>3. Oversee the operations of the Corporation and manage human and financial resources in accordance with the strategic plan;</li>
+                                    <li>4. Serve as the link between internal operations as well as internal and external Stakeholders;</li>
+                                    <li>5. Exercise general care, management and administration of the business operations of the Company. He/She shall ensure that: (a) the business and affairs of the Company are managed in a sound and prudent manner; and (b) operational, financial and internal controls are adequate and effective to ensure reliability and integrity of financial and operational information, effectiveness and efficiency of operations, safeguarding of assets and compliance with laws, rules, regulations and contracts;</li>
+                                    <li>6. Provide leadership for Management in determining, developing and implementing business strategies, plans and budgets to the extent approved by the Board. He shall provide the Board with a balanced and understandable account of the Company’s performance, financial condition, results of operations and prospects on a regular basis;</li>
+                                    <li>7. Provide the Directors/Board with adequate and timely information about the matters to be taken up in their Board meetings and, upon the request of any Director or the Board, make presentations on specific topics and respond to further inquiries in relation thereto during Board meetings. The Directors shall have independent access to Management; and</li>
+                                    <li>8. Formulate, under the oversight of the Audit Committee, financial reporting and internal control systems, rules and procedures.</li>
+                                </ul>
+
+                                <h4>3. President</h4>
+                                <p>The President shall perform such duties as may be assigned to the role by the Board of Directors, including representing the Corporation at all functions and proceedings with full powers to vote any and all shares owned by the Corporation and to appoint and/or sign proxies on behalf of the Corporation at the annual, general or any special stockholders’ meeting or meetings and adjournments thereof or any corporation in which the Corporation owns stocks.</p>
+                                <p>The President shall have such other responsibilities as the Board of Directors may require of the role.</p>
+
+                                <h4>4. Corporate Secretary</h4>
+                                <p><strong>1. Qualifications of the Corporate Secretary</strong><br>
+                                The Corporate Secretary must be a Filipino citizen, a resident of the Philippines, is an officer of the Corporation with exemplary performance. The Corporate Secretary should:</p>
+                                <ul>
+                                    <li>1.1 Possess appropriate administrative and interpersonal skills;</li>
+                                    <li>1.2 Have a working knowledge of the operations of the Corporation;</li>
+                                    <li>1.3 Be aware of the laws, rules, and regulations necessary in the performance of his/her duties and responsibilities; and</li>
+                                    <li>1.4 Be a separate individual from the Compliance Officer and should not be a member of the Board of Directors.</li>
+                                </ul>
+                                <p><strong>2. Duties and Responsibilities of the Corporate Secretary</strong></p>
+                                <ul>
+                                    <li>2.1 Be loyal to the mission, vision, and objectives of the Corporation;</li>
+                                    <li>2.2 Work fairly and objectively with the Board, Management, shareholders, and other Stakeholders;</li>
+                                    <li>2.3 Assist the Board and the Board Committees in the conduct of their meetings, including preparing an annual schedule of Board and Committee meetings and the annual Board calendar, and assisting the chairs of the Board and its Committees in setting agendas for those meetings;</li>
+                                    <li>2.4 Safe keep and preserve the integrity of the minutes of the meeting of the Board and its Committees, as well as other official records of the Corporation;</li>
+                                    <li>2.5 Keep abreast on relevant laws, regulations, all governance issuances, relevant industry developments and operations of the Corporation, and advise the Board and the Chairman on all relevant issues as they arise;</li>
+                                    <li>2.6 Work fairly and objectively with the Board, Management and shareholders and contribute to the flow of information between the Board and Management, the Board and its Committees, and the Board and its Stakeholders, including shareholders;</li>
+                                    <li>2.7 Advise on the establishment of Board Committees and their terms of reference;</li>
+                                    <li>2.8 Inform the members of the Board, in accordance with the By-Laws, of the agenda of their meetings at least five (5) business days in advance, and ensure that the members have before them accurate information that will enable them to arrive at intelligent decisions on matters that require their approval;</li>
+                                    <li>2.9 Attend all Board meetings, except when justifiable causes, such as illness, death in the immediate family and serious accidents, prevent him from doing so;</li>
+                                    <li>2.10 Perform required administrative functions;</li>
+                                    <li>2.11 Oversee the drafting of the By-laws and ensure that they conform with regulatory requirements; and</li>
+                                    <li>2.12 Perform such other duties and responsibilities as may be provided by the SEC or as may be assigned by the Board.</li>
+                                </ul>
+
+                                <h4>5. Compliance Officer</h4>
+                                <p>The Board shall ensure that it is assisted in its duties by a Compliance Officer. The Board may consider appointing a Compliance Officer with a rank of Senior Vice President or an equivalent position with adequate stature and authority in the Corporation. The Compliance Officer should not be a member of the Board of Directors and shall have direct reporting responsibilities to the Chairman of the Board. The Compliance Officer shall annually attend a training on Corporate Governance.</p>
+                                <p>The Compliance Officer shall perform the following duties:</p>
+                                <ul>
+                                    <li>1. Ensure proper onboarding of new Directors (i.e., orientation on the Company’s business, charter, Articles of Incorporation and By-laws, among others);</li>
+                                    <li>2. Monitor, review, evaluate and ensure the compliance by the Corporation; its Officers and Directors with the provisions and requirements of this Corporate Governance Manual and the relevant laws, this Code, rules and regulations and all governance issuances of regulatory agencies;</li>
+                                    <li>3. Report the matter to the Board if violations are found and recommend the imposition of appropriate disciplinary action;</li>
+                                    <li>4. Ensure the integrity and accuracy of all documentary submissions to the regulators;</li>
+                                    <li>5. Appear before the SEC when summoned in relation to compliance with this Code;</li>
+                                    <li>6. Collaborate with other departments to properly address compliance issues, which may be subject to investigation;</li>
+                                    <li>7. Identify possible areas of compliance issues and works towards the resolution of the same;</li>
+                                    <li>8. Ensure the attendance of Board members and key Officers to relevant trainings;</li>
+                                    <li>9. Assist the Board and the Corporate Governance Committee in the performance of the their governance functions, including their duties to oversee the formulation or review and implementation of the Corporate Governance structure and policies of the Corporation, and to assist in the conduct of self-assessment of the performance and effectiveness of the Board, the Board Committees and individual Board members in carrying out their functions as set out in this Manual and the respective charters of the Board Committees; and</li>
+                                    <li>10. Perform such other duties and responsibilities as may be provided by the SEC.</li>
+                                </ul>
+
+                                <h4>5. Internal Audit</h4>
+                                <p>The Company’s Internal Audit provides independent objective and risk-based assurance within the Corporation, designed to add value and improve the Corporation’s operations. This will help the Corporation accomplish its objectives by providing a systematic, disciplined approach for the evaluation and improvement of the effectiveness of risk management, control and governance processes.</p>
+                                <p><strong>1. Organization of the Internal Audit</strong></p>
+                                <ul>
+                                    <li>1.1 The Board shall appoint an Internal Audit Head, a Chief Audit Executive or its equivalent position, who shall oversee and be responsible for the Internal Audit activity of the Corporation.</li>
+                                    <li>1.2 The Internal Audit Head reports functionally to the Audit Committee and administratively to the CEO.</li>
+                                    <li>1.3 The Internal Audit Head shall have no executive or managerial powers and duties in the Corporation except those relating to the management of the Internal Audit.</li>
+                                    <li>1.4 Internal Audit shall have an independent status and will not be involved in the day-to-day internal checking systems of the business units and corporate centers in the Corporation. It is the responsibility of Management to plan, organize, and direct activities to provide reasonable assurance that established goals will be achieved. Internal Audit will examine and evaluate the planning, organizing, and directing processes established and maintained by Management.</li>
+                                </ul>
+                                <p><strong>2. Purpose and Scope of Work of Internal Audit</strong><br>
+                                The purpose of Internal Audit is to examine and evaluate whether the Corporation’s controls and processes, as designed by Management, are adequate, efficient, and functioning in a manner to ensure that:</p>
+                                <ul>
+                                    <li>2.1 Programs, plans, goals and objectives are achieved;</li>
+                                    <li>2.2 Employee’s actions are in compliance with policies, code of conduct, standards, procedures, and applicable laws and regulations;</li>
+                                    <li>2.3 Authorities and responsibilities are clear, properly assigned, and documented;</li>
+                                    <li>2.4 Changes in functions, services, processes, and operations are properly evaluated;</li>
+                                    <li>2.5 Significant legislative or regulatory issues impacting the Corporation are recognized and addressed appropriately;</li>
+                                    <li>2.6 Control activities are integral part of daily operations;</li>
+                                    <li>2.7 Adequate controls are incorporated into information technology systems;</li>
+                                    <li>2.8 Assets or resources are acquired economically, used efficiently, and adequately protected or safeguarded;</li>
+                                    <li>2.9 Financial, management, and operating information are reliable, timely, relevant, accurate, accessible, and provided in a consistent format;</li>
+                                    <li>2.10 Channels of communication are effective to ensure that interaction with business units and corporate centers occurs as needed; and</li>
+                                    <li>2.11 Continuous quality improvement is fostered in the business unit and corporate center’s control processes.</li>
+                                </ul>
+                                <p><strong>3. Responsibilities of Internal Audit</strong><br>
+                                Internal Audit shall be solely responsible for the planning, implementation, and reporting of its results. For this purpose, Internal Audit shall:</p>
+                                <ul>
+                                    <li>3.1 Periodically review the Internal Audit charter and present it to the Senior Management and the Audit Committee for approval;</li>
+                                    <li>3.2 Establish and implement risk-based Internal Audit Plan, including policies and procedures, to determine the priorities of the Internal Audit activity, consistent with the Corporation’s goals;</li>
+                                    <li>3.3 Present the Internal Audit Plan and its performance, resource requirement and impact of resource limitations, as well as significant interim changes, to Senior Management and the Audit Committee for review and approval;</li>
+                                    <li>3.4 Spearhead the performance of the Internal Audit activity to ensure it adds value to the Corporation;</li>
+                                    <li>3.5 Prepare a forward Strategic Audit Plan to set the direction and approach of audits in the long-term;</li>
+                                    <li>3.6 Perform regular and special audit as contained in the Annual Audit Plan and/or based on the Company’s risk assessment;</li>
+                                    <li>3.7 Perform consulting and advisory services related to governance and control as appropriate for the Corporation;</li>
+                                    <li>3.8 Perform compliance audit of relevant laws, rules and regulations, contractual obligations and other commitments, that could have a significant impact on the Corporation;</li>
+                                    <li>3.9 Review, audit and assess the efficiency and effectiveness of the internal control system of all areas of the Company;</li>
+                                    <li>3.10 Evaluate operations or programs to ascertain whether results are consistent with established objectives and goals, and whether the operations or programs are being carried out as planned;</li>
+                                    <li>3.11 Evaluate specific operations at the request of the Board or Management, as appropriate;</li>
+                                    <li>3.12 Monitor and evaluate governance processes;</li>
+                                    <li>3.13 Report in a timely manner significant issues noted during the audit relating to the adequacy, efficiency, and effectiveness of policies, controls, processes, and activities of the Corporation. As directed by or under the policies of the Audit Committee, furnishes auditees and/or any other member of Management copies of the reports;</li>
+                                    <li>3.14 Recommend any improvement in policies and procedures, systems of controls, processes, and other financial and operational matters to assist Management in the effective discharge of their responsibilities, in order to minimize or prevent waste, extravagance, negative image, and fraud. Management is responsible to implement specific recommendations;</li>
+                                    <li>3.15 Coordinate with External Auditors and ensure that the audit works are complementary to optimize coverage at a reasonable cost; and</li>
+                                    <li>3.16 Comply with standards that are promulgated by the relevant professional and regulatory bodies.</li>
+                                </ul>
+                                <p><strong>4. Authority of the Internal Audit</strong><br>
+                                Subject to the approval of the Audit Committee, Internal Audit is authorized to:</p>
+                                <ul>
+                                    <li>4.1 Decide on the nature, scope, timing, and frequencies of audit;</li>
+                                    <li>4.2 Allocate resources and apply different techniques required to accomplish audit objectives;</li>
+                                    <li>4.3 Assess and recruit personnel with sufficient knowledge, skills, experience, and professional certifications to meet the requirements of this charter provided within policy and approved budget;</li>
+                                    <li>4.4 Have discussions with Management and employees of the Corporation at any reasonable time;</li>
+                                    <li>4.5 Attend or participate in meetings relating to the Board’s oversight responsibilities for auditing, financial reporting, Corporate Governance, and control;</li>
+                                    <li>4.6 Have full and free access to the Audit Committee; and</li>
+                                    <li>4.7 Obtain the necessary assistance of business unit or corporate center, as well as other specialized services from within or outside the Corporation.</li>
+                                </ul>
+
+                                <h4>7. Enterprise Risk Management</h4>
+                                <p>The Company’s ERM oversees that a sound ERM framework is in place to effectively identify, monitor, assess and manage key business risks. The risk management framework shall guide the Board in identifying units/business lines and enterprise-level risk exposures, as well as the effectiveness of risk management strategies.</p>
+                                <p><strong>1. Appointment of an ERM Head</strong><br>
+                                The Board shall appoint an ERM Head, a Chief Risk Officer or its equivalent position, who shall oversee the entire ERM process and spearhead the development, implementation, maintenance and continuous improvement of ERM processes and documentation.</p>
+                                <ul>
+                                    <li>1.1 The ERM Head reports functionally to the BROC and administratively to the CEO.</li>
+                                </ul>
+                                <p><strong>2. Functions and Responsibilities of ERM</strong><br>
+                                ERM shall have the following functions and responsibilities:</p>
+                                <ul>
+                                    <li>2.1 Define a risk management strategy;</li>
+                                    <li>2.2 Identify and analyzing key risk exposures relating to Economic, Environmental, Social and Governance (“EESG”) factors and the achievement of the Corporation’s strategic objectives;</li>
+                                    <li>2.3 Evaluate and categorize each identified risk using the Company’s predefined risk categories and parameters;</li>
+                                    <li>2.4 Establish a risk register with clearly defined, prioritized and residual risks;</li>
+                                    <li>2.5 Develop risk mitigation plan for the most important risks to the Company, as defined by the risk management strategy;</li>
+                                    <li>2.6 Communicate and report significant risk exposures including business risks (e.g. strategic, compliance, operational, financial and reputational risks), control issues and risk mitigation plan to the BROC;</li>
+                                    <li>2.7 Collaborate with the CEO in updating and making recommendations to the BROC;</li>
+                                    <li>2.8 Coordinate, monitor, and facilitate compliance with laws, rules, and regulations; and</li>
+                                    <li>2.9 Suggest ERM policies and related guidance, as may be needed.</li>
+                                </ul>
+                                <p><strong>3. Authority of ERM</strong><br>
+                                Subject to the approval of the BROC, the ERM is authorized to:</p>
+                                <ul>
+                                    <li>3.1 Allocate resources and apply different techniques required to accomplish ERM objectives;</li>
+                                    <li>3.2 Assess and recruit personnel with sufficient knowledge, skills, experience, and professional certifications to meet the requirements of this charter provided within policy and approved budget;</li>
+                                    <li>3.3 Have discussions with Management and employees of the Corporation at any reasonable time;</li>
+                                    <li>3.4 Attend or participate in meetings relating to the Board’s oversight responsibilities for ERM;</li>
+                                    <li>3.5 Have full and free access to the BROC; and</li>
+                                    <li>3.6 Obtain the necessary assistance of Business Unit or Corporate Center Unit, as well as other specialized services from within or outside the Corporation.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Company Commitment to All Stakeholders -->
+                    <div class="accordion-item">
+                        <div class="accordion-header multi-accordion-header">
+                            <span class="cg-title">Company Commitment to All Stakeholders</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <h3>A. Adequate and Timely Information</h3>
+                                <p>To enable the Directors to properly fulfill their duties and responsibilities, Management shall provide the Directors with complete, adequate, and timely information about the matters to be taken in their meetings.</p>
+                                <p>Information may include the background or explanation on matters brought before the Board, disclosures, budgets, forecasts, and internal financial documents.</p>
+                                <p>If the information provided by Management is not sufficient, further inquiries may be made by a Director to enable him to properly perform his/her duties and responsibilities. The Directors shall have independent access to Management and to the Corporate Secretary.</p>
+                                <p>The Directors, either individually or as a Board, and in the performance of their duties and responsibilities, may seek access to independent professional advice within the guidelines set by the Board.</p>
+
+                                <h3>B. Accountability and Audit</h3>
+                                <p>In order to ensure that the Company’s shareholders are provided with a balanced and comprehensible assessment of the Corporation’s performance, position and prospects on a quarterly basis, including interim and other reports that could adversely affect its business through its website and its submissions and disclosures to the SEC and Philippine Stock Exchange, Management shall formulate the rules and procedures on financial reporting and internal control for presentation to the Audit Committee in accordance with the following guidelines:</p>
+                                <ul>
+                                    <li>1. The extent of its responsibility in the preparation of the financial statements of the Corporation, with the corresponding delineation of the responsibilities that pertain to the External Auditor, should be clearly defined;</li>
+                                    <li>2. An effective system of internal control that will ensure the integrity of the financial reports and protection of the assets of the Corporation for the benefit of all shareholders and other Stakeholders;</li>
+                                    <li>3. On the basis of the approved Internal Audit Plan, Internal Audit examinations should cover, at the minimum, the evaluation of the adequacy and effectiveness of controls that cover the Corporation’s governance, operations and information systems, including the reliability and integrity of financial and operation information, effectiveness and efficiency of operations, protection of assets, and compliance with contracts, laws, rules, and regulations;</li>
+                                    <li>4. The Corporation shall consistently comply with the financial reporting requirements of the SEC; and</li>
+                                    <li>5. The External Auditor or key engagement partners shall be rotated or changed in accordance with the requirements prescribed by applicable laws and regulations such as the rotation period. The Corporate Internal Audit Head should submit to the Audit Committee and Management an annual report on the Internal Audit department’s activities, responsibilities, and performance relative to the Internal Audit Plan as approved by the Audit Committee. The annual report should include significant risk exposures, control issues, and such other matters as may be needed or requested by the Board and Management. The Internal Audit Head should certify that he/she conducts his/her activities in accordance with the International Standards on the Professional Practice of Internal Auditing. If he does not, the Internal Audit Head shall disclose to the Board and Management the reasons why he/she has not fully complied with the said documents.</li>
+                                </ul>
+                                <p>The Board, after consultations with the Audit Committee, shall recommend to the Shareholders an External Auditor duly accredited by the SEC who shall undertake an independent audit of the Corporation, and shall provide an objective assurance on the matter by which the financial statements shall be prepared and presented to the Shareholders. The External Auditor shall not, at the same time, provide Internal Audit services to the Corporation. Non-audit Work may be given to the External Auditor, provided it does not conflict with his/her duties as an independent External Auditor, or does not pose a threat to his/her independence.</p>
+                                <p>If the External Auditor resigns, is dismissed or ceases to perform his/her services, the reason/s for and the date of effectivity of such action shall be reported in the Corporation’s annual and current reports. The report shall include a discussion of any disagreement between the External Auditor and the Corporation on accounting principles or practices, financial disclosures or audit procedures which the former External Auditor and the Corporation failed to resolve satisfactorily.</p>
+                                <p>If the External Auditor believes that any statement made in the Annual Report, Information Statement or any report filed with the SEC or any regulatory body during the period of his/her engagement is incorrect or incomplete, such External Auditor shall give his/her comments or views on the matters in the said reports.</p>
+
+                                <h3>C. Disclosure and Transparency</h3>
+                                <p>The Board shall establish policies to ensure the comprehensive, accurate, reliable and timely report to the shareholders and other stakeholders that give a fair and complete picture of Company’s financial condition, results and business operations in accordance with the disclosure and reporting requirements of SEC, Philippine Stock Exchange and other regulators. This shall include material and reportable non-financial and sustainability issues related to EESG concerns of its business. The Company may consider adopting globally recognized standards/framework in reporting sustainability and non-financial issues. It shall cause the filing of all required information through the appropriate Philippine Stock Exchange mechanisms for listed companies and submissions to the SEC for the interest of its shareholders and other Stakeholders.</p>
+                                <p>The Board shall ensure that the following are complied with:</p>
+                                <ul>
+                                    <li>1. Disclosure of all material information which are required under the Revised Disclosure Rules and the Securities Regulation Code.</li>
+                                    <li>2. Rules and regulations of the SEC, Philippine Stock Exchange and other regulatory agencies pertaining to the disclosure of material information.</li>
+                                    <li>3. Prohibition of the Corporation and its Officers, staff and any other person who are privy to the material non-public information to communicate material non-public information about the Corporation to any person, unless the Corporation is ready to simultaneously disclose the material non-public information to the SEC and to the Philippine Stock Exchange except if the disclosure is made to:
+                                        <ul>
+                                            <li>3.1 A person who is duty-bound to maintain trust and confidence to the Corporation such as but not limited to its auditors, legal counsels, investment bankers, financial advisers; and</li>
+                                            <li>3.2 A person who agrees in writing to maintain in strict confidence the disclosed material information and will not take advantage of it for personal gain.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p>The Company shall maintain a comprehensive and cost-efficient communication channel for disseminating relevant information for the informed decision making of investors, Stakeholders and other interested users of the information. The Company shall include media and analysts’ briefings as channels of communication to ensure timely and accurate dissemination of public, material and relevant information to its Stakeholders.</p>
+                                <p>The Company shall have a policy requiring all directors and officers to disclose/report to the Company through the Compliance Officer any dealings in the Company’s shares within three business days.</p>
+                                <p>The Company shall fully disclose all relevant and material information on individual board members and key executives to evaluate their experience and qualifications, and assess any potential conflicts of interest that might affect their judgment. This includes directors and key officer’s qualifications, share ownership in the Company, membership in other boards, other executive positions, and corporate governance trainings attended.</p>
+                                <p>The Company shall provide a clear disclosure of its policies and procedure for setting board and executive remuneration, as well as the level and mix of the same in the Annual Corporate Governance Report.</p>
+                                <p>The Company shall disclose its policies governing RPTs and other unusual or infrequently occurring transactions. The material or significant RPTs reviewed and approved during the year shall be disclosed in its Annual Corporate Governance Report.</p>
+                                <p>Company policies relating to governance and its stakeholders (i.e., Whistleblowing Policy, Insider Trading Policy, Board Diversity Policy, Conflict of Interest Policy, Board Nomination and Election Policy, Succession Planning and Remuneration Policy, Anti-Bribery and Corruption Policy) and their respective amendments, are deemed included in this manual.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Stakeholders' Right and Protection... -->
+                    <div class="accordion-item">
+                        <div class="accordion-header multi-accordion-header">
+                            <span class="cg-title">Stakeholders' Right and Protection of Minority Shareholders' Interest</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <h3>A. Shareholders</h3>
+                                <h4>A.1 Shareholders' Rights</h4>
+                                <p>The Board is committed to treat all Shareholders fairly and equitably, and shall recognize, protect, and facilitate the exercise of their rights. These rights relate to the following among others:</p>
+                                <ul>
+                                    <li><strong>1. Right to vote on all matters that require their consent or approval</strong></li>
+                                    <li><strong>2. Right to nominate or be nominated</strong><br>Any stockholder may nominate candidates for election to the Board of Directors by sending a nomination letter to the Corporate Governance Committee within the relevant deadline as may be approved by the Board and disclosed pursuant to the rules of the SEC and PSE. All nominations will be reviewed and deliberated upon by the Corporate Governance Committee prior to indorsing the qualified candidates for ratification and approval by the Board.</li>
+                                    <li><strong>3. Right to inspect corporate books and records</strong><br>Any shareholder who desires to exercise his right to inspect corporate books and records of the Company must make a written request addressed to the Corporate Secretary, and stating the specific reason(s) or purpose(s) for the inspection. The exercise of such right may be denied if:
+                                        <ul>
+                                            <li>(i) The requesting shareholder improperly used information obtained from prior examination;</li>
+                                            <li>(ii) Is not acting in good faith; or</li>
+                                            <li>(iii) There is a reasonable ground to safeguard the interests of the Company, such as when the subject of inspection contains confidential or proprietary information or covered by a confidentiality or nondisclosure obligation which will be violated by the Company if inspection were allowed. In no case shall the shareholder be allowed to take corporate books and other records out of the principal office of the Company for the purpose of inspecting them. The Corporate Secretary may elevate the request for inspection for the information, approval, or other appropriate action by the Board. This Revised Manual shall be available for inspection by any shareholder of the Company at reasonable hours on business days.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>4. Right to information</strong><br>Shareholders shall be provided, upon request, with periodic reports filed by the Company with the SEC (e.g., proxy statement/information statement and annual report) which disclose personal or professional information about the Directors and Officers such as their educational and business background, holdings of the Company’s shares, material transactions with the Company, relationship with other Directors and Officers and the aggregate compensation of Directors and Officers.</li>
+                                    <li><strong>5. Right to dividends</strong><br>Shareholders shall have the right to receive declared dividends subject to the procedures prescribed by the Board.</li>
+                                    <li><strong>6. Appraisal right</strong><br>The shareholders shall have appraisal right under any of the following circumstances:
+                                        <ul>
+                                            <li>6.1 In case any amendment to the Articles of Incorporation has the effect of changing or restricting the rights of any shareholders or class of shares, or of authorizing preferences in any aspect superior to those of outstanding shares of any class, or of extending or reducing the term of corporate existence;</li>
+                                            <li>6.2 In case of sale, lease, exchange, transfer, mortgage, pledge or other disposition of all or substantially all of the property and assets of the Company;</li>
+                                            <li>6.3 In case of merger or consolidation; and</li>
+                                            <li>6.4 Investment of funds in any other corporation or business or for any purpose other than the primary purpose for which the Company was organized.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <h4>A.2 Promotion of Shareholders' Rights</h4>
+                                <ul>
+                                    <li>1. The Board shall be transparent and fair in the conduct of the annual and special Shareholders’ meetings of the Corporation. The Board shall encourage active Shareholders participation by sending the Notice of Annual and Special Shareholders’ Meeting with sufficient and relevant information at least fifteen (15) business days before the meeting in accordance with the Securities Regulation Code. The Shareholders shall be encouraged to personally attend such meetings. If they cannot attend, they shall be apprised ahead of time of their right to appoint a proxy. Subject to the requirements of law, rules and regulations and the By-Laws, the exercise of that right shall not be unduly restricted and any doubt about the validity of a proxy shall be resolved in the shareholder’s favor.</li>
+                                    <li>2. The Board shall encourage active Shareholders participation by making the result of the votes taken during the most recent Annual or Special Shareholders’ Meeting publicly available the next working day. In addition, the Minutes of the Annual and Special Shareholders’ Meeting shall be made available on the Company Website within [five] business days from the end of the meeting.</li>
+                                    <li>3. The Company may consider adopting an Alternative Dispute Resolution procedure.</li>
+                                    <li>4. The Board shall appoint an Investor Relations Officer (IRO) who shall ensure constant engagement with its Shareholders. The IRO shall create an Investor Relations Program to which shall aim to communicate to the shareholders all material information on the activities of the Company.</li>
+                                </ul>
+
+                                <h3>B. Other Stakeholders</h3>
+                                <p>The Company shall identify the various Stakeholders and promote cooperation between them and the Company in creating wealth, growth and sustainability.</p>
+                                <ul>
+                                    <li>1. The Company shall establish clear policies and programs to provide a mechanism on the fair treatment and protection of Stakeholders.</li>
+                                    <li>2. The Board shall adopt a transparent framework and process that allows Stakeholders to communicate with the Company and to obtain redress for the violation of their rights. Stakeholders may communicate with the Company through the various Stakeholders touchpoints such as the Investor Relations Office, Office of the Corporate Secretary, Customer Relations Office, the Corporate Communications Group and the Company’s Website.</li>
+                                    <li>3. The Board shall establish policies, programs and procedures that encourage employees to actively participate in the realization of the Company’s goals and its governance including but not limited to:
+                                        <ul>
+                                            <li>3.1 Health, safety and welfare;</li>
+                                            <li>3.2 Training and development; and</li>
+                                            <li>3.3 Reward and compensation.</li>
+                                        </ul>
+                                    </li>
+                                    <li>4. The Board shall set the tone and make a stand against corrupt practices by adopting an anti-corruption policy and program in its Code of Conduct. The same shall be disseminated to all employees across the Corporation through trainings to embed them in the Company’s culture.</li>
+                                    <li>5. The Board shall establish a suitable framework for whistleblowing and ensure its enforcement to allow employees to freely communicate their concerns about illegal or unethical practices, without fear of retaliation and to have direct access to an independent member of the Board or a unit created to handle whistleblowing concerns.</li>
+                                    <li>6. The Company shall recognize and place importance on the interdependence between business and society and promote a mutually beneficial relationship that allows the Company sustainable growth, while contributing to the advancement of the society where it operates.</li>
+                                    <li>7. The Company shall employ value chain processes that takes into consideration EESG issues and concerns.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Code of Business Conduct and Ethics -->
+                    <div class="accordion-item">
+                        <div class="accordion-header multi-accordion-header">
+                            <span class="cg-title">Code of Business Conduct and Ethics</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <p>The Company is committed and adheres to its Code of Business Conduct and Ethics (the “Code”). The fundamental principle behind the Company’s Code of Business Conduct and Ethics is the expectation that all employees are required to conduct their dealings in the interest of the Company and in accordance with the highest legal and ethical standards.</p>
+                                <p>This Code explains what behavior is expected of all employees. It provides the standards that guide our work. It also provides guidance on how we should relate to customers, competitors, vendors, and each other.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION -->
+    <!-- ========================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <!-- Left 4-Column Grid -->
+            <div class="footer-grid-left">
+                
+                <!-- Column 1: BOOK & ABOUT -->
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>BOOK</h4>
+                        <a href="#">Flights</a>
+                        <a href="#">Seat Sale</a>
+                    </div>
+                    <div class="footer-group" style="margin-top: 75px;">
+                        <h4>ABOUT</h4>
+                        <a href="#">About</a>
+                        <a href="#">Our Story</a>
+                        <a href="#">Media Center</a>
+                        <a href="#">Talk to Us</a>
+                        <a href="#">Careers</a>
+                    </div>
+                </div>
+
+                <!-- Column 2: MANAGE -->
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>MANAGE</h4>
+                        <a href="#">Check in</a>
+                        <a href="#">Manage Booking</a>
+                        <a href="#">Flight Status</a>
+                        <a href="#">Add-ons</a>
+                        <a href="#">Special Assistance</a>
+                    </div>
+                </div>
+
+                <!-- Column 3: TRAVEL INFO & SELECT COUNTRY -->
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>TRAVEL INFO</h4>
+                        <a href="#">Baggage Information</a>
+                        <a href="#">Payment Options</a>
+                        <a href="#">Travel Advisories</a>
+                        <a href="#">Booking & Check-in</a>
+                        <a href="#">Travel Documents</a>
+                        <a href="#">Service Fees</a>
+                    </div>
+                    <div class="footer-group" style="margin-top: 30px;">
+                        <h4>SELECT COUNTRY</h4>
+                        <div class="country-box">
+                            <i class="fa-solid fa-globe"></i> Philippines
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 4: EXPLORE -->
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>EXPLORE</h4>
+                        <a href="#">Explore</a>
+                        <a href="#">Philippine Destinations</a>
+                        <a href="#">International Destinations</a>
+                        <a href="#">Where We Fly</a>
+                        <a href="#">City Guides</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="footer-right-sidebar">
+                <div class="sidebar-group">
+                    <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                    <div class="app-buttons">
+                        <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                        <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+                    </div>
+                </div>
+
+                <div class="sidebar-group">
+                    <h4>PAYMENT PARTNERS</h4>
+                    <div class="payment-grid">
+                        <img src="images/Visa-logo.webp" alt="Visa">
+                        <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                        <img src="images/GCash-276x96.webp" alt="GCash">
+                    </div>
+                </div>
+
+                <div class="sidebar-group">
+                    <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                    <div class="accreditations">
+                        <img src="images/CEB-7Star-Emblem.webp" alt="Seven Star Compliance">
+                        <img src="images/New_NPC_Logo.webp" alt="DPO/DPS Compliance">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    
+    <!-- ========================================== -->
+    <!-- BOTTOM YELLOW BAR -->
+    <!-- ========================================== -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = header.nextElementSibling;
+                
+                // Toggle active class
+                item.classList.toggle('active');
+
+                // Smooth collapse/expand
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+
+        // Dynamic Page Navigation Logic
+        function showPage(pageId, pageTitle) {
+            // 1. Hide all main views
+            document.getElementById('view-company-info').style.display = 'none';
+            document.getElementById('view-corporate-profile').style.display = 'none';
+            document.getElementById('view-corporate-governance').style.display = 'none';
+
+            // 2. Show the target view
+            document.getElementById(pageId).style.display = 'block'; 
+
+            // 3. Update the Hero Banner Title
+            document.getElementById('heroTitle').innerText = pageTitle;
+
+            // 4. Update Breadcrumbs dynamically
+            const breadcrumbContainer = document.getElementById('dynamic-breadcrumb');
+            if (pageId === 'view-company-info') {
+                breadcrumbContainer.innerHTML = '<span>Company Information</span>';
+            } else {
+                breadcrumbContainer.innerHTML = `
+                    <a href="#" onclick="showPage('view-company-info', 'Company Information'); return false;">Company Information</a> &rsaquo; 
+                    <span>${pageTitle}</span>
+                `;
+            }
+
+            // 5. Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

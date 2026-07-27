@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Add-ons</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Banner Section */
+        .transfers-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .transfers-img-container {
+            width: 48%;
+            flex-shrink: 0;
+        }
+
+        .transfers-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .transfers-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .transfers-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .transfers-info p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Accordion Section */
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            cursor: pointer;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item:first-child {
+            border-top: none;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Accordion Content Styles */
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* Rules Info Box */
+        .rules-box {
+            background: #f0f7fc;
+            border: 1px solid #cce3f6;
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .rules-icon {
+            background: #0073ba;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .rules-content h4 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .rules-content p {
+            margin: 0 0 10px 0;
+            font-size: 13px;
+            color: #333333;
+            line-height: 1.5;
+        }
+
+        .rules-content p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB Transfers</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature: CEB Transfers Banner matching reference image -->
+            <div class="transfers-banner">
+                <div class="transfers-img-container">
+                    <img src="CEBT.png" alt="CEB Transfers Beach Umbrella">
+                </div>
+                <div class="transfers-info">
+                    <h3>Hop on and off to your destination stress-free!</h3>
+                    <p>We've got your ride to your hotel and back to the airport covered. All you need to do is sit back
+                        and relax! Make the most of your trip and conveniently reach your destination when you book CEB
+                        Transfers.</p>
+                    <a href="#" class="btn-primary">Add to flight</a>
+                </div>
+            </div>
+
+            <!-- Select a destination Heading -->
+            <h2 class="section-title">Select a destination</h2>
+
+            <!-- Accordion Section matching reference image -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('bacolod-content', this)">
+                    <span>Bacolod</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="bacolod-content">
+                    <p style="font-weight: bold; color: #000; margin-top: 0;">CEB Transfer services in Bacolod are
+                        temporarily suspended as of February 01, 2021</p>
+                    <p style="font-weight: bold; color: #000; margin-bottom: 10px;">Transfers Available</p>
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px; list-style-type: disc;">
+                        <li><strong>From:</strong> New Bacolod - Silay International Airport</li>
+                        <li><strong>To:</strong> Any CEB Transfers accredited hotels in Bacolod city (and vice versa)
+                        </li>
+                    </ul>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <img src="CEBT-1.png" alt="Bacolod Airport to Accredited Hotels"
+                            style="width: 320px; max-width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Rates</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">Rate/s are for a one-way trip, per passenger. Infants
+                        (8 days old to 2 years old below) are free.</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Notes</p>
+                    <ul style="margin: 0 0 20px 0; padding-left: 20px; list-style-type: disc;">
+                        <li>The Southwest Travel and Tour staff will be waiting for you at the exit of the Arrival hall.
+                        </li>
+                        <li>Simply present your boarding pass or itinerary receipts to our service partners to board
+                            your CEB Transfers.</li>
+                    </ul>
+                    <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 25px; margin-bottom: 10px;">
+                        Terms & Conditions</p>
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">CEB Transfers is a safe and convenient transfer service to/from
+                            Bacolod airport to any accredited hotel within Bacolod city. This is in partnership with
+                            Southwest Travel and Tours.</li>
+                        <li style="margin-bottom: 10px;">You can choose to be dropped off at any accredited hotels
+                            within Bacolod city. Please see list of accredited hotels below.</li>
+                        <li style="margin-bottom: 10px;">Included in the transfer services are:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Mainland transfer (Bacolod airport to Go Hotels Bacolod)</li>
+                                <li>Guest Coordinator Assistance</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Rates are quoted per guest, per one way trip. Guests need to
+                            pay twice for round trip transfers.<br><strong>Note:</strong> Infants 8 days old and below 2
+                            years old are free of charge.</li>
+                        <li style="margin-bottom: 10px;">Senior citizen and person with disability are eligible for
+                            discounts. Discounts are automatically computed for purchases pre-flight and inflight. Just
+                            show your ID for verification.</li>
+                        <li style="margin-bottom: 10px;">Purchase availability depends on the direction of service
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li><strong>Airport to City/Hotels</strong> - up to 2 hours before departure in origin
+                                    airport</li>
+                                <li><strong>City/Hotels to Airport</strong> - up to 24 hours before departure in origin
+                                    airport</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Voucher once purchased is non-refundable.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be spoiled for rebooking or cancellation
+                            within 24 hours before flight departure.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be carried over to the new flight
+                            schedule for rebooking 24 hours before flights.</li>
+                        <li style="margin-bottom: 10px;">In case of flight disruption, flights disruption policy shall
+                            apply.</li>
+                        <li style="margin-bottom: 10px;">In case of flight delays, the provider will wait up to 1 hour
+                            after your scheduled arrival. Please contact the provider immediately if you won't make it
+                            as scheduled. Fulfillment of travel services is not guaranteed in such cases.</li>
+                    </ol>
+                </div>
+
+                <div class="accordion-item" onclick="toggleAccordion('bohol-content', this)">
+                    <span>Bohol</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="bohol-content">
+                    <p style="font-weight: bold; color: #000; margin-top: 0;">CEB Transfer services in Bohol are
+                        temporarily suspended as of April 08, 2022</p>
+                    <p style="font-weight: bold; color: #000; margin-bottom: 10px;">Transfers Available</p>
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px; list-style-type: disc;">
+                        <li><strong>From:</strong> Bohol - Panglao International Airport</li>
+                        <li><strong>To:</strong> Any CEB Transfers accredited hotels within Panglao, Bohol (and vice
+                            versa)</li>
+                    </ul>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <img src="CEBT-2.png" alt="Bohol Airport to Accredited Hotels"
+                            style="width: 320px; max-width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Rates</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">Rate/s are for a one-way trip, per car (max of 2
+                        quests per vehicle).</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Notes</p>
+                    <ul style="margin: 0 0 20px 0; padding-left: 20px; list-style-type: disc;">
+                        <li>The Southwest Travel and Tour staff will be waiting for you at the exit of the Arrival hall.
+                        </li>
+                        <li>Simply present your boarding pass or itinerary receipts to our service partners to board
+                            your CEB Transfers.</li>
+                    </ul>
+                    <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 25px; margin-bottom: 10px;">
+                        Terms & Conditions</p>
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">CEB Transfers is a safe and convenient transfer service to/from
+                            Panglao airport to any accredited hotel within in Panglao area.</li>
+                        <li style="margin-bottom: 10px;">You can choose to be dropped off at any accredited hotels
+                            within Panglao area. Please see list of accredited hotels below.</li>
+                        <li style="margin-bottom: 10px;">Included in the transfer services are:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Mainland transfer (Airport to any accredited hotel within Roxas city)</li>
+                                <li>Guest Coordinator Assistance</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Rates are quoted per quest, per one way trip. Guests need to
+                            pay twice for round trip transfers. .<br><strong>Note:</strong> Infants 8 days old and below
+                            2 years old are free of charge.</li>
+                        <li style="margin-bottom: 10px;">Senior citizen and person with disability are eligible for
+                            discounts. Discounts are automatically computed for purchases pre-flight and inflight. Just
+                            show your ID for verification.</li>
+                        <li style="margin-bottom: 10px;">Purchase availability depends on the direction of service
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li><strong>Airport to City/Hotels</strong> - up to 2 hours before departure in origin
+                                    airport</li>
+                                <li><strong>City/Hotels to Airport</strong> - up to 24 hours before departure in origin
+                                    airport</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Voucher once purchased is non-refundable.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be spoiled for rebooking or cancellation
+                            within 24 hours before flight departure.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be carried over to the new flight
+                            schedule for rebooking 24 hours before flight.</li>
+                        <li style="margin-bottom: 10px;">In case of flight disruption, flights disruption policy shall
+                            apply.</li>
+                        <li style="margin-bottom: 10px;">In case of flight delays, the provider will wait up to 1 hour
+                            after your scheduled arrival. Please contact the provider immediately if you won't make it
+                            as scheduled. Fulfillment of travel services is not guaranteed in such cases.</li>
+                    </ol>
+                </div>
+
+                <div class="accordion-item" onclick="toggleAccordion('boracay-content', this)">
+                    <span>Boracay</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="boracay-content">
+                    <p style="font-weight: bold; color: #000; margin-bottom: 10px;">Transfers Available</p>
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px; list-style-type: disc;">
+                        <li><strong>From:</strong> Godofredo P. Ramos Airport (Caticlan Airport)</li>
+                        <li><strong>To:</strong> Any CEB Transfers accredited hotels in Boracay Island (and vice versa)
+                        </li>
+                        <li><strong>From:</strong> Kalibo International Airport</li>
+                        <li><strong>To:</strong> Any CEB Transfers accredited hotels in Boracay Island (and vice versa)
+                        </li>
+                    </ul>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Contact Details</p>
+                    <p style="margin-top: 0; margin-bottom: 5px;"><strong>Southwest Travel and Tours</strong></p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">+63 917 822 1951 / +63 999 994 6988</p>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <img src="CEBT-3.png" alt="Caticlan Airport Route"
+                            style="width: 320px; max-width: 100%; height: auto; display: block; margin-bottom: 15px;">
+                        <img src="CEBT-4.png" alt="Kalibo Airport Route"
+                            style="width: 320px; max-width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Rates</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">Rate/s are for a one-way trip, per passenger. Infants
+                        (8 days old to 2 years old below) are free.</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Notes</p>
+                    <ul style="margin: 0 0 20px 0; padding-left: 20px; list-style-type: disc;">
+                        <li>CEB Transfers to Boracay includes the following:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Land transfer from the airport to the jetty port</li>
+                                <li>Boat ride to Boracay Island</li>
+                                <li>Land transfer to your hotel</li>
+                                <li>Terminal Fee (Environmental Fee excluded)</li>
+                            </ul>
+                        </li>
+                        <li>Head to the Southwest Travel and Tour booth inside the Arrival hall upon arrival.</li>
+                        <li>Simply present your boarding pass or itinerary receipt to our service partners to board your
+                            CEB Transfers.</li>
+                    </ul>
+                    <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 25px; margin-bottom: 10px;">
+                        Terms & Conditions</p>
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">CEB Transfers is a safe and convenient transfer service to/from
+                            your hotel in Boracay Island via Kalibo and Caticlan airports. This is in partnership with
+                            Southwest Travel and Tours.</li>
+                        <li style="margin-bottom: 10px;">Included in the transfer services are:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Mainland transfer (Kalibo or Caticlan airport to Caticlan Jetty Port) via Rex/Van
+                                </li>
+                                <li>Sea Transfer (Caticlan Jetty Port to Cagban Jetty Port) via Speedboat/Ferry</li>
+                                <li>Island Transfer (Cagban Port to Hotel) via Van</li>
+                                <li>Guest Coordinator Assistance</li>
+                                <li>Terminal Fee</li>
+                                <li>Environmental Fee excluded</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Rates are quoted per guest, per one way trip. Guests need to
+                            pay twice for round trip transfers.<br><strong>Note:</strong> Infants 8 days old and below 2
+                            years old are free of charge.</li>
+                        <li style="margin-bottom: 10px;">Senior citizen and person with disability are eligible for
+                            discounts. Discounts are automatically computed for purchases pre-flight and inflight. Just
+                            show your ID for verification.</li>
+                        <li style="margin-bottom: 10px;">Purchase availability depends on the direction of service
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li><strong>Airport to City/Hotels</strong> - up to 2 hours before departure in origin
+                                    airport</li>
+                                <li><strong>City/Hotels to Airport</strong> - up to 24 hours before departure in origin
+                                    airport</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Voucher once purchased is non-refundable.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be spoiled for rebooking or cancellation
+                            within 24 hours before flight departure.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be carried over to the new flight
+                            schedule for rebooking 24 hours before flight.</li>
+                        <li style="margin-bottom: 10px;">In case of flight disruption, flights disruption policy shall
+                            apply.</li>
+                        <li style="margin-bottom: 10px;">In case of flight delays, the provider will wait up to 1 hour
+                            after your scheduled arrival. Please contact the provider immediately if you won't make it
+                            as scheduled. Fulfillment of travel services is not guaranteed in such cases.</li>
+                        <li style="margin-bottom: 10px;">Loading and unloading of luggage from the boat is not covered
+                            by this service. Assistance from unaffiliated porters at the jetty port may be available to
+                            passengers, for a fee.</li>
+                    </ol>
+                </div>
+
+                <div class="accordion-item" onclick="toggleAccordion('iloilo-content', this)">
+                    <span>Iloilo</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="iloilo-content">
+                    <p style="font-weight: bold; color: #000; margin-top: 0;">CEB Transfer services in Iloilo are
+                        temporarily suspended as of February 01, 2021</p>
+                    <p style="font-weight: bold; color: #000; margin-bottom: 10px;">Transfers Available</p>
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px; list-style-type: disc;">
+                        <li><strong>From:</strong> Iloilo International Airport</li>
+                        <li><strong>To:</strong> Any CEB Transfers accredited hotels and Robinsons Malls in Iloilo City
+                        </li>
+                    </ul>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <img src="CEBT-5.png" alt="Iloilo Airport to Accredited Hotels"
+                            style="width: 320px; max-width: 100%; height: auto; display: block; margin-bottom: 15px;">
+                        <img src="CEBT-6.png" alt="Iloilo Airport to Robinsons Malls"
+                            style="width: 320px; max-width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Rates</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">Rate/s are for a one-way trip, per passenger. Infants
+                        (8 days old to 2 years old below) are free.</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Notes</p>
+                    <ul style="margin: 0 0 20px 0; padding-left: 20px; list-style-type: disc;">
+                        <li>The Southwest Travel and Tour staff will be waiting for you right across the Arrival hall
+                            (near the taxi line).</li>
+                        <li>Simply present your boarding pass or itinerary receipts to our service partners to board
+                            your CEB Transfers.</li>
+                        <li>CEB Transfers is not yet available for trips back to Iloilo airport.</li>
+                    </ul>
+                    <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 25px; margin-bottom: 10px;">
+                        Terms & Conditions</p>
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">CEB Transfers is a safe and convenient transfer service to/from
+                            Iloilo airport to any accredited hotel within Iloilo city. This is in partnership with
+                            Southwest Travel and Tours.</li>
+                        <li style="margin-bottom: 10px;">You can choose to be dropped off at any accredited hotels
+                            within Iloilo city. Please see list of accredited hotels below.</li>
+                        <li style="margin-bottom: 10px;">Included in the transfer services are:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Mainland transfer (Airport to any accredited hotel within Iloilo city)</li>
+                                <li>Guest Coordinator Assistance</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Rates are quoted per guest, per one way trip. Guests need to
+                            pay twice for round trip transfers.<br><strong>Note:</strong> Infants 8 days old and below 2
+                            years old are free of charge.</li>
+                        <li style="margin-bottom: 10px;">Senior citizen and person with disability are eligible for
+                            discounts. Discounts are automatically computed for purchases pre-flight and inflight. Just
+                            show your ID for verification.</li>
+                        <li style="margin-bottom: 10px;">Purchase availability depends on the direction of service
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li><strong>Airport to City/Hotels</strong> - up to 2 hours before departure in origin
+                                    airport</li>
+                                <li><strong>City/Hotels to Airport</strong> - up to 24 hours before departure in origin
+                                    airport</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Voucher once purchased is non-refundable.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be spoiled for rebooking or cancellation
+                            within 24 hours before flight departure.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be carried over to the new flight
+                            schedule for rebooking 24 hours before flight.</li>
+                        <li style="margin-bottom: 10px;">In case of flight disruption, flights disruption policy shall
+                            apply.</li>
+                        <li style="margin-bottom: 10px;">In case of flight delays, the provider will wait up to 1 hour
+                            after your scheduled arrival. Please contact the provider immediately if you won't make it
+                            as scheduled. Fulfillment of travel services is not guaranteed in such cases.</li>
+                    </ol>
+                </div>
+
+                <div class="accordion-item" onclick="toggleAccordion('puerto-content', this)">
+                    <span>Puerto Princesa</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="puerto-content">
+                    <p style="font-weight: bold; color: #000; margin-top: 0;">CEB Transfer services in Puerto Princesa
+                        are temporarily suspended as of April 08, 2022</p>
+                    <p style="font-weight: bold; color: #000; margin-bottom: 10px;">Transfers Available</p>
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px; list-style-type: disc;">
+                        <li><strong>From:</strong> Puerto Princesa International Airport</li>
+                        <li><strong>To:</strong> Corong-Corong Beach Terminal (El Nido), Sabang Beach Terminal, Port
+                            Barton Beach Terminal (and vice versa)</li>
+                    </ul>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Contact Details</p>
+                    <p style="margin-top: 0; margin-bottom: 5px;"><strong>Lennon Shuttle Service</strong></p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">+63 917 686 1118</p>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <img src="CEBT-7.png" alt="Puerto Princesa to Sabang Beach Terminal"
+                            style="width: 320px; max-width: 100%; height: auto; display: block; margin-bottom: 15px;">
+                        <img src="CEBT-8.png" alt="Puerto Princesa to Port Barton Beach Terminal"
+                            style="width: 320px; max-width: 100%; height: auto; display: block; margin-bottom: 15px;">
+                        <img src="CEBT-9.png" alt="Puerto Princesa to Corong-Corong Beach Terminal"
+                            style="width: 320px; max-width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Rates</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">Rate/s are for a one-way trip, per passenger. Infants
+                        (8 days old to 2 years old below) are free.</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Schedule</p>
+                    <p style="margin-top: 0; margin-bottom: 5px;"><strong>Airport pick up:</strong> Transfer services to
+                        El Nido / Sabang / Port Barton for flights that meet the service hours, will be made on the same
+                        day. If your flight does not meet the service hours available, your transfer will be made on the
+                        following day. Please contact the provider and inform them your pick up location and time.</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;"><strong>Hotel pick up:</strong> Please contact the
+                        provider and inform them of your preferred pick up time.</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Notes</p>
+                    <ul style="margin: 0 0 20px 0; padding-left: 20px; list-style-type: disc;">
+                        <li>The Lennon Shuttle Service staff will be waiting for you at the exit of the Arrival hall.
+                        </li>
+                        <li>Simply present your boarding pass or itinerary receipts to our service partners to board
+                            your CEB Transfers.</li>
+                    </ul>
+                    <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 25px; margin-bottom: 10px;">
+                        Terms & Conditions</p>
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">CEB Transfers is a safe and convenient transfer service to/from
+                            Corong-Corong terminal or Sabang terminal to Puerto Princesa airport. This is in partnership
+                            with Lennon Shuttle Service.</li>
+                        <li style="margin-bottom: 10px;">Included in the transfer services are:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Van transfers via Puerto Princesa (Airport to Corong-corong terminal or Sabang
+                                    terminal)</li>
+                                <li>Guest Coordinator Assistance</li>
+                                <li>Exclusive of environmental fee</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Rates are quoted per guest, per one way trip. Guests need to
+                            pay twice for round trip transfers.<br><strong>Note:</strong> Infants 8 days old and below 2
+                            years old are free of charge.</li>
+                        <li style="margin-bottom: 10px;">Senior citizen and person with disability are eligible for
+                            discounts. Discounts are automatically computed for purchases pre-flight and inflight. Just
+                            show your ID for verification.</li>
+                        <li style="margin-bottom: 10px;">Purchase availability depends on the direction of service
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li><strong>Airport to City/Hotels</strong> - up to 2 hours before departure in origin
+                                    airport</li>
+                                <li><strong>City/Hotels to Airport</strong> - up to 24 hours before departure in origin
+                                    airport</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Voucher once purchased is non-refundable.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be spoiled for rebooking or cancellation
+                            within 24 hours before flight departure.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be carried over to the new flight
+                            schedule for rebooking 24 hours before flight.</li>
+                        <li style="margin-bottom: 10px;">In case of flight disruption, flights disruption policy shall
+                            apply.</li>
+                        <li style="margin-bottom: 10px;">In case of flight delays, the provider will wait up to 1 hour
+                            after your scheduled arrival. Please contact the provider immediately if you won't make it
+                            as scheduled. Fulfillment of travel services is not guaranteed in such cases.</li>
+                    </ol>
+                </div>
+
+                <div class="accordion-item" onclick="toggleAccordion('roxas-content', this)">
+                    <span>Roxas</span>
+                    <span class="arrow-down">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="roxas-content">
+                    <p style="font-weight: bold; color: #000; margin-top: 0;">CEB Transfer services in Roxas are
+                        temporarily suspended as of February 01, 2021</p>
+                    <p style="font-weight: bold; color: #000; margin-bottom: 10px;">Transfers Available</p>
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px; list-style-type: disc;">
+                        <li><strong>From:</strong> Roxas Airport</li>
+                        <li><strong>To:</strong> Any CEB Transfers accredited hotels in Roxas City (and vice versa)</li>
+                    </ul>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <img src="CEBT-10.png" alt="Roxas Airport to Accredited Hotels"
+                            style="width: 320px; max-width: 100%; height: auto; display: block;">
+                    </div>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Rates</p>
+                    <p style="margin-top: 0; margin-bottom: 15px;">Rate/s are for a one-way trip, per passenger. Infants
+                        (8 days old to 2 years old below) are free.</p>
+                    <p style="font-weight: bold; color: #000; margin-top: 20px; margin-bottom: 5px;">Notes</p>
+                    <ul style="margin: 0 0 20px 0; padding-left: 20px; list-style-type: disc;">
+                        <li>The Southwest Travel and Tour staff will be waiting for you at the exit of the Arrival hall.
+                        </li>
+                        <li>Simply present your boarding pass or itinerary receipts to our service partners to board
+                            your CEB Transfers.</li>
+                    </ul>
+                    <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 25px; margin-bottom: 10px;">
+                        Terms & Conditions</p>
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">CEB Transfers is a safe and convenient transfer service to/from
+                            Roxas airport to any accredited hotel within Roxas city. This is in partnership with
+                            Southwest Travel and Tours.</li>
+                        <li style="margin-bottom: 10px;">You can choose to be dropped off at any accredited hotels
+                            within Roxas city. Please see list of accredited hotels below.
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Robinsons Place Roxas</li>
+                                <li>Grand Garden</li>
+                                <li>Roxas President's Inn</li>
+                                <li>San Antonio Resort</li>
+                                <li>Sky Garden</li>
+                                <li>Urban Manor</li>
+                                <li>Veronica Hotel</li>
+                                <li>Wallabies</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Pick schedule are as follows:
+                            <p style="margin: 5px 0;">| Pick Up Time | Route |</p>
+                            <p style="margin: 5px 0;">| 9:00 AM | From Any Hotel within Roxas City to Airport |</p>
+                            <p style="margin: 5px 0;">| 9:00 PM | From Any Hotel within Roxas City to Airport |</p>
+                        </li>
+                        <li style="margin-bottom: 10px;">Included in the transfer services are:
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li>Mainland transfer (Airport to any accredited hotel within Roxas city)</li>
+                                <li>Guest Coordinator Assistance</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Rates are quoted per guest, per one way trip. Guests need to
+                            pay twice for round trip transfers.<br><strong>Note:</strong> Infants 8 days old and below 2
+                            years old are free of charge.</li>
+                        <li style="margin-bottom: 10px;">Senior citizen and person with disability are eligible for
+                            discounts. Discounts are automatically computed for purchases pre-flight and inflight. Just
+                            show your ID for verification.</li>
+                        <li style="margin-bottom: 10px;">Purchase availability depends on the direction of service
+                            <ul style="margin: 5px 0 0 20px; list-style-type: disc;">
+                                <li><strong>Airport to City/Hotels</strong> - up to 2 hours before departure in origin
+                                    airport</li>
+                                <li><strong>City/Hotels to Airport</strong> - up to 24 hours before departure in origin
+                                    airport</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;">Voucher once purchased is non-refundable.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be spoiled for rebooking or cancellation
+                            within 24 hours before flight departure.</li>
+                        <li style="margin-bottom: 10px;">Transfer service will be carried over to the new flight
+                            schedule for rebooking 24 hours before flight.</li>
+                        <li style="margin-bottom: 10px;">In case of flight disruption, flights disruption policy shall
+                            apply.</li>
+                        <li style="margin-bottom: 10px;">In case of flight delays, the provider will wait up to 1 hour
+                            after your scheduled arrival. Please contact the provider immediately if you won't make it
+                            as scheduled. Fulfillment of travel services is not guaranteed in such cases.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Rules Information Box -->
+            <div class="rules-box">
+                <div class="rules-icon">i</div>
+                <div class="rules-content">
+                    <h4>CEB Transfers Rules</h4>
+                    <p>You may purchase CEB transfers up to 24 hours before departure for flights to Boracay and Puerto
+                        Princesa through our website and sales offices.</p>
+                    <p>For flights to Bacolod, Bohol, and Roxas, CEB transfers may be purchased up to four hours before
+                        departure.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+            } else {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
