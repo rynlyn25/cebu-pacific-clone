@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cebu Pacific Clone - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           GLOBAL RESET & TYPOGRAPHY
+           ========================================= */
+        :root {
+            --ceb-yellow: #FFC000;
+            --ceb-blue: #0033A0;
+            --text-dark: #222222;
+            --bg-light: #F8F9FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* --- 1. HERO SECTION & BACKGROUND --- */
+        .hero-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+        }
+
+        .slider-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: background-image 0.8s ease-in-out;
+            background-image: url('images/iloilo.jpg'); 
+        }
+
+        .slider-container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+        }
+
+        .slider-title {
+            position: relative; 
+            z-index: 2; 
+            font-size: 5rem; 
+            letter-spacing: 15px; 
+            font-weight: 900;
+            text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25); 
+            margin-bottom: 250px;
+        }
+
+        .slider-dots { position: relative; z-index: 2; display: flex; gap: 8px; margin-top: -220px; }
+        .dot { width: 8px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; }
+        .dot.active { background: white; }
+
+        /* =========================================
+           TOP ADVISORY BAR
+           ========================================= */
+        .top-advisory-bar {
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            height: 35px; 
+            z-index: 1000; 
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+            color: white; 
+            font-size: 12px;
+            display: flex;
+            align-items: center; 
+        }
+
+        .hero-wrapper:has(.hero-header:hover) .top-advisory-bar,
+        .top-advisory-bar.scrolled {
+            background-color: #00a1e4 !important;
+        }
+
+        .header-content-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1150px; 
+            margin: 0 auto;
+            padding: 0 20px; 
+            align-items: center;
+            justify-content: space-between; 
+            height: 100%;
+        }
+
+        .advisory-left { display: flex; align-items: center; font-size: 13px; }
+        .advisory-right { display: flex; align-items: center; gap: 40px; margin-left: auto; justify-content: flex-end; }
+        .advisory-right a, .disabled-text { color: white; text-decoration: none; font-size: 13px; font-weight: bold; display: flex; align-items: center; cursor: pointer; }
+        .advisory-right a:hover { opacity: 0.8; }
+        .disabled-text { opacity: 0.6; pointer-events: none; cursor: default; }
+
+        /* =========================================
+           MAIN HERO HEADER
+           ========================================= */
+        .hero-header {
+            position: fixed; 
+            top: 35px; 
+            width: 100%; 
+            height: 70px;
+            z-index: 999; 
+            background-color: transparent; 
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .hero-header .header-content-wrapper {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center;
+            width: 100%;
+            height: 100%; 
+        }
+
+        .hero-header .header-content-wrapper > a:first-child { flex: 1; display: flex; justify-content: flex-start; }
+        .hero-header .nav-links { flex: none; display: flex; gap: 30px; justify-content: center; align-items: center; margin: 0; padding: 0; height: 100%; }
+        .hero-header .header-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 20px; height: 100%; }
+
+        .logo-colored { display: none; height: 45px; width: auto;}
+        .logo-white { display: block; height: 45px; width: auto;}
+
+        /* --- MEGA MENU LOGIC --- */
+        .hero-header:hover { background: white !important; }
+        .hero-header:hover .main-link { color: var(--ceb-blue) !important; text-shadow: none !important;}
+        .hero-header:hover .logo-white { display: none !important; }
+        .hero-header:hover .logo-colored { display: block !important; }
+        .hero-header:hover .login-btn { color: var(--ceb-blue) !important; }
+        .hero-header:hover .header-search-icon { color: #005eb8 !important; }
+
+        .hero-header.scrolled { background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-bottom: 1px solid #eaeaea; }
+        .hero-header.scrolled .main-link { color: #0062a9; text-shadow: none; }
+        .hero-header.scrolled .login-btn { color: var(--ceb-blue) !important; }
+        .hero-header.scrolled .logo-white { display: none; }
+        .hero-header.scrolled .logo-colored { display: block !important; }
+        .hero-header.scrolled .header-search-icon { color: #005eb8; }
+
+        .nav-item { position: static; padding: 25px 0; height: 100%; display: flex; align-items: center; }
+        .main-link { color: white; text-decoration: none; font-weight: 700; font-size: 15px; text-shadow: 0px 1px 3px rgba(0,0,0,0.3); transition: color 0.2s; }
+        .nav-item:hover .main-link { color: #00a1e4 !important; text-shadow: none; }
+        
+
+        .mega-menu {
+            position: absolute; top: 70px; left: 50%; transform: translateX(-50%); width: 950px;          
+            background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 0 0 8px 8px;
+            padding: 35px 50px; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .nav-item:hover .mega-menu { opacity: 1; visibility: visible; }
+
+        .mega-top { display: flex; gap: 60px; margin-bottom: 25px; }
+        .mega-icon-link { display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: all 0.2s ease; }
+        .mega-icon-link span { color: #005eb8 !important; font-weight: bold; font-size: 15px; margin-top: 12px; }
+        .mega-icon-link:hover span { color: #00a1e4 !important; }
+        .mega-icon { background-color: transparent; display: flex; justify-content: center; align-items: center; transition: transform 0.2s ease; }
+        .mega-icon-link:hover .mega-icon { transform: scale(1.05); }
+        .custom-mega-img { width: 60px; height: auto; display: block; }
+        .mega-divider { border: 0; height: 1px; background: #e5e5e5; margin: 30px 0; }
+        .mega-heading { color: #555; font-size: 11px; margin-bottom: 20px; font-weight: bold; letter-spacing: 1px; }
+
+        .business-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: start; }
+        .business-item a { color: #00a1e4 !important; font-size: 14px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .business-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+        .business-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+
+        .manage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; align-items: start; }
+        .manage-item a { color: #00a1e4 !important; font-size: 14px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .manage-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+        .manage-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+        .manage-item p .inline-link { display: inline !important; font-weight: normal; font-size: 13px; margin-bottom: 0; color: #00a1e4; text-decoration: none; }
+
+        .travel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .travel-item a { color: #005eb8; font-size: 14px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .travel-item a:hover { color: #00a1e4; text-decoration: underline; }
+
+        .explore-top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .explore-heading { font-size: 16px; font-weight: 800; color: #005eb8; margin-bottom: 15px; display: block; text-decoration: none; }
+        .destination-cards { display: flex; gap: 15px; }
+        .dest-card { flex: 1; height: 100px; border-radius: 8px; background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 10px; text-decoration: none; color: white; font-weight: bold; font-size: 14px; transition: transform 0.2s; }
+        .dest-card:hover { transform: scale(1.05); }
+
+        .explore-bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .explore-item a { color: #005eb8; font-size: 15px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .explore-item a:hover { color: #00a1e4; text-decoration: underline; }
+        .explore-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+
+        .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .about-item a { color: #00a1e4 !important; font-size: 14px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .about-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+        .about-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+
+        /* Login Dropdown */
+        .login-dropdown-wrapper { position: relative !important; display: flex; align-items: center; height: 100%; }
+        .login-btn { background: transparent; color: white; border: none; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; height: 100%; padding: 0; margin: 0; text-shadow: 0px 1px 3px rgba(0,0,0,0.3); }
+        .login-dropdown-wrapper:hover .login-btn { border-bottom: none !important; padding-bottom: 0 !important; }
+        .login-dropdown-wrapper::after { display: none !important; }
+        .hero-header:hover .login-btn { text-shadow: none; }
+        .hero-header.scrolled .login-btn { text-shadow: none; }
+
+        .login-mega-menu {
+            position: absolute !important; top: 100% !important; left: auto !important; right: -10px !important; 
+            transform: none !important; width: 850px !important; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 0 0 12px 12px; padding: 35px 50px; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease; margin-top: 0; 
+        }
+
+        .login-dropdown-wrapper:hover .login-mega-menu { opacity: 1; visibility: visible; }
+        .login-mega-top { display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%; }
+        .login-icons { display: flex; flex-direction: row; gap: 40px; }
+        .login-action-area { width: 260px; display: flex; flex-direction: column; align-items: center; }
+        .mega-login-btn { background-color: #0088CE; color: white; border: none; border-radius: 6px; padding: 14px 0; width: 100%; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 12px; transition: background 0.3s ease; }
+        .mega-login-btn:hover { background-color: #005eb8; }
+        .signup-prompt { font-size: 14px; color: #333; margin: 0; }
+        .signup-prompt a { color: #005eb8; font-weight: bold; text-decoration: none; }
+
+        .header-search-icon { color: white; font-size: 18px; text-decoration: none; cursor: pointer; padding-left: 10px; text-shadow: 0px 1px 3px rgba(0,0,0,0.3);}
+        .hero-header:hover .header-search-icon { text-shadow: none; }
+        .hero-header.scrolled .header-search-icon { text-shadow: none; }
+
+        /* --- 4. GLASS WIDGET --- */
+        .glass-widget {
+            position: absolute; 
+            bottom: 45px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 90%; 
+            max-width: 1050px; 
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 15px 25px; 
+        }
+
+        .flight-type { display: flex; align-items: center; }
+
+        .widget-headers { display: flex; gap: 150px; margin-bottom: 8px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); color: white; font-size: 14px;}
+
+        .search-inputs { display: flex; align-items: center; background: white; border-radius: 6px; padding: 4px; gap: 4px; }
+        .input-group { display: flex; flex-direction: column; flex: 1; padding: 8px 15px; border-right: 1px solid #ddd; }
+        .input-group:last-of-type { border-right: none; }
+        .input-group label { color: #777; font-size: 11px; margin-bottom: 2px; }
+        .input-group input { border: none; outline: none; font-weight: bold; font-size: 14px; color: #333; width: 100%; background: transparent; }
+        .swap-icon { color: #008ccf; padding: 0 8px; font-size: 14px; cursor: pointer; }
+        .search-btn { background: #008ccf; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; flex: 1; }
+
+        .icon-circle-yellow {
+            display: inline-flex; justify-content: center; align-items: center; width: 20px; height: 20px;
+            background-color: #FFC000; color: black; border-radius: 50%; font-size: 10px; margin-right: 6px;
+        }
+
+        /* --- 6. QUICK DESTINATIONS --- */
+        .quick-destinations {
+            display: flex; justify-content: center; align-items: flex-start;
+            gap: 120px; padding: 30px 0 20px; background-color: transparent;
+        }
+
+        .circle-item { display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .circle-border {
+            border: 2px solid #008ccf; border-radius: 50%; padding: 3px; display: flex; justify-content: center; align-items: center; transition: transform 0.2s ease;
+        }
+
+        .circle { width: 80px; height: 80px; border-radius: 50%; background-size: cover; background-position: center; }
+        .circle-item span { color: #008ccf; font-size: 14px; font-weight: 400; margin-top: 12px; }
+        .circle-item:hover .circle-border { transform: scale(1.05); }
+
+        /* --- 7. WHY EVERYONE FLIES SECTION --- */
+        .why-section-wrapper { padding: 20px 5% 50px; background-color: white; max-width: 1100px; margin: 0 auto; }
+        .why-top-row { display: flex; justify-content: space-between; align-items: center; gap: 60px; margin-bottom: 50px; }
+        .why-text { flex: 1; }
+        .why-text h2 { font-size: 26px; font-weight: 700; margin-bottom: 15px; color: #222222; }
+        .why-text p { font-size: 14px; color: #555555; line-height: 1.6; font-weight: 400; }
+        .why-illustration { flex: 1.2; display: flex; justify-content: flex-end; }
+        .why-illustration img { max-width: 100%; height: auto; }
+
+        /* --- 8. SERVICE CARDS & HOVER STATES --- */
+        .services-container {
+            display: flex; justify-content: space-between; border: 1px solid #e5e5e5;
+            border-radius: 12px; background-color: white; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .service-card {
+            flex: 1; text-align: center; border-right: 1px solid #e5e5e5; cursor: pointer;
+            padding: 20px 10px; position: relative; background-color: transparent; transition: all 0.2s ease-in-out; 
+        }
+        .service-card:last-child { border-right: none; }
+        .service-icon { margin-bottom: 12px; display: flex; justify-content: center; }
+        .service-icon img { width: 60px !important; height: auto !important; }
+        .service-card span { color: #008ccf; font-weight: bold; font-size: 15px; }
+
+        .icon-hover { display: none; }
+        .service-card:hover {
+            background-color: #ffea00; transform: scale(1.05); z-index: 10;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border-right-color: transparent; 
+        }
+        .service-card:hover .icon-default { display: none; }
+        .service-card:hover .icon-hover { display: block; }
+        .service-card:hover span { color: #0033a0; }
+
+
+        /* --- 9. FLIGHT DEALS GRID --- */
+        .flight-deals { padding: 60px 10%; text-align: center; }
+        .deal-tabs { 
+            display: flex; justify-content: center; gap: 40px; margin: 20px 0 40px; 
+        }
+
+        .deal-tabs button { 
+            padding: 10px 0; border: none; background: none; font-size: 16px; 
+            font-weight: bold; color: #999999; cursor: pointer; 
+            border-bottom: 3px solid transparent; transition: color 0.2s;
+        }
+
+        .deal-tabs button.active { color: #333333; border-bottom: 3px solid #00a1e4; }
+        .deal-tabs button:hover { color: #333333; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 170px; 
+            gap: 15px; 
+            max-width: 950px; 
+            margin: 30px auto; 
+        }
+
+        .card-short { grid-row: span 1; height: 100% !important; }
+        .card-tall { grid-row: span 2; height: 100% !important; }
+
+        .grid-card {
+            background-color: #ffcc00; 
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+        }
+
+        .card-bg {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-size: cover; background-position: center;
+            transition: opacity 0.4s ease; z-index: 1;
+        }
+
+        .card-bg::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .card-content {
+            position: absolute; bottom: 25px; left: 25px; right: 25px; z-index: 2;
+            display: flex; flex-direction: column; align-items: flex-start;
+        }
+
+        .price-label { font-size: 10px; font-weight: 500; color: white; margin-bottom: 0px; }
+        .price-amount { font-size: 18px; font-weight: 900; color: #ffcc00; margin: 0 0 2px 0; }
+        .dest-name { font-size: 15px; font-weight: 800; color: white; margin: 0; }
+
+        .deals-footer {
+            max-width: 950px; margin: 10px auto 50px auto; position: relative;
+            display: flex; justify-content: center; align-items: center; min-height: 20px;
+        }
+
+        .fare-note {
+            position: absolute; left: 0; top: 5px; color: #0088CE; font-size: 11px; margin: 0;
+        }
+
+        .book-btn {
+            background: #0088CE; color: white; border: none; border-radius: 6px; width: 100%;
+            font-weight: bold; font-size: 16px; cursor: pointer; max-height: 0; padding: 0;
+            margin-top: 0; opacity: 0; transition: all 0.4s ease;
+        }
+
+        .grid-card:hover .card-bg { opacity: 0; }
+        .grid-card:hover .price-label,
+        .grid-card:hover .price-amount,
+        .grid-card:hover .dest-name { color: #0033A0; }
+        
+        .grid-card:hover .book-btn {
+            max-height: 50px; padding: 12px 0; margin-top: 15px; opacity: 1;
+        }
+
+        /* =========================================
+           FOOTER STYLES
+           ========================================= */
+        .site-footer { background-color: #ffffff; padding: 60px 20px 40px 20px; border-top: 1px solid #eaeaea; width: 100%; margin-top: 50px;}
+        .footer-container { max-width: 1150px; margin: 0 auto; display: flex; gap: 60px; justify-content: space-between; }
+        .footer-grid-left { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; flex: 2.5; }
+        .footer-col { display: flex; flex-direction: column; }
+        .footer-group { display: flex; flex-direction: column; }
+        
+        .footer-group h4, .footer-right-sidebar h4 { font-size: 14px; color: #000000; margin-bottom: 20px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; }
+        .footer-group a { color: #00a4e4; text-decoration: none; font-size: 15px; margin-bottom: 16px; transition: color 0.2s; }
+        .footer-group a:hover { text-decoration: underline; color: #007bb5; }
+        
+        .country-box { display: flex; align-items: center; border: 1px solid #ccc; padding: 12px 15px; border-radius: 4px; font-size: 15px; color: #000; font-weight: 700; cursor: pointer; width: 100%; background: #fff; gap: 10px; box-sizing: border-box; }
+        .country-box i { font-size: 16px; }
+        
+        .footer-right-sidebar { flex: 1; min-width: 300px; border-left: 1px solid #e0e0e0; padding-left: 40px; display: flex; flex-direction: column; gap: 30px; }
+        .app-buttons { display: flex; gap: 12px; }
+        .app-buttons img { height: 40px; width: auto; }
+        .payment-logos { display: flex; flex-direction: column; gap: 15px; }
+        .payment-row-1 { display: flex; gap: 20px; align-items: center; }
+        .payment-row-1 img { height: 45px; width: auto; }
+        .payment-row-2 img { height: 30px; width: auto; }
+        
+        .accreditations { display: flex; align-items: center; gap: 15px; }
+        .accreditations img { height: 70px; width: auto; }
+        
+        .footer-bottom { background-color: var(--ceb-yellow); padding: 25px 20px; width: 100%; }
+        .footer-bottom-container { max-width: 1150px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .footer-legal-links { display: flex; flex-wrap: wrap; gap: 30px; }
+        .footer-legal-links a { color: var(--ceb-blue); text-decoration: none; font-size: 14px; font-weight: 800; }
+        .footer-legal-links a:hover { text-decoration: underline; }
+        .copyright-text { font-size: 14px; color: var(--ceb-blue); font-weight: 800; }
+    </style>
+</head>
+<body>
+
+    <div class="hero-wrapper">
+        
+        <!-- TOP ADVISORY BAR -->
+        <div class="top-advisory-bar">
+            <div class="header-content-wrapper">
+                <div class="advisory-left">
+                </div>
+                <div class="advisory-right">
+                    <a href="#">
+                    </a>
+                    <span class="disabled-text"><i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP</span>
+                    <span class="disabled-text"><i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN HEADER -->
+        <header class="hero-header">
+            <div class="header-content-wrapper">
+                <a href="index.html">
+                    <img class="logo-white" src="images/CEB_logo_Noto_Sans_Linear_White.webp" alt="Cebu Pacific">
+                    <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific">
+                </a>
+                
+                <nav class="nav-links">
+                    <!-- 1. BOOK -->
+                    <div class="nav-item">
+                        <a href="#" class="main-link">Book</a>
+                        <div class="mega-menu">
+                            <div class="mega-top">
+                                <a href="index.html" class="mega-icon-link">
+                                    <div class="mega-icon"><img src="images/flight-status-default.png" alt="Flights" class="custom-mega-img"></div>
+                                    <span>Flights</span>
+                                </a>
+                                <a href="seatsale.html" class="mega-icon-link">
+                                    <div class="mega-icon"><img src="images/your-seatsale-icon.webp" alt="Seat Sale" class="custom-mega-img"></div>
+                                    <span>Seat Sale</span>
+                                </a>
+                                <a href="cebsuperpass.html" class="mega-icon-link">
+                                    <div class="mega-icon"><img src="images/super-pass-default.png" alt="CEB Super Pass" class="custom-mega-img"></div>
+                                    <span>CEB Super Pass</span>
+                                </a>
+                            </div>
+                            <hr class="mega-divider">
+                            <div class="mega-bottom">
+                                <h4 class="mega-heading">FOR BUSINESS</h4>
+                                <div class="business-grid">
+                                    <div class="business-item">
+                                        <a href="partner-login.html">Partner Agents</a>
+                                        <p>Log in with your agent ID</p>
+                                    </div>
+                                    <div class="business-item">
+                                        <a href="cargo.html">Cargo</a>
+                                        <p>Know more about our fast and flexible air cargo service</p>
+                                    </div>
+                                    <div class="business-item">
+                                        <a href="#">Sales & Group Bookings</a>
+                                        <p>Be a partner and maximize your business' travel budget</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. MANAGE -->
+                    <div class="nav-item">
+                        <a href="#" class="main-link">Manage</a>
+                        <div class="mega-menu">
+                            <div class="mega-top">
+                                <a href="check-in.html" class="mega-icon-link">
+                                    <div class="mega-icon"><img src="images/check-in-default1.png" alt="Check in" class="custom-mega-img"></div>
+                                    <span>Check in</span>
+                                </a>
+                                <a href="manage-booking.html" class="mega-icon-link">
+                                    <div class="mega-icon"><img src="images/manage-booking-default.png" alt="Manage Booking" class="custom-mega-img"></div>
+                                    <span>Manage Booking</span>
+                                </a>
+                                <a href="flight-status.html" class="mega-icon-link">
+                                    <div class="mega-icon"><img src="images/FlightStatusIcon.webp" alt="Flight Status" class="custom-mega-img"></div>
+                                    <span>Flight Status</span>
+                                </a>
+                            </div>
+                            <hr class="mega-divider">
+                            <div class="mega-bottom">
+                                <div class="manage-grid">
+                                    <div class="manage-item">
+                                        <a href="CEB-Add-ons.html"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
+                                        <p>Learn how to upgrade your trip with <a href="#" class="inline-link">baggage, meals, seats,</a> and other services</p>
+                                    </div>
+                                    <div class="manage-item">
+                                        <a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
+                                        <p>Request services for guests needing special assistance</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3. TRAVEL INFO -->
+                    <div class="nav-item">
+                        <a href="#" class="main-link">Travel Info</a>
+                        <div class="mega-menu">
+                            <h4 class="mega-heading">BEFORE THE FLIGHT</h4>
+                            <div class="travel-grid">
+                                <div class="travel-item"><a href="baggage_info.html"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
+                                <div class="travel-item"><a href="payment-options.html"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
+                                <div class="travel-item"><a href="Travel-Advisories.html"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
+                                <div class="travel-item"><a href="BookingCheckinandBoarding.html"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
+                                <div class="travel-item"><a href="TravelDocuments.html"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
+                                <div class="travel-item"><a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
+                            </div>
+                            <hr class="mega-divider">
+                            <h4 class="mega-heading">FLYING WITH US</h4>
+                            <div class="travel-grid">
+                                <div class="travel-item"><a href="seatsale-faq.html"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
+                                <div class="travel-item"><a href="Service-Fees.html"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
+                                <div class="travel-item"><a href="CEB-Add-ons.html"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
+                                <div class="travel-item"><a href="flight-status.html"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                                <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-plane"></i> Flight Timetable</a></div>
+                                <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 4. EXPLORE -->
+                    <div class="nav-item">
+                        <a href="#" class="main-link">Explore</a>
+                        <div class="mega-menu">
+                            <div class="explore-top-grid">
+                                <div class="explore-dest-col">
+                                    <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
+                                    <div class="destination-cards">
+                                        <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/boracay.jpg');"><span>Boracay</span></a>
+                                        <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/siargao.jpg');"><span>Siargao</span></a>
+                                        <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/cebu.jpg');"><span>Cebu</span></a>
+                                    </div>
+                                </div>
+                                <div class="explore-dest-col">
+                                    <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
+                                    <div class="destination-cards">
+                                        <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/dubai.jpg');"><span>Dubai</span></a>
+                                        <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/hongkong.jpg');"><span>Hong Kong</span></a>
+                                        <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/singapore.jpg');"><span>Singapore</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mega-divider">
+                            <div class="explore-bottom-grid">
+                                <div class="explore-item">
+                                    <a href="DiscoverwithSmile.html"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
+                                    <p>Simple tips to make you a better and smarter traveler</p>
+                                </div>
+                                <div class="explore-item">
+                                    <a href="where-we-fly.html"><i class="fa-solid fa-map"></i> Where We Fly</a>
+                                    <p>See our full list of destinations and choose where to go for your next trip</p>
+                                </div>
+                                <div class="explore-item">
+                                    <a href="CityGuides.html"><i class="fa-solid fa-location-dot"></i> City Guides</a>
+                                    <p>Know the basics and discover hidden gems in your next destination</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 5. ABOUT -->
+                    <div class="nav-item">
+                        <a href="#" class="main-link">About</a>
+                        <div class="mega-menu">
+                            <div class="about-grid">
+                                <div class="about-item">
+                                    <a href="our-story.html">Our Story</a>
+                                    <p>See how we made moments happen for everyjuan from 1996 up to present</p>
+                                </div>
+                                <div class="about-item">
+                                    <a href="media-center.html">Media Center</a>
+                                    <p>Be updated on the latest airline news through our press releases and media galleries</p>
+                                </div>
+                                <div class="about-item">
+                                    <a href="Talk-to-Us.html">Talk to Us</a>
+                                    <p>Get answers to your questions or send feedback</a> to our customer support team</p>
+                                </div>
+                                <div class="about-item">
+                                    <a href="Campaigns-&-Partners.html">Campaigns & Partners</a>
+                                    <p>Read up on our campaigns and partnership initiatives</p>
+                                </div>
+                                <div class="about-item">
+                                    <a href="corporate-information.html">Company Information</a>
+                                    <p>Read more information about Cebu Pacific for shareholders, potential investors, and financial analysts</p>
+                                </div>
+                                <div class="about-item">
+                                    <a href="careers.html">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                    
+                <div class="header-right">
+                    <div class="login-dropdown-wrapper">
+                        <button class="login-btn">
+                            <i class="fa-solid fa-circle-user" style="font-size: 18px; margin-right: 5px;"></i>
+                            Log in
+                        </button>
+                        <div class="mega-menu login-mega-menu">
+                            <div class="login-mega-top">
+                                <div class="login-icons">
+                                    <a href="manage-booking.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                                        <span>My Bookings</span>
+                                    </a>
+                                    <a href="wallet.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                                        <span>Wallet</span>
+                                    </a>
+                                    <a href="coming-soon.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                                        <span>Guests</span>
+                                    </a>
+                                    <a href="coming-soon.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                                        <span>Inbox</span>
+                                    </a>
+                                </div>
+                                <div class="login-action-area">
+                                    <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
+                                    <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="header-search-icon">
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="slider-container" id="slider-container">
+            <h1 class="slider-title" id="slider-title">SIARGAO</h1>
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+        <div class="glass-widget">
+            <div class="widget-headers">
+                <div class="flight-type">
+                    <span class="icon-circle-yellow"><i class="fa-solid fa-plane"></i></span> 
+                    <span style="color: #ffffff !important; font-weight: 800; margin-left: 8px;">Flight</span>
+                </div>
+                <div class="round-trip-dropdown">Round-trip <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 5px;"></i></div>
+            </div>
+
+            <div class="search-inputs">
+                <div class="input-group">
+                    <label>From</label>
+                    <input type="text" value="Manila MNL">
+                </div>
+                <div class="swap-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                <div class="input-group">
+                    <label>To</label>
+                    <input type="text" placeholder="Select Destination">
+                </div>
+                <div class="input-group">
+                    <label>Depart</label>
+                    <input type="date" value="2026-07-02">
+                </div>
+                <div class="input-group">
+                    <label>Return</label>
+                    <input type="text" placeholder="Returning on">
+                </div>
+                <button class="search-btn">Search flights</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="quick-destinations">
+        <div class="circle-item">
+            <div class="circle-border"><div class="circle" style="background-image: url('images/Clark.webp');"></div></div>
+            <span>Clark</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border"><div class="circle" style="background-image: url('images/cebu1.webp');"></div></div>
+            <span>Cebu</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border"><div class="circle" style="background-image: url('images/images.jpg');"></div></div>
+            <span>Iloilo</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border"><div class="circle" style="background-image: url('images/images (1).jpg');"></div></div>
+            <span>Davao</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-border"><div class="circle" style="background-image: url('images/val.jpg');"></div></div>
+            <span>Fly Here Next</span>
+        </div>
+    </section>
+
+    <section class="why-section-wrapper">
+        <div class="why-top-row">
+            <div class="why-text">
+                <h2>Why Everyone Flies</h2>
+                <p>Cebu Pacific operates the widest network in the Philippines, offering flights to Manila, Cebu, Davao, Iloilo, Clark, and more! With flexible bookings, low fares, and global best safety practices, the airline continues to boost travel confidence for everyjuan by providing connectivity to key cities in Asia, Australia, and the Middle East.</p>
+            </div>
+            <div class="why-illustration">
+                <img src="https://cdn.media.amplience.net/i/cebupacificair/CebuPacific-Why-Everyone-Flies?fmt=auto&maxW=1920&maxH=1920" alt="Travel Illustration">
+            </div>
+        </div>
+
+        <div class="services-container">
+            <!-- 1. Check In Link -->
+            <div class="service-card" onclick="window.location.href='check-in.html'">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/check-in-default1.png" alt="Check In" width="45">
+                    <img class="icon-hover" src="images/check-in-default2.png" alt="Check In Hover" width="45">
+                </div>
+                <span>Check In</span>
+            </div>
+
+            <!-- 2. CEB Super Pass Link -->
+            <div class="service-card" onclick="window.location.href='cebsuperpass.html'">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/super-pass-default.png" alt="CEB Super Pass" width="45">
+                    <img class="icon-hover" src="images/super-pass-hover.png" alt="CEB Super Pass Hover" width="45">
+                </div>
+                <span>CEB Super Pass</span>
+            </div>
+
+            <!-- 3. Flight Status Link -->
+            <div class="service-card" onclick="window.location.href='flight-status.html'">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/flight-status-default.png" alt="Flight Status" width="45">
+                    <img class="icon-hover" src="images/flight-status-hover.png" alt="Flight Status Hover" width="45">
+                </div>
+                <span>Flight Status</span>
+            </div>
+
+            <!-- 4. Manage Booking Link -->
+            <div class="service-card" onclick="window.location.href='manage-booking.html'">
+                <div class="service-icon">
+                    <img class="icon-default" src="images/manage-booking-default.png" alt="Manage Booking" width="45">
+                    <img class="icon-hover" src="images/manage-booking-hover.png" alt="Manage Booking Hover" width="45">
+                </div>
+                <span>Manage Booking</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="flight-deals">
+        <h2>Book cheap flights from</h2>
+        <div class="deal-tabs">
+            <button class="active">Manila</button>
+            <button>Cebu</button>
+            <button>Davao</button>
+            <button>Clark</button>
+        </div>
+        
+        <!-- MANILA DEALS -->
+        <div class="grid-container" id="deals-manila">
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/cebu.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱88*</h3>
+                    <p class="dest-name">Cebu</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/iloilo1.webp');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱88*</h3>
+                    <p class="dest-name">Iloilo</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/laoag.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱88*</h3>
+                    <p class="dest-name">Laoag</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/macau.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱888*</h3>
+                    <p class="dest-name">Macau</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/danang.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱2300*</h3>
+                    <p class="dest-name">Da Nang</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/taipei.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱888*</h3>
+                    <p class="dest-name">Taipei</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CEBU DEALS -->
+        <div class="grid-container" id="deals-cebu" style="display: none;">
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/bacolod.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱188*</h3>
+                    <p class="dest-name">Bacolod</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/Clark.webp');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱388*</h3>
+                    <p class="dest-name">Clark</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/davao.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱188*</h3>
+                    <p class="dest-name">Davao</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/manila.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱299*</h3>
+                    <p class="dest-name">Manila</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/Boracay_1_sabw7m.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱188*</h3>
+                    <p class="dest-name">Boracay</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/ozamiz.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱588*</h3>
+                    <p class="dest-name">Ozamiz</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAVAO DEALS -->
+        <div class="grid-container" id="deals-davao" style="display: none;">
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/manila.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱499*</h3>
+                    <p class="dest-name">Manila</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+            <div class="grid-card card-tall">
+                <div class="card-bg" style="background-image: url('images/cebu.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱188*</h3>
+                    <p class="dest-name">Cebu</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLARK DEALS -->
+        <div class="grid-container" id="deals-clark" style="display: none;">
+            <div class="grid-card card-short">
+                <div class="card-bg" style="background-image: url('images/cebu.jpg');"></div>
+                <div class="card-content">
+                    <span class="price-label">For as low as</span>
+                    <h3 class="price-amount">₱388*</h3>
+                    <p class="dest-name">Cebu</p>
+                    <button class="book-btn">Book now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="deals-footer">
+            <p class="fare-note">*One-way base fares</p>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid-left">
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>BOOK</h4>
+                        <a href="index.html">Flights</a>
+                        <a href="seatsale.html">Seat Sale</a>
+                    </div>
+                    <div class="footer-group" style="margin-top: 60px;">
+                        <h4>ABOUT</h4>
+                        <a href="#">About</a>
+                        <a href="#">Our Story</a>
+                        <a href="#">Media Center</a>
+                        <a href="#">Talk to Us</a>
+                        <a href="#">Careers</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>MANAGE</h4>
+                        <a href="check-in.html">Check in</a>
+                        <a href="manage-booking.html">Manage Booking</a>
+                        <a href="flight-status.html">Flight Status</a>
+                        <a href="CEB-Add-ons.html">Add-ons</a>
+                        <a href="Special-Assistance.html">Special Assistance</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>TRAVEL INFO</h4>
+                        <a href="baggage_info.html">Baggage Information</a>
+                        <a href="payment-options.html">Payment Options</a>
+                        <a href="Travel-Advisories.html">Travel Advisories</a>
+                        <a href="BookingCheckinandBoarding.html">Booking & Check-in</a>
+                        <a href="TravelDocuments.html">Travel Documents</a>
+                        <a href="Service-Fees.html">Service Fees</a>
+                    </div>
+                    <div class="footer-group" style="margin-top: 60px;">
+                        <h4>SELECT COUNTRY</h4>
+                        <div class="country-box">
+                            <i class="fa-solid fa-earth-asia"></i> Philippines
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>EXPLORE</h4>
+                        <a href="#">Explore</a>
+                        <a href="CityGuides.html">Philippine Destinations</a>
+                        <a href="CityGuides.html">International Destinations</a>
+                        <a href="where-we-fly.html">Where We Fly</a>
+                        <a href="CityGuides.html">City Guides</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right-sidebar">
+                <div class="sidebar-group">
+                    <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                    <div class="app-buttons">
+                        <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                        <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+                    </div>
+                </div>
+
+                <div class="sidebar-group">
+                    <h4>PAYMENT PARTNERS</h4>
+                    <div class="payment-logos">
+                        <div class="payment-row-1">
+                            <img src="images/Visa-logo.webp" alt="Visa">
+                            <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                        </div>
+                        <div class="payment-row-2">
+                            <img src="images/GCash-276x96.webp" alt="GCash">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-group">
+                    <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                    <div class="accreditations">
+                        <img src="images/CEB-7Star-Emblem.webp" alt="Seven Star Compliance">
+                        <img src="images/New_NPC_Logo.webp" alt="DPO/DPS Compliance">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
+
+    <!-- Inline scripts for interactivity -->
+    <script>
+        // Hero Slider
+        const sliderContainer = document.getElementById('slider-container');
+        const sliderTitle = document.getElementById('slider-title');
+        const dots = document.querySelectorAll('.dot');
+        const advisoryBar = document.querySelector('.top-advisory-bar');
+        const heroHeader = document.querySelector('.hero-header');
+
+        const slides = [
+            { title: "SIARGAO", image: "images/siargao.webp" },
+            { title: "KAOHSIUNG", image: "images/KAOHSIUNG.webp" },
+            { title: "ILOILO", image: "images/iloilo1.webp" },
+            { title: "DAVAO", image: "images/davao.jpg" }
+        ];
+
+        let currentSlide = 0;
+        let slideInterval; 
+
+        function updateSlide() {
+            sliderContainer.style.backgroundImage = `url('${slides[currentSlide].image}')`;
+            sliderTitle.innerText = slides[currentSlide].title;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlide();
+        }
+
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index; 
+                updateSlide();        
+                
+                clearInterval(slideInterval);
+                startSlider();
+            });
+        });
+
+        startSlider();
+
+        // Scroll listener for sticky header
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                advisoryBar.classList.add('scrolled');
+                heroHeader.classList.add('scrolled');
+            } else {
+                advisoryBar.classList.remove('scrolled');
+                heroHeader.classList.remove('scrolled');
+            }
+        });
+
+        // --- FLIGHT DEALS TAB SWITCHING LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const dealTabs = document.querySelectorAll('.deal-tabs button');
+            const dealGrids = document.querySelectorAll('.flight-deals .grid-container');
+
+            dealTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    dealTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+
+                    // Hide all grids
+                    dealGrids.forEach(grid => grid.style.display = 'none');
+                    
+                    // Identify which grid to show based on button text
+                    const city = tab.innerText.trim().toLowerCase();
+                    const targetGrid = document.getElementById('deals-' + city);
+                    
+                    if(targetGrid) {
+                        targetGrid.style.display = 'grid';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

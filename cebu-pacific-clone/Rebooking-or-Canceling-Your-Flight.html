@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebooking or Canceling Your Flight</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #4a4a4a;
+        }
+
+        /* Header Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px 80px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            margin-right: auto;
+        }
+
+        .logo-img {
+            height: 38px;
+        }
+
+        /* Page Layout with Sidebar */
+        .page-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Navigation - Sticky Behavior */
+        .sidebar {
+            width: 250px;
+            padding-top: 60px;
+            padding-right: 20px;
+            border-right: 1px solid #e2e8f0;
+            position: sticky;
+            top: 80px;
+            height: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .sidebar-nav li {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar-nav a {
+            text-decoration: none;
+            color: #555555;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 6px 16px;
+            display: inline-block;
+        }
+
+        .sidebar-nav li.active a {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        /* Blue indicator pill for active tab */
+        .sidebar-nav li.active::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #0073e6;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Main Content Container */
+        .container {
+            flex: 1;
+            max-width: 900px;
+            padding: 60px 40px 40px 40px;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #4a4d4e;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #555555;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        /* Article Sections */
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 16px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .note-box {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: underline;
+        }
+
+        .guidelines-list {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .guidelines-list li {
+            margin-bottom: 10px;
+        }
+
+        /* Rebooking / Cancelation Options Styles */
+        .rebook-intro {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .options-list {
+            list-style: none;
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 40px;
+        }
+
+        .options-list>li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #555555;
+        }
+
+        /* Policies & Guides Accordion Styles */
+        .accordion-section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555555;
+            margin-top: 30px;
+            margin-bottom: 16px;
+        }
+
+        .accordion-group-label {
+            font-size: 13px;
+            color: #666666;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .accordion-item {
+            border: 1px solid #0073e6;
+            border-radius: 4px;
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-item[open] {
+            background-color: #eef6fc;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a4a4a;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-item[open] .accordion-header {
+            color: #0073e6;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .accordion-icon {
+            color: #0073e6;
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item[open] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            padding: 0 16px 16px 16px;
+            font-size: 13px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .accordion-body p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .accordion-body ul {
+            margin-left: 20px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            list-style-type: disc;
+        }
+
+        .accordion-body ul li {
+            margin-bottom: 4px;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary {
+            list-style: none;
+        }
+
+        /* Troubleshooting Table Styles */
+        .troubleshoot-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border: 1px solid #0073e6;
+        }
+
+        .troubleshoot-table th {
+            background-color: #0073e6;
+            color: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .troubleshoot-table td {
+            border: 1px solid #0073e6;
+            padding: 12px;
+            vertical-align: middle;
+            font-size: 13px;
+            color: #4a4a4a;
+        }
+
+        .troubleshoot-table tr td:first-child {
+            width: 35%;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img class="logo-img" src="images/Cebu Pacific Logo.jpg" alt="Cebu Pacific Air">
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li id="nav-overview" class="active"><a href="#overview">Overview</a></li>
+                <li id="nav-policies"><a href="#policies-guides">Policies & Guides</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Body Content -->
+        <main class="container">
+            <h1 class="main-title">Rebooking or Canceling Your Flight</h1>
+            <p class="subtitle">Last-minute plan changes? No worries! Just head over to our Manage Booking page. You can
+                still make changes to your booking up to 2 hours before your flight.</p>
+
+            <hr class="divider">
+
+            <!-- Content Sections -->
+            <h2 id="overview" class="section-title">Overview</h2>
+            <p class="section-content">Description</p>
+
+            <p class="note-box">
+                👉 This article is about voluntary rebooking/cancelations.
+            </p>
+
+            <p class="section-content">
+                If your flight has been <strong>disrupted</strong>, or you want to rebook / cancel your flight
+                <strong>due to medical reasons or death</strong>, please check out this article:
+            </p>
+
+            <ul class="guidelines-list">
+                <li><a href="HMDF-index.html">How to Manage Your Disrupted Flight</a></li>
+            </ul>
+
+            <hr class="divider">
+
+            <h2 class="section-title">🧳 Rebooking</h2>
+
+            <p class="rebook-intro">
+                You can rebook to a different flight date or time up to two (2) hours before your scheduled departure!
+            </p>
+
+            <p class="section-content">
+                Simply head to <a href="#">Manage Booking</a> to make the change.
+            </p>
+
+            <ul class="options-list">
+                <li>📑 Fare differences and change fees apply.</li>
+                <li>👤 A MyCebuPacific Account is required to make booking changes.</li>
+                <li>💡 You cannot change the destinations or the sequence of your flight.</li>
+                <li>✅ There is no limit to the number of times you can rebook your flight.</li>
+            </ul>
+
+            <hr class="divider">
+
+            <h2 class="section-title">🙅 Cancelation</h2>
+
+            <p class="rebook-intro">
+                For non-SuperPass, no flights, feel free to cancel.
+            </p>
+
+            <ul class="guidelines-list">
+                <li>The fare and all other fees will be forfeited.</li>
+                <li>Your flight will be considered flown.</li>
+            </ul>
+
+            <p class="section-content">
+                Should your travel plan change, you can cancel your flight with the CEB Flexi-Fare
+                Bundle or the CEB Flexi Add-on. If you don't have this bundle or add-on, you can
+                still rebook your flight via Manage Booking.
+            </p>
+
+            <p class="section-content">
+                ⚠️ <strong>Please note!</strong> The following reasons are not qualify for flight cancelation:
+            </p>
+
+            <ul class="guidelines-list">
+                <li>Incorrectly booked flights (route, date, sequence)</li>
+                <li>Personal reasons, schedule conflicts, or change of plan.</li>
+                <li>Travel document issues (visa denial or delay, passport insurance delay)</li>
+            </ul>
+
+            <hr class="divider">
+
+            <!-- Policies & Guides Section -->
+            <h2 id="policies-guides" class="accordion-section-title">Policies & Guides</h2>
+
+            <p class="accordion-group-label">Airline Policies</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Fare differences & change fees</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p><strong>Fare difference:</strong></p>
+                    <p>Refers to the difference between your original flight's fare and your new flight's fare.</p>
+                    <p style="margin-top: 12px;"><strong>Change fee:</strong></p>
+                    <p>An additional fee charged to make changes to your reservation.</p>
+                    <p style="margin-top: 12px;">💡 These fees depend on your booking and your route. Please view your
+                        Booking Summary when rebooking for a breakdown of relevant fees.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Carrying over of add-ons</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>Most of your pre-purchased add-ons (e.g., baggage, seats) should carry over to your new flight
+                        if:</p>
+                    <ul>
+                        <li>You rebooked your flight;</li>
+                        <li>Your flight was changed by more than 1 hour;</li>
+                        <li>You were moved to a different flight.</li>
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>💺 Your selected seat:</strong></p>
+                    <ul>
+                        <li>When flight changes occur, there may be instances where the exact seat you previously
+                            selected may not be available.</li>
+                        <li>If it is not available, we will automatically assign you a seat in the same class.</li>
+
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>🍽️ Your selected meals:</strong></p>
+                    <ul>
+                        <li>Any in-flight meals will be forfeited if your new flight is less than 24 hours from your
+                            original flight.</li>
+
+                    </ul>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Rebooking individual guests</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>You are allowed to rebook flights for individual guests.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Rebooking after check-in</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>You can still rebook even after checking in. Make sure to do this up to 2 hours before your
+                        flight.</p>
+                    <p style="margin-top: 12px;">💡 Remember: Once you rebook, you'll need to check in again for your
+                        new flight!</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Rebooking / canceling flights originating from Dammam, Saudi Korea</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>💡 One-way and round-trip flights originating from <strong>Incheon, South Korea</strong> and
+                        <strong>booked with KRW currency</strong> are eligible for <strong>voluntary refund
+                            processing</strong> even without GO Flexi or CEB Flexi.
+                    </p>
+                    <ul>
+                        <li>Canceled flights departing from Incheon will be eligible for refund only, as the Travel Fund
+                            option will no longer be available.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <p class="accordion-group-label">How to Rebook or Cancel</p>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to rebook on the app</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p>💡 Press the video below to know how to rebook your flight on the Cebu Pacific app</p>
+                    <div style="margin: 16px 0; max-width: 320px;">
+                        <video controls style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                            <source src="images/HTRA.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p style="margin-top: 12px;">▶ 💡 Tap here to read our how-to guide for rebooking on the Cebu
+                        Pacific app</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to rebook on the website</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p><strong>1. Head to the Cebu Pacific website. Log Into your account, hover your mouse over
+                            'Manage' and click 'Manage Booking'.</strong></p>
+                    <p style="margin-top: 8px;">A MyCebuPacific account is required to make booking
+                        changes. Make sure you're logged in to your booking's account.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-1.png" alt="Manage Booking Website"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>2. Click 'Manage' to access your booking.</strong></p>
+                    <p style="margin-top: 8px;">If you can't locate your booking, you may have to <a href="#">add it to
+                            your account</a>.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-2.png" alt="My Bookings Manage"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>3. Click 'Rebook flight' under <em>Modify flight</em>.</strong>
+                    </p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-3.png" alt="Modify Flight Rebook"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>4. Choose which flight/s you want to rebook.</strong></p>
+                    <p style="margin-top: 8px;">If you want to change the dates for both flights, make sure to click the
+                        checkbox for both.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-4.png" alt="Choose Flights to Rebook"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>5. Select your preferred flight/s and confirm your new
+                            schedule.</strong></p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-5.png" alt="Select Preferred Flights"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>6. Review your add-ons or select new ones to buy.</strong></p>
+                    <p style="margin-top: 8px;">Make sure to double-check your selections.</p>
+                    <p style="margin-top: 8px;">Your previous add-ons should be applied to the new flight, but some may
+                        be unavailable, or already taken (e.g. meals or seats).</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-6.png" alt="Review Add-ons"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>7. Check your Booking Summary and proceed to payment.</strong>
+                    </p>
+                    <p style="margin-top: 8px;">Double-check your new flight details and selections. Here, you can also
+                        view applicable fare differences or change fees.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HRW-7.png" alt="Booking Summary and Payment"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to cancel your flight on the app (with CEB Flexi only)</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="font-weight: 600; margin-bottom: 12px;">💡 <strong>Remember:</strong> The full amount of
+                        your booking won't be credited as a Travel Fund because the CEB Flexi fee covers voluntary
+                        flight cancelations without additional charge.</p>
+                    <p style="margin-bottom: 16px;">If you voluntarily cancel your flight, the CEB Flexi add-on in your
+                        booking will be used and won't be credited as a Travel Fund.</p>
+
+                    <p><strong>1. Open the Cebu Pacific app and go to Manage Booking.</strong></p>
+                    <p style="margin-top: 8px;">A MyCebuPacific account is required to make booking
+                        changes. Make sure you're logged in to your booking's account.</p>
+                    <div style="margin: 16px 0; max-width: 320px;">
+                        <img src="images/HCFACEBF-1.gif" alt="App Manage Booking"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>2. Tap 'Manage' to access your booking.</strong></p>
+                    <p style="margin-top: 8px;">If you can't locate your booking, you may have to <a href="#">add it to
+                            your account</a>.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFACEBF-2.png" alt="App Bookings Manage"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>3. Tap 'Cancel Flight/s' under Modify flight.</strong></p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFACEBF-3.png" alt="App Cancel Flights"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>4. Choose which flight/s you want to cancel.</strong></p>
+                    <p style="margin-top: 8px;">If you want to cancel both flights, make sure to tap the check box for
+                        both.</p>
+                    <div style="margin: 16px 0; max-width: 320px;">
+                        <img src="images/HCFACEBF-4.gif" alt="Choose Flights to Cancel"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>5. Confirm that you want to cancel your selected
+                            flight/s.</strong></p>
+                    <p style="margin-top: 8px;">Your booking will then be converted to a non-expiring Travel Fund that
+                        you can use to pay for future travel plans.</p>
+                    <p style="margin-top: 8px;">Learn more here: <a href="CFTF-index.html">Travel Fund</a></p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFACEBF-5.png" alt="Confirm Cancel Flights"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>How to cancel your flight on the website (with CEB Flexi only)</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="font-weight: 600; margin-bottom: 12px;">💡 <strong>Remember:</strong> The full amount of
+                        your booking won't be credited as a Travel Fund because the CEB Flexi fee covers voluntary
+                        flight cancelations without additional charge.</p>
+                    <p style="margin-bottom: 16px;">If you voluntarily cancel your flight, the CEB Flexi add-on in your
+                        booking will be used and won't be credited as a Travel Fund.</p>
+
+                    <p><strong>1. Head to the Cebu Pacific website. Log Into your account, hover your mouse over
+                            'Manage' and click 'Manage Booking'.</strong></p>
+                    <p style="margin-top: 8px;"> A MyCebuPacific account is required to make booking
+                        changes. Make sure you're logged in to your booking's account.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFWCEBF-1.png" alt="Website Manage Booking"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>2. Click 'Manage' to access your booking.</strong></p>
+                    <p style="margin-top: 8px;">If you can't locate your booking, you may have to add it to
+                        your account.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFWCEBF-2.png" alt="Website Bookings Manage"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>3. Click on 'Cancel Flight/s' under Modify flight.</strong></p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFWCEBF-3.png" alt="Website Cancel Flights"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>4. Choose which flight/s you want to cancel.</strong></p>
+                    <p style="margin-top: 8px;">If you want to cancel both flights, make sure to click the checkbox for
+                        both.</p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFWCEBF-4.png" alt="Choose Flights to Cancel Website"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>5. Confirm that you want to cancel your selected
+                            flight/s.</strong></p>
+                    <p style="margin-top: 8px;">Your booking will then be converted to a non-expiring Travel Fund that
+                        you can use to pay for future travel plans.</p>
+                    <p style="margin-top: 8px;">Learn more here: <a href="#">Travel Fund</a></p>
+                    <div style="margin: 16px 0; max-width: 100%;">
+                        <img src="images/HCFWCEBF-5.png" alt="Confirm Cancel Flights Website"
+                            style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary class="accordion-header">
+                    <span>Common manage booking issues</span>
+                    <span class="accordion-icon">▼</span>
+                </summary>
+                <div class="accordion-body">
+                    <p style="margin-bottom: 12px;">Here are some common troubleshooting steps you can try:</p>
+
+                    <table class="troubleshoot-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">General Troubleshooting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>👤 Are you logged in?</strong></td>
+                                <td>
+                                    You need to log into the MyCebuPacific account of your booking to make changes
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>🔍 Can't find your booking?</strong></td>
+                                <td>
+                                    You may have to add the booking to your account.
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>🟨 Do you have a group or travel agency booking?</strong></td>
+                                <td>
+                                    Please contact your agent / coordinator directly to make changes.
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>✈️ Did you book on an unauthorized third-party platform?</strong></td>
+                                <td>
+                                    <ul style="margin-left: 20px; list-style-type: disc;">
+                                        <li>You may have difficulty managing your booking as these platforms may issue
+                                            booking reference numbers not recognized by our system.</li>
+                                        <li>If you encounter any issues, please <a href="#">chat with us</a> to connect
+                                            with a Live Agent who can verify your booking.</li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>⏳ Is it less than 2 hours before your flight?</strong></td>
+                                <td>
+                                    <ul style="margin-left: 20px; list-style-type: disc;">
+                                        <li>You cannot make any changes to flights less than 2 hours away.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+
+        </main>
+    </div>
+
+    <!-- Active Indicator Scroll Spy Script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navOverview = document.getElementById('nav-overview');
+            const navPolicies = document.getElementById('nav-policies');
+            const policiesSection = document.getElementById('policies-guides');
+
+            function onScroll() {
+                const rect = policiesSection.getBoundingClientRect();
+                // When Policies & Guides section approaches the top quarter of the viewport
+                if (rect.top <= window.innerHeight * 0.35) {
+                    navOverview.classList.remove('active');
+                    navPolicies.classList.add('active');
+                } else {
+                    navPolicies.classList.remove('active');
+                    navOverview.classList.add('active');
+                }
+            }
+
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
+
+</body>
+
+</html>

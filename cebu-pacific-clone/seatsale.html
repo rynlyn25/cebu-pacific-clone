@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Sale - Cebu Pacific</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           GLOBAL RESET & TYPOGRAPHY
+           ========================================= */
+        :root {
+            --ceb-yellow: #FFC000;
+            --ceb-blue: #005eb8;
+            --ceb-light-blue: #0088ce;
+            --text-dark: #222222;
+            --bg-light: #F8F9FA;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background-color: #fdfdfd;
+            color: #333333;
+        }
+
+        /* =========================================
+           TOP ADVISORY BAR (Always Blue)
+           ========================================= */
+        .top-advisory-bar {
+            width: 100%;
+            background-color: #00a4e4; 
+            padding: 10px 0;
+            color: white;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            height: 35px;
+        }
+
+        .header-content-wrapper {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .advisory-left {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .advisory-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .advisory-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .advisory-right a:hover {
+            opacity: 0.8;
+        }
+
+        /* 1. Make PHP and English transparent and unclickable */
+        .disabled-text {
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            opacity: 0.6; 
+            pointer-events: none; 
+            cursor: default; 
+        }
+
+        /* =========================================
+           SOLID WHITE HEADER (Inner Pages)
+           ========================================= */
+        .hero-header {
+            width: 100%; 
+            background: white; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 35px;
+            z-index: 999;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-colored { display: block; height: 45px; width: auto; }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a.main-link {
+            text-decoration: none;
+            color: var(--ceb-blue);
+            font-weight: 700;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a.main-link:hover { color: #00a1e4; }
+
+        .header-action-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: var(--ceb-blue);
+            border: none;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 25px 0; 
+        }
+
+        .header-search-icon {
+            display: inline-block !important; 
+            opacity: 1 !important; 
+            color: #005eb8;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .header-search-icon:hover { color: #00a1e4; }
+
+        /* =========================================
+           MEGA MENUS
+           ========================================= */
+        .nav-item { position: static; padding: 25px 0; }
+        
+        .nav-item:hover .main-link { color: #00a1e4; }
+        
+        .mega-menu {
+            position: absolute;
+            top: 70px; 
+            left: 50%;              
+            transform: translateX(-50%); 
+            width: 950px;          
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px;
+            padding: 35px 50px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .mega-menu { opacity: 1; visibility: visible; }
+
+        .mega-top { display: flex; gap: 60px; margin-bottom: 25px; }
+
+        .mega-icon-link {
+            display: flex; flex-direction: column; align-items: center;
+            text-decoration: none; transition: all 0.2s ease;
+        }
+        
+        .mega-icon-link span { color: #005eb8 !important; font-weight: bold; font-size: 15px; margin-top: 12px; }
+        .mega-icon-link:hover span { color: #00a1e4 !important; }
+
+        .mega-icon {
+            background-color: transparent; 
+            display: flex; justify-content: center; align-items: center;
+            transition: transform 0.2s ease;
+        }
+        .mega-icon-link:hover .mega-icon { transform: scale(1.05); }
+
+        .custom-mega-img { width: 60px; height: auto; display: block; }
+        .mega-divider { border: 0; height: 1px; background: #e5e5e5; margin: 30px 0; }
+        .mega-heading { color: #555; font-size: 11px; margin-bottom: 20px; font-weight: bold; letter-spacing: 1px; }
+
+        .business-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: start; }
+        .business-item a { color: #00a1e4 !important; font-size: 14px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .business-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+        .business-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+
+        .manage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; align-items: start; }
+        .manage-item a { color: #00a1e4 !important; font-size: 14px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .manage-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+        .manage-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+        .manage-item p .inline-link { display: inline !important; font-weight: normal; font-size: 13px; margin-bottom: 0; color: #00a1e4; text-decoration: none; }
+
+        .travel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .travel-item a { color: #005eb8; font-size: 14px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .travel-item a:hover { color: #00a1e4; text-decoration: underline; }
+
+        .explore-top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .explore-heading { font-size: 16px; font-weight: 800; color: #005eb8; margin-bottom: 15px; display: block; text-decoration: none; }
+        .destination-cards { display: flex; gap: 15px; }
+        .dest-card { flex: 1; height: 100px; border-radius: 8px; background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 10px; text-decoration: none; color: white; font-weight: bold; font-size: 14px; transition: transform 0.2s; }
+        .dest-card:hover { transform: scale(1.05); }
+
+        .explore-bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .explore-item a { color: #005eb8; font-size: 15px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .explore-item a:hover { color: #00a1e4; text-decoration: underline; }
+        .explore-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+
+        .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .about-item a { color: #00a1e4 !important; font-size: 14px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 8px; }
+        .about-item a:hover { text-decoration: underline; color: #007bb5 !important; }
+        .about-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
+
+        /* Login Dropdown */
+        .login-dropdown-wrapper { position: relative !important; display: flex; align-items: center; height: 100%; }
+        .login-dropdown-wrapper:hover .login-btn { border-bottom: 3px solid #00c2ff; padding-bottom: 22px; }
+        .login-dropdown-wrapper:hover .login-mega-menu { opacity: 1; visibility: visible; }
+        
+        .login-mega-menu {
+            position: absolute; 
+            top: 100%; 
+            /* THE FIX: Remove centering and anchor it to the right */
+            left: auto !important; 
+            right: -45px !important; 
+            transform: none !important; 
+            width: 850px !important; /* Slightly narrower so it doesn't bump the left edge */
+            background: white; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            border-radius: 0 0 8px 8px; 
+            padding: 35px 50px;
+            z-index: 2000; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all 0.3s ease; 
+            margin-top: 0; 
+        }
+
+        .login-mega-top { display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding-bottom: 25px; width: 100%; }
+        .login-icons { display: flex; flex-direction: row; gap: 40px; }
+        .login-action-area { width: 260px; display: flex; flex-direction: column; align-items: center; }
+        .mega-login-btn { background-color: #0088CE; color: white; border: none; border-radius: 6px; padding: 14px 0; width: 100%; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 12px; transition: background 0.3s ease; }
+        .mega-login-btn:hover { background-color: #005eb8; }
+        .signup-prompt { font-size: 14px; color: #333; margin: 0; }
+        .signup-prompt a { color: #005eb8; font-weight: bold; text-decoration: none; }
+
+        /* =========================================
+           SEAT SALE PAGE STYLES
+           ========================================= */
+
+        /* Push the breadcrumbs down so the header doesn't cover them */
+        .breadcrumb-bar {
+            margin-top: 105px !important; 
+            padding: 10px 10%;
+            font-size: 12px;
+            color: #777;
+            background-color: transparent;
+            border-bottom: none;
+            margin-bottom: 0px; 
+        }
+
+        .breadcrumb-bar i {
+            font-size: 9px;
+            margin: 0 10px;
+            color: #999;
+        }
+
+        /* Updated Hero Banner */
+        .seat-sale-hero {
+            position: relative;
+            width: 100%;
+            height: 320px !important; 
+            /* Matches the island background */
+            background-image: url('images/Boracay_1_sabw7m.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center; 
+            justify-content: flex-start; 
+            padding-left: 10%; 
+            margin-top: 0; 
+            transition: background-image 0.8s ease-in-out; 
+            background-color: #00a4e4;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.15); 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: left;
+            color: white;
+            max-width: 650px; 
+        }
+
+        .hero-content h1 {
+            font-size: 38px; 
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 16px; 
+            font-weight: 500;
+            line-height: 1.4;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Slider Dots */
+        .hero-slider-dots {
+            position: absolute;
+            bottom: 25px; 
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .hero-slider-dots .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+        }
+
+        .hero-slider-dots .dot.active {
+            background-color: #0088CE; 
+        }
+
+        /* White Curved Bottom Effect */
+        .curve-bottom {
+            position: absolute;
+            bottom: -1px; 
+            left: 0;
+            width: 100%;
+            height: 40px; 
+            line-height: 0;
+            z-index: 5;
+        }
+
+        .curve-bottom svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Disclaimer Section */
+        .seat-sale-info-container {
+            max-width: 1050px; 
+            margin: 40px auto 30px auto;
+            text-align: left; 
+            padding: 0; 
+        }
+
+        .info-link-text {
+            font-size: 15px; 
+            color: #333;
+            margin-bottom: 12px; 
+        }
+
+        .info-link-text a {
+            color: #005eb8;
+            font-weight: bold;
+        }
+
+        .info-link-text a:hover {
+            text-decoration: underline;
+        }
+
+        .disclaimer-box {
+            background-color: #f4fbff; 
+            border: 1px solid #dceef9;
+            border-radius: 8px; 
+            padding: 20px 25px;
+            text-align: left;
+            color: #444;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-bottom: 60px; 
+        }
+
+        .disclaimer-box p {
+            margin: 0 0 15px 0;
+        }
+
+        .disclaimer-box p:last-child {
+            margin: 0;
+        }
+
+        /* The Search Filters Container */
+        .seat-sale-filters-container {
+            max-width: 1050px;
+            margin: 0 auto 50px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            background-color: white;
+            display: flex;
+            align-items: flex-end;
+            box-sizing: border-box; 
+            padding: 25px 30px;
+            gap: 20px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .custom-filter-icon {
+            width: 22px; 
+            height: 22px;
+            object-fit: contain; 
+            margin-right: 8px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .filter-group input {
+            border: 1px solid #ddd;
+            border-radius: 4px; 
+            padding: 14px 15px;
+            font-size: 15px;
+            outline: none;
+            color: #333;
+        }
+        .filter-group input::placeholder {
+            color: #bbb; 
+        }
+
+        .filter-group input:focus {
+            border-color: #0088CE;
+        }
+
+        .apply-filter-btn {
+            background: linear-gradient(to right, #009ceb, #0076cf); 
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 15px 0; 
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 200px; 
+            transition: background 0.2s;
+        }
+
+        .apply-filter-btn:hover {
+            background: linear-gradient(to right, #0076cf, #005eb8);
+        }
+
+        /* Hub Header & Deals List */
+        .deals-hub-section {
+            max-width: 1050px; 
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 80px;
+        }
+
+        .hub-header {
+            margin-bottom: 10px;
+        }
+
+        .hub-header h2 {
+            font-size: 18px; 
+            color: #333;
+            margin: 0 0 4px 0;
+            font-weight: 700; 
+        }
+
+        .hub-header p {
+            font-size: 14px;
+            color: #555;
+            margin: 0;
+        }
+
+        .deals-list-container {
+            background: white;
+            border-top: 6px solid #ffcc00;
+            border-left: 1px solid #e5e5e5; 
+            border-right: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .hub-deal-row {
+            padding: 18px 30px; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .hub-deal-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Columns */
+        .deal-route { flex: 1.2; }
+        .deal-price { flex: 1.1; }
+        .deal-dates { flex: 1; }
+        .deal-action { flex: 0.7; text-align: right; }
+
+        /* Text Styling Inside Rows */
+        .route-top, .price-top, .dates-top {
+            font-size: 11px; 
+            color: #777;
+            margin-bottom: 3px;
+        }
+
+        .route-top i {
+            color: #0088CE;
+            font-size: 13px;
+            margin-right: 5px;
+        }
+
+        .route-bottom {
+            font-size: 20px; 
+            font-weight: 700;
+            color: #222;
+        }
+
+        .price-bottom {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .price-bottom .price-amount {
+            font-size: 18px; 
+            font-weight: 700;
+            color: #0088CE;
+        }
+
+        .price-bottom .currency-symbol {
+            font-weight: 700;
+            color: #0088CE;
+            font-size: 14px;
+        }
+
+        .base-fare-tag {
+            background-color: #ffcc00;
+            color: #333;
+            font-size: 11px; 
+            font-weight: 900;
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+            font-style: italic; 
+        }
+
+        .dates-bottom {
+            font-size: 13px;
+            color: #555;
+        }
+
+        /* Book Now Button */
+        .hub-book-now-btn {
+            font-size: 14px; 
+            padding: 15px 50px; 
+            border-radius: 10px; 
+            border: 1px solid #0088CE;
+            background: transparent;
+            color: #0088CE;
+            font-weight: 700; 
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .hub-book-now-btn:hover {
+            background: #0088CE;
+            color: white;
+        }
+
+        /* =========================================
+           UPDATED FOOTER STYLES (Matches Image)
+           ========================================= */
+        .site-footer { 
+            background-color: #ffffff; 
+            padding: 60px 20px 40px 20px; 
+            border-top: 1px solid #eaeaea; 
+            width: 100%; 
+        }
+        
+        .footer-container { 
+            max-width: 1150px; 
+            margin: 0 auto; 
+            display: flex; 
+            gap: 60px; 
+            justify-content: space-between; 
+        }
+        
+        .footer-grid-left { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 40px; 
+            flex: 2.5; 
+        }
+        
+        .footer-col { display: flex; flex-direction: column; }
+        .footer-group { display: flex; flex-direction: column; }
+        
+        .footer-group h4, .footer-right-sidebar h4 { 
+            font-size: 14px; 
+            color: #000000; 
+            margin-bottom: 20px; 
+            font-weight: 900; 
+            letter-spacing: 0.5px; 
+            text-transform: uppercase; 
+        }
+        
+        .footer-group a { 
+            color: #00a4e4; /* The exact bright blue from the image */
+            text-decoration: none; 
+            font-size: 15px; 
+            margin-bottom: 16px; 
+            transition: color 0.2s; 
+        }
+        
+        .footer-group a:hover { 
+            text-decoration: underline; 
+            color: #007bb5; 
+        }
+        
+        /* Full width country selector box */
+        .country-box { 
+            display: flex; 
+            align-items: center; 
+            border: 1px solid #ccc; 
+            padding: 12px 15px; 
+            border-radius: 4px; 
+            font-size: 15px; 
+            color: #000; 
+            font-weight: 700; 
+            cursor: pointer; 
+            width: 100%; 
+            background: #fff; 
+            gap: 10px; 
+            box-sizing: border-box;
+        }
+        
+        .country-box i { font-size: 16px; }
+        
+        .footer-right-sidebar { 
+            flex: 1; 
+            min-width: 300px; 
+            border-left: 1px solid #e0e0e0; 
+            padding-left: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 30px; 
+        }
+        
+        .app-buttons { display: flex; gap: 12px; }
+        .app-buttons img { height: 40px; width: auto; }
+        
+        /* Payment Partners Exact Layout */
+        .payment-logos { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+        }
+        
+        .payment-row-1 { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+        }
+        
+        .payment-row-1 img { 
+            height: 45px; 
+            width: auto; 
+        }
+        
+        .payment-row-2 img { 
+            height: 30px; 
+            width: auto; 
+        }
+        
+        .accreditations { display: flex; align-items: center; gap: 15px; }
+        .accreditations img { height: 70px; width: auto; }
+        
+        .footer-bottom { 
+            background-color: var(--ceb-yellow); 
+            padding: 25px 20px; 
+            width: 100%; 
+        }
+        
+        .footer-bottom-container { 
+            max-width: 1150px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
+        
+        .footer-legal-links { display: flex; flex-wrap: wrap; gap: 30px; }
+        
+        .footer-legal-links a { 
+            color: var(--ceb-blue); 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 800; 
+        }
+        
+        .footer-legal-links a:hover { text-decoration: underline; }
+        
+        .copyright-text { 
+            font-size: 14px; 
+            color: var(--ceb-blue); 
+            font-weight: 800; 
+        }
+    </style>
+</head>
+<body class="promo-page-body">
+
+    <!-- ========================================== -->
+    <!-- TOP ADVISORY -->
+    <!-- ========================================== -->
+    <div class="top-advisory-bar">
+        <div class="header-content-wrapper">
+            <div class="advisory-left">
+                
+            </div>
+            <div class="advisory-right">
+                <span class="disabled-text"><i class="fa-solid fa-circle-dollar-to-slot" style="margin-right: 6px;"></i> PHP</span>
+                <span class="disabled-text"><i class="fa-solid fa-globe" style="margin-right: 6px;"></i> English</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN HEADER WITH MEGA MENUS -->
+    <!-- ========================================== -->
+    <header class="hero-header">
+        <div class="header-content-wrapper">
+            <a href="index.html">
+                <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific">
+            </a>
+            
+            <nav class="nav-links">
+                <!-- 1. BOOK -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Book</a>
+                    <div class="mega-menu">
+                        <div class="mega-top">
+                            <a href="#" class="mega-icon-link">
+                                <div class="mega-icon"><img src="images/flight-status-default.png" alt="Flights" class="custom-mega-img"></div>
+                                <span>Flights</span>
+                            </a>
+                            <a href="seatsale.html" class="mega-icon-link">
+                                <div class="mega-icon"><img src="images/your-seatsale-icon.webp" alt="Seat Sale" class="custom-mega-img"></div>
+                                <span>Seat Sale</span>
+                            </a>
+                            <a href="cebsuperpass.html" class="mega-icon-link">
+                                <div class="mega-icon"><img src="images/super-pass-default.png" alt="CEB Super Pass" class="custom-mega-img"></div>
+                                <span>CEB Super Pass</span>
+                            </a>
+                        </div>
+                        <hr class="mega-divider">
+                        <div class="mega-bottom">
+                            <h4 class="mega-heading">FOR BUSINESS</h4>
+                            <div class="business-grid">
+                                <div class="business-item">
+                                    <a href="partner-login.html">Partner Agents</a>
+                                    <p>Log in with your agent ID</p>
+                                </div>
+                                <div class="business-item">
+                                    <a href="cargo.html">Cargo</a>
+                                    <p>Know more about our fast and flexible air cargo service</p>
+                                </div>
+                                <div class="business-item">
+                                    <a href="Sales-&-Group-Bookings.html">Sales & Group Bookings</a>
+                                    <p>Be a partner and maximize your business' travel budget</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2. MANAGE -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Manage</a>
+                    <div class="mega-menu">
+                        <div class="mega-top">
+                            <a href="check-in.html" class="mega-icon-link">
+                                <div class="mega-icon"><img src="images/check-in-default1.png" alt="Check in" class="custom-mega-img"></div>
+                                <span>Check in</span>
+                            </a>
+                            <a href="manage-booking.html" class="mega-icon-link">
+                                <div class="mega-icon"><img src="images/manage-booking-default.png" alt="Manage Booking" class="custom-mega-img"></div>
+                                <span>Manage Booking</span>
+                            </a>
+                            <a href="flight-status.html" class="mega-icon-link">
+                                <div class="mega-icon"><img src="images/FlightStatusIcon.webp" alt="Flight Status" class="custom-mega-img"></div>
+                                <span>Flight Status</span>
+                            </a>
+                        </div>
+                        <hr class="mega-divider">
+                        <div class="mega-bottom">
+                            <div class="manage-grid">
+                                <div class="manage-item">
+                                    <a href="CEB-Add-ons.html"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
+                                    <p>Learn how to upgrade your trip with <a href="#" class="inline-link">baggage, meals, seats,</a> and other services</p>
+                                </div>
+                                <div class="manage-item">
+                                    <a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
+                                    <p>Request services for guests needing special assistance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3. TRAVEL INFO -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Travel Info</a>
+                    <div class="mega-menu">
+                        <h4 class="mega-heading">BEFORE THE FLIGHT</h4>
+                        <div class="travel-grid">
+                            <div class="travel-item"><a href="baggage_info.html"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
+                            <div class="travel-item"><a href="payment-options.html"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
+                            <div class="travel-item"><a href="Travel-Advisories.html"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
+                            <div class="travel-item"><a href="BookingCheckinandBoarding.html"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
+                            <div class="travel-item"><a href="TravelDocuments.html"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
+                            <div class="travel-item"><a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
+                        </div>
+                        <hr class="mega-divider">
+                        <h4 class="mega-heading">FLYING WITH US</h4>
+                        <div class="travel-grid">
+                            <div class="travel-item"><a href="FAQs.html"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
+                            <div class="travel-item"><a href="Service-Fees.html"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
+                            <div class="travel-item"><a href="CEB-Add-ons.html"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
+                            <div class="travel-item"><a href="flight-status.html"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                            <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 4. EXPLORE -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">Explore</a>
+                    <div class="mega-menu">
+                        <div class="explore-top-grid">
+                            <div class="explore-dest-col">
+                                <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
+                                <div class="destination-cards">
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/Boracay_1_sabw7m.jpg');"><span>Boracay</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/images (2).jpg');"><span>Siargao</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/cebu.jpg');"><span>Cebu</span></a>
+                                </div>
+                            </div>
+                            <div class="explore-dest-col">
+                                <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
+                                <div class="destination-cards">
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/dubai.jpg');"><span>Dubai</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/hongkong.jpg');"><span>Hong Kong</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/singapore.jpg');"><span>Singapore</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mega-divider">
+                        <div class="explore-bottom-grid">
+                            <div class="explore-item">
+                                <a href="DiscoverwithSmile.html"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
+                                <p>Simple tips to make you a better and smarter traveler</p>
+                            </div>
+                            <div class="explore-item">
+                                <a href="where-we-fly.html"><i class="fa-solid fa-map"></i> Where We Fly</a>
+                                <p>See our full list of destinations and choose where to go for your next trip</p>
+                            </div>
+                            <div class="explore-item">
+                                <a href="CityGuides.html"><i class="fa-solid fa-location-dot"></i> City Guides</a>
+                                <p>Know the basics and discover hidden gems in your next destination</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 5. ABOUT -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link main-link">About</a>
+                    <div class="mega-menu">
+                        <div class="about-grid">
+                            <div class="about-item">
+                                <a href="our-story.html">Our Story</a>
+                                <p>See how we made moments happen for everyjuan from 1996 up to present</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="media-center.html">Media Center</a>
+                                <p>Be updated on the latest airline news through our press releases and media galleries</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="Talk-to-Us.html">Talk to Us</a>
+                                <p>Get answers to your questions or send feedback</a> to our customer support team</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="Campaigns-&-Partners.html">Campaigns & Partners</a>
+                                <p>Read up on our campaigns and partnership initiatives</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="corporate-information.html">Company Information</a>
+                                <p>Read more information about Cebu Pacific for shareholders, potential investors, and financial analysts</p>
+                            </div>
+                            <div class="about-item">
+                                <a href="careers.html">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+                
+                <div class="header-right">
+                    <div class="login-dropdown-wrapper">
+                        <button class="login-btn">
+                            <i class="fa-solid fa-circle-user" style="font-size: 18px; margin-right: 5px;"></i>
+                            Log in
+                        </button>
+                        <div class="mega-menu login-mega-menu">
+                            <div class="login-mega-top">
+                                <div class="login-icons">
+                                    <a href="manage-booking.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                                        <span>My Bookings</span>
+                                    </a>
+                                    <a href="coming-soon.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                                        <span>Wallet</span>
+                                    </a>
+                                    <a href="coming-soon.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                                        <span>Guests</span>
+                                    </a>
+                                    <a href="coming-soon.html" class="mega-icon-link">
+                                        <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                                        <span>Inbox</span>
+                                    </a>
+                                </div>
+                                <div class="login-action-area">
+                                <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
+                                <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
+                               </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                <a href="#" class="header-search-icon">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- BREADCRUMBS -->
+    <!-- ========================================== -->
+    <div class="breadcrumb-bar">
+        <span>Home</span> 
+        <i class="fa-solid fa-chevron-right"></i> 
+        <span>Seat Sale</span>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SEAT SALE HERO BANNER -->
+    <!-- ========================================== -->
+    <div class="seat-sale-hero">
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1>Seat Sale</h1>
+            <p>Check out the latest seat sales today so you can fly to your favorite destinations for less!</p>
+        </div>
+
+        <!-- The White Bottom Curve -->
+        <div class="curve-bottom">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path fill="#ffffff" d="M0,0 Q720,100 1440,0 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SEAT SALE INFO & DISCLAIMER -->
+    <!-- ========================================== -->
+    <div class="seat-sale-info-container">
+        <p class="info-link-text">
+            For other ongoing seat sales to the Philippines, number of seats offered, and seat sale FAQs, you may check out this page</a>
+        </p>
+        
+        <div class="disclaimer-box">
+            <p>Quoted <strong>DOMESTIC one way base fares</strong> are inclusive of 7 kg hand carry baggage allowance, but exclusive of Web Admin Fee, 12% VAT, Terminal Fees and Fuel Surcharge.</p>
+            <p>Quoted <strong>INTERNATIONAL one way fares</strong> are inclusive of 7 kg hand carry baggage allowance, but exclusive of Web Admin Fees for short haul and long haul flights, respectively and Php550 International Terminal Fee and Fuel Surcharge.</p>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SEAT SALE FILTERS -->
+    <!-- ========================================== -->
+    <div class="seat-sale-filters-container">
+        <div class="filter-group">
+            <label>
+                <img src="images/Flight from.webp" alt="Flying from" class="custom-filter-icon"> 
+                Flying from
+            </label>
+            <input type="text" placeholder="Select Origin">
+        </div>
+        <div class="filter-group">
+            <label>
+                <img src="images/Flight to.webp" alt="Flying to" class="custom-filter-icon"> 
+                Flying to
+            </label>
+            <input type="text" placeholder="Select Destination">
+        </div>
+        <button class="apply-filter-btn">Apply</button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- DOMESTIC SEAT SALE SECTION -->
+    <!-- ========================================== -->
+    <div class="deals-hub-section">
+        <div class="hub-header">
+            <h2>All DOM Long Selling PA Sale (2H)</h2>
+            <p>Sale Period: Jul 16 to Jul 31, 2026 or until seats last</p>
+        </div>
+
+        <div class="deals-list-container" id="domestic-deals-list">
+            <!-- Rows injected here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- INTERNATIONAL DEALS SECTION -->
+    <!-- ========================================== -->
+    <div class="deals-hub-section" style="margin-top: 60px;">
+        <div class="hub-header">
+            <h2>All INT Long Selling PA Sale</h2>
+            <p>Sale Period: Jul 16 to Jul 31, 2026 or until seats last</p>
+        </div>
+
+        <div class="deals-list-container" id="international-deals-list">
+            <!-- Rows injected here by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- ========================================== -->
+    <!-- FOOTER -->
+    <!-- ========================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-grid-left">
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>BOOK</h4>
+                        <a href="#">Flights</a>
+                        <a href="seatsale.html">Seat Sale</a>
+                    </div>
+                    <div class="footer-group" style="margin-top: 60px;">
+                        <h4>ABOUT</h4>
+                        <a href="#">About</a>
+                        <a href="#">Our Story</a>
+                        <a href="#">Media Center</a>
+                        <a href="#">Talk to Us</a>
+                        <a href="#">Careers</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>MANAGE</h4>
+                        <a href="#">Check in</a>
+                        <a href="#">Manage Booking</a>
+                        <a href="#">Flight Status</a>
+                        <a href="#">Add-ons</a>
+                        <a href="#">Special Assistance</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>TRAVEL INFO</h4>
+                        <a href="#">Baggage Information</a>
+                        <a href="#">Payment Options</a>
+                        <a href="#">Travel Advisories</a>
+                        <a href="#">Booking & Check-in</a>
+                        <a href="#">Travel Documents</a>
+                        <a href="#">Service Fees</a>
+                    </div>
+                    <div class="footer-group" style="margin-top: 60px;">
+                        <h4>SELECT COUNTRY</h4>
+                        <div class="country-box">
+                            <i class="fa-solid fa-earth-asia"></i> Philippines
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-group">
+                        <h4>EXPLORE</h4>
+                        <a href="#">Explore</a>
+                        <a href="#">Philippine Destinations</a>
+                        <a href="#">International Destinations</a>
+                        <a href="#">Where We Fly</a>
+                        <a href="#">City Guides</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right-sidebar">
+                <div class="sidebar-group">
+                    <h4>DOWNLOAD THE CEBU PACIFIC APP</h4>
+                    <div class="app-buttons">
+                        <img src="images/AppStore-4800x1424.webp" alt="App Store">
+                        <img src="images/GooglePlay-4800x1416.webp" alt="Google Play">
+                    </div>
+                </div>
+
+                <div class="sidebar-group">
+                    <h4>PAYMENT PARTNERS</h4>
+                    <div class="payment-logos">
+                        <div class="payment-row-1">
+                            <img src="images/Visa-logo.webp" alt="Visa">
+                            <img src="images/Mastercard_logo-128x80.webp" alt="Mastercard">
+                        </div>
+                        <div class="payment-row-2">
+                            <img src="images/GCash-276x96.webp" alt="GCash">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-group">
+                    <h4>MEMBERSHIPS AND ACCREDITATIONS</h4>
+                    <div class="accreditations">
+                        <img src="images/CEB-7Star-Emblem.webp" alt="Seven Star Compliance">
+                        <img src="images/New_NPC_Logo.webp" alt="DPO/DPS Compliance">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <div class="footer-legal-links">
+                <a href="#">Privacy and Cookie Policy</a>
+                <a href="#">Website Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Site Map</a>
+            </div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT FOR FLIGHT DATA -->
+    <!-- ========================================== -->
+    <script>
+    const flights = [
+      { route: "Cebu to General Santos", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Cebu", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Cagayan de Oro", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Kalibo to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Kalibo", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Davao", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Pagadian", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Iloilo", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Puerto Princesa", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Boracay (Caticlan)", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Pagadian to Manila", price: "299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Bohol to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Butuan", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Coron (Busuanga)", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Butuan to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Butuan", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Zamboanga", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Zamboanga to Tawi-Tawi", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Tacloban to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Bohol", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Iloilo", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Roxas to Manila", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Roxas", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Bohol", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Puerto Princesa", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Dumaguete", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Iloilo", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Bacolod", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Tacloban", price: "399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Dumaguete", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Zamboanga to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Tuguegarao to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cauayan to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Dumaguete to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to General Santos", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Zamboanga", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Davao", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Butuan", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Bohol", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Dumaguete", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Masbate", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to General Santos", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Coron (Busuanga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Cauayan", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Tuguegarao", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "General Santos to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Puerto Princesa", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Legazpi (Daraga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Puerto Princesa", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cagayan de Oro to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Cagayan de Oro", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Tacloban", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Legazpi (Daraga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Cagayan de Oro", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Iloilo", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Tacloban", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Cagayan de Oro", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Legazpi (Daraga)", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to General Santos", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Tacloban", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Zamboanga", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Boracay (Caticlan)", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Boracay (Caticlan) to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Siargao", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Legazpi (Daraga) to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Puerto Princesa to Manila", price: "499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Calbayog", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Camiguin", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Surigao", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Cebu", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Bohol", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Ozamiz", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Ozamiz to Manila", price: "599", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Calbayog", price: "699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Bacolod", price: "699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Pagadian", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cauayan to Manila", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Cauayan", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Ozamiz", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Dipolog", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Coron (Busuanga)", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Siargao", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Zamboanga", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Laoag", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Laoag to Manila", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Dipolog", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Dipolog to Manila", price: "799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Puerto Princesa", price: "899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Boracay (Caticlan)", price: "999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Davao", price: "999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to San Jose (Mindoro)", price: "1099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Boracay (Caticlan)", price: "1099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Virac", price: "1199", period: "1 Jul- 30 Nov 2026" },
+      { route: "Virac to Manila", price: "1199", period: "1 Jul- 30 Nov 2026" },
+      { route: "El Nido to Coron (Busuanga)", price: "1799", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Masbate", price: "1899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Naga", price: "1899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Siargao", price: "2099", period: "1 Jul- 30 Nov 2026" },
+      { route: "El Nido to Boracay (Caticlan)", price: "2199", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to El Nido", price: "2199", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to El Nido", price: "2899", period: "1 Jul- 30 Nov 2026" },
+      { route: "El Nido to Bohol", price: "2899", period: "1 Jul- 30 Nov 2026" }
+    ];
+
+    const container = document.getElementById('domestic-deals-list');
+
+    flights.forEach(flight => {
+        const [origin, destination] = flight.route.split(' to ');
+        container.innerHTML += `
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> ${origin} to</div>
+                    <div class="route-bottom">${destination}</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">${flight.price}</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">${flight.period}</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+        `;
+    });
+
+    const internationalFlights = [
+      { route: "Manila to Ho Chi Minh (Saigon)", price: "1099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Kaohsiung", price: "1099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Taipei", price: "1099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Macau", price: "1099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to HongKong", price: "1399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to HongKong", price: "1399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Osaka (Kansai)", price: "1499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to Bangkok (Don Mueang)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Bangkok (Don Mueang)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Bangkok (Don Mueang)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Bangkok (Suvarnabhumi)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Bangkok (Suvarnabhumi)", price: "1699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Bali (Denpasar)", price: "1899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Bangkok (Don Mueang)", price: "1899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Bandar Seri Begawan (Brunei)", price: "1999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Jakarta", price: "2099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Tokyo (Narita)", price: "2099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to HongKong", price: "2099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Fukuoka", price: "2199", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Hanoi", price: "2299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Da Nang", price: "2399", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Tokyo (Narita)", price: "2699", period: "1 Jul- 30 Nov 2026" },
+      { route: "Iloilo to Singapore", price: "2759", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Nagoya", price: "2899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to HongKong", price: "2999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Tokyo (Narita)", price: "3099", period: "1 Jul- 30 Nov 2026" },
+      { route: "Clark to Singapore", price: "3289", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Guangzhou (Canton)", price: "3499", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Singapore", price: "3809", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Singapore", price: "3889", period: "1 Jul- 30 Nov 2026" },
+      { route: "Davao to HongKong", price: "3899", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Osaka (Kansai)", price: "3999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Dubai", price: "3999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Kuala Lumpur", price: "4009", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Shanghai", price: "4299", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Seoul (Incheon)", price: "4472", period: "1 Jul- 30 Nov 2026" },
+      { route: "Cebu to Seoul (Incheon)", price: "4552", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Riyadh", price: "4999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Sapporo (New Chitose)", price: "5999", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Melbourne", price: "9089", period: "1 Jul- 30 Nov 2026" },
+      { route: "Manila to Sydney", price: "9099", period: "1 Jul- 30 Nov 2026" }
+    ];
+
+    const intContainer = document.getElementById('international-deals-list');
+
+    internationalFlights.forEach(flight => {
+        const [origin, destination] = flight.route.split(' to ');
+        intContainer.innerHTML += `
+            <div class="hub-deal-row">
+                <div class="deal-route">
+                    <div class="route-top"><i class="fa-solid fa-plane"></i> ${origin} to</div>
+                    <div class="route-bottom">${destination}</div>
+                </div>
+                <div class="deal-price">
+                    <div class="price-top">For as low as</div>
+                    <div class="price-bottom">
+                        <span class="currency-symbol">₱</span><span class="price-amount">${flight.price}</span> 
+                        <span class="base-fare-tag">BASE FARE</span>
+                    </div>
+                </div>
+                <div class="deal-dates">
+                    <div class="dates-top">Travel Period:</div>
+                    <div class="dates-bottom">${flight.period}</div>
+                </div>
+                <div class="deal-action">
+                    <button class="hub-book-now-btn">BOOK NOW</button>
+                </div>
+            </div>
+        `;
+    });
+    </script>
+</body>
+</html>

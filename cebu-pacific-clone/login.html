@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cebu Pacific</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           GLOBAL RESET
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* =========================================
+           FULL-HEIGHT COLUMN LOGIN PAGE
+           ========================================= */
+        .login-page-body {
+            /* Adjust the background image here */
+            background-image: url('images/siargao.webp'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            
+            display: flex;
+            justify-content: center; /* Keeps the column in the center of the screen */
+            align-items: stretch; /* Stretches the column from top to bottom */
+            min-height: 100vh;
+            margin: 0;
+            padding: 0; 
+        }
+
+        /* The Main White Column */
+        .login-center-column {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px; /* Exact width from the screenshot */
+            border-radius: 0; /* Square edges for full height */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header (Logo Area) */
+        .login-column-header {
+            text-align: center;
+            padding: 30px 20px 25px 20px;
+            border-bottom: 1px solid #ebebeb; /* Subtle line under logo */
+            margin-bottom: 30px;
+        }
+
+        .login-column-header a {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-logo {
+            width: 160px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Body (Form Area) */
+        .login-column-body {
+            padding: 0 40px;
+            flex-grow: 1; /* Pushes any footer to the bottom */
+        }
+
+        /* Buttons & Inputs */
+        .sso-btn {
+            width: 100%;
+            background: white;
+            border: 1px solid #b3d4ec;
+            color: #0088CE;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .sso-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .sso-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Specific style for Go Rewards button */
+        .btn-go-rewards {
+            background-color: #ccc; /* Grey background */
+            border: none;
+            color: #666;
+            text-decoration: underline;
+        }
+        .btn-go-rewards:hover {
+            background-color: #c0c0c0;
+        }
+
+        .login-divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .login-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .login-divider span {
+            background: white;
+            padding: 0 10px;
+            color: #999;
+            font-size: 11px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .login-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .login-input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #777;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-input-group input:focus {
+            border-color: #0088CE;
+        }
+
+        .login-input-group input.error-active {
+            border-color: #e53935;
+        }
+
+        .error-message {
+            color: #e53935;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none; /* Hidden by default, toggled with JS */
+            align-items: center;
+            gap: 6px;
+        }
+
+        .next-btn, .action-btn {
+            width: 100%;
+            background: #007bc7; /* Slightly darker blue */
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .next-btn:hover, .action-btn:hover {
+            background: #006eb3;
+        }
+
+        /* Sign Up Link Restored */
+        .login-column-footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-column-footer a {
+            color: #0088CE;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .login-column-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           MULTI-STEP LOGIN FLOW STYLES
+           ========================================= */
+        .auth-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .auth-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .user-badge {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .step-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .step-desc {
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .large-icon-circle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 1px solid #c2e2f4;
+            background-color: #f2f9fd;
+            color: #0088CE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin: 0 auto 20px auto;
+        }
+        .flex-col { flex-direction: column; }
+
+        .method-option {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+        .method-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f2f9fd;
+            color: #0088CE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .method-name {
+            flex-grow: 1;
+            font-weight: 700;
+            font-size: 15px;
+            color: #333;
+        }
+        .select-btn {
+            background: transparent;
+            border: 1px solid #0088CE;
+            color: #0088CE;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .select-btn:hover { background: #f2f9fd; }
+
+        .alt-action-link {
+            display: block;
+            text-align: center;
+            color: #0088CE;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .step-links-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .back-link {
+            color: #666;
+            text-decoration: underline;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input { width: 100%; }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            color: #999;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body class="login-page-body">
+
+    <div class="login-center-column">
+        
+        <!-- Top Logo Header -->
+        <div class="login-column-header">
+            <a href="index.html">
+                <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" class="login-logo">
+            </a>
+        </div>
+        
+        <!-- Main Form Area -->
+        <div class="login-column-body">
+            
+            <!-- ========================================== -->
+            <!-- STEP 1: INITIAL LOGIN SCREEN -->
+            <!-- ========================================== -->
+            <div id="step-1-initial" class="auth-step active">
+                <h3 class="step-title">Sign in with your MyCebuPacific account</h3>
+                
+                <button type="button" class="sso-btn btn-go-rewards">
+                    <i class="fa-solid fa-heart" style="color: #fff; margin-right: 5px;"></i>
+                    Sign in with Go Rewards
+                </button>
+                <button type="button" class="sso-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                    Sign in with Google
+                </button>
+                <button type="button" class="sso-btn">
+                    <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 18px;"></i>
+                    Sign in with Facebook
+                </button>
+
+                <div class="login-divider"><span>OR</span></div>
+
+                <form id="initialLoginForm" novalidate>
+                    <div class="login-input-group">
+                        <label for="emailInput">Email Address</label>
+                        <input type="email" id="emailInput">
+                        
+                        <!-- Red Error Message -->
+                        <div class="error-message" id="emailError">
+                            <i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank
+                        </div>
+                    </div>
+                    <button type="submit" class="next-btn">Next</button>
+                </form>
+
+                <!-- RESTORED SIGN UP LINK -->
+                <div class="login-column-footer">
+                    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 2: CHOOSE SECURITY METHOD -->
+            <!-- ========================================== -->
+            <div id="step-2-method" class="auth-step">
+                <h3 class="step-title" style="font-size: 18px;">Verify it's you</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <p class="step-subtitle">Select from the following options</p>
+                
+                <div class="method-option">
+                    <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="method-name">Email</div>
+                    <button type="button" class="select-btn nav-btn" data-target="step-3-email-send">Select</button>
+                </div>
+                
+                <div class="method-option" style="border-bottom: 1px solid #e0e0e0;">
+                    <div class="method-icon flex-col">
+                        <i class="fa-solid fa-lock" style="font-size: 13px; margin-bottom: 4px;"></i>
+                        <span style="font-size: 16px; line-height: 0.5;">****</span>
+                    </div>
+                    <div class="method-name">Password</div>
+                    <button type="button" class="select-btn nav-btn" data-target="step-password">Select</button>
+                </div>
+                
+                <div class="step-links-bottom">
+                    <a class="back-link nav-btn" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 3: EMAIL - SEND LINK -->
+            <!-- ========================================== -->
+            <div id="step-3-email-send" class="auth-step">
+                <div class="large-icon-circle"><i class="fa-solid fa-envelope"></i></div>
+                <h3 class="step-title" style="font-size: 18px;">Get a verification email</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <p class="step-desc">Send a verification email by clicking on "Send me an email".</p>
+                
+                <button type="button" class="next-btn action-btn nav-btn" data-target="step-4-email-sent">Send me an email</button>
+                
+                <div class="step-links-bottom">
+                    <a class="back-link nav-btn" data-target="step-2-method">Verify with something else</a>
+                    <a class="back-link nav-btn" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 4: EMAIL - SENT -->
+            <!-- ========================================== -->
+            <div id="step-4-email-sent" class="auth-step">
+                <div class="large-icon-circle"><i class="fa-solid fa-envelope"></i></div>
+                <h3 class="step-title" style="font-size: 18px;">Verify with your email</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+                
+                <p class="step-desc">We sent you a verification email. Click the verification link in your email to continue or enter the code below.</p>
+                
+                <a href="#" class="alt-action-link nav-btn" data-target="step-5-email-code">Enter a verification code instead</a>
+                
+                <div class="step-links-bottom" style="margin-top: 40px;">
+                    <a class="back-link nav-btn" data-target="step-2-method">Verify with something else</a>
+                    <a class="back-link nav-btn" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 5: EMAIL - ENTER CODE FORM -->
+            <!-- ========================================== -->
+            <div id="step-5-email-code" class="auth-step">
+                <div class="large-icon-circle"><i class="fa-solid fa-envelope"></i></div>
+                <h3 class="step-title" style="font-size: 18px;">Verify with your email</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+
+                <form id="verifyCodeForm" novalidate>
+                    <div class="login-input-group">
+                        <label>Enter Code</label>
+                        <input type="text" id="verificationCode" required>
+                        <div class="error-message" id="codeError">
+                            <i class="fa-solid fa-circle-exclamation"></i> Invalid code. Try again.
+                        </div>
+                    </div>
+                    <button type="submit" class="next-btn">Verify</button>
+                </form>
+
+                <div class="step-links-bottom">
+                    <a class="back-link nav-btn" data-target="step-2-method">Verify with something else</a>
+                    <a class="back-link nav-btn" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 6: PASSWORD LOGIN -->
+            <!-- ========================================== -->
+            <div id="step-password" class="auth-step">
+                <div class="large-icon-circle flex-col">
+                    <i class="fa-solid fa-lock" style="font-size: 20px; margin-bottom: 5px;"></i>
+                    <span style="font-size: 24px; line-height: 0.5;">****</span>
+                </div>
+                <h3 class="step-title" style="font-size: 18px;">Verify with your password</h3>
+                <div class="user-badge"><i class="fa-regular fa-circle-user"></i> <span class="display-email"></span></div>
+
+                <form id="verifyPasswordForm" novalidate>
+                    <div class="login-input-group">
+                        <label>Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="loginPassword" required>
+                            <i class="fa-solid fa-eye toggle-password" id="togglePasswordBtn"></i>
+                        </div>
+                        <div class="error-message" id="passwordError">
+                            <i class="fa-solid fa-circle-exclamation"></i> Invalid password.
+                        </div>
+                    </div>
+                    <button type="submit" class="next-btn">Verify</button>
+                </form>
+
+                <div class="step-links-bottom">
+                    <a class="back-link">Forgot password?</a>
+                    <a class="back-link nav-btn" data-target="step-2-method">Verify with something else</a>
+                    <a class="back-link nav-btn" data-target="step-1-initial">Back to sign in</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let userEmail = "";
+
+            // --- Function to transition between steps ---
+            function goToStep(targetId) {
+                // Hide all steps
+                document.querySelectorAll('.auth-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                
+                // Show requested step
+                const targetStep = document.getElementById(targetId);
+                if(targetStep) {
+                    targetStep.classList.add('active');
+                }
+            }
+
+            // --- Navigation Button Listeners ---
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = btn.getAttribute('data-target');
+                    if(targetId) goToStep(targetId);
+                });
+            });
+
+            // --- Step 1: Submit Email (with Blank Validation) ---
+            document.getElementById('initialLoginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('emailInput');
+                const errorMsg = document.getElementById('emailError');
+
+                if (emailInput.value.trim() === "") {
+                    // Show error if blank
+                    emailInput.classList.add('error-active');
+                    errorMsg.style.display = 'flex';
+                } else {
+                    // Proceed if valid
+                    emailInput.classList.remove('error-active');
+                    errorMsg.style.display = 'none';
+                    userEmail = emailInput.value;
+                    
+                    document.querySelectorAll('.display-email').forEach(el => {
+                        el.textContent = userEmail;
+                    });
+                    goToStep('step-2-method');
+                }
+            });
+
+            // Clear email error when user starts typing
+            document.getElementById('emailInput').addEventListener('input', function() {
+                this.classList.remove('error-active');
+                document.getElementById('emailError').style.display = 'none';
+            });
+
+            // --- Step 5: Verify Code Form ---
+            document.getElementById('verifyCodeForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const codeInput = document.getElementById('verificationCode');
+                const errorMsg = document.getElementById('codeError');
+
+                if (codeInput.value.trim() === "") {
+                    codeInput.classList.add('error-active');
+                    errorMsg.style.display = 'flex';
+                } else {
+                    // Dummy success
+                    window.location.href = "index.html"; 
+                }
+            });
+
+            // --- Step 6: Verify Password Form ---
+            document.getElementById('verifyPasswordForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const passInput = document.getElementById('loginPassword');
+                const errorMsg = document.getElementById('passwordError');
+
+                if (passInput.value.trim() === "") {
+                    passInput.classList.add('error-active');
+                    errorMsg.style.display = 'flex';
+                    errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> This field cannot be left blank';
+                } else {
+                    // Redirect to home page on success
+                    window.location.href = "index.html"; 
+                }
+            });
+
+            // --- Toggle Password Visibility ---
+            const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+            const passwordInput = document.getElementById('loginPassword');
+            
+            togglePasswordBtn.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                togglePasswordBtn.classList.toggle('fa-eye');
+                togglePasswordBtn.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+</body>
+</html>

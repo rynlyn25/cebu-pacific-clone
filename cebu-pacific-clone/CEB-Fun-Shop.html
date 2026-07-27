@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information - CEB Shop</title>
+    <style>
+        /* General Reset and Styling */
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-header {
+            background-color: #ffd200;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 100%;
+        }
+
+        /* Top Souvenir Banner Section */
+        .baggage-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 40px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .baggage-img-container {
+            width: 48%;
+            flex-shrink: 0;
+        }
+
+        .baggage-img-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .baggage-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .baggage-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .baggage-info p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Merchandise Items Section */
+        .merchandise-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .items-grid {
+            display: flex;
+            gap: 30px;
+        }
+
+        .item-card {
+            width: 180px;
+        }
+
+        .item-card h4 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin: 0 0 10px 0;
+        }
+
+        .item-img-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .item-img-box img {
+            max-width: 100%;
+            height: 110px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .item-price {
+            font-size: 12px;
+            color: #333333;
+            margin: 0;
+        }
+
+        /* Accordion Section */
+        .accordion-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .accordion-item.with-divider {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-item .arrow-down {
+            color: #0073ba;
+            font-size: 14px;
+        }
+
+        /* Accordion Content Styles */
+        .accordion-content {
+            padding: 0 24px 20px 24px;
+            display: none;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .menu-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .terms-content-box h4 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .terms-content-box ol {
+            margin: 0 0 15px 0;
+            padding-left: 20px;
+        }
+
+        .terms-content-box li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>CEB Fun Shop</h1>
+    </header>
+
+    <!-- Main Container Grid -->
+    <div class="container">
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Top Feature: CEB Souvenir Banner -->
+            <div class="baggage-banner">
+                <div class="baggage-img-container">
+                    <img src="images/CEBFS.png" alt="CEB Souvenirs">
+                </div>
+                <div class="baggage-info">
+                    <h3>Grab a limited edition CEB souvenir!</h3>
+                    <p>Make your trip even more memorable by taking these collectibles home!</p>
+                </div>
+            </div>
+
+            <!-- Merchandise Items Section -->
+            <div class="merchandise-section">
+                <div class="section-title">Merchandise Items</div>
+                <div class="items-grid">
+
+                    <!-- Fun Blanket -->
+                    <div class="item-card">
+                        <h4>Fun Blanket</h4>
+                        <div class="item-img-box">
+                            <img src="images/CEBFS-1.jpg" alt="Fun Blanket">
+                        </div>
+                        <p class="item-price">PHP 400.00</p>
+                    </div>
+
+                    <!-- Personal Hygiene Kit -->
+                    <div class="item-card">
+                        <h4>Personal Hygiene Kit</h4>
+                        <div class="item-img-box">
+                            <img src="images/CEBFS-2.jpg" alt="Personal Hygiene Kit">
+                        </div>
+                        <p class="item-price">PHP 100.00</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Accordion Section -->
+            <div class="accordion-card">
+                <div class="accordion-item" onclick="toggleAccordion('menu-content', this)">
+                    <span>Menu</span>
+                    <span class="arrow-down" id="arrow-1">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="menu-content">
+                    <div class="menu-image-container">
+                        <img src="images/CEBFS-3.jpg" alt="Merchandise Menu">
+                    </div>
+                </div>
+
+                <div class="accordion-item with-divider" onclick="toggleAccordion('terms-content', this)">
+                    <span>Terms & Conditions</span>
+                    <span class="arrow-down" id="arrow-2">&#9662;</span>
+                </div>
+                <div class="accordion-content" id="terms-content">
+                    <div class="terms-content-box">
+                        <h4>Pre-ordered Merchandise</h4>
+                        <ol>
+                            <li>Pre-ordered Merchandise may be availed through the Cebu Pacific website or sales
+                                offices.</li>
+                            <li>Pre-ordered Merchandise are available for flights departing 12 hours from time of
+                                booking.</li>
+                            <li>Pre-ordered Merchandise selections may be changed due to uncontrolled circumstances. In
+                                case the item is not available on the flight, guest shall be given an option to choose
+                                items of same value from the buy on board menu.</li>
+                            <li>If a passenger ordered a merchandise but is not loaded, then he may choose from the BOB
+                                trolleys at an equivalent value.</li>
+                        </ol>
+
+                        <h4>Buy on Board Merchandise</h4>
+                        <ol>
+                            <li>Buy on Board Merchandise products are available for inflight selling.</li>
+                            <li>Buy on Board Merchandise products may vary per flight.</li>
+                            <li>For inflight selling, cash and credit card transactions are accepted, but only a limited
+                                set of currencies are accepted. Accepted Currencies : AUD, CNY, HKD, JPY, KRW, SGD, THB,
+                                USD.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(contentId, headerElement) {
+            const content = document.getElementById(contentId);
+            const arrow = headerElement.querySelector('.arrow-down');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+            } else {
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
