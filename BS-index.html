@@ -803,6 +803,9 @@
             const summaryCardBody = document.getElementById('summaryCardBody');
             const summaryCardTotal = document.getElementById('summaryCardTotal');
 
+            // 1. Grab the dynamic passenger name from memory!
+            let passengerName = (booking && booking.guestName) ? booking.guestName : 'Guest';
+
             let flightTotal = 0;
             let flightRouteText = 'MNL &ndash; ILO via CGY';
             let flightDateText = '05 Aug 2026 &middot; 11:15 AM - 06:55 PM';
@@ -817,7 +820,8 @@
                         <div class="cart-flight-leg">
                             <div class="cart-flight-route">${booking.depart.routeLabel}</div>
                             <div class="cart-flight-date">${booking.depart.dateLabel}</div>
-                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
+                            <!-- Inject the dynamic name here instead of "Adult 1" -->
+                            <div class="cart-flight-row"><span>${passengerName}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
                         </div>`;
                 }
                 if (booking && booking.return) {
@@ -826,7 +830,8 @@
                         <div class="cart-flight-leg">
                             <div class="cart-flight-route">${booking.return.routeLabel}</div>
                             <div class="cart-flight-date">${booking.return.dateLabel}</div>
-                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
+                            <!-- Inject the dynamic name here instead of "Adult 1" -->
+                            <div class="cart-flight-row"><span>${passengerName}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
                         </div>`;
                 }
                 if (!booking || (!booking.depart && !booking.return)) {
@@ -856,7 +861,7 @@
                 }
             }
 
-            // Render main payment summary card body dynamically based on cart
+            // Render main payment summary card body dynamically
             if (summaryCardBody) {
                 let baseFlightCost = (booking && booking.depart) ? booking.depart.subtotal : 6400.88;
                 let travelInsuranceCost = (addons.travelsure !== undefined) ? addons.travelsure : 603.00;
@@ -888,7 +893,6 @@
                     `;
                 }
 
-                // Build user add-on sub-rows only if the user actually added them
                 let userAddonsHtml = '';
                 if (userAddonsExpanded) {
                     if (baggageCost > 0) {
@@ -943,7 +947,8 @@
                     </div>
 
                     <div class="row item-row" style="margin-bottom: ${userAddonsExpanded ? '12px' : '18px'};">
-                        <div class="item-name">louie laguidao</div>
+                        <!-- 2. Inject the dynamic name here instead of "louie laguidao" -->
+                        <div class="item-name">${passengerName}</div>
                         <div class="item-value" onclick="toggleUserAddonsDetails()" style="cursor: pointer;">
                             ${cebuFormatPHP(baseFlightCost + baggageCost + seatCost + mealsCost)} 
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: ${userAddonsExpanded ? 'rotate(180deg)' : 'rotate(0deg)'}; transition: transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>

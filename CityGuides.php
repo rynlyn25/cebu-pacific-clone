@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
  <head>
@@ -159,12 +165,11 @@
     <!-- ========================================== -->
     <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
                 <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
                 </a>
             </div>
         </div>
@@ -1545,25 +1550,25 @@
 
   <script>
    var allDestinations = [
-{ name: 'Boracay', img: 'boracay.png', fn: 'showBoracayPage' },
-{ name: 'Cebu', img: 'cebucity.jpg', fn: 'showCebuPage' },
-{ name: 'Palawan', img: 'palawan.jpg', fn: 'showPalawanPage' },
-{ name: 'Manila', img: 'manila.jpg', fn: 'showManilaPage' },
-{ name: 'Bacolod', img: 'bacolod.jpg', fn: 'showBacolodPage' },
-{ name: 'Davao', img: 'davao.jpg', fn: 'showDavaoPage' },
-{ name: 'Tokyo', img: 'tokyocity.jpg', fn: 'showTokyoPage' },
-{ name: 'Xiamen', img: 'xiamen.jpg', fn: 'showXiamenPage' },
-{ name: 'Bali', img: 'bali.jpg', fn: 'showBaliPage' },
-{ name: 'Bangkok', img: 'bangkokcity.jpg', fn: 'showBangkokPage' },
-{ name: 'Hong Kong', img: 'hongkong.jpg', fn: 'showHongKongPage' },
-{ name: 'Dubai', img: 'dubai.jpg', fn: 'showDubaiPage' },
-{ name: 'Kuala Lumpur', img: 'kualalumpur.jpg', fn: 'showKualaLumpurPage' },
-{ name: 'Shanghai', img: 'shanghai.jpg', fn: 'showShanghaiPage' },
-{ name: 'Seoul', img: 'seoul.jpg', fn: 'showSeoulPage' },
-{ name: 'Macau', img: 'macau.jpg', fn: 'showMacauPage' },
-{ name: 'Jakarta', img: 'jakarta.jpg', fn: 'showJakartaPage' },
-{ name: 'Taipei', img: 'taipei.jpg', fn: 'showTaipeiPage' },
-{ name: 'Singapore', img: 'singapore.jpg', fn: 'showSingaporePage' }
+{ name: 'Boracay', img: 'images/boracay.png', fn: 'showBoracayPage' },
+{ name: 'Cebu', img: 'images/cebucity.jpg', fn: 'showCebuPage' },
+{ name: 'Palawan', img: 'images/palawan.jpg', fn: 'showPalawanPage' },
+{ name: 'Manila', img: 'images/manila.jpg', fn: 'showManilaPage' },
+{ name: 'Bacolod', img: 'images/bacolod.jpg', fn: 'showBacolodPage' },
+{ name: 'Davao', img: 'images/davao.jpg', fn: 'showDavaoPage' },
+{ name: 'Tokyo', img: 'images/tokyocity.jpg', fn: 'showTokyoPage' },
+{ name: 'Xiamen', img: 'images/xiamen.jpg', fn: 'showXiamenPage' },
+{ name: 'Bali', img: 'images/bali.jpg', fn: 'showBaliPage' },
+{ name: 'Bangkok', img: 'images/bangkokcity.jpg', fn: 'showBangkokPage' },
+{ name: 'Hong Kong', img: 'images/hongkong.jpg', fn: 'showHongKongPage' },
+{ name: 'Dubai', img: 'images/dubai.jpg', fn: 'showDubaiPage' },
+{ name: 'Kuala Lumpur', img: 'images/kualalumpur.jpg', fn: 'showKualaLumpurPage' },
+{ name: 'Shanghai', img: 'images/shanghai.jpg', fn: 'showShanghaiPage' },
+{ name: 'Seoul', img: 'images/seoul.jpg', fn: 'showSeoulPage' },
+{ name: 'Macau', img: 'images/macau.jpg', fn: 'showMacauPage' },
+{ name: 'Jakarta', img: 'images/jakarta.jpg', fn: 'showJakartaPage' },
+{ name: 'Taipei', img: 'images/taipei.jpg', fn: 'showTaipeiPage' },
+{ name: 'Singapore', img: 'images/singapore.jpg', fn: 'showSingaporePage' }
 ];
 function showSuggestions() {
 var input = document.getElementById('citySearch');

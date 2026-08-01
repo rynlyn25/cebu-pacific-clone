@@ -724,7 +724,7 @@
     <!-- STICKY BRAND HEADER -->
     <div class="sticky-brand-header">
         <div class="sticky-brand-left">
-            <img src="AO-1.webp" alt="cebu pacific">
+            <img src="images/AO-1.webp" alt="cebu pacific">
         </div>
 
         <!-- OVERALL CART (inserted) -->
@@ -835,7 +835,7 @@
         </a>
         <div class="brand-tag"
             style="text-align: left; display: flex; align-items: center; gap: 12px; max-width: none;">
-            <img src="SSAO-3_2.webp" alt="ceb seat selector" style="height: 36px; object-fit: contain;">
+            <img src="images/SSAO-3_2.webp" alt="ceb seat selector" style="height: 36px; object-fit: contain;">
             <span style="font-size: 13px; color: #333;">Get ahead with our Premium Seat, which comes with extra legroom,
                 and priority boarding!</span>
         </div>
@@ -872,7 +872,7 @@
     </div>
 
     <div class="seat-banner">
-        <img src="SSAO-4.webp" alt="CEB Seat Selector Banner">
+        <img src="images/SSAO-4.webp" alt="CEB Seat Selector Banner">
     </div>
 
     <div class="content-wrap">
@@ -900,7 +900,7 @@
             <div class="panel">
                 <h3>Seat Summary</h3>
                 <div class="summary-guest">
-                    <span class="gname">Louie Capiil</span>
+                    <span id="dynamicGuestName">Guest</span>
                     <span class="summary-chip" id="summarySeatChip">Standard seat</span>
                 </div>
                 <p class="summary-empty">Guests will be assigned open seats by our marketing crew if no seat is
@@ -1264,6 +1264,20 @@
 
         cebuRenderCart();
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const booking = JSON.parse(localStorage.getItem('cebuBooking'));
+        const nameDisplay = document.getElementById('dynamicGuestName');
+        
+        if (booking && booking.guestName && nameDisplay) {
+            nameDisplay.innerText = booking.guestName;
+        }
+    } catch(e) {
+        console.error("Could not load guest name", e);
+    }
+});
+</script>
 </body>
 
 </html>

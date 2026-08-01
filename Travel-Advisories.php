@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,19 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Advisories</title>
     <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         /* =========================================
            TOP ADVISORY BAR & HEADER STYLES
            ========================================= */
         .top-advisory-bar {
-            width: 100%; 
+            width: 100%; /* Forces the blue bar to stretch full width */
             background-color: #00a4e4; 
             padding: 8px 0;
         }
@@ -30,22 +35,24 @@
         }
 
         .hero-header {
-            width: 100%; 
+            width: 100%; /* Forces the white navigation to stretch full width */
         }
-
-        /* THE FIX: Removed display:flex and align-items from the body */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: #fcfcfc;
             color: #333333;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Top Yellow Banner */
+        /* Top Yellow Banner matched exactly to the 100% zoom image */
         .header-banner {
             width: 100%;
             background-color: #FFD400;
             padding: 42px 0 50px 0;
+            /* Adjusted padding to match the exact height and vertical layout at 100% zoom */
             text-align: left;
             clip-path: ellipse(115% 100% at 50% 0%);
             display: flex;
@@ -55,10 +62,13 @@
         .header-banner-content {
             width: 100%;
             max-width: 720px;
+            /* Compromised to match the tighter body width constraint */
             padding: 0 24px;
+            /* Reduced from 45px to move the header text a little to the left */
             transition: max-width 0.3s ease;
         }
 
+        /* Large view header width adjustment - kept to the left instead of text-align: center */
         body.in-detail-view .header-banner-content {
             max-width: 1200px;
             text-align: left;
@@ -67,24 +77,27 @@
         .header-title {
             color: #0056B3;
             font-size: 38px;
+            /* Made the text even bigger as requested */
             font-weight: 750;
             letter-spacing: -0.2px;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             display: inline-block;
         }
 
-        /* THE FIX: Added margin: 0 auto to keep the list perfectly centered */
+        /* Main layout container compromised back to a narrower layout matching the image proportions */
         .content-container {
             width: 100%;
             max-width: 720px;
+            /* Reduced back from 1100px to match the tighter text wrapping of the layout image */
             padding: 0 20px;
-            margin: 35px auto 0 auto; 
+            margin-top: 35px;
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: max-width 0.3s ease;
         }
 
+        /* Adjust width of the container when viewing details to fit the wide design */
         body.in-detail-view .content-container {
             max-width: 1200px;
         }
@@ -93,6 +106,7 @@
         .year-filter {
             margin-bottom: 25px;
             font-size: 16px;
+            /* Slightly scaled up for 100% zoom */
             color: #003087;
             font-weight: bold;
             width: 100%;
@@ -108,17 +122,19 @@
             padding-bottom: 2px;
         }
 
-        /* Central Card Structure */
+        /* Central Card Structure matching 100% zoom second image */
         .advisory-card {
             width: 100%;
             background: #ffffff;
             border-radius: 12px;
+            /* Smoother corner radius */
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
             border: 1px solid #ededed;
             padding: 20px 45px 35px 45px;
             margin-bottom: 40px;
         }
 
+        /* Detail View Card styles (No background card styling when looking at the requested picture) */
         body.in-detail-view .advisory-card {
             background: transparent;
             box-shadow: none;
@@ -132,6 +148,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 24px 0;
+            /* Slightly more vertical breathing room */
             border-bottom: 1px solid #eef2f5;
             text-decoration: none;
             color: inherit;
@@ -145,24 +162,31 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            /* Aligned spacing between metadata date and title text */
         }
 
+        /* Scaled up text sizing to match 100% zoom view */
         .item-date {
             font-size: 12px;
             color: #7b8a97;
+            /* Neutral secondary gray */
             font-weight: 500;
         }
 
         .item-title {
             font-size: 24px;
+            /* Significantly increased to match the prominent title font in the second screenshot */
             color: #1a1a1a;
             font-weight: 400;
             line-height: 1.35;
         }
 
+        /* Right Arrow Icon */
         .arrow-icon {
             color: #0056B3;
+            /* Deep blue styling of the chevron arrow */
             font-size: 22px;
+            /* Scaled up to match 100% zoom image */
             font-weight: bold;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             padding-left: 20px;
@@ -222,6 +246,7 @@
             text-align: left;
         }
 
+        /* Typography sizing updated to be larger based on requests */
         .article-header h3 {
             font-size: 18px;
             font-weight: bold;
@@ -268,12 +293,14 @@
             text-decoration: underline;
         }
 
+        /* Styled unclickable span class to represent offline text paths without links */
         .plain-url-text {
             color: #0056B3;
             font-weight: bold;
             text-decoration: none;
         }
 
+        /* Custom styling for the data table match */
         .advisory-table {
             width: 100%;
             border-collapse: collapse;
@@ -309,150 +336,151 @@
             display: inline-flex;
             align-items: center;
         }
+    /* =========================================
+     FOOTER STYLES (Fixed Full-Width & Spacing)
+     ========================================= */
+  .site-footer {
+      background-color: #ffffff;
+      padding: 50px 20px;
+      border-top: 1px solid #eaeaea;
+      margin-top: 50px;
+      width: 100%; /* THE FIX: Forces the footer to stretch across the whole screen */
+  }
 
-        /* =========================================
-           FOOTER STYLES (Fixed Layout & Logos)
-           ========================================= */
-        .site-footer {
-            background-color: #ffffff;
-            padding: 50px 20px;
-            border-top: 1px solid #eaeaea;
-            margin-top: 50px;
-            width: 100%; 
-        }
+  .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+  }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            justify-content: space-between;
-        }
+  .footer-links-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      flex: 2;
+  }
 
-        .footer-links-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            flex: 2;
-        }
+  .footer-links-grid .col {
+      flex: 1;
+      min-width: 120px; 
+      display: flex;
+      flex-direction: column;
+  }
 
-        .footer-links-grid .col {
-            flex: 1;
-            min-width: 120px; 
-            display: flex;
-            flex-direction: column;
-        }
+  .footer-links-grid h4, .footer-right-sidebar h4 {
+      font-size: 13px;
+      color: #111111; 
+      margin-bottom: 15px;
+      font-weight: 800;
+  }
 
-        .footer-links-grid h4, .footer-right-sidebar h4 {
-            font-size: 13px;
-            color: #111111; 
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
+  .footer-links-grid a {
+      color: #009cdb; 
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+  }
 
-        .footer-links-grid a {
-            color: #009cdb; 
-            text-decoration: none;
-            font-size: 14px;
-            margin-bottom: 12px;
-            transition: color 0.2s;
-        }
+  .footer-links-grid a:hover {
+      text-decoration: underline;
+  }
 
-        .footer-links-grid a:hover {
-            text-decoration: underline;
-        }
+  .footer-right-sidebar {
+      flex: 1;
+      min-width: 280px;
+      border-left: 1px solid #dcdcdc; 
+      padding-left: 35px;
+  }
 
-        .footer-right-sidebar {
-            flex: 1;
-            min-width: 280px;
-            border-left: 1px solid #dcdcdc; 
-            padding-left: 35px;
-        }
+  .app-buttons img {
+      height: 38px;
+      width: auto;
+      margin-right: 10px;
+      margin-bottom: 10px;
+  }
 
-        .app-buttons img {
-            height: 38px;
-            width: auto;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
+  .payment-grid img {
+      height: 30px; 
+      width: auto;
+      margin-right: 15px;
+      margin-bottom: 15px;
+      vertical-align: middle;
+  }
 
-        .payment-grid img {
-            height: 30px; 
-            width: auto;
-            margin-right: 15px;
-            margin-bottom: 15px;
-            vertical-align: middle;
-        }
+  .accreditations img {
+      height: 60px;
+      width: auto;
+      margin-right: 15px;
+  }
 
-        .accreditations img {
-            height: 60px;
-            width: auto;
-            margin-right: 15px;
-        }
+  .country-selector {
+      flex-basis: 100%;
+      margin-top: 15px;
+  }
 
-        .country-selector {
-            flex-basis: 100%;
-            margin-top: 15px;
-        }
+  .country-box {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #111;
+      font-weight: 600;
+      cursor: pointer;
+      width: fit-content; 
+  }
+  
+  .country-box i {
+      margin-right: 8px;
+      color: #111;
+  }
 
-        .country-box {
-            display: inline-flex;
-            align-items: center;
-            border: 1px solid #ccc;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #111;
-            font-weight: 600;
-            cursor: pointer;
-            width: fit-content; 
-        }
-        
-        .country-box i {
-            margin-right: 8px;
-            color: #111;
-        }
+  /* BOTTOM YELLOW BAR */
+  .footer-bottom {
+      background-color: #ffcc00; 
+      padding: 20px;
+      width: 100%; /* THE FIX: Forces the yellow bar to stretch across the whole screen */
+  }
 
-        /* BOTTOM YELLOW BAR */
-        .footer-bottom {
-            background-color: #ffcc00; 
-            padding: 20px;
-            width: 100%; 
-        }
+  .footer-bottom-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+  }
 
-        .footer-bottom-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+  /* THE FIX: Spacing out the links in the yellow bar */
+  .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px; 
+  }
 
-        .footer-legal-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px; 
-        }
+  .footer-legal-links a {
+      color: #0054A6; 
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+  }
+  
+  .footer-legal-links a:hover {
+      text-decoration: underline;
+  }
 
-        .footer-legal-links a {
-            color: #0054A6; 
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-        }
-        
-        .footer-legal-links a:hover {
-            text-decoration: underline;
-        }
-
-        .copyright-text {
-            font-size: 14px;
-            color: #0054A6; 
-            font-weight: 700;
-        }
+  .copyright-text {
+      font-size: 14px;
+      color: #0054A6; 
+      font-weight: 700;
+  }
+  
     </style>
 </head>
 
@@ -478,13 +506,12 @@
     <!-- ========================================== -->
     <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <!-- Ensure this image path matches where your logo is saved -->
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
                 <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
                 </a>
             </div>
         </div>
@@ -513,7 +540,7 @@
                 <!-- Row 1 (Triggers the airswift detail page) -->
                 <a href="#" id="airswift-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">July 13, 2026</span>
+                        <span class="item-date">July 15, 2026</span>
                         <span class="item-title">Integration of AirSWIFT into Cebgo Operations</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -540,7 +567,7 @@
                 <!-- Row 4 (Triggers the earthquake detail page) -->
                 <a href="#" id="earthquake-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">June 08, 2026</span>
+                        <span class="item-date">June 11, 2026</span>
                         <span class="item-title">Cancelled Flights Due to Mindanao Earthquake</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -549,7 +576,7 @@
                 <!-- Row 5 (Triggers the Dubai detail page) -->
                 <a href="#" id="dubai-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">May 11, 2026</span>
+                        <span class="item-date">May 19, 2026</span>
                         <span class="item-title">Resumption of Dubai Operations</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -558,7 +585,7 @@
                 <!-- Row 6 (Triggers the Jet Fuel detail page) -->
                 <a href="#" id="fuel-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">March 28, 2026</span>
+                        <span class="item-date">March 29, 2026</span>
                         <span class="item-title">Jet Fuel Supply Update</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -567,7 +594,7 @@
                 <!-- Row 7 (Triggers the Holy Week Reminders detail page) -->
                 <a href="#" id="holyweek-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">March 23, 2026</span>
+                        <span class="item-date">March 26, 2026</span>
                         <span class="item-title">Peak Travel Reminders for Holy Week</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -576,7 +603,7 @@
                 <!-- Row 8 (Triggers the Network Adjustments detail page) -->
                 <a href="#" id="network-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">March 11, 2026</span>
+                        <span class="item-date">March 23, 2026</span>
                         <span class="item-title">Network Adjustments Due to Middle East Crisis</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -585,7 +612,7 @@
                 <!-- Row 9 (Triggers the Middle East Security Situation detail page) -->
                 <a href="#" id="security-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">February 24, 2026</span>
+                        <span class="item-date">April 23, 2026</span>
                         <span class="item-title">Cancelled Flights Due to Security Situation in the Middle East</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -594,7 +621,7 @@
                 <!-- Row 10 (Triggers the Tropical Storm Basyang detail page) -->
                 <a href="#" id="basyang-link" class="advisory-item">
                     <div class="item-details">
-                        <span class="item-date">February 12, 2026</span>
+                        <span class="item-date">February 05, 2026</span>
                         <span class="item-title">Cancelled Flights Due to Tropical Storm Basyang</span>
                     </div>
                     <span class="arrow-icon">&rsaquo;</span>
@@ -731,7 +758,7 @@
                             every aircraft is fully cleared before returning to operations.</p>
                         <p>While this may result in delays and schedule adjustments, the safety of our passengers and
                             crew remains our highest priority. Cebu Pacific is working to complete the required
-                            inscriptions as quickly and safely as possible, while minimizing disruption to affected
+                            inspections as quickly and safely as possible, while minimizing disruption to affected
                             passengers.</p>
 
                         <p>Here are the additional cancelled flights on July 10:</p>
@@ -1918,7 +1945,7 @@
               
               <div class="col country-selector">
                   <h4>SELECT COUNTRY</h4>
-                  <div class="country-box"><i class="fa-solid fa-globe"></i> Philippines</div>
+                  <div class="country-box"><i class="fa-solid fa-earth-asia"></i> Philippines</div>
               </div>
           </div>
 

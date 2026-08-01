@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -307,12 +313,11 @@
     <!-- WHITE NAVIGATION HEADER -->
     <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
-                <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
+                <a href="login.php" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
                 </a>
             </div>
         </div>
@@ -328,8 +333,8 @@
       <nav>
         <ul>
           <!-- Updated Sidebar Links -->
-          <li><a href="where-we-fly.html" class="active">Where We Fly</a></li>
-          <li><a href="FAQs.html">Frequently Asked Questions</a></li>
+          <li><a href="where-we-fly.php" class="active">Where We Fly</a></li>
+          <li><a href="FAQs.php">Frequently Asked Questions</a></li>
         </ul>
       </nav>
     </aside>

@@ -323,26 +323,6 @@
             letter-spacing: -0.5px;
         }
 
-        .logo-paypal {
-            font-size: 14px;
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        .logo-paypal .p1 {
-            color: #253b80;
-        }
-
-        .logo-paypal .p2 {
-            color: #179bd7;
-        }
-
-        .logo-grabpay {
-            font-size: 14px;
-            font-weight: bold;
-            color: #00b14f;
-        }
-
         .wallet-logo-img {
             height: 22px;
             width: auto;
@@ -712,7 +692,7 @@
                     <label class="option-label" for="maya">Maya</label>
                 </div>
                 <div class="option-right">
-                    <img src="maya-logo.png" alt="Maya" class="wallet-logo-img">
+                    <img src="maya-logo.png" alt="Maya" class="wallet-logo-img" onerror="this.style.display='none'">
                     <svg class="chevron-down" id="mayaChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
@@ -763,7 +743,7 @@
                     <label class="option-label" for="gcash">GCash</label>
                 </div>
                 <div class="option-right">
-                    <img src="gcash-logo.png" alt="GCash" class="wallet-logo-img">
+                    <img src="gcash-logo.png" alt="GCash" class="wallet-logo-img" onerror="this.style.display='none'">
                     <svg class="chevron-down" id="gcashChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
@@ -836,7 +816,7 @@
     </div>
 
     <script>
-        /* ================= BOOKING TOTAL (live-synced with BS-index.html) ================= */
+        /* ================= BOOKING TOTAL ================= */
         function cebuGetBooking() {
             try {
                 const raw = localStorage.getItem('cebuBooking');
@@ -884,18 +864,14 @@
 
         updateBookingTotals();
 
-        // Keep the total in sync if the Booking Summary page updates localStorage
-        // in another tab/window while this page is open.
         window.addEventListener('storage', function (e) {
             if (e.key === 'cebuBooking' || e.key === 'cebuAddons') {
                 updateBookingTotals();
             }
         });
-
-        // Also refresh whenever the user returns to this tab (e.g. via Back/Forward
-        // cache) in case the booking changed while they were away.
         window.addEventListener('pageshow', updateBookingTotals);
 
+        /* ================= PANELS & VALIDATION ================= */
         const paymentPanels = {
             cards: { radio: document.getElementById('cards'), panel: document.getElementById('cardFormPanel'), chevron: document.getElementById('cardChevron') },
             maya: { radio: document.getElementById('maya'), panel: document.getElementById('mayaFormPanel'), chevron: document.getElementById('mayaChevron') },
@@ -930,16 +906,12 @@
 
         updateAllPanels();
 
-        /* ================= REQUIRED FIELDS PER METHOD ================= */
         const requiredFieldsByMethod = {
             cards: ['card-number', 'first-name', 'last-name', 'cvv', 'exp-month', 'exp-year'],
             maya: ['maya-phone', 'maya-first-name', 'maya-last-name'],
             gcash: ['gcash-phone', 'gcash-first-name', 'gcash-last-name']
         };
 
-        /* ================= INPUT FILTERING / FORMATTING ================= */
-
-        // Card Number: digits only, max 16 digits, auto-grouped in 4s
         const cardNumberField = document.getElementById('card-number');
         if (cardNumberField) {
             cardNumberField.addEventListener('input', function () {
@@ -948,18 +920,15 @@
             });
         }
 
-        // Name fields (card + Maya + GCash): letters and spaces only
-        ['first-name', 'last-name', 'maya-first-name', 'maya-last-name', 'gcash-first-name', 'gcash-last-name']
-            .forEach(function (id) {
-                const field = document.getElementById(id);
-                if (field) {
-                    field.addEventListener('input', function () {
-                        this.value = this.value.replace(/[^A-Za-z\s]/g, '');
-                    });
-                }
-            });
+        ['first-name', 'last-name', 'maya-first-name', 'maya-last-name', 'gcash-first-name', 'gcash-last-name'].forEach(function (id) {
+            const field = document.getElementById(id);
+            if (field) {
+                field.addEventListener('input', function () {
+                    this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+                });
+            }
+        });
 
-        // CVV: digits only, max 3 digits
         const cvvField = document.getElementById('cvv');
         if (cvvField) {
             cvvField.addEventListener('input', function () {
@@ -967,7 +936,6 @@
             });
         }
 
-        // Expiration Month: digits only, clamped to 01-12
         const expMonthField = document.getElementById('exp-month');
         if (expMonthField) {
             expMonthField.addEventListener('input', function () {
@@ -981,7 +949,6 @@
             });
         }
 
-        // Expiration Year: digits only, max 4 digits; must be 2027 or later on blur
         const expYearField = document.getElementById('exp-year');
         if (expYearField) {
             expYearField.addEventListener('input', function () {
@@ -998,7 +965,6 @@
             });
         }
 
-        // Phone Number (Maya & GCash): digits only, max 11 digits, auto-grouped (PH mobile format)
         ['maya-phone', 'gcash-phone'].forEach(function (id) {
             const field = document.getElementById(id);
             if (field) {
@@ -1015,7 +981,6 @@
             }
         });
 
-        // Wire up input listeners so typing re-checks the Submit button
         Object.keys(requiredFieldsByMethod).forEach(function (method) {
             requiredFieldsByMethod[method].forEach(function (fieldId) {
                 const field = document.getElementById(fieldId);
@@ -1028,44 +993,35 @@
         const methodErrorEl = document.getElementById('method-error');
         const termsErrorEl = document.getElementById('terms-error');
 
-        /* ================= FIELD-LEVEL VALIDITY CHECKS ================= */
         function isValidCardNumber() {
             const digits = (document.getElementById('card-number').value || '').replace(/\D/g, '');
             return digits.length === 16;
         }
-
         function isValidName(id) {
             const val = (document.getElementById(id).value || '').trim();
             return val !== '' && /^[A-Za-z\s]+$/.test(val);
         }
-
         function isValidCvv() {
             const digits = (document.getElementById('cvv').value || '').replace(/\D/g, '');
             return digits.length === 3;
         }
-
         function isValidExpMonth() {
             const val = document.getElementById('exp-month').value || '';
             const num = parseInt(val, 10);
             return val.length > 0 && num >= 1 && num <= 12;
         }
-
         function isValidExpYear() {
             const val = document.getElementById('exp-year').value || '';
             return val.length === 4 && parseInt(val, 10) >= 2027;
         }
-
         function isValidPHPhone(id) {
             const digits = (document.getElementById(id).value || '').replace(/\D/g, '');
             return digits.length === 11 && digits.startsWith('0');
         }
-
         function requiredFieldsFilled() {
             if (!selectedMethod) return false;
-
             if (selectedMethod === 'cards') {
-                return isValidCardNumber() && isValidName('first-name') && isValidName('last-name') &&
-                    isValidCvv() && isValidExpMonth() && isValidExpYear();
+                return isValidCardNumber() && isValidName('first-name') && isValidName('last-name') && isValidCvv() && isValidExpMonth() && isValidExpYear();
             }
             if (selectedMethod === 'maya') {
                 return isValidPHPhone('maya-phone') && isValidName('maya-first-name') && isValidName('maya-last-name');
@@ -1076,9 +1032,6 @@
             return false;
         }
 
-        /* ================= ERROR MESSAGE DISPLAY ================= */
-        // Each entry: validator function + the message shown when the value is present but wrong,
-        // and empty-check function that decides if the "required" message applies instead.
         const fieldChecks = {
             'card-number': { valid: isValidCardNumber, isEmpty: () => (document.getElementById('card-number').value || '').trim() === '', message: 'Card number must be exactly 16 digits.' },
             'first-name': { valid: () => isValidName('first-name'), isEmpty: () => (document.getElementById('first-name').value || '').trim() === '', message: 'Letters only, no numbers.' },
@@ -1114,7 +1067,6 @@
             if (errorEl) errorEl.textContent = '';
         }
 
-        // Show/clear error live as the user types (once a field has content or was already flagged)
         Object.keys(fieldChecks).forEach(function (id) {
             const field = document.getElementById(id);
             if (!field) return;
@@ -1129,7 +1081,6 @@
             });
         });
 
-        // Expiration date shares one combined error message under both MM/YYYY boxes
         function showExpDateError() {
             const errorEl = document.getElementById('exp-date-error');
             const monthField = document.getElementById('exp-month');
@@ -1166,7 +1117,6 @@
             ids.forEach(clearFieldError);
         }
 
-        // When switching payment method, clear errors belonging to the method(s) no longer shown
         function resetErrorsForMethod(method) {
             const groups = {
                 cards: ['card-number', 'first-name', 'last-name', 'cvv'],
@@ -1202,13 +1152,54 @@
 
         validateForm();
 
+        /* ================= SUBMISSION LOGIC ================= */
         function handleSubmit() {
             if (validateForm()) {
-                window.location.href = 'Confirmation.html';
+                const booking = cebuGetBooking() || {};
+                const totalAmount = getBookingTotal();
+
+                let payMethodText = "Credit Card";
+                if (selectedMethod === 'maya') payMethodText = "Maya";
+                if (selectedMethod === 'gcash') payMethodText = "GCash";
+                
+                // --- NEW: Add DOB to the payload ---
+                const payload = {
+                    guestName: booking.guestName || "Guest",
+                    dob: booking.dob || "2000-01-01", 
+                    totalPrice: totalAmount,
+                    paymentMethod: payMethodText 
+                };
+
+                submitBtn.textContent = 'Processing...';
+                submitBtn.classList.add('btn-disabled');
+                submitBtn.disabled = true;
+
+                fetch('save_booking.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Success: Route directly to PHP with the real database PNR
+                        window.location.href = `Confirmation.php?pnr=${data.pnr}`;
+                    } else {
+                        console.error("DB Error:", data.message);
+                        const fallbackPNR = Math.random().toString(36).substring(2, 8).toUpperCase();
+                        window.location.href = `Confirmation.php?pnr=${fallbackPNR}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch Error:', error);
+                    const fallbackPNR = Math.random().toString(36).substring(2, 8).toUpperCase();
+                    window.location.href = `Confirmation.php?pnr=${fallbackPNR}`;
+                });
+                
                 return;
             }
 
-            // Indicate exactly what's missing or wrong
+            // Error handling for blank fields
             if (!selectedMethod) {
                 methodErrorEl.textContent = 'Please select a payment method to continue.';
             } else {
@@ -1228,7 +1219,5 @@
             }
         }
     </script>
-
 </body>
-
 </html>

@@ -1,10 +1,16 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Information - FAQs</title>
+    <title>Fuel Surcharge - Cebu Pacific</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -13,12 +19,13 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* THE FIX: Removed flex-centering from body so headers/footers can stretch */
         body {
-            background-color: #ffffff;
-            font-family: Arial, sans-serif;
-            color: #333;
+            background-color: #f8f9fa;
+            padding: 0;
         }
 
         /* =========================================
@@ -41,131 +48,114 @@
         }
 
         /* =========================================
-           YELLOW TOP HEADER (Page Specific)
+           PAGE BANNER & CONTENT
            ========================================= */
-        .top-header {
+        .banner {
             background-color: #ffd200;
-            padding: 40px 0 45px 0;
-            position: relative;
+            color: #0056b3;
+            font-weight: 700;
+            font-size: 36px;
+            padding: 30px 20px 45px 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            border-radius: 0 0 50% 50% / 0 0 32px 32px;
+            margin-bottom: 40px;
+        }
+
+        .banner-inner {
+            width: 100%;
+            max-width: 900px;
             text-align: left;
-            border-bottom-left-radius: 50% 30px;
-            border-bottom-right-radius: 50% 30px;
-            width: 100%;
-            box-sizing: border-box;
         }
 
-        .top-header h1 {
-            color: #0054a6;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            font-size: 32px;
-            margin: 0;
-            padding-left: 18%;
-        }
-
-        /* =========================================
-           MAIN LAYOUT
-           ========================================= */
         .container {
-            display: flex;
-            padding: 30px 5%;
-            box-sizing: border-box;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .sidebar {
-            width: 25%;
-            padding-right: 40px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar li {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .sidebar a:hover {
-            color: #0093d1;
-        }
-
-        .sidebar a.active {
-            color: #000000;
-            font-weight: normal;
-        }
-
-        .sidebar a.active:hover {
-            color: #0093d1;
-        }
-
-        .content {
-            width: 75%;
-        }
-
-        .content h2 {
-            font-size: 28px;
-            font-weight: bold;
-            color: #000000;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        .banner-container {
             width: 100%;
+            max-width: 900px;
+            padding: 0 20px;
+            margin: 0 auto; /* Centers the container */
+            margin-bottom: 60px; /* Gives space before the footer */
         }
 
-        .banner-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 25px;
+        h1 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
-        .description {
-            font-size: 14px;
-            color: #333;
-            line-height: 1.6;
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 28px;
         }
 
-        /* FAQ LIST ACCORDION STYLE LINKS */
-        .faq-list {
-            background-color: #ffffff !important;
-            border-radius: 12px !important;
-            padding: 20px 40px !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
-            margin-top: 30px;
+        .accordion-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 10px 24px;
         }
 
-        .faq-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            font-size: 15px;
-            color: #000000;
-            font-weight: normal;
-            border-bottom: 1px solid #e2e8f0;
-            text-decoration: none;
+        .accordion-item {
+            border-bottom: 1px solid #eef2f5;
         }
 
-        .faq-item:last-child {
+        .accordion-item:last-child {
             border-bottom: none;
         }
 
-        .faq-item .arrow {
-            color: #0073ba;
-            font-size: 14px;
-            font-weight: normal;
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            cursor: pointer;
+            color: #002d62;
+            font-size: 24px;
+            font-weight: 500;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            color: #0056b3;
+        }
+
+        .chevron {
+            width: 16px;
+            height: 16px;
+            border-right: 3px solid #0056b3;
+            border-bottom: 3px solid #0056b3;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            margin-right: 6px;
+        }
+
+        .accordion-item.active .chevron {
+            transform: rotate(-135deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            color: #333;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .accordion-item.active .accordion-content {
+            padding-bottom: 24px;
+        }
+
+        .domestic-img {
+            max-width: 100%;
+            max-height: none;
+            width: auto;
+            height: auto;
+            display: block;
+            margin-top: 0;
         }
 
         /* =========================================
@@ -175,7 +165,6 @@
             background-color: #ffffff;
             padding: 50px 20px;
             border-top: 1px solid #eaeaea;
-            margin-top: 50px;
             width: 100%; 
         }
 
@@ -313,9 +302,6 @@
         }
 
         @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .sidebar { width: 100%; padding-right: 0; margin-bottom: 30px; }
-            .content { width: 100%; }
             .footer-right-sidebar { border-left: none; padding-left: 0; }
         }
     </style>
@@ -344,81 +330,66 @@
     <!-- ========================================== -->
     <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <!-- Ensure this image path matches where your logo is saved -->
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
                 <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
                 </a>
             </div>
         </div>
     </header>
 
     <!-- ========================================== -->
-    <!-- YELLOW TRAVEL INFORMATION BANNER -->
+    <!-- MAIN PAGE CONTENT -->
     <!-- ========================================== -->
-    <header class="top-header">
-        <h1>Travel Information</h1>
-    </header>
+    <div class="banner">
+        <div class="banner-inner">Service Fees</div>
+    </div>
 
-    <!-- ========================================== -->
-    <!-- MAIN CONTAINER GRID -->
-    <!-- ========================================== -->
     <div class="container">
+        <h1>Fuel Surcharge</h1>
+        <div class="subtitle">CAB Approval Routing No. 22-2165/2164</div>
 
-        <!-- Left Sidebar Navigation -->
-        <aside class="sidebar">
-            <nav>
-                <ul>
-                    <li><a href="travel-information.html">Travel Requirements</a></li>
-                    <li><a href="where-we-fly.html">Where We Fly</a></li>
-                    <li><a href="FAQs.html" class="active">Frequently Asked Questions</a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="content">
-            <h2>Frequently Asked Questions</h2>
-
-            <!-- Banner Image -->
-            <div class="banner-container">
-                <img src="images/TravelFAQs.jpg" alt="Frequently Asked Questions Banner" class="banner-img">
+        <div class="accordion-card">
+            <!-- Item 1 - Domestic -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Domestic</span>
+                    <div class="chevron"></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="images/Domestic Fuel.jpg" alt="Domestic Fuel Surcharge Rates Part 1" class="domestic-img">
+                    <img src="images/Domestic Fule 2.jpg" alt="Domestic Fuel Surcharge Rates Part 2" class="domestic-img">
+                    <img src="images/Dosmestic Fuel 3.jpg" alt="Domestic Fuel Surcharge Rates Part 3" class="domestic-img">
+                </div>
             </div>
 
-            <!-- Description Text -->
-            <p class="description">
-                Got questions about your upcoming flight? Check out the CEB Help Center to learn more about bookings and
-                flight disruptions. You can also view step-by-step guides on rebooking your flights, getting refunds,
-                and using your Travel Fund.
-            </p>
-
-            <!-- Accordion / List Links Container -->
-            <div class="faq-list">
-                <a href="Cebu-Pacific-Destinations-Airports-and-Terminal Numbers.html" target="_blank" class="faq-item">
-                    <span>Cebu Pacific Destinations, Airports, and Terminal Numbers</span>
-                    <span class="arrow">&gt;</span>
-                </a>
-                <a href="How-to-Manage-Your-Disrupted-Flight.html" target="_blank" class="faq-item">
-                    <span>How to Manage Your Disrupted Flight</span>
-                    <span class="arrow">&gt;</span>
-                </a>
-                <a href="CEB-Flexi-and-Travel-Fund.html" target="_blank" class="faq-item">
-                    <span>CEB Flexi and Travel Fund</span>
-                    <span class="arrow">&gt;</span>
-                </a>
-                <a href="Rebooking-or-Canceling-Your-Flight.html" target="_blank" class="faq-item">
-                    <span>Rebooking or Canceling Your Flight</span>
-                    <span class="arrow">&gt;</span>
-                </a>
-                <a href="Refund-Concerns.html" target="_blank" class="faq-item">
-                    <span>Refund Concerns</span>
-                    <span class="arrow">&gt;</span>
-                </a>
+            <!-- Item 2 - International (Travel from the Philippines) -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>International (Travel from the Philippines)</span>
+                    <div class="chevron"></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="images/International Fule.jpg" alt="International Fuel Surcharge Rates Part 1" class="domestic-img">
+                    <img src="images/International Fuel 2.jpg" alt="International Fuel Surcharge Rates Part 2" class="domestic-img">
+                </div>
             </div>
-        </main>
+
+            <!-- Item 3 - International (Travel to the Philippines) -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>International (Travel to the Philippines)</span>
+                    <div class="chevron"></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="images/International Fuel 3.jpg" alt="International Fuel Surcharge Rates Part 3" class="domestic-img">
+                    <img src="images/International Fuel 4.jpg" alt="International Fuel Surcharge Rates Part 4" class="domestic-img">
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ========================================== -->
@@ -516,6 +487,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = header.nextElementSibling;
+
+                item.classList.toggle('active');
+
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = "none";
+                    const fullHeight = content.scrollHeight + "px";
+                    content.style.maxHeight = "0px";
+                    setTimeout(() => {
+                        content.style.maxHeight = fullHeight;
+                    }, 10);
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

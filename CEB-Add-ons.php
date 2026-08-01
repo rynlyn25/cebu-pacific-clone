@@ -1,26 +1,38 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuel Surcharge - Cebu Pacific</title>
+    <title>Travel Information - CEB Add-ons</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* General Reset and Styling */
+        /* Universal Reset: Fixes horizontal scrollbars */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-
-        /* THE FIX: Removed flex-centering from body so headers/footers can stretch */
+        
+        html, body {
+            overflow-x: hidden; /* Prevents sideways scrolling */
+        }
         body {
-            background-color: #f8f9fa;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 0;
         }
+        
 
         /* =========================================
            TOP ADVISORY BAR & HEADER STYLES
@@ -42,114 +54,187 @@
         }
 
         /* =========================================
-           PAGE BANNER & CONTENT
+           PAGE SPECIFIC STYLES
            ========================================= */
-        .banner {
+        .top-header {
             background-color: #ffd200;
-            color: #0056b3;
-            font-weight: 700;
-            font-size: 36px;
-            padding: 30px 20px 45px 20px;
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            border-radius: 0 0 50% 50% / 0 0 32px 32px;
-            margin-bottom: 40px;
+            box-sizing: border-box;
         }
 
-        .banner-inner {
-            width: 100%;
-            max-width: 900px;
-            text-align: left;
+        .top-header h1 {
+            color: #0054a6;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 0;
+            padding-left: 18%;
         }
 
         .container {
+            display: flex;
+            padding: 30px 10%;
+            box-sizing: border-box;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar Styling (If needed later) */
+        .sidebar {
+            width: 20%;
+            padding-right: 40px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            color: #0093d1;
+        }
+
+        .sidebar a.active {
+            color: #000000;
+            font-weight: normal;
+        }
+
+        /* Main Content Layout */
+        .content {
+            width: 80%;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Top Baggage Banner Section */
+        .baggage-banner {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 30px;
+            box-shadow: none;
+            gap: 30px;
+        }
+
+        .baggage-img-container {
+            width: 42%;
+            flex-shrink: 0;
+        }
+
+        .baggage-img-container img {
             width: 100%;
-            max-width: 900px;
-            padding: 0 20px;
-            margin: 0 auto; /* Centers the container */
-            margin-bottom: 60px; /* Gives space before the footer */
+            height: auto;
+            border-radius: 12px;
+            display: block;
         }
 
-        h1 {
-            font-size: 32px;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-            font-weight: 700;
+        .baggage-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        .subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 28px;
+        .baggage-info h3 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            color: #000;
+            font-weight: bold;
         }
 
-        .accordion-card {
-            background-color: #ffffff;
+        .baggage-info p {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #0093d1, #0073ba);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 45px;
             border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cards Grid Layout (3x2 format) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 10px 24px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            transition: transform 0.2s ease;
         }
 
-        .accordion-item {
-            border-bottom: 1px solid #eef2f5;
+        .card:hover {
+            transform: translateY(-3px);
         }
 
-        .accordion-item:last-child {
-            border-bottom: none;
-        }
-
-        .accordion-header {
+        .card-header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 24px 0;
-            cursor: pointer;
-            color: #002d62;
-            font-size: 24px;
-            font-weight: 500;
-            user-select: none;
-            transition: color 0.2s ease;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
         }
 
-        .accordion-header:hover {
-            color: #0056b3;
+        .card-header-bar .arrow {
+            color: #0073ba;
+            font-size: 16px;
         }
 
-        .chevron {
-            width: 16px;
-            height: 16px;
-            border-right: 3px solid #0056b3;
-            border-bottom: 3px solid #0056b3;
-            transform: rotate(45deg);
-            transition: transform 0.3s ease;
-            margin-right: 6px;
+        .card-img-container {
+            width: 100%;
+            background-color: #f8fafc;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 4px solid #ffd200;
         }
 
-        .accordion-item.active .chevron {
-            transform: rotate(-135deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            color: #333;
-            font-size: 20px;
-            line-height: 1.6;
-        }
-
-        .accordion-item.active .accordion-content {
-            padding-bottom: 24px;
-        }
-
-        .domestic-img {
-            max-width: 100%;
-            max-height: none;
-            width: auto;
+        .card-img-container img {
+            width: 100%;
             height: auto;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
             display: block;
-            margin-top: 0;
         }
 
         /* =========================================
@@ -159,6 +244,7 @@
             background-color: #ffffff;
             padding: 50px 20px;
             border-top: 1px solid #eaeaea;
+            margin-top: 50px;
             width: 100%; 
         }
 
@@ -295,8 +381,28 @@
             font-weight: 700;
         }
 
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .baggage-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .baggage-img-container {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             .footer-right-sidebar { border-left: none; padding-left: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -324,67 +430,111 @@
     <!-- ========================================== -->
     <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <!-- Ensure this image path matches where your logo is saved -->
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
                 <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- ========================================== -->
-    <!-- MAIN PAGE CONTENT -->
-    <!-- ========================================== -->
-    <div class="banner">
-        <div class="banner-inner">Service Fees</div>
-    </div>
+    <!-- Yellow Top Header Banner -->
+    <header class="top-header">
+        <h1>Add-ons</h1>
+    </header>
 
-    <div class="container">
-        <h1>Fuel Surcharge</h1>
-        <div class="subtitle">CAB Approval Routing No. 22-2165/2164</div>
+    <!-- Main Container Grid -->
+    <div class="container" style="display: block;">
 
-        <div class="accordion-card">
-            <!-- Item 1 - Domestic -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Domestic</span>
-                    <div class="chevron"></div>
+        <!-- Main Content Area -->
+        <main class="content" style="width: 100%;">
+
+            <!-- Top Feature: CEB Baggage Banner -->
+            <div class="baggage-banner">
+                <div class="baggage-img-container">
+                    <img src="images/CEBB.jpg" alt="CEB Baggage">
                 </div>
-                <div class="accordion-content">
-                    <img src="images/Domestic Fuel.jpg" alt="Domestic Fuel Surcharge Rates Part 1" class="domestic-img">
-                    <img src="images/Domestic Fule 2.jpg" alt="Domestic Fuel Surcharge Rates Part 2" class="domestic-img">
-                    <img src="images/Dosmestic Fuel 3.jpg" alt="Domestic Fuel Surcharge Rates Part 3" class="domestic-img">
+                <div class="baggage-info">
+                    <h3>CEB Baggage</h3>
+                    <p>Save more with our enhanced baggage options</p>
+                    <a href="CEB-Baggage.html" class="btn-primary">Read more</a>
                 </div>
             </div>
 
-            <!-- Item 2 - International (Travel from the Philippines) -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>International (Travel from the Philippines)</span>
-                    <div class="chevron"></div>
-                </div>
-                <div class="accordion-content">
-                    <img src="images/International Fule.jpg" alt="International Fuel Surcharge Rates Part 1" class="domestic-img">
-                    <img src="images/International Fuel 2.jpg" alt="International Fuel Surcharge Rates Part 2" class="domestic-img">
-                </div>
-            </div>
+            <!-- Cards Grid Section -->
+            <div class="cards-grid">
 
-            <!-- Item 3 - International (Travel to the Philippines) -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>International (Travel to the Philippines)</span>
-                    <div class="chevron"></div>
-                </div>
-                <div class="accordion-content">
-                    <img src="images/International Fuel 3.jpg" alt="International Fuel Surcharge Rates Part 3" class="domestic-img">
-                    <img src="images/International Fuel 4.jpg" alt="International Fuel Surcharge Rates Part 4" class="domestic-img">
-                </div>
+                <!-- Card 1: CEB Seat Selector -->
+                <a href="CEB-Seat-Selector.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Seat Selector</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="images/CEBSS.png" alt="CEB Seat Selector">
+                    </div>
+                </a>
+
+                <!-- Card 2: CEB Flexi -->
+                <a href="CEBFlexi.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Flexi</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="images/CEBFlexi.png" alt="CEB Flexi">
+                    </div>
+                </a>
+
+                <!-- Card 3: CEB TravelSure -->
+                <a href="CEB-TravelSure.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB TravelSure</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="images/CEBTS.png" alt="CEB TravelSure">
+                    </div>
+                </a>
+
+                <!-- Card 4: CEB Meals -->
+                <a href="CEB-Meals.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Meals</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="images/CEBM.png" alt="CEB Meals">
+                    </div>
+                </a>
+
+                <!-- Card 5: CEB Transfers -->
+                <a href="CEB-Transfers.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Transfers</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="images/CEBT.png" alt="CEB Transfers">
+                    </div>
+                </a>
+
+                <!-- Card 6: CEB Fun Shop -->
+                <a href="CEB-Fun-Shop.html" class="card">
+                    <div class="card-header-bar">
+                        <span>CEB Fun Shop</span>
+                        <span class="arrow">&gt;</span>
+                    </div>
+                    <div class="card-img-container">
+                        <img src="images/CEBFS.png" alt="CEB Fun Shop">
+                    </div>
+                </a>
+
             </div>
-        </div>
+        </main>
     </div>
 
     <!-- ========================================== -->
@@ -482,28 +632,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const content = header.nextElementSibling;
-
-                item.classList.toggle('active');
-
-                if (item.classList.contains('active')) {
-                    content.style.maxHeight = "none";
-                    const fullHeight = content.scrollHeight + "px";
-                    content.style.maxHeight = "0px";
-                    setTimeout(() => {
-                        content.style.maxHeight = fullHeight;
-                    }, 10);
-                } else {
-                    content.style.maxHeight = null;
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>

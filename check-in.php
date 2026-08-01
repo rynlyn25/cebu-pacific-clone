@@ -1,9 +1,14 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+$initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'] ?? '', 0, 1) . substr($_SESSION['last_name'] ?? '', 0, 1)) : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet - Cebu Pacific</title>
+    <title>Check-in - Cebu Pacific</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -11,7 +16,7 @@
            GLOBAL RESET & TYPOGRAPHY
            ========================================= */
         :root {
-            --ceb-yellow: #FDDF00;
+            --ceb-yellow: #FFC000;
             --ceb-blue: #005eb8;
             --ceb-light-blue: #0088ce;
             --text-dark: #222222;
@@ -28,7 +33,7 @@
         html, body {
             overflow-x: hidden;
             scroll-behavior: smooth;
-            background-color: #ffffff; /* White background for this specific page */
+            background-color: #fdfdfd;
             color: #333333;
         }
 
@@ -242,7 +247,7 @@
         .about-item a:hover { text-decoration: underline; color: #007bb5 !important; }
         .about-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
 
-        /* Login Dropdown Fix */
+        /* Login Dropdown & Button Fix */
         .login-dropdown-wrapper { 
             position: relative !important; 
             display: flex;
@@ -310,87 +315,178 @@
         .header-search-icon:hover { color: #00a1e4; }
 
         /* =========================================
-           COMING SOON SPECIFIC STYLES
+           CHECK-IN PAGE STYLES
            ========================================= */
-        
-        .coming-soon-banner {
-            background-color: var(--ceb-yellow);
-            margin-top: 105px; /* Clears the fixed header */
-            padding: 40px 0;
-            width: 100%;
+
+        /* YELLOW HERO BANNER */
+        .checkin-hero-banner {
+            background-color: #ffd800 !important;
+            border-bottom-left-radius: 50% 30px !important;
+            border-bottom-right-radius: 50% 30px !important;
+            margin-top: 105px !important; /* THE FIX: Pushes it down to clear the header */
+            padding: 80px 0 60px !important;
         }
 
-        .coming-soon-banner h1 {
-            color: var(--ceb-blue);
-            font-size: 32px;
-            font-weight: 800;
-            margin: 0 auto;
+        .checkin-container-inner {
             max-width: 1150px;
-            padding: 0 20px;
-        }
-
-        .coming-soon-content {
-            text-align: center;
-            padding: 80px 20px 120px 20px;
-            max-width: 600px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
-        .coming-soon-content img {
-            max-width: 250px;
-            height: auto;
-            margin-bottom: 30px;
+        .checkin-hero-banner h1 {
+            color: #005eb8 !important;
+            font-size: 40px !important;
+            font-weight: 800 !important;
+            margin: 0 !important;
+            letter-spacing: 0.5px;
         }
 
-        .coming-soon-content h2 {
-            font-size: 26px;
+        /* CHECK-IN CONTENT BACKGROUND */
+        .checkin-page-bg {
+            background-color: #f4f5f7;
+            padding: 50px 20px 80px; 
+            min-height: 60vh;
+        }
+
+        .checkin-container {
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+
+        .checkin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px;
+        }
+
+        /* CARDS */
+        .checkin-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            box-sizing: border-box;
+        }
+
+        .checkin-card h2 {
+            font-size: 25px;
             font-weight: 800;
             color: #333;
-            margin-bottom: 12px;
+            margin: 0 0 25px 0;
         }
 
-        .coming-soon-content p {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 35px;
+        /* LEFT CARD: INFO */
+        .checkin-features { list-style: none; padding: 0; margin: 0; }
+        .checkin-features li { display: flex; align-items: flex-start; margin-bottom: 25px; }
+        .check-icon { color: #00a4e4; font-size: 20px; margin-right: 15px; margin-top: 2px; }
+        .feature-text p { margin: 0 0 15px 0; font-size: 15px; color: #333; }
+        
+        .flight-type { 
+            display: flex; 
+            align-items: flex-start; 
+            margin-bottom: 15px; 
+            font-size: 14px; 
+            color: #555; 
+            line-height: 1.5; 
         }
+        
+        .plane-icon { color: #005eb8; margin-right: 12px; margin-top: 4px; }
 
-        .social-icons-row {
+        /* RIGHT CARD: FORM */
+        .form-subtitle { font-size: 15px; color: #444; margin-bottom: 25px; }
+        .checkin-input-group { margin-bottom: 20px; }
+        .checkin-input-group label { display: block; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; }
+        .input-with-icon { position: relative; }
+        .checkin-input-group input { 
+            width: 100%; 
+            padding: 14px 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            font-size: 14px; 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: border-color 0.2s; 
+        }
+        .checkin-input-group input:focus { border-color: #0088ce; }
+        .help-icon { position: absolute; right: 15px; top: 15px; color: #005eb8; font-size: 16px; cursor: pointer; }
+
+        /* BUTTONS */
+        .btn-guest { 
+            width: 100%; 
+            padding: 15px; 
+            background-color: #c4e0eb; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            cursor: default; 
+            transition: background-color 0.2s; 
+        }
+        
+        .btn-guest.active { background-color: #0088ce; cursor: pointer; }
+        .btn-guest.active:hover { background-color: #006eb3; }
+
+        .divider-or { text-align: center; position: relative; margin: 25px 0; }
+        .divider-or::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background-color: #eaeaea; z-index: 1; }
+        .divider-or span { background: white; padding: 0 15px; color: #888; font-size: 13px; position: relative; z-index: 2; }
+
+        .btn-member { 
+            width: 100%; 
+            padding: 15px; 
+            background-color: white; 
+            color: #005eb8; 
+            border: 1px solid #005eb8; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: background-color 0.2s; 
+        }
+        
+        .btn-member:hover { background-color: #f4f9ff; }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 768px) { .checkin-grid { grid-template-columns: 1fr; } }
+
+        /* EXTRA: MANAGE BOOKING FIX (if needed) */
+        .manage-features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 15px;
+            row-gap: 25px;
+            margin-top: 25px;
+        }
+        .manage-feature-item {
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 35px;
+            align-items: flex-start;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.4;
         }
-
-        .social-icons-row a {
-            color: #0088ce;
-            font-size: 20px;
-            transition: color 0.2s ease;
-            text-decoration: none;
+        .manage-feature-item .check-icon {
+            color: #00a4e4;
+            font-size: 18px;
+            margin-right: 12px;
+            margin-top: 2px;
         }
-
-        .social-icons-row a:hover {
-            color: #005eb8;
-        }
-
-        .go-back-btn {
-            background-color: #0088ce;
+        .user-initials-icon {
+            background-color: var(--ceb-blue);
             color: white;
-            border: none;
-            padding: 14px 60px;
-            font-size: 16px;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
             font-weight: 800;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
+            margin-right: 10px; /* This creates the space before "My Account" */
+            letter-spacing: 1px;
         }
-
-        .go-back-btn:hover {
-            background-color: #006eb3;
+        @media (max-width: 768px) {
+            .manage-features-grid { grid-template-columns: 1fr; }
         }
 
         /* =========================================
@@ -457,25 +553,25 @@
     <!-- ========================================== -->
     <header class="hero-header">
         <div class="header-content-wrapper">
-            <a href="index.html">
+            <a href="index.php">
                 <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific">
             </a>
             
             <nav class="nav-links">
                 <!-- 1. BOOK -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Book</a>
+                    <a href="#" class="nav-link main-link">Book</a>
                     <div class="mega-menu">
                         <div class="mega-top">
-                            <a href="index.html" class="mega-icon-link">
+                            <a href="index.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/flight-status-default.png" alt="Flights" class="custom-mega-img"></div>
                                 <span>Flights</span>
                             </a>
-                            <a href="seatsale.html" class="mega-icon-link">
+                            <a href="seatsale.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/your-seatsale-icon.webp" alt="Seat Sale" class="custom-mega-img"></div>
                                 <span>Seat Sale</span>
                             </a>
-                            <a href="cebsuperpass.html" class="mega-icon-link">
+                            <a href="cebsuperpass.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/super-pass-default.png" alt="CEB Super Pass" class="custom-mega-img"></div>
                                 <span>CEB Super Pass</span>
                             </a>
@@ -489,11 +585,11 @@
                                     <p>Log in with your agent ID</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="cargo.html">Cargo</a>
+                                    <a href="cargo.php">Cargo</a>
                                     <p>Know more about our fast and flexible air cargo service</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="Sales-&-Group-Bookings.html">Sales & Group Bookings</a>
+                                    <a href="Sales-&-Group-Bookings.php">Sales & Group Bookings</a>
                                     <p>Be a partner and maximize your business' travel budget</p>
                                 </div>
                             </div>
@@ -503,18 +599,18 @@
                 
                 <!-- 2. MANAGE -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Manage</a>
+                    <a href="#" class="nav-link main-link">Manage</a>
                     <div class="mega-menu">
                         <div class="mega-top">
-                            <a href="check-in.html" class="mega-icon-link">
+                            <a href="check-in.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/check-in-default1.png" alt="Check in" class="custom-mega-img"></div>
                                 <span>Check in</span>
                             </a>
-                            <a href="manage-booking.html" class="mega-icon-link">
+                            <a href="manage-booking.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/manage-booking-default.png" alt="Manage Booking" class="custom-mega-img"></div>
                                 <span>Manage Booking</span>
                             </a>
-                            <a href="flight-status.html" class="mega-icon-link">
+                            <a href="flight-status.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/FlightStatusIcon.webp" alt="Flight Status" class="custom-mega-img"></div>
                                 <span>Flight Status</span>
                             </a>
@@ -523,11 +619,11 @@
                         <div class="mega-bottom">
                             <div class="manage-grid">
                                 <div class="manage-item">
-                                    <a href="CEB-Add-ons.html"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
+                                    <a href="CEB-Add-ons.php"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
                                     <p>Learn how to upgrade your trip with <a href="#" class="inline-link">baggage, meals, seats,</a> and other services</p>
                                 </div>
                                 <div class="manage-item">
-                                    <a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
+                                    <a href="Special-Assistance.php"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
                                     <p>Request services for guests needing special assistance</p>
                                 </div>
                             </div>
@@ -537,37 +633,36 @@
                 
                 <!-- 3. TRAVEL INFO -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Travel Info</a>
+                    <a href="#" class="nav-link main-link">Travel Info</a>
                     <div class="mega-menu">
                         <h4 class="mega-heading">BEFORE THE FLIGHT</h4>
                         <div class="travel-grid">
-                            <div class="travel-item"><a href="baggage_info.html"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
-                            <div class="travel-item"><a href="payment-options.html"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
-                            <div class="travel-item"><a href="Travel-Advisories.html"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
-                            <div class="travel-item"><a href="BookingCheckinandBoarding.html"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
-                            <div class="travel-item"><a href="TravelDocuments.html"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
-                            <div class="travel-item"><a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
+                            <div class="travel-item"><a href="baggage_info.php"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
+                            <div class="travel-item"><a href="payment-options.php"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
+                            <div class="travel-item"><a href="Travel-Advisories.php"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
+                            <div class="travel-item"><a href="BookingCheckinandBoarding.php"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
+                            <div class="travel-item"><a href="TravelDocuments.php"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
+                            <div class="travel-item"><a href="Special-Assistance.php"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
                         </div>
                         <hr class="mega-divider">
                         <h4 class="mega-heading">FLYING WITH US</h4>
                         <div class="travel-grid">
-                            <div class="travel-item"><a href="seatsale-faq.html"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
-                            <div class="travel-item"><a href="Service-Fees.html"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
-                            <div class="travel-item"><a href="CEB-Add-ons.html"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
-                            <div class="travel-item"><a href="flight-status.html"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
-                            <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-plane"></i> Flight Timetable</a></div>
-                            <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
+                            <div class="travel-item"><a href="FAQs.php"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
+                            <div class="travel-item"><a href="Service-Fees.php"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
+                            <div class="travel-item"><a href="CEB-Add-ons.php"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
+                            <div class="travel-item"><a href="flight-status.php"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                            <div class="travel-item"><a href="AirlinePolicies.php"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- 4. EXPLORE -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Explore</a>
+                    <a href="#" class="nav-link main-link">Explore</a>
                     <div class="mega-menu">
                         <div class="explore-top-grid">
                             <div class="explore-dest-col">
-                                <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
+                                <a href="CityGuides.php" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
                                 <div class="destination-cards">
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/Boracay_1_sabw7m.jpg');"><span>Boracay</span></a>
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/images (2).jpg');"><span>Siargao</span></a>
@@ -575,7 +670,7 @@
                                 </div>
                             </div>
                             <div class="explore-dest-col">
-                                <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
+                                <a href="CityGuides.php" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
                                 <div class="destination-cards">
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/dubai.jpg');"><span>Dubai</span></a>
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/hongkong.jpg');"><span>Hong Kong</span></a>
@@ -586,15 +681,15 @@
                         <hr class="mega-divider">
                         <div class="explore-bottom-grid">
                             <div class="explore-item">
-                                <a href="DiscoverwithSmile.html"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
+                                <a href="DiscoverwithSmile.php"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
                                 <p>Simple tips to make you a better and smarter traveler</p>
                             </div>
                             <div class="explore-item">
-                                <a href="where-we-fly.html"><i class="fa-solid fa-map"></i> Where We Fly</a>
+                                <a href="where-we-fly.php"><i class="fa-solid fa-map"></i> Where We Fly</a>
                                 <p>See our full list of destinations and choose where to go for your next trip</p>
                             </div>
                             <div class="explore-item">
-                                <a href="CityGuides.html"><i class="fa-solid fa-location-dot"></i> City Guides</a>
+                                <a href="CityGuides.php"><i class="fa-solid fa-location-dot"></i> City Guides</a>
                                 <p>Know the basics and discover hidden gems in your next destination</p>
                             </div>
                         </div>
@@ -603,96 +698,208 @@
                 
                 <!-- 5. ABOUT -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">About</a>
+                    <a href="#" class="nav-link main-link">About</a>
                     <div class="mega-menu">
                         <div class="about-grid">
                             <div class="about-item">
-                                <a href="our-story.html">Our Story</a>
+                                <a href="our-story.php">Our Story</a>
                                 <p>See how we made moments happen for everyjuan from 1996 up to present</p>
                             </div>
                             <div class="about-item">
-                                <a href="media-center.html">Media Center</a>
+                                <a href="media-center.php">Media Center</a>
                                 <p>Be updated on the latest airline news through our press releases and media galleries</p>
                             </div>
                             <div class="about-item">
-                                <a href="Talk-to-Us.html">Talk to Us</a>
-                                <p>Get answers to your questions or <a href="#" class="inline-link">send feedback</a> to our customer support team</p>
+                                <a href="Talk-to-Us.php">Talk to Us</a>
+                                <p>Get answers to your questions or send feedback</a> to our customer support team</p>
                             </div>
                             <div class="about-item">
-                                <a href="Campaigns-&-Partners.html">Campaigns & Partners</a>
+                                <a href="Campaigns-&-Partners.php">Campaigns & Partners</a>
                                 <p>Read up on our campaigns and partnership initiatives</p>
                             </div>
                             <div class="about-item">
-                                <a href="corporate-information.html">Company Information</a>
+                                <a href="corporate-information.php">Company Information</a>
                                 <p>Read more information about Cebu Pacific for shareholders, potential investors, and financial analysts</p>
                             </div>
                             <div class="about-item">
-                                <a href="careers.html">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
+                                <a href="careers.php">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
                 
-            <div class="header-right">
-                <div class="login-dropdown-wrapper">
-                    <button class="login-btn">
-                        <i class="fa-solid fa-circle-user" style="font-size: 18px; margin-right: 5px;"></i>
-                        Log in
-                    </button>
-                    <div class="mega-menu login-mega-menu">
-                        <div class="login-mega-top">
-                            <div class="login-icons">
-                                <a href="manage-booking.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
-                                    <span>My Bookings</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
-                                    <span>Wallet</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
-                                    <span>Guests</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
-                                    <span>Inbox</span>
-                                </a>
-                            </div>
-                            <div class="login-action-area">
-                                <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
-                                <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
-                            </div>
-                        </div>
-                        </div>
+<div class="header-right">
+    <div class="login-dropdown-wrapper">
+        <?php if ($isLoggedIn): ?>
+            <!-- LOGGED IN STATE -->
+            <button class="login-btn" onclick="window.location.href='my-account.php'">
+                <div class="user-initials-icon"><?php echo htmlspecialchars($initials); ?></div>
+                <span>My Account</span>
+            </button>
+            
+            <!-- LOGGED-IN MEGA MENU DROPDOWN -->
+            <div class="mega-menu login-mega-menu">
+                <div class="login-mega-top" style="position: relative;">
+                    <div class="login-icons">
+                        <a href="manage-booking.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                            <span>Guests</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                            <span>Inbox</span>
+                        </a>
+                    </div>
+                    <div style="position: absolute; top: 0; right: 0;">
+                        <a href="logout.php" style="color: #0088CE; font-weight: bold; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log out
+                        </a>
                     </div>
                 </div>
 
-                <a href="#" class="header-search-icon">
-                </a>
+                <hr class="mega-divider">
+
+                <div class="mega-bottom">
+                    <div class="business-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="business-item">
+                            <a href="my-account.php">Travel Fund</a>
+                            <p>View your available Travel Fund and use it to book flights or add-ons</p>
+                        </div>
+                        <div class="business-item">
+                            <a href="#">My Vouchers</a>
+                            <p>Redeem your travel vouchers before they expire</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+        <?php else: ?>
+            <!-- LOGGED OUT STATE -->
+            <a href="login.html" class="login-btn">
+                <i class="fa-regular fa-circle-user" style="margin-right: 6px;"></i> Log in
+            </a>
+
+            <!-- LOGGED-OUT MEGA MENU DROPDOWN -->
+            <div class="mega-menu login-mega-menu">
+                <div class="login-mega-top">
+                    <div class="login-icons">
+                        <a href="manage-booking.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="wallet.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                            <span>Guests</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                            <span>Inbox</span>
+                        </a>
+                    </div>
+                    <div class="login-action-area">
+                        <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
+                        <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
         </div>
     </header>
 
     <!-- ========================================== -->
-    <!-- COMING SOON BANNER -->
+    <!-- YELLOW CHECK-IN BANNER -->
     <!-- ========================================== -->
-    <div class="coming-soon-banner">
-        <h1>Coming soon</h1>
+    <div class="checkin-hero-banner">
+        <div class="checkin-container-inner">
+            <h1>Check-in</h1>
+        </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- COMING SOON CONTENT -->
+    <!-- CHECK-IN MAIN CONTENT (Grey Background) -->
     <!-- ========================================== -->
-    <div class="coming-soon-content">
-        <!-- Assuming the generic illustration path based on the structure -->
-        <img src="images/page-under-construction.webp" alt="Feature not yet available" onerror="this.style.display='none'">
-        
-        <h2>This feature is not yet available</h2>
-        <p>Let's go back for now, but stay tuned<br>for the next update!</p>
-        
-        <button class="go-back-btn" onclick="window.history.back();">Go Back</button>
+    <div class="checkin-page-bg">
+        <div class="checkin-container">
+            <div class="checkin-grid">
+                
+                <!-- LEFT CARD: Info -->
+                <div class="checkin-card info-card">
+                    <h2>Fly easy and check in ahead of your flight!</h2>
+                    
+                    <ul class="checkin-features">
+                        <li>
+                            <i class="fa-solid fa-check check-icon"></i>
+                            <div class="feature-text">
+                                <p>Online check-in is available from:</p>
+                                <div class="flight-type">
+                                    <i class="fa-solid fa-plane-departure plane-icon"></i>
+                                    <div>
+                                        <strong>Domestic:</strong><br>
+                                        48 hours up to 1 hour before flight
+                                    </div>
+                                </div>
+                                <div class="flight-type">
+                                    <i class="fa-solid fa-plane-departure plane-icon"></i>
+                                    <div>
+                                        <strong>International:</strong><br>
+                                        48 hours up to 2 hours before flight
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check check-icon"></i>
+                            <div class="feature-text">
+                                <p>You can make changes or buy add-ons for your flight after checking in</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- RIGHT CARD: Form -->
+                <div class="checkin-card form-card">
+                    <h2>Check-in</h2>
+                    <p class="form-subtitle">Type in your details to check in for your flight</p>
+
+                    <div class="checkin-input-group">
+                        <label>Booking Reference Number</label>
+                        <div class="input-with-icon">
+                            <input type="text" id="booking-ref" placeholder="e.g 1AB234C or 0123456789">
+                            <i class="fa-solid fa-circle-question help-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="checkin-input-group">
+                        <label>Last name or email address</label>
+                        <input type="text" id="last-name" placeholder="Enter last name or email address">
+                    </div>
+
+                    <button id="guest-btn" class="btn-guest">Continue as guest</button>
+
+                    <div class="divider-or">
+                        <span>or</span>
+                    </div>
+
+                    <button class="btn-member">Continue as MyCebuPacific member</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <!-- ========================================== -->
@@ -720,11 +927,11 @@
                 <div class="footer-col">
                     <div class="footer-group">
                         <h4>MANAGE</h4>
-                        <a href="check-in.html">Check in</a>
-                        <a href="manage-booking.html">Manage Booking</a>
-                        <a href="flight-status.html">Flight Status</a>
-                        <a href="CEB-Add-ons.html">Add-ons</a>
-                        <a href="Special-Assistance.html">Special Assistance</a>
+                        <a href="#">Check in</a>
+                        <a href="#">Manage Booking</a>
+                        <a href="#">Flight Status</a>
+                        <a href="#">Add-ons</a>
+                        <a href="#">Special Assistance</a>
                     </div>
                 </div>
 
@@ -750,10 +957,10 @@
                     <div class="footer-group">
                         <h4>EXPLORE</h4>
                         <a href="#">Explore</a>
-                        <a href="CityGuides.html">Philippine Destinations</a>
-                        <a href="CityGuides.html">International Destinations</a>
-                        <a href="where-we-fly.html">Where We Fly</a>
-                        <a href="CityGuides.html">City Guides</a>
+                        <a href="#">Philippine Destinations</a>
+                        <a href="#">International Destinations</a>
+                        <a href="#">Where We Fly</a>
+                        <a href="#">City Guides</a>
                     </div>
                 </div>
             </div>
@@ -806,5 +1013,31 @@
             </div>
         </div>
     </div>
+
+    <!-- ========================================== -->
+    <!-- SCRIPT FOR BUTTON ACTIVATION -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookingInput = document.getElementById('booking-ref');
+            const nameInput = document.getElementById('last-name');
+            const guestBtn = document.getElementById('guest-btn');
+
+            function checkInputs() {
+                // If both fields have at least 1 character, turn the button blue!
+                if (bookingInput.value.trim().length > 0 && nameInput.value.trim().length > 0) {
+                    guestBtn.classList.add('active');
+                } else {
+                    guestBtn.classList.remove('active');
+                }
+            }
+
+            // Listen for typing in both boxes
+            if (bookingInput && nameInput) {
+                bookingInput.addEventListener('input', checkInputs);
+                nameInput.addEventListener('input', checkInputs);
+            }
+        });
+    </script>
 </body>
 </html>

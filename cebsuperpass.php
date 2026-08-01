@@ -544,6 +544,20 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
             color: var(--ceb-blue); 
             font-weight: 800; 
         }
+        .user-initials-icon {
+            background-color: var(--ceb-blue);
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            margin-right: 10px; /* This creates the space before "My Account" */
+            letter-spacing: 1px;
+        }
 
         /* Mobile Responsiveness */
         @media (max-width: 900px) {
@@ -572,12 +586,12 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
         </div>
     </div>
 
-    <!-- ========================================== -->
+     <!-- ========================================== -->
     <!-- MAIN HEADER WITH MEGA MENUS -->
     <!-- ========================================== -->
     <header class="hero-header">
         <div class="header-content-wrapper">
-            <a href="index.html">
+            <a href="index.php">
                 <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific">
             </a>
             
@@ -587,15 +601,15 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                     <a href="#" class="nav-link main-link">Book</a>
                     <div class="mega-menu">
                         <div class="mega-top">
-                            <a href="#" class="mega-icon-link">
+                            <a href="index.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/flight-status-default.png" alt="Flights" class="custom-mega-img"></div>
                                 <span>Flights</span>
                             </a>
-                            <a href="seatsale.html" class="mega-icon-link">
+                            <a href="seatsale.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/your-seatsale-icon.webp" alt="Seat Sale" class="custom-mega-img"></div>
                                 <span>Seat Sale</span>
                             </a>
-                            <a href="cebsuperpass.html" class="mega-icon-link">
+                            <a href="cebsuperpass.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/super-pass-default.png" alt="CEB Super Pass" class="custom-mega-img"></div>
                                 <span>CEB Super Pass</span>
                             </a>
@@ -609,11 +623,11 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                                     <p>Log in with your agent ID</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="cargo.html">Cargo</a>
+                                    <a href="cargo.php">Cargo</a>
                                     <p>Know more about our fast and flexible air cargo service</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="Sales-&-Group-Bookings.html">Sales & Group Bookings</a>
+                                    <a href="Sales-&-Group-Bookings.php">Sales & Group Bookings</a>
                                     <p>Be a partner and maximize your business' travel budget</p>
                                 </div>
                             </div>
@@ -626,15 +640,15 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                     <a href="#" class="nav-link main-link">Manage</a>
                     <div class="mega-menu">
                         <div class="mega-top">
-                            <a href="check-in.html" class="mega-icon-link">
+                            <a href="check-in.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/check-in-default1.png" alt="Check in" class="custom-mega-img"></div>
                                 <span>Check in</span>
                             </a>
-                            <a href="manage-booking.html" class="mega-icon-link">
+                            <a href="manage-booking.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/manage-booking-default.png" alt="Manage Booking" class="custom-mega-img"></div>
                                 <span>Manage Booking</span>
                             </a>
-                            <a href="flight-status.html" class="mega-icon-link">
+                            <a href="flight-status.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/FlightStatusIcon.webp" alt="Flight Status" class="custom-mega-img"></div>
                                 <span>Flight Status</span>
                             </a>
@@ -643,11 +657,11 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                         <div class="mega-bottom">
                             <div class="manage-grid">
                                 <div class="manage-item">
-                                    <a href="CEB-Add-ons.html"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
+                                    <a href="CEB-Add-ons.php"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
                                     <p>Learn how to upgrade your trip with <a href="#" class="inline-link">baggage, meals, seats,</a> and other services</p>
                                 </div>
                                 <div class="manage-item">
-                                    <a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
+                                    <a href="Special-Assistance.php"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
                                     <p>Request services for guests needing special assistance</p>
                                 </div>
                             </div>
@@ -661,21 +675,21 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                     <div class="mega-menu">
                         <h4 class="mega-heading">BEFORE THE FLIGHT</h4>
                         <div class="travel-grid">
-                            <div class="travel-item"><a href="baggage_info.html"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
-                            <div class="travel-item"><a href="payment-options.html"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
-                            <div class="travel-item"><a href="Travel-Advisories.html"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
-                            <div class="travel-item"><a href="BookingCheckinandBoarding.html"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
-                            <div class="travel-item"><a href="TravelDocuments.html"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
-                            <div class="travel-item"><a href="Special-Assistance.html"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
+                            <div class="travel-item"><a href="baggage_info.php"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
+                            <div class="travel-item"><a href="payment-options.php"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
+                            <div class="travel-item"><a href="Travel-Advisories.php"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
+                            <div class="travel-item"><a href="BookingCheckinandBoarding.php"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
+                            <div class="travel-item"><a href="TravelDocuments.php"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
+                            <div class="travel-item"><a href="Special-Assistance.php"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
                         </div>
                         <hr class="mega-divider">
                         <h4 class="mega-heading">FLYING WITH US</h4>
                         <div class="travel-grid">
-                            <div class="travel-item"><a href="FAQs.html"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
-                            <div class="travel-item"><a href="Service-Fees.html"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
-                            <div class="travel-item"><a href="CEB-Add-ons.html"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
-                            <div class="travel-item"><a href="flight-status.html"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
-                            <div class="travel-item"><a href="AirlinePolicies.html"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
+                            <div class="travel-item"><a href="FAQs.php"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
+                            <div class="travel-item"><a href="Service-Fees.php"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
+                            <div class="travel-item"><a href="CEB-Add-ons.php"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
+                            <div class="travel-item"><a href="flight-status.php"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                            <div class="travel-item"><a href="AirlinePolicies.php"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
                         </div>
                     </div>
                 </div>
@@ -686,7 +700,7 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                     <div class="mega-menu">
                         <div class="explore-top-grid">
                             <div class="explore-dest-col">
-                                <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
+                                <a href="CityGuides.php" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
                                 <div class="destination-cards">
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/Boracay_1_sabw7m.jpg');"><span>Boracay</span></a>
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/images (2).jpg');"><span>Siargao</span></a>
@@ -694,7 +708,7 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                                 </div>
                             </div>
                             <div class="explore-dest-col">
-                                <a href="CityGuides.html" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
+                                <a href="CityGuides.php" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
                                 <div class="destination-cards">
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/dubai.jpg');"><span>Dubai</span></a>
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/hongkong.jpg');"><span>Hong Kong</span></a>
@@ -705,15 +719,15 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                         <hr class="mega-divider">
                         <div class="explore-bottom-grid">
                             <div class="explore-item">
-                                <a href="DiscoverwithSmile.html"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
+                                <a href="DiscoverwithSmile.php"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
                                 <p>Simple tips to make you a better and smarter traveler</p>
                             </div>
                             <div class="explore-item">
-                                <a href="where-we-fly.html"><i class="fa-solid fa-map"></i> Where We Fly</a>
+                                <a href="where-we-fly.php"><i class="fa-solid fa-map"></i> Where We Fly</a>
                                 <p>See our full list of destinations and choose where to go for your next trip</p>
                             </div>
                             <div class="explore-item">
-                                <a href="CityGuides.html"><i class="fa-solid fa-location-dot"></i> City Guides</a>
+                                <a href="CityGuides.php"><i class="fa-solid fa-location-dot"></i> City Guides</a>
                                 <p>Know the basics and discover hidden gems in your next destination</p>
                             </div>
                         </div>
@@ -726,71 +740,122 @@ $initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'], 0, 1) . sub
                     <div class="mega-menu">
                         <div class="about-grid">
                             <div class="about-item">
-                                <a href="our-story.html">Our Story</a>
+                                <a href="our-story.php">Our Story</a>
                                 <p>See how we made moments happen for everyjuan from 1996 up to present</p>
                             </div>
                             <div class="about-item">
-                                <a href="media-center.html">Media Center</a>
+                                <a href="media-center.php">Media Center</a>
                                 <p>Be updated on the latest airline news through our press releases and media galleries</p>
                             </div>
                             <div class="about-item">
-                                <a href="Talk-to-Us.html">Talk to Us</a>
+                                <a href="Talk-to-Us.php">Talk to Us</a>
                                 <p>Get answers to your questions or send feedback</a> to our customer support team</p>
                             </div>
                             <div class="about-item">
-                                <a href="Campaigns-&-Partners.html">Campaigns & Partners</a>
+                                <a href="Campaigns-&-Partners.php">Campaigns & Partners</a>
                                 <p>Read up on our campaigns and partnership initiatives</p>
                             </div>
                             <div class="about-item">
-                                <a href="corporate-information.html">Company Information</a>
+                                <a href="corporate-information.php">Company Information</a>
                                 <p>Read more information about Cebu Pacific for shareholders, potential investors, and financial analysts</p>
                             </div>
                             <div class="about-item">
-                                <a href="careers.html">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
+                                <a href="careers.php">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
+                
+<div class="header-right">
+    <div class="login-dropdown-wrapper">
+        <?php if ($isLoggedIn): ?>
+            <!-- LOGGED IN STATE -->
+            <button class="login-btn" onclick="window.location.href='my-account.php'">
+                <div class="user-initials-icon"><?php echo htmlspecialchars($initials); ?></div>
+                <span>My Account</span>
+            </button>
             
-            <div class="header-action-right">
-                <div class="login-dropdown-wrapper">
-                    <button class="login-btn" onclick="window.location.href='login.html'">
-                        <i class="fa-solid fa-circle-user" style="font-size: 18px; margin-right: 5px;"></i>
-                        Log in
-                    </button>
-                    <div class="mega-menu login-mega-menu">
-                        <div class="login-mega-top">
-                            <div class="login-icons">
-                                <a href="manage-booking.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
-                                    <span>My Bookings</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
-                                    <span>Wallet</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
-                                    <span>Guests</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
-                                    <span>Inbox</span>
-                                </a>
-                            </div>
-                            <div class="login-action-area">
-                                <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
-                                <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
-                            </div>
-                        </div>
-                        </div>
+            <!-- LOGGED-IN MEGA MENU DROPDOWN -->
+            <div class="mega-menu login-mega-menu">
+                <div class="login-mega-top" style="position: relative;">
+                    <div class="login-icons">
+                        <a href="manage-booking.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                            <span>Guests</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                            <span>Inbox</span>
+                        </a>
+                    </div>
+                    <div style="position: absolute; top: 0; right: 0;">
+                        <a href="logout.php" style="color: #0088CE; font-weight: bold; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log out
+                        </a>
                     </div>
                 </div>
 
-                <a href="#" class="header-search-icon">
-                </a>
+                <hr class="mega-divider">
+
+                <div class="mega-bottom">
+                    <div class="business-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="business-item">
+                            <a href="my-account.php">Travel Fund</a>
+                            <p>View your available Travel Fund and use it to book flights or add-ons</p>
+                        </div>
+                        <div class="business-item">
+                            <a href="#">My Vouchers</a>
+                            <p>Redeem your travel vouchers before they expire</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+        <?php else: ?>
+            <!-- LOGGED OUT STATE -->
+            <a href="login.html" class="login-btn">
+                <i class="fa-regular fa-circle-user" style="margin-right: 6px;"></i> Log in
+            </a>
+
+            <!-- LOGGED-OUT MEGA MENU DROPDOWN -->
+            <div class="mega-menu login-mega-menu">
+                <div class="login-mega-top">
+                    <div class="login-icons">
+                        <a href="manage-booking.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="wallet.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                            <span>Guests</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                            <span>Inbox</span>
+                        </a>
+                    </div>
+                    <div class="login-action-area">
+                        <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
+                        <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
         </div>
     </header>
 

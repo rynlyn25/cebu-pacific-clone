@@ -862,7 +862,7 @@
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
             </svg>
-            Louie Laguidao
+            <span id="dynamicGuestName">Guest</span>
         </div>
     </div>
 
@@ -1240,7 +1240,20 @@
         renderBaggage();
 
     </script>
-
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const booking = JSON.parse(localStorage.getItem('cebuBooking'));
+        const nameDisplay = document.getElementById('dynamicGuestName');
+        
+        if (booking && booking.guestName && nameDisplay) {
+            nameDisplay.innerText = booking.guestName;
+        }
+    } catch(e) {
+        console.error("Could not load guest name", e);
+    }
+});
+</script>
 </body>
 
 </html>

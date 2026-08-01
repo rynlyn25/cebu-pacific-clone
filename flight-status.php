@@ -1,9 +1,14 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+$initials = $isLoggedIn ? strtoupper(substr($_SESSION['first_name'] ?? '', 0, 1) . substr($_SESSION['last_name'] ?? '', 0, 1)) : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargo - Cebu Pacific</title>
+    <title>Flight Status - Cebu Pacific</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -98,7 +103,7 @@
         }
 
         /* =========================================
-           SOLID WHITE HEADER (Inner Pages)
+           SOLID WHITE HEADER & MEGA MENUS
            ========================================= */
         .hero-header {
             width: 100%; 
@@ -172,9 +177,6 @@
         
         .nav-item:hover .main-link { color: #00a1e4; }
 
-        /* =========================================
-           MEGA MENUS
-           ========================================= */
         .mega-menu {
             position: absolute;
             top: 70px; 
@@ -245,7 +247,7 @@
         .about-item a:hover { text-decoration: underline; color: #007bb5 !important; }
         .about-item p { color: #666; font-size: 13px; line-height: 1.4; margin: 0; }
 
-        /* Login Dropdown */
+        /* Login Dropdown Fix */
         .login-dropdown-wrapper { 
             position: relative !important; 
             display: flex;
@@ -255,7 +257,7 @@
 
         .login-btn {
             background: transparent;
-            color: var(--ceb-blue); /* Default blue for inner pages */
+            color: var(--ceb-blue);
             border: none;
             font-size: 16px;
             font-weight: 800;
@@ -313,23 +315,14 @@
         .header-search-icon:hover { color: #00a1e4; }
 
         /* =========================================
-           CARGO PAGE STYLES
+           BREADCRUMBS
            ========================================= */
-
-        .cargo-container {
-            max-width: 1150px;
-            margin: 0 auto !important; 
-            padding: 0 20px !important; 
-            box-sizing: border-box;
-        }
-
-        /* BREADCRUMBS */
         .breadcrumbs-container {
             background-color: #f9f9f9 !important; 
             padding: 12px 0 !important;
             border-bottom: 1px solid #eaeaea !important;
             width: 100%;
-            margin-top: 105px !important; /* THE FIX: Keeps it from hiding under header */
+            margin-top: 105px !important; 
         }
 
         .breadcrumbs {
@@ -347,310 +340,277 @@
             text-decoration: none;
         }
 
-        .breadcrumbs a:hover {
-            color: #005eb8 !important; 
+        .breadcrumbs a:hover { color: #005eb8 !important; }
+
+        /* =========================================
+           FLIGHT STATUS HERO BANNER
+           ========================================= */
+        .status-hero-banner {
+            background-color: #ffd800 !important;
+            border-bottom-left-radius: 50% 30px !important;
+            border-bottom-right-radius: 50% 30px !important;
+            padding: 80px 0 60px !important;
         }
 
-        /* Yellow Banner */
-        .cargo-hero-banner {
-            background-color: #ffd800 !important; 
-            padding: 90px 0 50px !important; 
-            border-bottom-left-radius: 50% 8px;
-            border-bottom-right-radius: 50% 8px;
+        .status-container-inner {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
-        .cargo-hero-banner h1 {
-            color: #005eb8 !important; 
-            font-size: 38px !important; 
-            font-weight: 750 !important;
+        .status-hero-banner h1 {
+            color: #005eb8 !important;
+            font-size: 40px !important;
+            font-weight: 800 !important;
+            margin: 0 0 10px 0 !important;
             letter-spacing: 0.5px;
-            margin: 0 !important;
         }
 
-        /* Navigation Tabs */
-        .cargo-nav-bar {
-            margin-top: 30px !important; 
-            border-bottom: 2px solid #eaeaea;
-            margin-bottom: 40px;
-        }
-
-        .cargo-tabs {
-            display: flex;
-            gap: 40px;
-            padding-top: 20px;
-        }
-
-        .cargo-tabs a {
-            text-decoration: none;
-            color: #888;
-            font-weight: 700;
-            font-size: 15px;
-            padding-bottom: 15px;
-            position: relative;
-            transition: color 0.2s;
-        }
-
-        .cargo-tabs a:hover {
-            color: #444;
-        }
-
-        .cargo-tabs a.active {
-            color: #333;
-        }
-
-        .cargo-tabs a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: #00a4e4; 
-        }
-
-        /* Main Content */
-        .cargo-main-content {
-            color: #333;
-        }
-
-        .cargo-section {
-            margin-bottom: 60px;
-            scroll-margin-top: 120px; /* Accounts for fixed header */
-        }
-
-        .cargo-section h2 {
-            font-size: 24px;
-            font-weight: 800;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .cargo-section p {
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: #444;
-        }
-
-        .full-width-img {
-            width: 100%;
-            height: auto;
-            margin-top: 20px;
-        }
-
-        /* Product List */
-        .product-item {
-            display: flex;
-            gap: 25px;
-            margin-bottom: 35px;
-            align-items: flex-start;
-        }
-
-        .product-icon {
-            width: 120px; 
-            height: 120px; 
-            object-fit: contain;
-            flex-shrink: 0; 
-        }
-
-        .product-info h3 {
-            font-size: 18px;
-            font-weight: 800;
-            margin: 0 0 10px 0;
-            color: #333;
-        }
-
-        .product-info ul {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-
-        .product-info li {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #444;
-            margin-bottom: 5px;
-        }
-
-        /* Contact Grid */
-        .contact-grid {
-            display: flex;
-            gap: 30px;
-        }
-
-        .contact-col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .contact-col h3 {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-
-        .contact-img {
-            width: 100%;
-            height: auto;
-            margin-bottom: 15px;
-        }
-
-        .cargo-btn {
-            background-color: #0088ce;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: auto; 
-            transition: background 0.2s;
-            width: 100%;
-        }
-
-        .cargo-btn:hover {
-            background-color: #006eb3;
+        .status-hero-banner p {
+            color: #005eb8; 
+            font-size: 22px; 
+            margin: 0;
+            font-weight: 500;
         }
 
         /* =========================================
-           UPDATED FOOTER STYLES
+           FLIGHT STATUS PAGE STYLES
            ========================================= */
-        .site-footer { 
-            background-color: #ffffff; 
-            padding: 60px 20px 40px 20px; 
-            border-top: 1px solid #eaeaea; 
-            width: 100%; 
+        .status-page-bg {
+            background-color: #fafbfc; /* Very light grey */
+            padding: 50px 20px 100px;
+            min-height: 50vh;
+        }
+
+        .status-container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .status-disclaimer {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            max-width: 900px;
+        }
+
+        /* The White Card */
+        .status-form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+        }
+
+        /* Radio Buttons */
+        .status-radio-group {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .radio-label {
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-label.active {
+            color: #0088ce;
+            font-weight: 700;
+        }
+
+        .radio-label.inactive {
+            color: #0088ce;
+            font-weight: 400;
+        }
+
+        /* Input Row Layout */
+        .status-inputs-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end; /* Aligns the bottom of the boxes and button */
+            position: relative;
+        }
+
+        .status-input-box {
+            flex: 1; /* Makes inputs share space equally */
+        }
+
+        .status-input-box label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #d32f2f; /* Red Asterisk */
+            margin-left: 3px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .input-wrapper input:focus {
+            border: 1px solid #0088ce;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
+        /* Icons inside inputs */
+        .clear-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: #005eb8;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .dropdown-icon {
+            position: absolute;
+            right: 15px;
+            top: 16px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* The Swap Icon (Positioned between From and To) */
+        .swap-icon-container {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 26.5%; 
+            bottom: 10px;
+            z-index: 10;
+            color: #005eb8;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
         
-        .footer-container { 
-            max-width: 1150px; 
-            margin: 0 auto; 
-            display: flex; 
-            gap: 60px; 
-            justify-content: space-between; 
+        .swap-icon-container:hover {
+            border-color: #005eb8;
+            color: #00a4e4;
         }
-        
-        .footer-grid-left { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 40px; 
-            flex: 2.5; 
+
+        /* Check Status Button */
+        .status-button-box {
+            flex: 0.8; /* Slightly narrower than the inputs */
         }
-        
+
+        .btn-check-status {
+            width: 100%;
+            padding: 15px;
+            background-color: #81c0e3; /* Light soft blue */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-check-status:hover {
+            background-color: #5baedb;
+        }
+        .user-initials-icon {
+            background-color: var(--ceb-blue);
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            margin-right: 10px; /* This creates the space before "My Account" */
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .status-inputs-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .swap-icon-container {
+                display: none; /* Hides swap icon on small screens */
+            }
+        }
+
+        /* =========================================
+           FOOTER STYLES
+           ========================================= */
+        .site-footer { background-color: #ffffff; padding: 60px 20px 40px 20px; border-top: 1px solid #eaeaea; width: 100%; }
+        .footer-container { max-width: 1150px; margin: 0 auto; display: flex; gap: 60px; justify-content: space-between; }
+        .footer-grid-left { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; flex: 2.5; }
         .footer-col { display: flex; flex-direction: column; }
         .footer-group { display: flex; flex-direction: column; }
         
-        .footer-group h4, .footer-right-sidebar h4 { 
-            font-size: 14px; 
-            color: #000000; 
-            margin-bottom: 20px; 
-            font-weight: 900; 
-            letter-spacing: 0.5px; 
-            text-transform: uppercase; 
-        }
+        .footer-group h4, .footer-right-sidebar h4 { font-size: 14px; color: #000000; margin-bottom: 20px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; }
+        .footer-group a { color: #00a4e4; text-decoration: none; font-size: 15px; margin-bottom: 16px; transition: color 0.2s; }
+        .footer-group a:hover { text-decoration: underline; color: #007bb5; }
         
-        .footer-group a { 
-            color: #00a4e4; 
-            text-decoration: none; 
-            font-size: 15px; 
-            margin-bottom: 16px; 
-            transition: color 0.2s; 
-        }
-        
-        .footer-group a:hover { 
-            text-decoration: underline; 
-            color: #007bb5; 
-        }
-        
-        .country-box { 
-            display: flex; 
-            align-items: center; 
-            border: 1px solid #ccc; 
-            padding: 12px 15px; 
-            border-radius: 4px; 
-            font-size: 15px; 
-            color: #000; 
-            font-weight: 700; 
-            cursor: pointer; 
-            width: 100%; 
-            background: #fff; 
-            gap: 10px; 
-            box-sizing: border-box;
-        }
-        
+        .country-box { display: flex; align-items: center; border: 1px solid #ccc; padding: 12px 15px; border-radius: 4px; font-size: 15px; color: #000; font-weight: 700; cursor: pointer; width: 100%; background: #fff; gap: 10px; box-sizing: border-box; }
         .country-box i { font-size: 16px; }
         
-        .footer-right-sidebar { 
-            flex: 1; 
-            min-width: 300px; 
-            border-left: 1px solid #e0e0e0; 
-            padding-left: 40px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 30px; 
-        }
-        
+        .footer-right-sidebar { flex: 1; min-width: 300px; border-left: 1px solid #e0e0e0; padding-left: 40px; display: flex; flex-direction: column; gap: 30px; }
         .app-buttons { display: flex; gap: 12px; }
         .app-buttons img { height: 40px; width: auto; }
-        
-        .payment-logos { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-        }
-        
-        .payment-row-1 { 
-            display: flex; 
-            gap: 20px; 
-            align-items: center; 
-        }
-        
-        .payment-row-1 img { 
-            height: 45px; 
-            width: auto; 
-        }
-        
-        .payment-row-2 img { 
-            height: 30px; 
-            width: auto; 
-        }
+        .payment-logos { display: flex; flex-direction: column; gap: 15px; }
+        .payment-row-1 { display: flex; gap: 20px; align-items: center; }
+        .payment-row-1 img { height: 45px; width: auto; }
+        .payment-row-2 img { height: 30px; width: auto; }
         
         .accreditations { display: flex; align-items: center; gap: 15px; }
         .accreditations img { height: 70px; width: auto; }
         
-        .footer-bottom { 
-            background-color: var(--ceb-yellow); 
-            padding: 25px 20px; 
-            width: 100%; 
-        }
-        
-        .footer-bottom-container { 
-            max-width: 1150px; 
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            gap: 15px; 
-        }
-        
+        .footer-bottom { background-color: var(--ceb-yellow); padding: 25px 20px; width: 100%; }
+        .footer-bottom-container { max-width: 1150px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-legal-links { display: flex; flex-wrap: wrap; gap: 30px; }
-        
-        .footer-legal-links a { 
-            color: var(--ceb-blue); 
-            text-decoration: none; 
-            font-size: 14px; 
-            font-weight: 800; 
-        }
-        
+        .footer-legal-links a { color: var(--ceb-blue); text-decoration: none; font-size: 14px; font-weight: 800; }
         .footer-legal-links a:hover { text-decoration: underline; }
-        
-        .copyright-text { 
-            font-size: 14px; 
-            color: var(--ceb-blue); 
-            font-weight: 800; 
+        .copyright-text { font-size: 14px; color: var(--ceb-blue); font-weight: 800; }
+
+        @media (max-width: 900px) {
+            .footer-container { flex-direction: column; }
+            .footer-grid-left { grid-template-columns: repeat(2, 1fr); }
+            .footer-right-sidebar { border-left: none; padding-left: 0; border-top: 1px solid #e0e0e0; padding-top: 30px; }
         }
     </style>
 </head>
@@ -661,7 +621,7 @@
     <!-- ========================================== -->
     <div class="top-advisory-bar">
         <div class="header-content-wrapper">
-            <div class="advisory-left"> 
+            <div class="advisory-left">
             </div>
             <div class="advisory-right">
                 <a href="#">
@@ -677,25 +637,25 @@
     <!-- ========================================== -->
     <header class="hero-header">
         <div class="header-content-wrapper">
-            <a href="index.html">
+            <a href="index.php">
                 <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific">
             </a>
             
             <nav class="nav-links">
                 <!-- 1. BOOK -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Book</a>
+                    <a href="#" class="nav-link main-link">Book</a>
                     <div class="mega-menu">
                         <div class="mega-top">
-                            <a href="index.html" class="mega-icon-link">
+                            <a href="index.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/flight-status-default.png" alt="Flights" class="custom-mega-img"></div>
                                 <span>Flights</span>
                             </a>
-                            <a href="seatsale.html" class="mega-icon-link">
+                            <a href="seatsale.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/your-seatsale-icon.webp" alt="Seat Sale" class="custom-mega-img"></div>
                                 <span>Seat Sale</span>
                             </a>
-                            <a href="cebsuperpass.html" class="mega-icon-link">
+                            <a href="cebsuperpass.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/super-pass-default.png" alt="CEB Super Pass" class="custom-mega-img"></div>
                                 <span>CEB Super Pass</span>
                             </a>
@@ -709,11 +669,11 @@
                                     <p>Log in with your agent ID</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="cargo.html">Cargo</a>
+                                    <a href="cargo.php">Cargo</a>
                                     <p>Know more about our fast and flexible air cargo service</p>
                                 </div>
                                 <div class="business-item">
-                                    <a href="#">Sales & Group Bookings</a>
+                                    <a href="Sales-&-Group-Bookings.php">Sales & Group Bookings</a>
                                     <p>Be a partner and maximize your business' travel budget</p>
                                 </div>
                             </div>
@@ -723,18 +683,18 @@
                 
                 <!-- 2. MANAGE -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Manage</a>
+                    <a href="#" class="nav-link main-link">Manage</a>
                     <div class="mega-menu">
                         <div class="mega-top">
-                            <a href="#" class="mega-icon-link">
+                            <a href="check-in.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/check-in-default1.png" alt="Check in" class="custom-mega-img"></div>
                                 <span>Check in</span>
                             </a>
-                            <a href="#" class="mega-icon-link">
+                            <a href="manage-booking.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/manage-booking-default.png" alt="Manage Booking" class="custom-mega-img"></div>
                                 <span>Manage Booking</span>
                             </a>
-                            <a href="#" class="mega-icon-link">
+                            <a href="flight-status.php" class="mega-icon-link">
                                 <div class="mega-icon"><img src="images/FlightStatusIcon.webp" alt="Flight Status" class="custom-mega-img"></div>
                                 <span>Flight Status</span>
                             </a>
@@ -743,11 +703,11 @@
                         <div class="mega-bottom">
                             <div class="manage-grid">
                                 <div class="manage-item">
-                                    <a href="#"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
+                                    <a href="CEB-Add-ons.php"><i class="fa-solid fa-chair" style="font-size: 13px; margin-right: 6px;"></i> Add-ons</a>
                                     <p>Learn how to upgrade your trip with <a href="#" class="inline-link">baggage, meals, seats,</a> and other services</p>
                                 </div>
                                 <div class="manage-item">
-                                    <a href="#"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
+                                    <a href="Special-Assistance.php"><i class="fa-solid fa-wheelchair" style="font-size: 13px; margin-right: 6px;"></i> Special Assistance</a>
                                     <p>Request services for guests needing special assistance</p>
                                 </div>
                             </div>
@@ -757,44 +717,44 @@
                 
                 <!-- 3. TRAVEL INFO -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Travel Info</a>
+                    <a href="#" class="nav-link main-link">Travel Info</a>
                     <div class="mega-menu">
                         <h4 class="mega-heading">BEFORE THE FLIGHT</h4>
                         <div class="travel-grid">
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
+                            <div class="travel-item"><a href="baggage_info.php"><i class="fa-solid fa-suitcase"></i> Baggage Information</a></div>
+                            <div class="travel-item"><a href="payment-options.php"><i class="fa-solid fa-credit-card"></i> Payment Options</a></div>
+                            <div class="travel-item"><a href="Travel-Advisories.php"><i class="fa-solid fa-circle-info"></i> Travel Advisories</a></div>
+                            <div class="travel-item"><a href="BookingCheckinandBoarding.php"><i class="fa-solid fa-location-dot"></i> Booking & Check-in</a></div>
+                            <div class="travel-item"><a href="TravelDocuments.php"><i class="fa-solid fa-file-lines"></i> Travel Documents</a></div>
+                            <div class="travel-item"><a href="Special-Assistance.php"><i class="fa-solid fa-wheelchair"></i> Special Assistance</a></div>
                         </div>
                         <hr class="mega-divider">
                         <h4 class="mega-heading">FLYING WITH US</h4>
                         <div class="travel-grid">
-                            <div class="travel-item"><a href="seatsale-faq.html"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
-                            <div class="travel-item"><a href="#"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
+                            <div class="travel-item"><a href="FAQs.php"><i class="fa-solid fa-circle-question"></i> FAQs</a></div>
+                            <div class="travel-item"><a href="Service-Fees.php"><i class="fa-solid fa-tag"></i> Service Fees</a></div>
+                            <div class="travel-item"><a href="CEB-Add-ons.php"><i class="fa-solid fa-chair"></i> Add-Ons</a></div>
+                            <div class="travel-item"><a href="flight-status.php"><i class="fa-solid fa-plane-departure"></i> Flight Status</a></div>
+                            <div class="travel-item"><a href="AirlinePolicies.php"><i class="fa-solid fa-passport"></i> Airline Policies</a></div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- 4. EXPLORE -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">Explore</a>
+                    <a href="#" class="nav-link main-link">Explore</a>
                     <div class="mega-menu">
                         <div class="explore-top-grid">
                             <div class="explore-dest-col">
-                                <a href="#" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
+                                <a href="CityGuides.php" class="explore-heading"><i class="fa-solid fa-map-location-dot"></i> Philippine Destinations</a>
                                 <div class="destination-cards">
-                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/boracay.jpg');"><span>Boracay</span></a>
-                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/siargao.jpg');"><span>Siargao</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/Boracay_1_sabw7m.jpg');"><span>Boracay</span></a>
+                                    <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/images (2).jpg');"><span>Siargao</span></a>
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/cebu.jpg');"><span>Cebu</span></a>
                                 </div>
                             </div>
                             <div class="explore-dest-col">
-                                <a href="#" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
+                                <a href="CityGuides.php" class="explore-heading"><i class="fa-solid fa-globe"></i> International Destinations</a>
                                 <div class="destination-cards">
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/dubai.jpg');"><span>Dubai</span></a>
                                     <a href="#" class="dest-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)), url('images/hongkong.jpg');"><span>Hong Kong</span></a>
@@ -805,15 +765,15 @@
                         <hr class="mega-divider">
                         <div class="explore-bottom-grid">
                             <div class="explore-item">
-                                <a href="#"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
+                                <a href="DiscoverwithSmile.php"><i class="fa-solid fa-lightbulb"></i> Discover with Smile</a>
                                 <p>Simple tips to make you a better and smarter traveler</p>
                             </div>
                             <div class="explore-item">
-                                <a href="#"><i class="fa-solid fa-map"></i> Where We Fly</a>
+                                <a href="where-we-fly.php"><i class="fa-solid fa-map"></i> Where We Fly</a>
                                 <p>See our full list of destinations and choose where to go for your next trip</p>
                             </div>
                             <div class="explore-item">
-                                <a href="#"><i class="fa-solid fa-location-dot"></i> City Guides</a>
+                                <a href="CityGuides.php"><i class="fa-solid fa-location-dot"></i> City Guides</a>
                                 <p>Know the basics and discover hidden gems in your next destination</p>
                             </div>
                         </div>
@@ -822,75 +782,126 @@
                 
                 <!-- 5. ABOUT -->
                 <div class="nav-item">
-                    <a href="#" class="main-link">About</a>
+                    <a href="#" class="nav-link main-link">About</a>
                     <div class="mega-menu">
                         <div class="about-grid">
                             <div class="about-item">
-                                <a href="#">Our Story</a>
+                                <a href="our-story.php">Our Story</a>
                                 <p>See how we made moments happen for everyjuan from 1996 up to present</p>
                             </div>
                             <div class="about-item">
-                                <a href="#">Media Center</a>
+                                <a href="media-center.php">Media Center</a>
                                 <p>Be updated on the latest airline news through our press releases and media galleries</p>
                             </div>
                             <div class="about-item">
-                                <a href="#">Talk to Us</a>
+                                <a href="Talk-to-Us.php">Talk to Us</a>
                                 <p>Get answers to your questions or send feedback</a> to our customer support team</p>
                             </div>
                             <div class="about-item">
-                                <a href="#">Campaigns & Partners</a>
+                                <a href="Campaigns-&-Partners.php">Campaigns & Partners</a>
                                 <p>Read up on our campaigns and partnership initiatives</p>
                             </div>
                             <div class="about-item">
-                                <a href="#">Company Information</a>
+                                <a href="corporate-information.php">Company Information</a>
                                 <p>Read more information about Cebu Pacific for shareholders, potential investors, and financial analysts</p>
                             </div>
                             <div class="about-item">
-                                <a href="#">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
+                                <a href="careers.php">Careers <img src="images/OpenNewTab.webp" alt="Careers" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle;"></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
                 
-            <div class="header-right">
-                <div class="login-dropdown-wrapper">
-                    <button class="login-btn">
-                        <i class="fa-solid fa-circle-user" style="font-size: 18px; margin-right: 5px;"></i>
-                        Log in
-                    </button>
-                    <div class="mega-menu login-mega-menu">
-                        <div class="login-mega-top">
-                            <div class="login-icons">
-                                <a href="manage-booking.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
-                                    <span>My Bookings</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
-                                    <span>Wallet</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
-                                    <span>Guests</span>
-                                </a>
-                                <a href="coming-soon.html" class="mega-icon-link">
-                                    <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
-                                    <span>Inbox</span>
-                                </a>
-                            </div>
-                            <div class="login-action-area">
-                                <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
-                                <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
-                            </div>
-                        </div>
-                        </div>
+<div class="header-right">
+    <div class="login-dropdown-wrapper">
+        <?php if ($isLoggedIn): ?>
+            <!-- LOGGED IN STATE -->
+            <button class="login-btn" onclick="window.location.href='my-account.php'">
+                <div class="user-initials-icon"><?php echo htmlspecialchars($initials); ?></div>
+                <span>My Account</span>
+            </button>
+            
+            <!-- LOGGED-IN MEGA MENU DROPDOWN -->
+            <div class="mega-menu login-mega-menu">
+                <div class="login-mega-top" style="position: relative;">
+                    <div class="login-icons">
+                        <a href="manage-booking.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                            <span>Guests</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                            <span>Inbox</span>
+                        </a>
+                    </div>
+                    <div style="position: absolute; top: 0; right: 0;">
+                        <a href="logout.php" style="color: #0088CE; font-weight: bold; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log out
+                        </a>
                     </div>
                 </div>
 
-                <a href="#" class="header-search-icon">
-                </a>
+                <hr class="mega-divider">
+
+                <div class="mega-bottom">
+                    <div class="business-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="business-item">
+                            <a href="my-account.php">Travel Fund</a>
+                            <p>View your available Travel Fund and use it to book flights or add-ons</p>
+                        </div>
+                        <div class="business-item">
+                            <a href="#">My Vouchers</a>
+                            <p>Redeem your travel vouchers before they expire</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+        <?php else: ?>
+            <!-- LOGGED OUT STATE -->
+            <a href="login.html" class="login-btn">
+                <i class="fa-regular fa-circle-user" style="margin-right: 6px;"></i> Log in
+            </a>
+
+            <!-- LOGGED-OUT MEGA MENU DROPDOWN -->
+            <div class="mega-menu login-mega-menu">
+                <div class="login-mega-top">
+                    <div class="login-icons">
+                        <a href="manage-booking.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/BookingsBoarding.webp" alt="My Bookings" class="custom-mega-img"></div>
+                            <span>My Bookings</span>
+                        </a>
+                        <a href="wallet.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Wallet.webp" alt="Wallet" class="custom-mega-img"></div>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Guests_1.webp" alt="Guests" class="custom-mega-img"></div>
+                            <span>Guests</span>
+                        </a>
+                        <a href="coming-soon.php" class="mega-icon-link">
+                            <div class="mega-icon"><img src="images/Inbox.webp" alt="Inbox" class="custom-mega-img"></div>
+                            <span>Inbox</span>
+                        </a>
+                    </div>
+                    <div class="login-action-area">
+                        <button class="mega-login-btn" onclick="window.location.href='login.html'">Log in</button>
+                        <p class="signup-prompt">Not yet a member? <a href="signup.html">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
         </div>
     </header>
 
@@ -900,138 +911,90 @@
     <div class="breadcrumbs-container">
         <div class="breadcrumbs">
             <a href="index.html">Home</a> &rsaquo; 
-            <span>Book</span> &rsaquo; 
-            <span>Cargo</span>
+            <span>Flight Status</span>
         </div>
     </div>
 
     <!-- ========================================== -->
     <!-- YELLOW HERO BANNER -->
     <!-- ========================================== -->
-    <div class="cargo-hero-banner">
-        <div class="cargo-container">
-            <h1>CEB Cargo</h1>
-        </div>
-    </div>
-
-   <!-- ========================================== -->
-    <!-- IN-PAGE NAVIGATION TABS -->
-    <!-- ========================================== -->
-    <div class="cargo-nav-bar">
-        <div class="cargo-container cargo-tabs">
-            <a href="#about" class="tab-link active">About Cebu Pacific Cargo</a>
-            <a href="#products" class="tab-link">Products and Services</a>
-            <a href="#contact" class="tab-link">CEB Cargo Contact</a>
+    <div class="status-hero-banner">
+        <div class="status-container-inner">
+            <h1>Flight Status</h1>
+            <p>Get real-time status of your flight</p>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- MAIN CONTENT SECTIONS -->
+    <!-- FLIGHT STATUS CONTENT -->
     <!-- ========================================== -->
-    <main class="cargo-container cargo-main-content">
-        
-        <!-- ABOUT SECTION -->
-        <section id="about" class="cargo-section">
-            <h2>About Cebu Pacific Cargo</h2>
-            <p>Cebu Pacific Cargo (CEB Cargo) is the largest cargo carrier in the Philippines, providing competitive, fast, flexible, and straightforward air cargo service to individual shippers and cargo agents locally and overseas.</p>
-            <p>CEB Cargo utilizes Cebu Pacific's modern aircraft fleet. It has interline partners for cargo to and from Europe, Africa and the Americas.</p>
-            <img src="images/AIRCRAFT-A330NEO-2-7008x4672.jpg" alt="Cebu Pacific Cargo Plane" class="full-width-img">
-        </section>
-
-        <!-- PRODUCTS SECTION -->
-        <section id="products" class="cargo-section">
-            <h2>CEB Cargo Products and Services</h2>
+    <div class="status-page-bg">
+        <div class="status-container">
             
-            <div class="product-item">
-                <img src="images/CEBCargo-ceb-x-cargo-product.png" alt="CEB X" class="product-icon">
-                <div class="product-info">
-                    <h3>CEB X</h3>
-                    <p>The fastest and most effective way to get your URGENT or RUSH cargo to its destination.</p>
-                    <p>CEB X requires confirmation from the CEB Cargo office and is on a first-come, first-served basis. Cargoes are accepted only up to two (2) hours prior to the published schedule of flight departure.</p>
-                </div>
-            </div>
+            <p class="status-disclaimer">
+                Check the flight status for departures and arrivals within 24 hours. The info is displayed in each airport's local time and may change. Final timings will be announced at the airport.
+            </p>
 
-            <div class="product-item">
-                <img src="images/CEBCargo-blocked-space-arrangement-cargo-product.png" alt="Blocked Space Arrangement" class="product-icon">
-                <div class="product-info">
-                    <h3>Blocked Space Arrangement</h3>
-                    <p>This service is offered to cargo customers who require a fixed and guaranteed space with CEB Cargo. For a guaranteed space allocation on selected flight, we negotiate rates on a per requirement basis. Cargoes are accepted only up to two (2) hours prior to the published schedule of flight departure.</p>
-                </div>
-            </div>
-
-            <div class="product-item">
-                <img src="images/CEBCargo-atr-charter-cargo-product.png" alt="ATR Charter" class="product-icon">
-                <div class="product-info">
-                    <h3>ATR Charter</h3>
-                    <p>CEB Cargo offers chartered services using the ATR72-500 aircraft. It has an average capacity of 5,500kg loose cargo with a maximum gross weight of 50kg per piece.</p>
-                </div>
-            </div>
-
-            <div class="product-item">
-                <img src="images/CEBCargo-transhipments-cargo-product.png" alt="Transshipments" class="product-icon">
-                <div class="product-info">
-                    <h3>Transshipments</h3>
-                    <p>CEB Cargo provides efficient and seamless inter-island connections via Cebu Pacific's four major hubs: Manila, Cebu, Clark and Davao. Move your cargo shipments to onward destinations that have no direct flights from the point of origin.</p>
-                </div>
-            </div>
-
-            <div class="product-item">
-                <img src="images/CEBCargo-cargo-interline-cargo-product.png" alt="Cargo Interline" class="product-icon">
-                <div class="product-info">
-                    <h3>Cargo Interline</h3>
-                    <p>CEB Cargo has interline partners for cargo to and from Europe, Africa and the Americas. Send your cargo through our 15 interline partners.</p>
-                </div>
-            </div>
-
-            <div class="product-item">
-                <img src="images/CEBCargo-packaging-services-cargo-product.png" alt="Packaging Services" class="product-icon">
-                <div class="product-info">
-                    <h3>Packaging Services</h3>
-                    <p>Protect shipments from getting wet or damaged for all flights from Manila to destinations in Luzon, Visayas and Mindanao. Offerings are:</p>
-                    <ul>
-                        <li>Plastic jack wrap services</li>
-                        <li>Plastic sheets</li>
-                        <li>Bubble wrap</li>
-                        <li>Styro boxes</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT SECTION -->
-        <section id="contact" class="cargo-section">
-            <h2>CEB Cargo Contact</h2>
-            <div class="contact-grid">
+            <!-- Search Form Card -->
+            <div class="status-form-card">
                 
-                <!-- Email Column -->
-                <div class="contact-col">
-                    <h3>Send an email</h3>
-                    <img src="images/TalkToUs-guestfeedback.jpg" alt="Cargo Counter" class="contact-img">
-                    <p>We'd like to hear about your experience! For you questions and feedback you may send an email to <a href="mailto:cargocare@cebupacificair.com" class="inline-link">cargocare@cebupacificair.com</a> for CEB Cargo Domestic and <a href="mailto:cargocareint@cebupacificair.com" class="inline-link">cargocareint@cebupacificair.com</a> for CEB Cargo International.</p>
-                    <button class="cargo-btn">Send a message</button>
+                <!-- Radio Buttons -->
+                <div class="status-radio-group">
+                    <label class="radio-label active">
+                        <i class="fa-regular fa-circle-dot"></i> By route
+                    </label>
+                    <label class="radio-label inactive">
+                        <i class="fa-regular fa-circle"></i> Flight No.
+                    </label>
                 </div>
 
-                <!-- Social Media Column -->
-                <div class="contact-col">
-                    <h3>Connect through social media</h3>
-                    <img src="images/TalkToUs-ConnectThoughSocialMedia.jpg" alt="Social Media Team" class="contact-img">
-                    <p>Send us a message on our official Facebook and Twitter accounts for booking concerns or assistance.</p>
-                    <button class="cargo-btn">Facebook</button>
-                </div>
+                <!-- Input Fields Row -->
+                <div class="status-inputs-row">
+                    
+                    <!-- From -->
+                    <div class="status-input-box from-box">
+                        <label>From<span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" value="Manila MNL">
+                            <i class="fa-solid fa-xmark clear-icon"></i>
+                        </div>
+                    </div>
 
-                <!-- Head Office Column -->
-                <div class="contact-col">
-                    <h3>Head Office</h3>
-                    <img src="images/CEB-Googlemap.jpg" alt="Map Location" class="contact-img" style="border: 1px solid #ddd;">
-                    <p>Cebu Pacific Building, Domestic Airport Road, Pasay City 1301 Philippines</p>
+                    <!-- Swap Button Overlay -->
+                    <div class="swap-icon-container">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    </div>
+
+                    <!-- To -->
+                    <div class="status-input-box to-box">
+                        <label>To<span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Select Destination">
+                        </div>
+                    </div>
+
+                    <!-- Flight Date -->
+                    <div class="status-input-box date-box">
+                        <label>Flight Date<span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Select">
+                            <i class="fa-solid fa-caret-down dropdown-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="status-button-box">
+                        <button class="btn-check-status">Check status</button>
+                    </div>
+
                 </div>
 
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
     <!-- ========================================== -->
-    <!-- FOOTER -->
+    <!-- FOOTER SECTION -->
     <!-- ========================================== -->
     <footer class="site-footer">
         <div class="footer-container">
@@ -1055,23 +1018,23 @@
                 <div class="footer-col">
                     <div class="footer-group">
                         <h4>MANAGE</h4>
-                        <a href="#">Check in</a>
-                        <a href="#">Manage Booking</a>
-                        <a href="#">Flight Status</a>
-                        <a href="#">Add-ons</a>
-                        <a href="#">Special Assistance</a>
+                        <a href="check-in.html">Check in</a>
+                        <a href="manage-booking.html">Manage Booking</a>
+                        <a href="flight-status.html">Flight Status</a>
+                        <a href="CEB-Add-ons.html">Add-ons</a>
+                        <a href="Special-Assistance.html">Special Assistance</a>
                     </div>
                 </div>
 
                 <div class="footer-col">
                     <div class="footer-group">
                         <h4>TRAVEL INFO</h4>
-                        <a href="#">Baggage Information</a>
-                        <a href="#">Payment Options</a>
-                        <a href="#">Travel Advisories</a>
-                        <a href="#">Booking & Check-in</a>
-                        <a href="#">Travel Documents</a>
-                        <a href="#">Service Fees</a>
+                        <a href="baggage_info.html">Baggage Information</a>
+                        <a href="payment-options.html">Payment Options</a>
+                        <a href="Travel-Advisories.html">Travel Advisories</a>
+                        <a href="BookingCheckinandBoarding.html">Booking & Check-in</a>
+                        <a href="TravelDocuments.html">Travel Documents</a>
+                        <a href="Service-Fees.html">Service Fees</a>
                     </div>
                     <div class="footer-group" style="margin-top: 60px;">
                         <h4>SELECT COUNTRY</h4>
@@ -1085,10 +1048,10 @@
                     <div class="footer-group">
                         <h4>EXPLORE</h4>
                         <a href="#">Explore</a>
-                        <a href="#">Philippine Destinations</a>
-                        <a href="#">International Destinations</a>
-                        <a href="#">Where We Fly</a>
-                        <a href="#">City Guides</a>
+                        <a href="CityGuides.html">Philippine Destinations</a>
+                        <a href="CityGuides.html">International Destinations</a>
+                        <a href="where-we-fly.html">Where We Fly</a>
+                        <a href="CityGuides.html">City Guides</a>
                     </div>
                 </div>
             </div>
@@ -1135,24 +1098,11 @@
                 <a href="#">Accessibility</a>
                 <a href="#">Site Map</a>
             </div>
-            <div class="copyright-text">© Copyright 2026 Cebu Pacific: SE GROUP 7</div>
+            
+            <div class="copyright-text">
+                © Copyright 2026 Cebu Pacific: SE GROUP 7
+            </div>
         </div>
     </div>
-
-    <!-- TAB SWITCHING SCRIPT -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const tabs = document.querySelectorAll('.tab-link');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove the 'active' class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    // Add the 'active' class to the one you just clicked
-                    this.classList.add('active');
-                });
-            });
-        });
-    </script>
 </body>
 </html>

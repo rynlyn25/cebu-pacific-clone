@@ -577,7 +577,7 @@
     <!-- TOP STICKY NAVBAR FROM PICTURE 1 -->
     <div class="top-navbar">
         <div class="brand-container">
-            <img src="AO-1.webp" alt="Cebu Pacific Logo" class="brand-logo">
+            <img src="images/AO-1.webp" alt="Cebu Pacific Logo" class="brand-logo">
         </div>
 
         <!-- OVERALL CART (inserted) -->
@@ -693,12 +693,12 @@
             <!-- Seat Selector -->
             <div class="addon-card" onclick="window.location.href='SSAO-index.html'">
                 <div class="addon-image-wrap">
-                    <img src="SSAO-1.webp" alt="Seat Selector Cabin">
+                    <img src="images/SSAO-1.webp" alt="Seat Selector Cabin">
                 </div>
                 <div class="addon-body">
                     <div class="addon-title-area">
                         <div class="addon-icon-box">
-                            <img src="SSAO-2.webp" alt="Seat Selector Logo">
+                            <img src="images/SSAO-2.webp" alt="Seat Selector Logo">
                         </div>
                     </div>
                     <div class="addon-price-area">
@@ -713,12 +713,12 @@
                 <div class="addon-image-wrap">
                     <div class="pre-selected-badge">PRE-SELECTED FOR YOU</div>
                     <div class="addon-info-overlay">i</div>
-                    <img src="TSAO-1.webp" alt="CEB TravelSure Travel">
+                    <img src="images/TSAO-1.webp" alt="CEB TravelSure Travel">
                 </div>
                 <div class="addon-body">
                     <div class="addon-title-area">
                         <div class="addon-icon-box">
-                            <img src="TSAO-2.webp" alt="CEB TravelSure Logo">
+                            <img src="images/TSAO-2.webp" alt="CEB TravelSure Logo">
                         </div>
                     </div>
                     <div class="addon-price-area">
@@ -733,12 +733,12 @@
             <!-- CEB Baggage -->
             <div class="addon-card" onclick="window.location.href='BAO-index.html'">
                 <div class="addon-image-wrap">
-                    <img src="BAO-1.webp" alt="CEB Baggage Luggage">
+                    <img src="images/BAO-1.webp" alt="CEB Baggage Luggage">
                 </div>
                 <div class="addon-body">
                     <div class="addon-title-area">
                         <div class="addon-icon-box">
-                            <img src="BAO-2.webp" alt="CEB Baggage Logo">
+                            <img src="images/BAO-2.webp" alt="CEB Baggage Logo">
                         </div>
                     </div>
                     <div class="addon-price-area">
@@ -751,12 +751,12 @@
             <!-- CEB Meals -->
             <div class="addon-card" onclick="window.location.href='MAO-index.html'">
                 <div class="addon-image-wrap">
-                    <img src="CMAO-1.webp" alt="CEB Meals Food">
+                    <img src="images/CMAO-1.webp" alt="CEB Meals Food">
                 </div>
                 <div class="addon-body">
                     <div class="addon-title-area">
                         <div class="addon-icon-box">
-                            <img src="CMAO-2.webp" alt="CEB Meals Logo">
+                            <img src="images/CMAO-2.webp" alt="CEB Meals Logo">
                         </div>
                     </div>
                     <div class="addon-price-area">
@@ -769,10 +769,9 @@
 
         <!-- NAVIGATION ACTIONS -->
         <div class="actions">
-            <button class="btn-back" onclick="alert('Going back to Guest Details...')">Back</button>
-            <button class="btn-continue" onclick="handleContinue()">Continue</button>
-        </div>
-    </div>
+    <button class="btn-back" onclick="goBackToFlights()">Back</button>
+    <button class="btn-continue" onclick="handleContinue()">Continue</button>
+</div>
 
     <!-- EMPTY ADD-ONS MODAL -->
     <div class="modal-overlay" id="emptyAddonsModal">
@@ -829,6 +828,9 @@
             const cartTotalAmount = document.getElementById('cartTotalAmount');
             const cartDropdownTotal = document.getElementById('cartDropdownTotal');
 
+            // Grab the passenger name
+            let passengerName = (booking && booking.guestName) ? booking.guestName : 'Guest';
+
             let flightTotal = 0;
             if (cartFlightBlocks) {
                 cartFlightBlocks.innerHTML = '';
@@ -838,7 +840,7 @@
                         <div class="cart-flight-leg">
                             <div class="cart-flight-route">${booking.depart.routeLabel}</div>
                             <div class="cart-flight-date">${booking.depart.dateLabel}</div>
-                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
+                            <div class="cart-flight-row"><span>${passengerName}</span><span>${cebuFormatPHP(booking.depart.subtotal)}</span></div>
                         </div>`;
                 }
                 if (booking && booking.return) {
@@ -847,7 +849,7 @@
                         <div class="cart-flight-leg">
                             <div class="cart-flight-route">${booking.return.routeLabel}</div>
                             <div class="cart-flight-date">${booking.return.dateLabel}</div>
-                            <div class="cart-flight-row"><span>Adult ${booking.adults || 1}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
+                            <div class="cart-flight-row"><span>${passengerName}</span><span>${cebuFormatPHP(booking.return.subtotal)}</span></div>
                         </div>`;
                 }
                 if (!booking || (!booking.depart && !booking.return)) {
@@ -920,8 +922,62 @@
         }
 
         cebuRenderCart();
-    </script>
+        function goBackToFlights() {
+    try {
+        // Grab the saved booking from localStorage
+        const booking = JSON.parse(localStorage.getItem('cebuBooking'));
+        
+        if (booking && booking.depart && booking.depart.routeLabel) {
+            // Split "Manila to Kaohsiung" back into Origin and Destination
+            const parts = booking.depart.routeLabel.split(' to ');
+            const origin = parts[0];
+            const dest = parts[1];
+            
+            // Helper to format "29 Jul 2026" back into "2026-07-29" for the URL
+            const formatDateStr = (dateStr) => {
+                const d = new Date(dateStr);
+                const y = d.getFullYear();
+                const m = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${y}-${m}-${day}`;
+            };
 
+            // Build the exact URL
+            let url = `selectflight.php?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(dest)}`;
+            if (booking.depart.dateLabel) {
+                url += `&depart=${formatDateStr(booking.depart.dateLabel)}`;
+            }
+            if (booking.return && booking.return.dateLabel) {
+                url += `&return=${formatDateStr(booking.return.dateLabel)}`;
+            }
+            
+            // Send the user directly there
+            window.location.href = url;
+            return;
+        }
+    } catch (e) {
+        console.error("Error reading saved booking data", e);
+    }
+    // Fallback just in case localStorage is empty
+    window.location.href = 'selectflight.php';
+}
+    </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // Read the booking data we saved from the Guest Details page
+        const booking = JSON.parse(localStorage.getItem('cebuBooking'));
+        const nameDisplay = document.getElementById('dynamicGuestName');
+        
+        // If a name exists in storage, update the text on the page!
+        if (booking && booking.guestName && nameDisplay) {
+            nameDisplay.innerText = booking.guestName;
+        }
+    } catch(e) {
+        console.error("Could not load guest name", e);
+    }
+});
+</script>
 </body>
 
 </html>

@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -580,7 +586,7 @@
     <!-- MAIN HEADER -->
     <header class="hero-header">
         <div class="header-content-wrapper">
-            <a href="index.html">
+            <a href="index.php">
                 <img class="logo-colored" src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific">
             </a>
             
@@ -590,10 +596,6 @@
                 
             <div class="header-right">
                 <div class="login-dropdown-wrapper">
-                    <!-- Login Button without dropdown -> Takes user directly to login.html -->
-                    <button class="login-btn" onclick="window.location.href='login.html'">
-                        <i class="fa-solid fa-circle-user" style="font-size: 18px; margin-right: 5px;"></i>
-                        Log in
                     </button>
                 </div>
 
@@ -855,8 +857,8 @@
                 <div class="footer-col">
                     <div class="footer-group">
                         <h4>BOOK</h4>
-                        <a href="index.html">Flights</a>
-                        <a href="seatsale.html">Seat Sale</a>
+                        <a href="index.php">Flights</a>
+                        <a href="seatsale.php">Seat Sale</a>
                     </div>
                     <div class="footer-group" style="margin-top: 60px;">
                         <h4>ABOUT</h4>

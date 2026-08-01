@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -623,12 +629,11 @@
 
     <header class="hero-header">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
                 <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
                 </a>
             </div>
         </div>
@@ -636,7 +641,7 @@
 
     <div class="breadcrumbs-container">
         <div class="breadcrumbs">
-            <a href="index.html">Home</a> &rsaquo; 
+            <a href="index.php">Home</a> &rsaquo; 
             <a href="#">About</a> &rsaquo; 
             <span id="dynamic-breadcrumb"><span>Company Information</span></span>
         </div>

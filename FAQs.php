@@ -1,32 +1,31 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- The rest of your HTML goes here -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Information - CEB Add-ons</title>
+    <title>Travel Information - FAQs</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* General Reset and Styling */
-        /* Universal Reset: Fixes horizontal scrollbars */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
-        html, body {
-            overflow-x: hidden; /* Prevents sideways scrolling */
-        }
+
         body {
             background-color: #ffffff;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            color: #333;
         }
-        
 
         /* =========================================
            TOP ADVISORY BAR & HEADER STYLES
@@ -48,7 +47,7 @@
         }
 
         /* =========================================
-           PAGE SPECIFIC STYLES
+           YELLOW TOP HEADER (Page Specific)
            ========================================= */
         .top-header {
             background-color: #ffd200;
@@ -63,30 +62,32 @@
 
         .top-header h1 {
             color: #0054a6;
+            font-family: 'Arial', sans-serif;
             font-weight: bold;
             font-size: 32px;
             margin: 0;
             padding-left: 18%;
         }
 
+        /* =========================================
+           MAIN LAYOUT
+           ========================================= */
         .container {
             display: flex;
-            padding: 30px 10%;
+            padding: 30px 5%;
             box-sizing: border-box;
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Sidebar Styling (If needed later) */
         .sidebar {
-            width: 20%;
+            width: 25%;
             padding-right: 40px;
         }
 
         .sidebar ul {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
         .sidebar li {
@@ -109,9 +110,12 @@
             font-weight: normal;
         }
 
-        /* Main Content Layout */
+        .sidebar a.active:hover {
+            color: #0093d1;
+        }
+
         .content {
-            width: 80%;
+            width: 75%;
         }
 
         .content h2 {
@@ -122,113 +126,52 @@
             margin-bottom: 20px;
         }
 
-        /* Top Baggage Banner Section */
-        .baggage-banner {
-            display: flex;
-            align-items: center;
-            background: #ffffff;
-            border: none;
-            border-radius: 0;
-            padding: 0;
-            margin-bottom: 30px;
-            box-shadow: none;
-            gap: 30px;
+        .banner-container {
+            width: 100%;
         }
 
-        .baggage-img-container {
-            width: 42%;
-            flex-shrink: 0;
-        }
-
-        .baggage-img-container img {
+        .banner-img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
             display: block;
+            margin-bottom: 25px;
         }
 
-        .baggage-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .baggage-info h3 {
-            margin: 0 0 8px 0;
-            font-size: 20px;
-            color: #000;
-            font-weight: bold;
-        }
-
-        .baggage-info p {
-            margin: 0 0 15px 0;
+        .description {
             font-size: 14px;
             color: #333;
+            line-height: 1.6;
         }
 
-        .btn-primary {
-            display: inline-block;
-            background: linear-gradient(to bottom, #0093d1, #0073ba);
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 10px 45px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* FAQ LIST ACCORDION STYLE LINKS */
+        .faq-list {
+            background-color: #ffffff !important;
+            border-radius: 12px !important;
+            padding: 20px 40px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+            margin-top: 30px;
         }
 
-        /* Cards Grid Layout (3x2 format) */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            transition: transform 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-        }
-
-        .card-header-bar {
+        .faq-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 14px 0;
+            font-size: 15px;
             color: #000000;
+            font-weight: normal;
+            border-bottom: 1px solid #e2e8f0;
+            text-decoration: none;
         }
 
-        .card-header-bar .arrow {
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item .arrow {
             color: #0073ba;
-            font-size: 16px;
-        }
-
-        .card-img-container {
-            width: 100%;
-            background-color: #f8fafc;
-            border-top: 1px solid #f1f5f9;
-            border-bottom: 4px solid #ffd200;
-        }
-
-        .card-img-container img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            display: block;
+            font-size: 14px;
+            font-weight: normal;
         }
 
         /* =========================================
@@ -375,28 +318,11 @@
             font-weight: 700;
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .baggage-banner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .baggage-img-container {
-                width: 100%;
-            }
-        }
-
         @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; padding-right: 0; margin-bottom: 30px; }
+            .content { width: 100%; }
             .footer-right-sidebar { border-left: none; padding-left: 0; }
-        }
-
-        @media (max-width: 600px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -424,110 +350,78 @@
     <!-- ========================================== -->
     <header class="hero-header" style="background: white; border-bottom: 1px solid #eaeaea; position: relative; z-index: 999;">
         <div style="max-width: 1150px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" class="header-logo-link">
+            <a href="index.php" class="header-logo-link">
                 <!-- Ensure this image path matches where your logo is saved -->
                 <img src="images/CEB_logo_LFEJ_in_Noto_Sans_Linear.webp" alt="Cebu Pacific" style="height: 45px;">
             </a>
             <div class="header-action-right" style="display: flex; align-items: center;">
                 <a href="login.html" class="login-link" style="color: #005eb8; text-decoration: none; font-weight: 700; font-size: 15px; display: flex; align-items: center;">
-                    <i class="fa-solid fa-circle-user" style="margin-right: 8px; font-size: 18px;"></i> Log in
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Yellow Top Header Banner -->
+    <!-- ========================================== -->
+    <!-- YELLOW TRAVEL INFORMATION BANNER -->
+    <!-- ========================================== -->
     <header class="top-header">
-        <h1>Add-ons</h1>
+        <h1>Travel Information</h1>
     </header>
 
-    <!-- Main Container Grid -->
-    <div class="container" style="display: block;">
+    <!-- ========================================== -->
+    <!-- MAIN CONTAINER GRID -->
+    <!-- ========================================== -->
+    <div class="container">
+
+        <!-- Left Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="travel-information.php">Travel Requirements</a></li>
+                    <li><a href="where-we-fly.php">Where We Fly</a></li>
+                    <li><a href="FAQs.php" class="active">Frequently Asked Questions</a></li>
+                </ul>
+            </nav>
+        </aside>
 
         <!-- Main Content Area -->
-        <main class="content" style="width: 100%;">
+        <main class="content">
+            <h2>Frequently Asked Questions</h2>
 
-            <!-- Top Feature: CEB Baggage Banner -->
-            <div class="baggage-banner">
-                <div class="baggage-img-container">
-                    <img src="images/CEBB.jpg" alt="CEB Baggage">
-                </div>
-                <div class="baggage-info">
-                    <h3>CEB Baggage</h3>
-                    <p>Save more with our enhanced baggage options</p>
-                    <a href="CEB-Baggage.html" class="btn-primary">Read more</a>
-                </div>
+            <!-- Banner Image -->
+            <div class="banner-container">
+                <img src="images/TravelFAQs.jpg" alt="Frequently Asked Questions Banner" class="banner-img">
             </div>
 
-            <!-- Cards Grid Section -->
-            <div class="cards-grid">
+            <!-- Description Text -->
+            <p class="description">
+                Got questions about your upcoming flight? Check out the CEB Help Center to learn more about bookings and
+                flight disruptions. You can also view step-by-step guides on rebooking your flights, getting refunds,
+                and using your Travel Fund.
+            </p>
 
-                <!-- Card 1: CEB Seat Selector -->
-                <a href="CEB-Seat-Selector.html" class="card">
-                    <div class="card-header-bar">
-                        <span>CEB Seat Selector</span>
-                        <span class="arrow">&gt;</span>
-                    </div>
-                    <div class="card-img-container">
-                        <img src="images/CEBSS.png" alt="CEB Seat Selector">
-                    </div>
+            <!-- Accordion / List Links Container -->
+            <div class="faq-list">
+                <a href="Cebu-Pacific-Destinations-Airports-and-Terminal Numbers.html" target="_blank" class="faq-item">
+                    <span>Cebu Pacific Destinations, Airports, and Terminal Numbers</span>
+                    <span class="arrow">&gt;</span>
                 </a>
-
-                <!-- Card 2: CEB Flexi -->
-                <a href="CEBFlexi.html" class="card">
-                    <div class="card-header-bar">
-                        <span>CEB Flexi</span>
-                        <span class="arrow">&gt;</span>
-                    </div>
-                    <div class="card-img-container">
-                        <img src="images/CEBFlexi.png" alt="CEB Flexi">
-                    </div>
+                <a href="How-to-Manage-Your-Disrupted-Flight.html" target="_blank" class="faq-item">
+                    <span>How to Manage Your Disrupted Flight</span>
+                    <span class="arrow">&gt;</span>
                 </a>
-
-                <!-- Card 3: CEB TravelSure -->
-                <a href="CEB-TravelSure.html" class="card">
-                    <div class="card-header-bar">
-                        <span>CEB TravelSure</span>
-                        <span class="arrow">&gt;</span>
-                    </div>
-                    <div class="card-img-container">
-                        <img src="images/CEBTS.png" alt="CEB TravelSure">
-                    </div>
+                <a href="CEB-Flexi-and-Travel-Fund.html" target="_blank" class="faq-item">
+                    <span>CEB Flexi and Travel Fund</span>
+                    <span class="arrow">&gt;</span>
                 </a>
-
-                <!-- Card 4: CEB Meals -->
-                <a href="CEB-Meals.html" class="card">
-                    <div class="card-header-bar">
-                        <span>CEB Meals</span>
-                        <span class="arrow">&gt;</span>
-                    </div>
-                    <div class="card-img-container">
-                        <img src="images/CEBM.png" alt="CEB Meals">
-                    </div>
+                <a href="Rebooking-or-Canceling-Your-Flight.html" target="_blank" class="faq-item">
+                    <span>Rebooking or Canceling Your Flight</span>
+                    <span class="arrow">&gt;</span>
                 </a>
-
-                <!-- Card 5: CEB Transfers -->
-                <a href="CEB-Transfers.html" class="card">
-                    <div class="card-header-bar">
-                        <span>CEB Transfers</span>
-                        <span class="arrow">&gt;</span>
-                    </div>
-                    <div class="card-img-container">
-                        <img src="images/CEBT.png" alt="CEB Transfers">
-                    </div>
+                <a href="Refund-Concerns.html" target="_blank" class="faq-item">
+                    <span>Refund Concerns</span>
+                    <span class="arrow">&gt;</span>
                 </a>
-
-                <!-- Card 6: CEB Fun Shop -->
-                <a href="CEB-Fun-Shop.html" class="card">
-                    <div class="card-header-bar">
-                        <span>CEB Fun Shop</span>
-                        <span class="arrow">&gt;</span>
-                    </div>
-                    <div class="card-img-container">
-                        <img src="images/CEBFS.png" alt="CEB Fun Shop">
-                    </div>
-                </a>
-
             </div>
         </main>
     </div>
